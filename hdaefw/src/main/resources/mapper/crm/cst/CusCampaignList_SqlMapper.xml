@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CusCampaignListDao">
+
+    <sql id="sqlSelectCols">
+                      A.PROM_STA_YMD                    /*프로모션시작년월일        */
+                    , B.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.PROM_TYPE_CD                    /*프로모션유형코드        */
+                    , A.PRV_COUPN_BAS_NO                    /*제공쿠폰기본번호        */
+                    , (SELECT COUPN_BAS_NM FROM CRM_MSHIP_COUPN_BAS WHERE MSHIP_COUPN_BAS_NO = A.PRV_COUPN_BAS_NO) AS COUPON_NM                    /*제공쿠폰기본명        */
+                    , A.APPLY_POINT_SCORE                    /*적용포인트점수        */
+                    , A.MSHIP_PROM_BAS_NO                    /*프로모션코드        */
+    </sql>
+    
+    <sql id="sqlConditions">
+        <where>
+                  A.MSHIP_PROM_BAS_NO = B.PROM_NO
+        <if test="promStaYmd != null and promStaYmd != ''">
+                  AND A.PROM_STA_YMD=       #{promStaYmd}
+        </if>
+        <if test="strtDt != null and strtDt != ''">
+				  AND A.PROM_STA_YMD      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+				  AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.PROM_STA_YMD
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND B.ITG_CUST_NO=       #{itgCustNo}
+        </if>
+        <if test="promTypeCd != null and promTypeCd != ''">
+            <choose>
+                <when test="promTypeCd instanceof String">
+                    AND A.PROM_TYPE_CD     =       #{promTypeCd}
+                </when>
+                <otherwise>
+                    AND A.PROM_TYPE_CD     IN
+                    <foreach item="item" index="index" collection="promTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="prvCoupnBasNo != null and prvCoupnBasNo != ''">
+                  AND A.PRV_COUPN_BAS_NO=       #{prvCoupnBasNo}
+        </if>
+        <if test="applyPointScore != null and applyPointScore != ''">
+                  AND A.APPLY_POINT_SCORE=       #{applyPointScore}
+        </if>    
+        </where>
+    </sql>
+    
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      A.PROM_STA_YMD DESC
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      B.ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('promTypeCd')">
+                ORDER BY      A.PROM_TYPE_CD
+            </when>
+            <when test="colSortName.equals('prvCoupnBasNo')">
+                ORDER BY      A.PRV_COUPN_BAS_NO
+            </when>
+            <when test="colSortName.equals('applyPointScore')">
+                ORDER BY      A.APPLY_POINT_SCORE
+            </when>
+            <otherwise>
+                ORDER BY      A.PROM_STA_YMD
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.cst.dao.CusCampaignListDao.selectListCount */ COUNT(1)
+                 FROM CRM_MSHIP_PROM_BAS A, (SELECT ITG_CUST_NO, PROM_NO FROM
+                                               (SELECT ITG_CUST_NO, PROM_NO FROM CRM_COUPN_PBLS_HST 
+                                               UNION ALL 
+                                               SELECT ITG_CUST_NO, PROM_NO FROM CRM_POINT_HST) A
+                                               WHERE A.PROM_NO IS NOT NULL
+                                               GROUP BY ITG_CUST_NO, PROM_NO
+                                               ) B
+        <include refid="sqlConditions"/>
+    </select>
+    
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.CusCampaignListVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.cst.dao.CusCampaignListDao.selectList */ <include refid="sqlSelectCols"/>
+                 FROM CRM_MSHIP_PROM_BAS A, (SELECT ITG_CUST_NO, PROM_NO FROM
+                                               (SELECT ITG_CUST_NO, PROM_NO FROM CRM_COUPN_PBLS_HST 
+                                               UNION ALL 
+                                               SELECT ITG_CUST_NO, PROM_NO FROM CRM_POINT_HST) A
+                                               WHERE A.PROM_NO IS NOT NULL
+                                               GROUP BY ITG_CUST_NO, PROM_NO
+                                               ) B
+        <include refid="sqlConditions"/>
+        <!-- <include refid="sqlOrderBy"/> -->
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    
+</mapper>

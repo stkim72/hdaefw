@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="Y"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+	
+    <column name="체험날짜" field="exprnDate" type="date" maxLength="10" width="40" textAlignment="center" required="Y" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="체험시간" field="exprnTime" type="char" maxLength="10" width="60" textAlignment="center" required="Y" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="매장명" field="storNm" codeType="storeNo" type="combo" maxLength="10" width="80" textAlignment="center" required="Y" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="매장코드" field="storCd" type="char" maxLength="10" width="60" textAlignment="center" required="Y" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="체험모델" field="itemNm" type="char" maxLength="10" width="100" textAlignment="center" required="Y" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="회원구분" field="mshipGradeCdNm" type="char" maxLength="10" width="40" textAlignment="center" required="Y" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="회원번호" field="itgCustNo" type="char" maxLength="10" width="80" textAlignment="center" required="Y" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="성별" field="gndrCdNm" type="char" maxLength="10" width="40" textAlignment="center" required="Y" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="나이" field="ageCdNm" type="char" maxLength="10" width="40" textAlignment="center" required="Y" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="체험경험여부" field="exprnCmptYn" type="char" maxLength="10" width="40" textAlignment="center" required="Y" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+</grid>

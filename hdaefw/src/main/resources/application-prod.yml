@@ -1,0 +1,101 @@
+# server config
+server:
+  port: 8443
+  ssl:
+    enabled: false
+    key-alias: ceragem-ssl
+    key-password: changeit
+    key-store: classpath:keystore.jks
+    key-store-type: PKCS12
+    key-store-password: changeit
+  servlet:    
+    session: 
+      timeout: 1800      
+
+# Spring Configure
+spring:
+  servlet:
+      multipart:
+        max-file-size: 10GB
+        max-request-size: 10GB
+  nas:
+    path:   /NFS/crm/
+    url:    https://files.ceragem.com/crm/
+  jwt:
+    secret: 1qaz@WSX
+  datasource:
+    # Pool
+    hikari:
+      connection-timeout: 120000
+      maximum-pool-size: 80
+      log-maximum-pool-size: 50
+    log-driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    log-url: jdbc:log4jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=glcmdb51p)(PORT=51401))(ADDRESS=(PROTOCOL=TCP)(HOST=glcmdb52p)(PORT=51401))(LOAD_BALANCE=OFF)(FAILOVER=ON))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=PCRMDB)))
+    log-username: CRMCON
+    log-password: ENC(tXsLiMFNX9RxlhodmsaY15Pgi9GF15rb)
+
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=glcmdb51p)(PORT=51401))(ADDRESS=(PROTOCOL=TCP)(HOST=glcmdb52p)(PORT=51401))(LOAD_BALANCE=OFF)(FAILOVER=ON))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=PCRMDB)))
+    username: CRMCON
+    password: ENC(tXsLiMFNX9RxlhodmsaY15Pgi9GF15rb)
+  api:
+    base-url: https://api.ceragem.com
+    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwidXNlckNkIjoiU1lTVEVNIiwic3lzdGVtQ2QiOiJDUk0iLCJleHAiOjE5NjU5Njc3OTN9.JdcD_hAcfinlJk10jvYJ1_99QX5Lc9aG0VGQQ_yK8YE      
+    url:
+      token-url: /api/v1.0/token/CRM
+      customer: /crm/v1.0/customer
+      customer-contact: /crm/v1.0/customer-contact
+      customer-bond: /crm/v1.0/customer-bond
+      customer-black: /crm/v1.0/customer-black
+      point: /crm/v1.0/point
+      ctc-hist: /ctc/v1.0/history
+      as-hist: /as/v1.0/history
+      customer-memship: /crm/v1.0/membership
+      sap: /sap/v1.0/pnt
+#    bos-url: https://mapone.ceragem.com/crm
+    bos-url: https://onemap.ceragem.com/crm
+  jade:
+    token-url: https://cerahr.ceragem.com:9950/restful/getToken
+    rest-url: https://cerahr.ceragem.com:9950/restful
+    ceragem: 2011040
+    ceragem-cns: 2011041
+    p1-param: REFwWALk0KnxM8S55r5wAA==
+    org-param: ZjH2yGNkSXC63TMeuSX5Hw==
+    hr-param: 438MVz40Ca2tE2C+CR1RDQ== 
+  sso:
+    mode : true
+  #https://ceragem.ncpworkplace.com/authn/oauthLogin?response_type=code&client_id=zEgB3stWau126Qf9SWHf&redirect_uri=https://cerahr.ceragem.com:9950/authNaver/oauth2callback
+    auth-url: https://ceragem.ncpworkplace.com/authn/oauthLogin
+    token-url: https://ceragem.ncpworkplace.com/authn/accessToken
+    profile-url: https://ceragem.ncpworkplace.com/authn/userProfile
+    logout-url: https://ceragem.ncpworkplace.com/authn/logoutProcess
+    callback-url: https://crm.ceragem.com/login/oauth
+    client-id: zEgB3stWau126Qf9SWHf
+    client-secret: He72CbdYrE
+  bi:
+    url : https://bi.ceragem.com   
+    server : GLCRAP01P
+  mcast:
+    host: 228.0.0.4
+    service-port: 45564
+    receiver-port: 5000
+  eon:
+    send:
+      url : https://ums.ceragem.com/weom/servlet/servlet.WSOMZ000CR
+      user : crm_1
+    barcode-url: https://ums.ceragem.com/weom/app/mmsimg
+  batch:
+    host: ENC(8wJ6NRww0zUqpbfqcpc56t2qsrFWm/0L)
+    port: ENC(iOz8Eiefnv03j9gBfP4T9w==)
+    user: ENC(JexNKJUWQeJGcnAQdiRn/w==)
+    password: ENC(hu+DhN0mF7E7IJGtf2uECXNWJiJAImGh)
+    path: ENC(+56hj4tJQHhyvlRoQ5WpTSLzi81H7BQqe5ZHzuLuBMQEHG7GU3mXhaZ5Bn7OESXXScqOebp6DJU=)
+      
+# Log
+logging:
+  #  file: logs/application.log
+  config: classpath:logback-prod.xml
+    
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor   

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CusCeraIotListDao">
+    <sql id="sqlPkConditions">
+                WHERE ITG_CUST_NO       =       #{itgCustNo}
+                  AND HISTORY_SEQ       =       #{historySeq}
+                  AND MACHINE_SERIAL_NO =       #{machineSerialNo}
+    </sql>
+    <sql id="sqlCols">
+                      ITG_CUST_NO                    /*통합고객번호        */
+                    , ID                            /*아이디        */
+                    , HISTORY_SEQ                    /*장비사용이력시퀀스        */
+                    , MACHINE_SERIAL_NO                    /*장비시리얼번호        */
+                    , END_TIME                    /*종료시간        */
+                    , USER_NO                    /*고객일련번호        */
+                    , DURATION                    /*사용시간(초)        */
+                    , ORIGINAL_DURATION                    /*실사용시간(초)        */
+                    , MODEL                    /*장비모델        */
+                    , MODE1                    /*MODE1        */
+                    , HISTORY_REG_DT                    /*사용이력등록날짜        */
+                    , MODEL_NM                    /*모델        */
+                    , MACHINE_USER_NO                    /*등록고객일련번호        */
+                    , POWER                    /*전원상태        */
+                    , REQUEST_POWER                    /*전원상태변경요청        */
+                    , REQUEST_USER_NO                    /*요청고객일련번호        */
+                    , REQUEST_DATE                    /*요청날짜        */
+                    , CL                    /*CL        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , AMDR_ID                    /*수정자ID        */
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.ID                            /*아이디        */
+                    , A.HISTORY_SEQ                    /*장비사용이력시퀀스        */
+                    , A.MACHINE_SERIAL_NO                    /*장비시리얼번호        */
+                    , A.END_TIME                    /*종료시간        */
+                    , A.USER_NO                    /*고객일련번호        */
+                    , A.DURATION                    /*사용시간(초)        */
+                    ,((Round(A.DURATION/(60*60)))||'시'||' ' ||
+                        LPad(Round(Mod((A.DURATION/60),60)),2,0)||'분' || ' ' ||
+                        LPad(Round(Mod(A.DURATION,60)),2,0)||'초') AS DURATION_TIME                   
+                    , A.ORIGINAL_DURATION                    /*실사용시간(초)        */
+                    , A.MODEL                    /*장비모델        */
+                    , A.MODE1                    /*MODE1        */
+                    ,CASE
+                            WHEN A.MODEL = 'masterv4' THEN (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS WHERE TOP_COMN_CD = 'VM34' AND COMN_CD = A.MODE1)
+                            WHEN A.MODEL = 'masterv6' THEN (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS WHERE TOP_COMN_CD = 'VM6' AND COMN_CD = A.MODE1)
+                            ELSE A.MODE1
+                        END AS MODE1_NM
+                    , TO_CHAR(A.HISTORY_REG_DT,'YYYYMMDDHH24MISS')    HISTORY_REG_DT                    /*사용이력등록날짜        */
+                    , A.MODEL_NM                    /*모델        */
+                    , A.MACHINE_USER_NO                    /*등록고객일련번호        */
+                    , A.POWER                    /*전원상태        */
+                    , A.REQUEST_POWER                    /*전원상태변경요청        */
+                    , A.REQUEST_USER_NO                    /*요청고객일련번호        */
+                    , A.REQUEST_DATE                    /*요청날짜        */
+                    , A.CL                    /*CL        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , A.REG_DT                    /*등록일시        */
+                    , A.AMDR_ID                    /*수정자ID        */
+    </sql>
+    <sql id="sqlConditions">
+        <where>
+<!--          <if test="model != null and model != ''">
+                  AND A.MODEL           =       #{model}
+                  AND A.MODEL    LIKE  '%' ||    #{model} || '%'
+        </if>
+        <if test="mode1 != null and mode1 != ''">
+                  AND A.MODE1           =       #{mode1}
+        </if> -->
+        <if test="deviceCd != null and deviceCd != ''">
+            <choose>
+                <when test="deviceCd.equals('VM34')">
+                    AND A.MODEL = 'masterv4'
+                </when>
+                <otherwise>
+                    AND A.MODEL = 'masterv6'
+                </otherwise>
+            </choose>
+        </if>
+        <if test="modeCd != null and modeCd != ''">
+            AND A.MODE1 = #{modeCd}
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO     =       #{itgCustNo}
+        </if>
+        <if test="strtDt != null and strtDt != ''">
+                  AND REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                  AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > REG_DT
+        </if>
+        <if test="historySeq != null and historySeq != ''">
+                  AND A.HISTORY_SEQ     =       #{historySeq}
+        </if>
+        <if test="id != null and id != ''">
+                  AND A.ID     =       #{id}
+        </if>
+        <if test="machineSerialNo != null and machineSerialNo != ''">
+                  AND A.MACHINE_SERIAL_NO=       #{machineSerialNo}
+        </if>
+        <if test="endTime != null and endTime != ''">
+                  AND A.END_TIME        =       #{endTime}
+        </if>
+        <if test="userNo != null and userNo != ''">
+                  AND A.USER_NO         =       #{userNo}
+        </if>
+        <if test="duration != null and duration != ''">
+                  AND A.DURATION        =       #{duration}
+        </if>
+        <if test="originalDuration != null and originalDuration != ''">
+                  AND A.ORIGINAL_DURATION=       #{originalDuration}
+        </if>
+        <if test="historyRegDt != null and historyRegDt != ''">
+                  AND A.HISTORY_REG_DT  =       TO_DATE(#{historyRegDt},'YYYYMMDDHH24MISS')
+        </if>
+        <if test="modelNm != null and modelNm != ''">
+                  AND A.MODEL_NM        =       #{modelNm}
+        </if>
+        <if test="machineUserNo != null and machineUserNo != ''">
+                  AND A.MACHINE_USER_NO =       #{machineUserNo}
+        </if>
+        <if test="power != null and power != ''">
+                  AND A.POWER           =       #{power}
+        </if>
+        <if test="requestPower != null and requestPower != ''">
+                  AND A.REQUEST_POWER   =       #{requestPower}
+        </if>
+        <if test="requestUserNo != null and requestUserNo != ''">
+                  AND A.REQUEST_USER_NO =       #{requestUserNo}
+        </if>
+        <if test="requestDate != null and requestDate != ''">
+                  AND A.REQUEST_DATE    =       #{requestDate}
+        </if>
+        <if test="cl != null and cl != ''">
+                  AND A.CL              =       #{cl}
+        </if>
+        <if test="regDt != null and regDt != ''">
+                  AND A.REG_DT         =       #{regDt}
+        </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('id')">
+                ORDER BY      ID
+            </when>
+            <when test="colSortName.equals('historySeq')">
+                ORDER BY      HISTORY_SEQ
+            </when>
+            <when test="colSortName.equals('machineSerialNo')">
+                ORDER BY      MACHINE_SERIAL_NO
+            </when>
+            <when test="colSortName.equals('endTime')">
+                ORDER BY      END_TIME
+            </when>
+            <when test="colSortName.equals('userNo')">
+                ORDER BY      USER_NO
+            </when>
+            <when test="colSortName.equals('duration')">
+                ORDER BY      DURATION
+            </when>
+            <when test="colSortName.equals('originalDuration')">
+                ORDER BY      ORIGINAL_DURATION
+            </when>
+            <when test="colSortName.equals('model')">
+                ORDER BY      MODEL
+            </when>
+            <when test="colSortName.equals('mode1')">
+                ORDER BY      MODE1
+            </when>
+            <when test="colSortName.equals('mode1Nm')">
+                ORDER BY      MODE1_NM
+            </when>
+            <when test="colSortName.equals('historyRegDt')">
+                ORDER BY      HISTORY_REG_DT
+            </when>
+            <when test="colSortName.equals('modelNm')">
+                ORDER BY      MODEL_NM
+            </when>
+            <when test="colSortName.equals('machineUserNo')">
+                ORDER BY      MACHINE_USER_NO
+            </when>
+            <when test="colSortName.equals('power')">
+                ORDER BY      POWER
+            </when>
+            <when test="colSortName.equals('requestPower')">
+                ORDER BY      REQUEST_POWER
+            </when>
+            <when test="colSortName.equals('requestUserNo')">
+                ORDER BY      REQUEST_USER_NO
+            </when>
+            <when test="colSortName.equals('requestDate')">
+                ORDER BY      REQUEST_DATE
+            </when>
+            <when test="colSortName.equals('cl')">
+                ORDER BY      CL
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+<!--             <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when> -->
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.cst.dao.CusCeraIotListDao.selectListCount */ COUNT(1)
+                 FROM CRM_CUST_IOT_HST A
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.CusCeraIotListVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.cst.dao.CusCeraIotListDao.selectList */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_IOT_HST A
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.cst.model.CusCeraIotListVo">
+               SELECT /* com.ceragem.crm.cst.dao.CusCeraIotListDao.select */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_IOT_HST A
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT /* com.ceragem.crm.cst.dao.CusCeraIotListDao.insert */ INTO CRM_CUST_IOT_HST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{itgCustNo}
+                     , #{id}  
+                     , #{historySeq}
+                     , #{machineSerialNo}
+                     , #{endTime}
+                     , #{userNo}
+                     , #{duration}
+                     , #{originalDuration}
+                     , #{model}
+                     , #{mode1}
+                     , TO_DATE(#{historyRegDt},'YYYYMMDDHH24MISS')
+                     , #{modelNm}
+                     , #{machineUserNo}
+                     , #{power}
+                     , #{requestPower}
+                     , #{requestUserNo}
+                     , #{requestDate}
+                     , #{cl}
+                     , SYSDATE
+                     , #{regrId}
+                     , #{regDt}
+                     , #{amdrId}
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.cst.dao.CusCeraIotListDao.update */ CRM_CUST_IOT_HST
+                  SET END_TIME                                =         #{endTime}
+                    , USER_NO                                 =         #{userNo}
+                    , DURATION                                =         #{duration}
+                    , ORIGINAL_DURATION                       =         #{originalDuration}
+                    , MODEL                                   =         #{model}
+                    , MODE1                                   =         #{mode1}
+                    , HISTORY_REG_DT                          =         TO_DATE(#{historyRegDt},'YYYYMMDDHH24MISS')
+                    , MODEL_NM                                =         #{modelNm}
+                    , MACHINE_USER_NO                         =         #{machineUserNo}
+                    , POWER                                   =         #{power}
+                    , REQUEST_POWER                           =         #{requestPower}
+                    , REQUEST_USER_NO                         =         #{requestUserNo}
+                    , REQUEST_DATE                            =         #{requestDate}
+                    , CL                                      =         #{cl}
+                    , AMD_DT                                  =         SYSDATE
+                    , REG_DT                                 =         #{regDt}
+                    , AMDR_ID                                 =         #{amdrId}
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.cst.dao.CusCeraIotListDao.delete */ FROM CRM_CUST_IOT_HST
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

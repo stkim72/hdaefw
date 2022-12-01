@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+    
+    <column name="측정번호" field="neuroMeasureNo" type="char" maxLength="50" width="80" textAlignment="center" required="Y" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="측정일" field="startTime" type="date" maxLength="14" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="등록자" field="regrId" type="char" maxLength="20" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="등록일" field="regDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="SYSDATE -- 등록일시" hidden="N"/>
+    
+    <column name="고객번호" field="userId" type="char" maxLength="30" width="80" textAlignment="left" required="Y" Pk="Y" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="통합고객번호" field="itgCustNo" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="두뇌스트레스" field="cstressCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멘탈헬스스코어점수" field="cbrainScore" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="집중도" field="concentrationCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="접중도점수" field="concentration" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="두뇌활동정도" field="mentalCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="두뇌활동정도수치" field="mental" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="좌우뇌불균형" field="balanceCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="좌뇌비율" field="lBalanceRatio" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="우뇌비율" field="rBalanceRatio" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="피로도" field="bodyFatigueCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="피도로점수" field="bodyFatigue" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="신경계건강도" field="nerveHealthCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="신경계건강도점수" field="nerveHealth" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="활력도" field="bodyEnergyCd" type="char" maxLength="100" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="혈압(수축기)" field="bpSysCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="혈압(이완기)" field="bpDiaCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="혈압(수축기)수치" field="bpSys" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="혈압(이완기)수치" field="bpDia" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="맥압" field="bpPowerCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="맥압수치" field="bpPower" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="혈당" field="blCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="혈당수치" field="blVl" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="체지방률" field="fatCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="근육량" field="muscleCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="체지방률수치" field="fat" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="근육량수치" field="muscle" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="BMI" field="bmiCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="BMI수치" field="bmi" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="키" field="height" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="몸무게" field="weight" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="복부둘레" field="abdRoundCd" type="char" maxLength="50" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="복부둘레수치" field="abdRound" type="number" maxLength="6" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="4" place="1" hidden="Y"/>
+    <column name="수정자ID" field="amdrId" type="char" maxLength="20" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="수정일시" field="amdDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    
+</grid>

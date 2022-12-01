@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+    <column name="배치이력코드" field="batchHstCd" type="char" maxLength="20" width="80" textAlignment="center" required="Y" Pk="Y" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="배치코드" field="batchCd" type="char" maxLength="20" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="배치명" field="batchNm" type="char" maxLength="100" width="200" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="실행채널" field="sysCd" type="char" maxLength="20" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" codeId="S000" hidden="N"/>
+    <column name="Job ID" field="wrkId" type="char" maxLength="100" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="성공여부" codeId="S150" field="batchRsltCd" type="combo" maxLength="100" width="50" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="배치실행일시" field="batchCallDt" type="datetime" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="배치완료일시" field="regDt" type="datetime" width="80" textAlignment="center" required="Y" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="실행시간(ms)" field="batchExecMsec" type="int" time="ms" maxLength="10" width="50" textAlignment="right" required="N" Pk="N" readOnly="Y" defaultValue="" digit="10" place="0" hidden="N"/>
+    <column name="오류메시지내역" field="errMsgTxn" type="char" width="200" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+</grid>
+
+
+

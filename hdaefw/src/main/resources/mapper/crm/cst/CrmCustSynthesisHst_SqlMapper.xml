@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CrmCustSynthesisHstDao">
+    <sql id="sqlPkConditions">
+                WHERE CNTRT_NO          =       #{cntrtNo}
+                  AND VISIT_TMS_CNT     =       #{visitTmsCnt}
+    </sql>
+    <sql id="sqlCols">
+                      CNTRT_NO                    /*계약번호        */
+                    , VISIT_TMS_CNT                    /*방문회차수        */
+                    , ITG_CUST_NO                    /*통합고객번호        */
+                    , TRT_METH_CD                    /*처리방법코드        */
+                    , TRT_METH_NM                    /*처리방법명        */
+                    , SVC_MONS_CNT                    /*서비스개월수        */
+                    , SVC_DATE                    /*서비스일자        */
+                    , EXPT_YYYYMM                    /*예정년월        */
+                    , EXPT_DATE                    /*예정일자        */
+                    , RGITV_INSP_TYPE_CD                    /*정기점검유형코드        */
+                    , RGITV_INSP_TYPE_NM                    /*정기점검유형명        */
+                    , PERD_TYPE_CD                    /*기간유형코드        */
+                    , PERD_TYPE_NM                    /*기간유형명        */
+                    , INSP_TRT_YN                    /*점검처리여부        */
+                    , RGITV_INSP_SUBMIT_NO                    /*정기점검접수번호        */
+                    , BOS_CUST_NO                    /*BOS고객번호        */
+                    , TRT_ORG_CD                    /*처리조직코드        */
+                    , TRT_DATE                    /*처리일자        */
+                    , TRT_HOUR                    /*처리시간        */
+                    , TRT_ENGNR_EMP_NO                    /*처리기사사원번호        */
+                    , NXTM_EXPT_DATE                    /*차회예정일자        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.CNTRT_NO                    /*계약번호        */
+                    , A.VISIT_TMS_CNT                    /*방문회차수        */
+                    , A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.TRT_METH_CD                    /*처리방법코드        */
+                    , A.TRT_METH_NM                    /*처리방법명        */
+                    , A.SVC_MONS_CNT                    /*서비스개월수        */
+                    , A.SVC_DATE                    /*서비스일자        */
+                    , A.EXPT_YYYYMM                    /*예정년월        */
+                    , A.EXPT_DATE                    /*예정일자        */
+                    , A.RGITV_INSP_TYPE_CD                    /*정기점검유형코드        */
+                    , A.RGITV_INSP_TYPE_NM                    /*정기점검유형명        */
+                    , A.PERD_TYPE_CD                    /*기간유형코드        */
+                    , A.PERD_TYPE_NM                    /*기간유형명        */
+                    , A.INSP_TRT_YN                    /*점검처리여부        */
+                    , A.RGITV_INSP_SUBMIT_NO                    /*정기점검접수번호        */
+                    , A.BOS_CUST_NO                    /*BOS고객번호        */
+                    , A.TRT_ORG_CD                    /*처리조직코드        */
+                    , A.TRT_DATE                    /*처리일자        */
+                    , A.TRT_HOUR                    /*처리시간        */
+                    , A.TRT_ENGNR_EMP_NO                    /*처리기사사원번호        */
+                    , A.NXTM_EXPT_DATE                    /*차회예정일자        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+    </sql>
+    <sql id="sqlConditions">
+                WHERE 1 = 1
+        <if test="cntrtNo != null and cntrtNo != ''">
+                  AND A.CNTRT_NO        =       #{cntrtNo}
+        </if>
+        <if test="visitTmsCnt != null and visitTmsCnt != ''">
+                  AND A.VISIT_TMS_CNT   =       #{visitTmsCnt}
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO     =       #{itgCustNo}
+        </if>
+        <if test="trtMethCd != null and trtMethCd != ''">
+            <choose>
+                <when test="trtMethCd instanceof String">
+                    AND A.TRT_METH_CD     =       #{trtMethCd}
+                </when>
+                <otherwise>
+                    AND A.TRT_METH_CD     IN
+                    <foreach item="item" index="index" collection="trtMethCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="trtMethNm != null and trtMethNm != ''">
+                  AND A.TRT_METH_NM     =       #{trtMethNm}
+        </if>
+        <if test="svcMonsCnt != null and svcMonsCnt != ''">
+                  AND A.SVC_MONS_CNT    =       #{svcMonsCnt}
+        </if>
+        <if test="svcDate != null and svcDate != ''">
+                  AND A.SVC_DATE        =       #{svcDate}
+        </if>
+        <if test="exptYyyymm != null and exptYyyymm != ''">
+                  AND A.EXPT_YYYYMM     =       #{exptYyyymm}
+        </if>
+        <if test="exptDate != null and exptDate != ''">
+                  AND A.EXPT_DATE       =       #{exptDate}
+        </if>
+        <if test="rgitvInspTypeCd != null and rgitvInspTypeCd != ''">
+            <choose>
+                <when test="rgitvInspTypeCd instanceof String">
+                    AND A.RGITV_INSP_TYPE_CD=       #{rgitvInspTypeCd}
+                </when>
+                <otherwise>
+                    AND A.RGITV_INSP_TYPE_CDIN
+                    <foreach item="item" index="index" collection="rgitvInspTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="rgitvInspTypeNm != null and rgitvInspTypeNm != ''">
+                  AND A.RGITV_INSP_TYPE_NM=       #{rgitvInspTypeNm}
+        </if>
+        <if test="perdTypeCd != null and perdTypeCd != ''">
+            <choose>
+                <when test="perdTypeCd instanceof String">
+                    AND A.PERD_TYPE_CD    =       #{perdTypeCd}
+                </when>
+                <otherwise>
+                    AND A.PERD_TYPE_CD    IN
+                    <foreach item="item" index="index" collection="perdTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="perdTypeNm != null and perdTypeNm != ''">
+                  AND A.PERD_TYPE_NM    =       #{perdTypeNm}
+        </if>
+        <if test="inspTrtYn != null and inspTrtYn != ''">
+                  AND A.INSP_TRT_YN     =       #{inspTrtYn}
+        </if>
+        <if test="rgitvInspSubmitNo != null and rgitvInspSubmitNo != ''">
+                  AND A.RGITV_INSP_SUBMIT_NO=       #{rgitvInspSubmitNo}
+        </if>
+        <if test="bosCustNo != null and bosCustNo != ''">
+                  AND A.BOS_CUST_NO     =       #{bosCustNo}
+        </if>
+        <if test="trtOrgCd != null and trtOrgCd != ''">
+            <choose>
+                <when test="trtOrgCd instanceof String">
+                    AND A.TRT_ORG_CD      =       #{trtOrgCd}
+                </when>
+                <otherwise>
+                    AND A.TRT_ORG_CD      IN
+                    <foreach item="item" index="index" collection="trtOrgCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="trtDate != null and trtDate != ''">
+                  AND A.TRT_DATE        =       #{trtDate}
+        </if>
+        <if test="trtHour != null and trtHour != ''">
+                  AND A.TRT_HOUR        =       #{trtHour}
+        </if>
+        <if test="trtEngnrEmpNo != null and trtEngnrEmpNo != ''">
+                  AND A.TRT_ENGNR_EMP_NO=       #{trtEngnrEmpNo}
+        </if>
+        <if test="nxtmExptDate != null and nxtmExptDate != ''">
+                  AND A.NXTM_EXPT_DATE  =       #{nxtmExptDate}
+        </if>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('cntrtNo')">
+                ORDER BY      CNTRT_NO
+            </when>
+            <when test="colSortName.equals('visitTmsCnt')">
+                ORDER BY      VISIT_TMS_CNT
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('trtMethCd')">
+                ORDER BY      TRT_METH_CD
+            </when>
+            <when test="colSortName.equals('trtMethNm')">
+                ORDER BY      TRT_METH_NM
+            </when>
+            <when test="colSortName.equals('svcMonsCnt')">
+                ORDER BY      SVC_MONS_CNT
+            </when>
+            <when test="colSortName.equals('svcDate')">
+                ORDER BY      SVC_DATE
+            </when>
+            <when test="colSortName.equals('exptYyyymm')">
+                ORDER BY      EXPT_YYYYMM
+            </when>
+            <when test="colSortName.equals('exptDate')">
+                ORDER BY      EXPT_DATE
+            </when>
+            <when test="colSortName.equals('rgitvInspTypeCd')">
+                ORDER BY      RGITV_INSP_TYPE_CD
+            </when>
+            <when test="colSortName.equals('rgitvInspTypeNm')">
+                ORDER BY      RGITV_INSP_TYPE_NM
+            </when>
+            <when test="colSortName.equals('perdTypeCd')">
+                ORDER BY      PERD_TYPE_CD
+            </when>
+            <when test="colSortName.equals('perdTypeNm')">
+                ORDER BY      PERD_TYPE_NM
+            </when>
+            <when test="colSortName.equals('inspTrtYn')">
+                ORDER BY      INSP_TRT_YN
+            </when>
+            <when test="colSortName.equals('rgitvInspSubmitNo')">
+                ORDER BY      RGITV_INSP_SUBMIT_NO
+            </when>
+            <when test="colSortName.equals('bosCustNo')">
+                ORDER BY      BOS_CUST_NO
+            </when>
+            <when test="colSortName.equals('trtOrgCd')">
+                ORDER BY      TRT_ORG_CD
+            </when>
+            <when test="colSortName.equals('trtDate')">
+                ORDER BY      TRT_DATE
+            </when>
+            <when test="colSortName.equals('trtHour')">
+                ORDER BY      TRT_HOUR
+            </when>
+            <when test="colSortName.equals('trtEngnrEmpNo')">
+                ORDER BY      TRT_ENGNR_EMP_NO
+            </when>
+            <when test="colSortName.equals('nxtmExptDate')">
+                ORDER BY      NXTM_EXPT_DATE
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.cst.dao.CrmCustSynthesisHstDao.selectListCount */ COUNT(1)
+                 FROM CRM_CUST_BOS_HC_HST A
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList1" resultType="com.ceragem.crm.cst.model.CrmCustSynthesisHstVo">
+				SELECT
+				    ROWNUM AS ROW_CNT
+				    , ITG_CUST_NO
+				    , ITEM_NM                            /* 구매제품 */
+                    , IST_DCS_DE AS IST_DCS_DE_BOS       /* 설치일자 */
+                    , ORD_DE                             /* 구매일자 */
+				FROM CRM_CUST_BOS_CNTRT_HST
+				WHERE ITG_CUST_NO = #{itgCustNo}
+                  AND ROWNUM <![CDATA[<=]]> 5
+    </select>
+    <select id="selectList2" resultType="com.ceragem.crm.cst.model.CrmCustSynthesisHstVo">
+		        SELECT
+		            ITG_CUST_NO
+		            , MODEL_NM
+		            , MAX(END_TIME) AS END_TIME
+		            , COUNT(*)    AS IOT_CNT
+		        FROM CRM_CUST_IOT_HST
+		        WHERE ITG_CUST_NO = #{itgCustNo}
+		        GROUP BY 
+		                ITG_CUST_NO
+		                , MODEL_NM  
+    </select>  
+    <select id="selectList3" resultType="com.ceragem.crm.cst.model.CrmCustSynthesisHstVo">
+		        SELECT
+		            ITG_CUST_NO
+		            , MAX(REG_DT) AS REG_DT
+		            , COUNT(*)    AS CRK_CNT
+		        FROM CRM_CUST_CRCK_HST
+		        WHERE ITG_CUST_NO = #{itgCustNo}
+		        GROUP BY 
+		                ITG_CUST_NO
+    </select>
+    <select id="selectList4" resultType="com.ceragem.crm.cst.model.CrmCustSynthesisHstVo">
+		        SELECT
+		            ITG_CUST_NO
+		            , MAX(EXPRN_DATE) AS EXPRN_DATE
+		            , COUNT(*)    AS EXC_CNT
+		        FROM CRM_CUST_EXPRN_HST
+		        WHERE ITG_CUST_NO = #{itgCustNo}
+		        GROUP BY 
+		                ITG_CUST_NO
+    </select>
+    <select id="selectList5" resultType="com.ceragem.crm.cst.model.CrmCustSynthesisHstVo">
+		        SELECT
+		            ITG_CUST_NO
+		            , MAX(IST_DCS_DE) AS IST_DCS_DE
+		            , COUNT(*)    AS HEXC_CNT
+		        FROM CRM_CUST_BOS_CNTRT_HST
+		        WHERE ITG_CUST_NO = #{itgCustNo}
+                  AND SALE_TY_CD = '1202'
+		        GROUP BY 
+		                ITG_CUST_NO
+    </select>
+    <select id="selectList6" resultType="com.ceragem.crm.cst.model.CrmCustSynthesisHstVo">
+		        SELECT
+		            ITG_CUST_NO
+		            , COUNT(CASE WHEN RCMD_TYPE_CD = '001' THEN 1 END) AS RCMD_CNT
+                    , COUNT(CASE WHEN RCMD_TYPE_CD = '004' THEN 1 END) AS HC_EXPRN_CNT
+                    , COUNT(CASE WHEN RCMD_TYPE_CD = '002' THEN 1 END) AS EXPRN_CNT
+		        FROM CRM_RCMD_HST
+		        WHERE ITG_CUST_NO = #{itgCustNo}
+		        GROUP BY 
+		                ITG_CUST_NO
+    </select>
+    <select id="selectList7" resultType="com.ceragem.crm.cst.model.CrmCustSynthesisHstVo">
+		        SELECT
+		            ITG_CUST_NO
+		            , MAX(SVC_DATE) AS SVC_DATE
+		            , COUNT(*)    AS HCC_CNT
+		        FROM CRM_CUST_BOS_HC_HST
+		        WHERE ITG_CUST_NO = #{itgCustNo}
+		        GROUP BY 
+		                ITG_CUST_NO
+    </select>  
+    <select id="selectList8" resultType="com.ceragem.crm.cst.model.CrmCustSynthesisHstVo">
+    	SELECT
+			MAX(DECODE(cp_type, '15', cp_resp_dt)) AS as_point,
+			MAX(DECODE(cp_type, '12', cp_resp_dt)) AS deliver_point,
+			MAX(DECODE(cp_type, '11', cp_resp_dt)) AS crk_point,
+			MAX(DECODE(cp_type, '13', cp_resp_dt)) AS call_point,
+			MAX(DECODE(cp_type, '14', cp_resp_dt)) AS gic_point
+		FROM (
+			SELECT
+				CODE_VALUE AS CP_TYPE, '만족도조사' AS CP_TYPE_NM, 
+				MAX(RESP_DT) AS CP_RESP_DT
+			FROM(
+				SELECT A.CODE_VALUE AS CODE_VALUE, A.CODE_NAME AS CODE_NAME
+				FROM CRM_WSOMZ040 A, CRM_WSOMR010 B
+				WHERE A.CODE_TYPE='0103' AND A.CODE_VALUE!='00' AND A.CODE_VALUE=B.R010_RTY_CD(+)
+				AND (A.CODE_VALUE <![CDATA[>]]> 10 AND A.CODE_VALUE <![CDATA[<]]> 16) 	--명시한 캠페인설문유형만 가져오기위해
+				GROUP BY A.CODE_VALUE, A.CODE_NAME
+			) sTB
+			LEFT JOIN(
+				SELECT
+					CMMR_CP_ID, C001_CP_TY, RESP_DT	--고급설문지번호를 알아야 해당설문(캠페인)의 종류를 알 수 있다. 
+				FROM(
+					SELECT
+						CMMR_CP_ID, RESP_DT
+					FROM(
+						SELECT
+							CMMR_CP_ID, TO_CHAR(CMMR_JDT, 'YYYYMMDD') AS RESP_DT
+						FROM CRM_WSOMCMMR
+						WHERE CMMR_MB_ID LIKE #{itgCustNo} || '%'
+					)
+					GROUP BY CMMR_CP_ID, RESP_DT	
+				) resTB
+				LEFT JOIN CRM_WSOMC001 suvTB
+				ON(resTB.CMMR_CP_ID = suvTB.C001_CP_ID)
+				WHERE C001_CR_SURVEY = 'Y'	--고객만족도설문조사만
+			) dTB
+			ON(sTB.CODE_VALUE = dTB.C001_CP_TY)
+			WHERE CMMR_CP_ID IS NOT NULL
+			GROUP BY CODE_VALUE, CODE_NAME
+		)
+		GROUP BY cp_type_nm
+    </select>         
+    <select id="select" resultType="com.ceragem.crm.cst.model.CrmCustSynthesisHstVo">
+               SELECT /* com.ceragem.crm.cst.dao.CrmCustSynthesisHstDao.select */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_BOS_HC_HST A
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT /* com.ceragem.crm.cst.dao.CrmCustSynthesisHstDao.insert */ INTO CRM_CUST_BOS_HC_HST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{cntrtNo}
+                     , #{visitTmsCnt}
+                     , #{itgCustNo}
+                     , #{trtMethCd}
+                     , #{trtMethNm}
+                     , #{svcMonsCnt}
+                     , #{svcDate}
+                     , #{exptYyyymm}
+                     , #{exptDate}
+                     , #{rgitvInspTypeCd}
+                     , #{rgitvInspTypeNm}
+                     , #{perdTypeCd}
+                     , #{perdTypeNm}
+                     , NVL(#{inspTrtYn},'N')
+                     , #{rgitvInspSubmitNo}
+                     , #{bosCustNo}
+                     , #{trtOrgCd}
+                     , #{trtDate}
+                     , #{trtHour}
+                     , #{trtEngnrEmpNo}
+                     , #{nxtmExptDate}
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.cst.dao.CrmCustSynthesisHstDao.update */ CRM_CUST_BOS_HC_HST
+                  SET ITG_CUST_NO                             =         #{itgCustNo}
+                    , TRT_METH_CD                             =         #{trtMethCd}
+                    , TRT_METH_NM                             =         #{trtMethNm}
+                    , SVC_MONS_CNT                            =         #{svcMonsCnt}
+                    , SVC_DATE                                =         #{svcDate}
+                    , EXPT_YYYYMM                             =         #{exptYyyymm}
+                    , EXPT_DATE                               =         #{exptDate}
+                    , RGITV_INSP_TYPE_CD                      =         #{rgitvInspTypeCd}
+                    , RGITV_INSP_TYPE_NM                      =         #{rgitvInspTypeNm}
+                    , PERD_TYPE_CD                            =         #{perdTypeCd}
+                    , PERD_TYPE_NM                            =         #{perdTypeNm}
+                    , INSP_TRT_YN                             =         NVL(#{inspTrtYn},'N')
+                    , RGITV_INSP_SUBMIT_NO                    =         #{rgitvInspSubmitNo}
+                    , BOS_CUST_NO                             =         #{bosCustNo}
+                    , TRT_ORG_CD                              =         #{trtOrgCd}
+                    , TRT_DATE                                =         #{trtDate}
+                    , TRT_HOUR                                =         #{trtHour}
+                    , TRT_ENGNR_EMP_NO                        =         #{trtEngnrEmpNo}
+                    , NXTM_EXPT_DATE                          =         #{nxtmExptDate}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.cst.dao.CrmCustSynthesisHstDao.delete */
+                 FROM CRM_CUST_BOS_HC_HST
+        <include refid="sqlPkConditions"/>
+    </delete>
+    
+    <select id="getCrmCustSynthesisHst2List" resultType="com.ceragem.crm.cst.model.CrmCustSynthesisHstVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT
+				      A.ITG_CUST_NO
+				    , A.DT
+				    , A.COL1
+				    , A.COL2 
+				    FROM (
+				        SELECT
+				              ITG_CUST_NO
+				            , REG_DT AS DT
+				            , 'AS' AS COL1
+				            , AS_SUBMIT_NO AS COL2 
+				        FROM CRM_CUST_AS_SUBMIT_HST
+				        WHERE ITG_CUST_NO = #{itgCustNo}
+				
+				        UNION ALL
+				
+				        SELECT
+				              B.ITG_CUST_NO
+				            , B.REG_DT AS DT
+				            , '상담' AS COL1
+				            , (SELECT C.COMN_CD_NM FROM CRM_COMN_CD_BAS C WHERE C.TOP_COMN_CD = 'SD112' AND C.COMN_CD = B.CNSL_TYP_CD) AS COL2
+				        FROM CRM_CUST_CNSL_HST B
+				        WHERE ITG_CUST_NO = #{itgCustNo}
+				
+				        UNION ALL
+				
+				        SELECT
+				              ITG_CUST_NO
+				            , TO_DATE(ORD_DE,'YYYY-MM-DD') AS DT  <!-- 설치확정일자 기준 -->	<!-- 구매일자로 변경 설치일 없을수 있음 -->
+				            , 'BOS구매' AS COL1
+				            , ITEM_NM AS COL2 
+				        FROM CRM_CUST_BOS_CNTRT_HST
+				        WHERE ITG_CUST_NO = #{itgCustNo}
+				
+				        UNION ALL
+				
+				        SELECT
+				              ITG_CUST_NO
+				            , TO_DATE(IST_DCS_DE,'YYYY-MM-DD') AS DT
+				            , '홈체험' AS COL1
+				            , ITEM_NM AS COL2 
+				        FROM CRM_CUST_BOS_CNTRT_HST
+				        WHERE
+				            SALE_TY_CD = '1202'
+				        AND ITG_CUST_NO = #{itgCustNo}
+				
+				        UNION ALL
+				
+				        SELECT
+				              B.ITG_CUST_NO
+				            , TO_DATE(B.EXPRN_DATE||B.EXPRN_STA_HOUR||'00','YYYY-MM-DD HH24:MI:SS') AS DT
+				            , '매장체험' AS COL1
+				            , (SELECT C.STOR_NM FROM CRM_STOR_BAS C WHERE C.STOR_NO = B.STOR_CD) AS COL2 
+				        FROM CRM_CUST_EXPRN_HST B
+				        WHERE ITG_CUST_NO = #{itgCustNo}
+				
+				        UNION ALL
+				
+				        SELECT
+				              B.ITG_CUST_NO
+				            , TO_DATE(B.SALE_DATE,'YYYY-MM-DD') AS DT
+				            , 'POS구매' AS COL1
+				            , (SELECT C.STOR_NM FROM CRM_STOR_BAS C WHERE C.STOR_NO = B.STOR_NO) AS COL2 
+				        FROM CRM_CUST_POS_SALE_HST B
+				        WHERE ITG_CUST_NO = #{itgCustNo}
+				
+				        UNION ALL
+				
+				        SELECT
+				              ITG_CUST_NO
+				            , REG_DT AS DT
+				            , '세라체크' AS COL1
+				            , '' AS COL2 
+				        FROM CRM_CUST_CRCK_HST
+				        WHERE ITG_CUST_NO = #{itgCustNo}
+				
+				        UNION ALL
+				
+				        SELECT
+				              ITG_CUST_NO
+				            , TO_DATE(TRT_DATE||TRT_HOUR||'00','YYYY-MM-DD HH24:MI:SS') AS DT		<!-- 처리일자 처리시간 으로변경 -->
+				            , 'HC방문' AS COL1
+				            , RGITV_INSP_SUBMIT_NO AS COL2 
+				        FROM CRM_CUST_BOS_HC_HST
+				        WHERE ITG_CUST_NO = #{itgCustNo}
+				
+				        UNION ALL
+				
+				        SELECT
+				              ITG_CUST_NO
+				            , REG_DT AS DT
+				            , '세라체크 DNA' AS COL1
+				            , PROD_NM AS COL2 
+				        FROM CRM_CUST_CRCK_DNA_HST
+				        WHERE ITG_CUST_NO = #{itgCustNo}
+				        ) A
+			        
+			        ORDER BY A.DT DESC
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    
+    <select id="getCrmCustSynthesisHst2ListCount" resultType="int">
+                SELECT COUNT(1)
+                 FROM (
+                 	SELECT
+			              ITG_CUST_NO
+			            , REG_DT AS DT
+			            , 'AS' AS COL1
+			            , AS_SUBMIT_NO AS COL2 
+			        FROM CRM_CUST_AS_SUBMIT_HST
+			        WHERE ITG_CUST_NO = #{itgCustNo}
+			
+			        UNION ALL
+			
+			        SELECT
+			              B.ITG_CUST_NO
+			            , B.REG_DT AS DT
+			            , '상담' AS COL1
+			            , (SELECT C.COMN_CD_NM FROM CRM_COMN_CD_BAS C WHERE C.TOP_COMN_CD = 'SD112' AND C.COMN_CD = B.CNSL_TYP_CD) AS COL2
+			        FROM CRM_CUST_CNSL_HST B
+			        WHERE ITG_CUST_NO = #{itgCustNo}
+			
+			        UNION ALL
+			
+			        SELECT
+			              ITG_CUST_NO
+			            , REG_DT AS DT
+			            , 'BOS구매' AS COL1
+			            , ITEM_NM AS COL2 
+			        FROM CRM_CUST_BOS_CNTRT_HST
+			        WHERE ITG_CUST_NO = #{itgCustNo}
+			
+			        UNION ALL
+			
+			        SELECT
+			              ITG_CUST_NO
+			            , REG_DT AS DT
+			            , '홈체험' AS COL1
+			            , ITEM_NM AS COL2 
+			        FROM CRM_CUST_BOS_CNTRT_HST
+			        WHERE
+			            SALE_TY_CD = '1202'
+			        AND ITG_CUST_NO = #{itgCustNo}
+			
+			        UNION ALL
+			
+			        SELECT
+			              B.ITG_CUST_NO
+			            , B.REG_DT AS DT
+			            , '매장체험' AS COL1
+			            , (SELECT C.STOR_NM FROM CRM_STOR_BAS C WHERE C.STOR_NO = B.STOR_CD) AS COL2 
+			        FROM CRM_CUST_EXPRN_HST B
+			        WHERE ITG_CUST_NO = #{itgCustNo}
+			
+			        UNION ALL
+			
+			        SELECT
+			              B.ITG_CUST_NO
+			            , B.REG_DT AS DT
+			            , 'POS구매' AS COL1
+			            , (SELECT C.STOR_NM FROM CRM_STOR_BAS C WHERE C.STOR_NO = B.STOR_NO) AS COL2 
+			        FROM CRM_CUST_POS_SALE_HST B
+			        WHERE ITG_CUST_NO = #{itgCustNo}
+			
+			        UNION ALL
+			
+			        SELECT
+			              ITG_CUST_NO
+			            , REG_DT AS DT
+			            , '세라체크' AS COL1
+			            , '' AS COL2 
+			        FROM CRM_CUST_CRCK_HST
+			        WHERE ITG_CUST_NO = #{itgCustNo}
+			
+			        UNION ALL
+			
+			        SELECT
+			              ITG_CUST_NO
+			            , REG_DT AS DT
+			            , 'HC방문' AS COL1
+			            , RGITV_INSP_SUBMIT_NO AS COL2 
+			        FROM CRM_CUST_BOS_HC_HST
+			        WHERE ITG_CUST_NO = #{itgCustNo}
+			
+			        UNION ALL
+			
+			        SELECT
+			              ITG_CUST_NO
+			            , REG_DT AS DT
+			            , '세라체크 DNA' AS COL1
+			            , PROD_NM AS COL2 
+			        FROM CRM_CUST_CRCK_DNA_HST
+			        WHERE ITG_CUST_NO = #{itgCustNo}
+                 )
+    </select>
+</mapper>

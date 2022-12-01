@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="N"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="N"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+	
+    <column name="구분" field="comnCd" type="combo" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" codeId="MB020" hidden="N"/>
+    <column name="등급별 전체 회원" field="totalCnt" type="number" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+    <column name="등급별 활동 회원" field="totalActCnt" type="number" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+    
+</grid>

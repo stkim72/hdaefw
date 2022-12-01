@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.mem.dao.CalculateStatusSAPExtinctionDao">
+    <sql id="sqlPkConditions">
+                WHERE POINT_HST_SEQ     =       #{pointHstSeq}
+    </sql>
+    
+    <sql id="sqlPointHstColsOld">
+    				A.PBLS_DT																				/*발행일시        */
+    				, A.USE_DT																			/*사용일시        */
+    				,CASE
+							WHEN A.USE_TYPE_CD = '001' THEN A.USE_DT
+							WHEN A.USE_TYPE_CD = '002' THEN A.PBLS_DT
+							WHEN A.USE_TYPE_CD = '003' THEN A.PBLS_DT
+							ELSE A.REG_DT
+						END AS DT																		/*발행구분:사용,취소-사용일시, 적립-발행일시, ELSE-등록일시*/
+    				, A.ITG_CUST_NO																		/*통합고객번호        */
+    				, A.PBLS_DIV_CD AS PBLS_DIV_NM														/*발행구분        */
+    				, A.PBLS_DIV_CD																		/*발행구분코드        */
+    				, A.USE_TYPE_CD AS USE_TYPE_NM														/*사용유형        */
+    				, A.USE_TYPE_CD																		/*사용유형코드        */
+    				, A.TXN																				/*내역        */
+    				, A.OCCUR_POINT_SCORE AS POINT_SCORE													/*발생포인트점수        */
+    				, A.REMAIN_POINT_SCORE																/*잔여포인트점수        */
+                    , A.EXTNC_DT																			/*소멸일시        */
+    				, B.STOR_NM			/*매장명        */
+				    , B.STOR_CHL_CD     /* 매장채널명        */
+    				, A.STOR_NO																			/*매장번호        */
+    				, A.PBLS_CHL_CD AS CHL_NM																/*발행채널        */
+    				, A.PBLS_CHL_CD AS CHL_CD																/*발행채널코드        */
+    				<!-- Hidden -->
+                    , A.POINT_HST_SEQ																		/*포인트이력일련번호        */
+                    , A.MSHIP_GRADE_CD																	/*멤버십등급코드        */
+                    , A.CHIT_NO																			/*전표번호        */
+                    , A.BUY_GODS_NO																		/*구매제품번호        */
+                    , A.ORDR_AMT																			/*주문금액        */
+                    , A.APPLY_AMT																			/*적용금액        */
+                    , A.PAY_AMT																			/*결제금액        */
+                    <!-- , A.VALID_PERD  										               					/*유효기간        */ -->
+                    , A.CARD_PBLS_HST_SEQ																	/*카드발행이력일련번호        */
+                    , A.DEAL_NO																			/*거래번호        */
+                    , A.PROM_NO																			/*프로모션번호        */
+                    , A.CAMP_NO																			/*캠페인번호        */
+                    , A.COUPN_NO																			/*쿠폰번호        */
+    				, A.REG_DT																			/*등록일시        */
+                    , A.AMDR_ID																			/*수정자ID        */
+                    , A.AMD_DT																			/*수정일시        */
+                    , A.REGR_ID																			/*등록자ID        */
+                    , A.REG_CHL_CD																		/*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP]*/
+    </sql>
+    
+    <sql id="sqlConditionsOld">
+        <where>
+		<if test="itgCustNo != null and itgCustNo != ''">
+                      AND B.ITG_CUST_NO      =       #{itgCustNo}
+        </if>                
+        <if test="strtDt != null and strtDt != ''">
+                      AND B.DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > B.DT
+        </if>
+        <if test="useTypeCd != null and useTypeCd != ''">
+                      AND B.USE_TYPE_CD      =       #{useTypeCd}
+        </if>
+        <if test="storNo != null and storNo != ''">
+                      AND B.STOR_NO      =       #{storNo}
+        </if>
+        </where>
+    </sql>
+    
+    
+    <select id="selectListCountOld" resultType="int">
+                 SELECT /* com.ceragem.crm.mem.dao.CalculateStatusSAPExtinctionDao.selectListCount */ COUNT(1)
+                 FROM (
+						WITH PONT AS (
+						-- 포인트이력 사용  USE_TYPE_CD = '001' 
+						-- 포인트이력 발행또는 적립  USE_TYPE_CD = '002'
+						-- 포인트이력 취소  USE_TYPE_CD = '003'
+						-- 포인트이력 소멸  USE_TYPE_CD = '004'
+						-- 할인구분에따라 UNION ALL 로 아래에 계속붙이면된다
+						SELECT
+						    TO_CHAR(USE_DT , 'YYYYMM') USE_YMD
+						    , STOR_NO
+						    , DEAL_NO
+						    , ITG_CUST_NO
+						    , '1'                    AS DIS_GUBUN       /*제상품구분 : 1제품 , 2상품 , 3기타 , 4수기 */
+						    , '제품'                  AS DIS_GUBUN_NM       /*제상품구분명 : 1제품 , 2상품 , 3기타 , 4수기 */
+						    , CASE WHEN USE_TYPE_CD = '002' THEN '1'
+						           WHEN USE_TYPE_CD = '004' THEN '2'
+						      END AS USE_GUBUN                          /*포인트사용구분 : 1적립 , 2소멸*/
+						    , CASE WHEN USE_TYPE_CD = '002' THEN '적립'
+						           WHEN USE_TYPE_CD = '004' THEN '소멸'
+						      END AS USE_GUBUN_NM                       /*포인트사용구분명 : 1적립 , 2소멸*/                              
+						    , ABS(OCCUR_POINT_SCORE) AS DIS_AMT         /*사용포인트 : 할인금액*/
+						FROM CRM_POINT_HST
+						WHERE USE_TYPE_CD IN ('002' , '004')
+						AND   TO_CHAR(USE_DT , 'YYYYMM') = #{istDcsDe}
+						)
+						SELECT           
+						    PO.USE_YMD              /*사용일시 : 거래일시 */
+						    , PO.STOR_NO            /*매장번호 : 거래처코드 */
+						    , (SELECT ST.STOR_NM FROM CRM_STOR_BAS ST WHERE PO.STOR_NO = ST.STOR_NO) AS STOR_NM
+						    , PO.DIS_GUBUN          /*제상품구분 */
+						    , PO.DIS_GUBUN_NM       /*제상품구분명 */
+						    , PO.USE_GUBUN          /*포인트사용구분*/
+						    , PO.USE_GUBUN_NM       /*포인트사용구분명 */
+						    , SUM(PO.DIS_AMT) AS DIS_AMT       /*사용포인트 */   
+						FROM  PONT PO
+						GROUP BY 
+						         PO.USE_YMD
+						         , PO.STOR_NO   
+						         , PO.DIS_GUBUN
+						         , PO.DIS_GUBUN_NM
+						         , PO.USE_GUBUN
+						         , PO.USE_GUBUN_NM
+					  ) B
+    </select>
+    
+    <select id="selectListOld" resultType="com.ceragem.crm.mem.model.CalculateStatusSAPDayVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+						WITH PONT AS (
+						-- 포인트이력 사용  USE_TYPE_CD = '001' 
+						-- 포인트이력 발행또는 적립  USE_TYPE_CD = '002'
+						-- 포인트이력 취소  USE_TYPE_CD = '003'
+						-- 포인트이력 소멸  USE_TYPE_CD = '004'
+						-- 할인구분에따라 UNION ALL 로 아래에 계속붙이면된다
+						SELECT
+						    TO_CHAR(USE_DT , 'YYYYMM') USE_YMD
+						    , STOR_NO
+						    , DEAL_NO
+						    , ITG_CUST_NO
+						    , '1'                    AS DIS_GUBUN       /*제상품구분 : 1제품 , 2상품 , 3기타 , 4수기 */
+						    , '제품'                  AS DIS_GUBUN_NM       /*제상품구분명 : 1제품 , 2상품 , 3기타 , 4수기 */
+						    , CASE WHEN USE_TYPE_CD = '002' THEN '1'
+						           WHEN USE_TYPE_CD = '004' THEN '2'
+						      END AS USE_GUBUN                          /*포인트사용구분 : 1적립 , 2소멸*/
+						    , CASE WHEN USE_TYPE_CD = '002' THEN '적립'
+						           WHEN USE_TYPE_CD = '004' THEN '소멸'
+						      END AS USE_GUBUN_NM                       /*포인트사용구분명 : 1적립 , 2소멸*/                              
+						    , ABS(OCCUR_POINT_SCORE) AS DIS_AMT         /*사용포인트 : 할인금액*/
+						FROM CRM_POINT_HST
+						WHERE USE_TYPE_CD IN ('002' , '004')
+						AND   TO_CHAR(USE_DT , 'YYYYMM') = #{istDcsDe}
+						)
+						SELECT           
+						    PO.USE_YMD              /*사용일시 : 거래일시 */
+						    , PO.STOR_NO            /*매장번호 : 거래처코드 */
+						    , (SELECT ST.STOR_NM FROM CRM_STOR_BAS ST WHERE PO.STOR_NO = ST.STOR_NO) AS STOR_NM
+						    , PO.DIS_GUBUN          /*제상품구분 */
+						    , PO.DIS_GUBUN_NM       /*제상품구분명 */
+						    , PO.USE_GUBUN          /*포인트사용구분*/
+						    , PO.USE_GUBUN_NM       /*포인트사용구분명 */
+						    , SUM(PO.DIS_AMT) AS DIS_AMT       /*사용포인트 */   
+						FROM  PONT PO
+						GROUP BY 
+						         PO.USE_YMD
+						         , PO.STOR_NO   
+						         , PO.DIS_GUBUN
+						         , PO.DIS_GUBUN_NM
+						         , PO.USE_GUBUN
+						         , PO.USE_GUBUN_NM
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    
+    <select id="select" resultType="com.ceragem.crm.mem.model.CalculateStatusSAPDayVo">
+               SELECT /* com.ceragem.crm.mem.dao.CalculateStatusSAPExtinctionDao.select */ * FROM
+               		(
+                 	  	SELECT <include refid="sqlPointHstCols"/>
+				          FROM CRM_POINT_HST A, CRM_STOR_BAS B
+                         WHERE A.STOR_NO = B.STOR_NO(+)
+					  ) B
+        <include refid="sqlPkConditions"/>
+    </select>
+    
+    <!--  -->
+    
+    <sql id="sqlPointHstCols">
+                    A.PBLS_DT                                                                                /*발행일시        */
+                    , A.USE_DT                                                                            /*사용일시        */
+                    ,CASE
+                            WHEN A.USE_TYPE_CD = '001' THEN A.USE_DT
+                            WHEN A.USE_TYPE_CD = '002' THEN A.PBLS_DT
+                            WHEN A.USE_TYPE_CD = '003' THEN A.PBLS_DT
+                            ELSE A.REG_DT
+                        END AS DT                                                                          /*발행구분:사용,취소-사용일시, 적립-발행일시, ELSE-등록일시*/
+                    ,CASE
+                            WHEN A.REG_CHL_CD = 'BOS' THEN TO_DATE((SELECT IST_DCS_DE FROM CRM_CUST_BOS_CNTRT_HST WHERE CNTR_NO = A.CHIT_NO),'YYYYMMDD')
+                            ELSE (CASE
+                                    WHEN A.USE_TYPE_CD = '001' THEN A.USE_DT
+                                    WHEN A.USE_TYPE_CD = '002' THEN A.PBLS_DT
+                                    WHEN A.USE_TYPE_CD = '003' THEN A.USE_DT
+                                    ELSE A.REG_DT
+                                  END )
+                        END AS CAL_DT                            /*등록채널BOS->설치완료일 ELSE->사용및적립일시*/
+                    , A.ITG_CUST_NO                                                                        /*통합고객번호        */
+                    , (SELECT CUST_NM FROM CRM_CUST_BAS WHERE ITG_CUST_NO = A.ITG_CUST_NO) CUST_NM         /*통합고객명        */
+                    , A.PBLS_DIV_CD                                                                        /*발행구분코드        */
+                    , A.USE_TYPE_CD                                                                        /*사용유형코드        */
+                    , A.TXN                                                                                /*내역        */
+                    , A.OCCUR_POINT_SCORE AS POINT_SCORE                                                    /*발생포인트점수        */
+                    , A.REMAIN_POINT_SCORE                                                                /*잔여포인트점수        */
+                    , DECODE(USE_TYPE_CD, '001', NVL2(#{percent}, CEIL(ABS(A.OCCUR_POINT_SCORE) * #{percent} / 100), ''), '0')   AS STOR_POINT_SCORE                    /*가맹점부담포인트점수        */
+                    , A.EXTNC_DT                                                                            /*소멸일시        */
+                    , B.STOR_NM                                                                            /*매장명        */
+                    , B.STOR_CHL_CD                                                                        /* 매장채널명        */
+                    , B.STOR_DIV_CD                                                                        /* 매장구분코드        */
+                    , A.STOR_NO                                                                            /*매장번호        */
+                    , A.PBLS_CHL_CD AS CHL_NM                                                                /*발행채널        */
+                    , A.PBLS_CHL_CD AS CHL_CD                                                                /*발행채널코드        */
+                    , A.POINT_HST_SEQ                                                                        /*포인트이력일련번호        */
+                    , A.MSHIP_GRADE_CD                                                                    /*멤버십등급코드        */
+                    , A.CHIT_NO                                                                            /*전표번호        */
+                    , A.BUY_GODS_NO                                                                        /*구매제품번호        */
+                    , A.ORDR_AMT                                                                            /*주문금액        */
+                    , A.APPLY_AMT                                                                            /*적용금액        */
+                    , A.PAY_AMT                                                                            /*결제금액        */
+                    , A.CARD_PBLS_HST_SEQ                                                                    /*카드발행이력일련번호        */
+                    , A.DEAL_NO                                                                            /*거래번호        */
+                    , A.PROM_NO                                                                            /*프로모션번호        */
+                    , A.CAMP_NO                                                                            /*캠페인번호        */
+                    , A.COUPN_NO                                                                            /*쿠폰번호        */
+                    , A.REG_DT                                                                            /*등록일시        */
+                    , A.AMDR_ID                                                                            /*수정자ID        */
+                    , A.AMD_DT                                                                            /*수정일시        */
+                    , A.REGR_ID                                                                            /*등록자ID        */
+                    , A.REG_CHL_CD                                                                        /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP]*/
+    </sql>
+    
+    <sql id="sqlConditions">
+        <where>     
+        <if test="istDcsDe != null and istDcsDe != ''">
+                      AND B.ZRT_DT      =      #{istDcsDe}
+        </if>
+        </where>
+    </sql>
+    
+    <select id="selectListCount" resultType="int">
+                 SELECT COUNT(1) FROM
+                       (SELECT 
+                        TO_CHAR(LAST_DAY(TO_DATE(B.ZRT_DT,'YYYYMM')), 'YYYYMMDD') AS ZRT_DT
+                        , B.KUNNR                                                                                            /* 매장번호        */
+                        , B.SAVE_GB                                                                                          /* 제/상품구분        */
+                        , B.PNT_GB                                                                                           /*포인트구분(적립,소멸,취소)        */
+                        , B.PNT_GB_NM                                                                                        /*포인트구분명(적립,소멸,취소)        */
+                        , SUM(B.PNT_PAY) AS PNT_PAY                                                                          /*발생포인트점수합계        */
+                        ,CASE
+                              WHEN (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = B.KUNNR) = '10' THEN '13'
+                              WHEN (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = B.KUNNR) = '20' THEN '14'
+                              ELSE ''
+                          END AS KDGRP                                                                                       /* 매장구분코드(SAP)        */
+                        , (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = B.KUNNR) KDGRP_CD                        /* 매장구분코드        */
+                        , (SELECT STOR_NM FROM CRM_STOR_BAS T WHERE T.STOR_NO = B.KUNNR) KUNNR_NM                            /*매장명        */
+                   FROM (SELECT A.ZRT_DT
+                                , A.KUNNR
+                                , DECODE(A.SAVE_GB, '04', #{saveGb}, A.SAVE_GB) AS SAVE_GB
+                                , A.PNT_GB
+                                , A.PNT_GB_NM
+                                , A.PNT_PAY
+                           FROM (SELECT  
+                                        TO_CHAR(A.PBLS_DT, 'YYYYMM') AS ZRT_DT    /*적립-발행일시, 소멸-소멸일시        */
+                                        , A.STOR_NO AS KUNNR           
+                                        , CASE WHEN A.PBLS_DIV_CD = '901' THEN (CASE WHEN A.PBLS_CHL_CD = 'POS' THEN '02'
+                                                                                     WHEN A.PBLS_CHL_CD = 'BOS' THEN ( DECODE((SELECT ITEM_PR_CD FROM CRM_CUST_BOS_CNTRT_HST WHERE CNTR_NO = A.DEAL_NO), '20', '01', '10', '02'))
+                                                                                     ELSE '02'
+                                                                                 END)
+                                               WHEN A.PBLS_DIV_CD = '950' THEN '04'
+                                               WHEN A.PBLS_DIV_CD = '940' THEN '04'
+                                               ELSE '03'
+                                          END AS SAVE_GB
+                                        , '01' AS PNT_GB
+                                        , '적립' AS PNT_GB_NM                  
+                                        , A.OCCUR_POINT_SCORE AS PNT_PAY                                                  
+                                   FROM CRM_POINT_HST A
+                                  WHERE A.USE_TYPE_CD = '002'
+                                  UNION ALL
+                                  SELECT A.ZRT_DT
+                                         , A.KUNNR
+                                         , '03' AS SAVE_GB
+                                         , '02' AS PNT_GB
+                                         , '소멸' AS PNT_GB_NM  
+                                         , -1 * A.PNT_PAY AS PNT_PAY
+                                    FROM ( SELECT SUBSTR(VALID_PERD_END_YMD,1,6)  ZRT_DT
+                                                 , CASE WHEN A.OCCUR_POINT_SCORE > 0 THEN A.OCCUR_POINT_SCORE - NVL(SUM(USE_POINT_SCORE),0) ELSE 0 END PNT_PAY
+                                                 , '141359' AS KUNNR 
+                                             FROM CRM_POINT_HST  A
+                                        LEFT JOIN CRM_POINT_USE_REL B ON A.POINT_HST_SEQ = B.OCCUR_POINT_HST_SEQ
+                                            WHERE A.VALID_PERD_END_YMD LIKE  #{istDcsDe} || '%'  AND A.OCCUR_POINT_SCORE > 0  
+                                         GROUP BY A.POINT_HST_SEQ
+                                                , A.OCCUR_POINT_SCORE 
+                                                , A.EXTNC_DT
+                                                , A.PBLS_DT
+                                                , A.VALID_PERD_STA_YMD
+                                                , A.VALID_PERD_END_YMD ) A
+                                  WHERE PNT_PAY != 0
+                                  UNION ALL
+                                  SELECT * FROM
+                                  (SELECT  
+                                        TO_CHAR(A.PBLS_DT, 'YYYYMM') AS ZRT_DT    /*취소-발행일시        */
+                                        , A.STOR_NO AS KUNNR           
+                                        , CASE WHEN A.PBLS_DIV_CD = '901' THEN (CASE WHEN A.PBLS_CHL_CD = 'POS' THEN '02'
+                                                                                     WHEN A.PBLS_CHL_CD = 'BOS' THEN ( DECODE((SELECT ITEM_PR_CD FROM CRM_CUST_BOS_CNTRT_HST WHERE CNTR_NO = A.DEAL_NO), '20', '01', '10', '02'))
+                                                                                     ELSE '02'
+                                                                                 END)
+                                               WHEN A.PBLS_DIV_CD = '950' THEN '04'
+                                               WHEN A.PBLS_DIV_CD = '940' THEN '04'
+                                               ELSE '03'
+                                          END AS SAVE_GB
+                                        , '01' AS PNT_GB
+                                        , '적립' AS PNT_GB_NM                  
+                                        , (SELECT -1 * OCCUR_POINT_SCORE FROM CRM_POINT_HST WHERE CHIT_NO = A.CHIT_NO AND USE_TYPE_CD = '002') AS PNT_PAY                                                  
+                                   FROM CRM_POINT_HST A
+                                  WHERE A.USE_TYPE_CD = '003')
+                                  WHERE PNT_PAY IS NOT NULL
+                                ) A
+                        ) B
+                     <include refid="sqlConditions"/>
+                     GROUP BY B.ZRT_DT, B.KUNNR, B.SAVE_GB, B.PNT_GB, B.PNT_GB_NM
+                     HAVING SUM(B.PNT_PAY) != 0)
+                     
+        
+    </select>
+    
+    <select id="selectList" resultType="com.ceragem.crm.mem.model.CalculateStatusSAPDayVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+                 SELECT 
+                        TO_CHAR(LAST_DAY(TO_DATE(B.ZRT_DT,'YYYYMM')), 'YYYYMMDD') AS ZRT_DT                                  /* 거래일시        */
+                        , B.KUNNR                                                                                            /* 매장번호        */
+                        , B.SAVE_GB                                                                                          /* 제/상품구분        */
+                        , B.PNT_GB                                                                                           /*포인트구분(적립,소멸,취소)        */
+                        , B.PNT_GB_NM                                                                                        /*포인트구분명(적립,소멸,취소)        */
+                        , SUM(B.PNT_PAY) AS PNT_PAY                                                                          /*발생포인트점수합계        */
+                        , 0 AS PNT_PAY2
+                        ,CASE
+                              WHEN (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = B.KUNNR) = '10' THEN '13'
+                              WHEN (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = B.KUNNR) = '20' THEN '14'
+                              ELSE ''
+                          END AS KDGRP                                                                                       /* 매장구분코드(SAP)        */
+                        , (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = B.KUNNR) KDGRP_CD                        /* 매장구분코드        */
+                        , (SELECT STOR_NM FROM CRM_STOR_BAS T WHERE T.STOR_NO = B.KUNNR) KUNNR_NM                            /*매장명        */
+                   FROM (SELECT A.ZRT_DT
+                                , A.KUNNR
+                                , DECODE(A.SAVE_GB, '04', #{saveGb}, A.SAVE_GB) AS SAVE_GB
+                                , A.PNT_GB
+                                , A.PNT_GB_NM
+                                , A.PNT_PAY
+                           FROM (SELECT  
+                                        TO_CHAR(A.PBLS_DT, 'YYYYMM') AS ZRT_DT    /*적립-발행일시, 소멸-소멸일시        */
+                                        , A.STOR_NO AS KUNNR           
+                                        , CASE WHEN A.PBLS_DIV_CD = '901' THEN (CASE WHEN A.PBLS_CHL_CD = 'POS' THEN '02'
+                                                                                     WHEN A.PBLS_CHL_CD = 'BOS' THEN ( DECODE((SELECT ITEM_PR_CD FROM CRM_CUST_BOS_CNTRT_HST WHERE CNTR_NO = A.DEAL_NO), '20', '01', '10', '02'))
+                                                                                     ELSE '02'
+                                                                                 END)
+                                               WHEN A.PBLS_DIV_CD = '950' THEN '04'
+                                               WHEN A.PBLS_DIV_CD = '940' THEN '04'
+                                               ELSE '03'
+                                          END AS SAVE_GB
+                                        , '01' AS PNT_GB
+                                        , '적립' AS PNT_GB_NM                  
+                                        , A.OCCUR_POINT_SCORE AS PNT_PAY                                                  
+                                   FROM CRM_POINT_HST A
+                                  WHERE A.USE_TYPE_CD = '002'
+                                  UNION ALL
+                                  SELECT A.ZRT_DT
+                                         , A.KUNNR
+                                         , '03' AS SAVE_GB
+                                         , '02' AS PNT_GB
+                                         , '소멸' AS PNT_GB_NM  
+                                         , -1 * A.PNT_PAY AS PNT_PAY
+                                    FROM ( SELECT SUBSTR(VALID_PERD_END_YMD,1,6)  ZRT_DT
+                                                 , CASE WHEN A.OCCUR_POINT_SCORE > 0 THEN A.OCCUR_POINT_SCORE - NVL(SUM(USE_POINT_SCORE),0) ELSE 0 END PNT_PAY
+                                                 , '141359' AS KUNNR <!-- 소멸은 항상 본사 --> 
+                                             FROM CRM_POINT_HST  A
+                                        LEFT JOIN CRM_POINT_USE_REL B ON A.POINT_HST_SEQ = B.OCCUR_POINT_HST_SEQ
+                                            WHERE A.VALID_PERD_END_YMD LIKE  #{istDcsDe} || '%'  AND A.OCCUR_POINT_SCORE > 0  
+                                         GROUP BY A.POINT_HST_SEQ
+                                                , A.OCCUR_POINT_SCORE 
+                                                , A.EXTNC_DT
+                                                , A.PBLS_DT
+                                                , A.VALID_PERD_STA_YMD
+                                                , A.VALID_PERD_END_YMD ) A
+                                  WHERE PNT_PAY != 0
+                                  UNION ALL
+                                  SELECT * FROM
+                                  (SELECT  
+                                        TO_CHAR(A.PBLS_DT, 'YYYYMM') AS ZRT_DT    /*취소-발행일시        */
+                                        , A.STOR_NO AS KUNNR           
+                                        , CASE WHEN A.PBLS_DIV_CD = '901' THEN (CASE WHEN A.PBLS_CHL_CD = 'POS' THEN '02'
+                                                                                     WHEN A.PBLS_CHL_CD = 'BOS' THEN ( DECODE((SELECT ITEM_PR_CD FROM CRM_CUST_BOS_CNTRT_HST WHERE CNTR_NO = A.DEAL_NO), '20', '01', '10', '02'))
+                                                                                     ELSE '02'
+                                                                                 END)
+                                               WHEN A.PBLS_DIV_CD = '950' THEN '04'
+                                               WHEN A.PBLS_DIV_CD = '940' THEN '04'
+                                               ELSE '03'
+                                          END AS SAVE_GB
+                                        , '01' AS PNT_GB
+                                        , '적립' AS PNT_GB_NM                  
+                                        , (SELECT -1 * OCCUR_POINT_SCORE FROM CRM_POINT_HST WHERE CHIT_NO = A.CHIT_NO AND USE_TYPE_CD = '002') AS PNT_PAY                                                  
+                                   FROM CRM_POINT_HST A
+                                  WHERE A.USE_TYPE_CD = '003')
+                                  WHERE PNT_PAY IS NOT NULL
+                                ) A
+                        ) B
+               <include refid="sqlConditions"/>         
+               GROUP BY B.ZRT_DT, B.KUNNR, B.SAVE_GB, B.PNT_GB, B.PNT_GB_NM
+               HAVING SUM(B.PNT_PAY) != 0
+               ORDER BY B.ZRT_DT DESC
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    
+    
+    <select id="selectExtncPoint" resultType="String">
+               SELECT -1 * NVL(SUM(EXPIRE_POINT),0) EXPIRE_POINT
+                 FROM ( SELECT SUBSTR(VALID_PERD_END_YMD,1,6)  MON
+                             , CASE WHEN A.OCCUR_POINT_SCORE > 0 THEN A.OCCUR_POINT_SCORE - NVL(SUM(USE_POINT_SCORE),0) ELSE 0 END EXPIRE_POINT
+                         FROM CRM_POINT_HST  A
+                    LEFT JOIN CRM_POINT_USE_REL B ON A.POINT_HST_SEQ = B.OCCUR_POINT_HST_SEQ
+                        WHERE A.VALID_PERD_END_YMD LIKE  #{istDcsDe} || '%'  AND A.OCCUR_POINT_SCORE > 0  
+                     GROUP BY A.POINT_HST_SEQ
+                            , A.OCCUR_POINT_SCORE 
+                            , A.EXTNC_DT
+                            , A.PBLS_DT
+                            , A.VALID_PERD_STA_YMD
+                            , A.VALID_PERD_END_YMD ) A
+                WHERE EXPIRE_POINT > 0
+             GROUP BY MON
+    </select>
+    
+    <select id="selectMonthPointCkExtinction" resultType="int">
+              SELECT COUNT(1)
+                FROM CRM_MONTH_POINT_HST
+               WHERE YYYYMM_CD = #{istDcsDe}
+    </select>
+    
+    <insert id="insertMonthPointExtinction">
+        INSERT INTO CRM_MONTH_POINT_HST(YYYYMM_CD, OCCUR_POINT_SCORE, USE_POINT_SCORE, EXTNC_POINT_SCORE, BLC_POINT_SCORE)
+        SELECT #{istDcsDe}, OCCUR_POINT_SCORE, USE_POINT_SCORE, EXTNC_POINT_SCORE, OCCUR_POINT_SCORE+USE_POINT_SCORE+EXTNC_POINT_SCORE+NVL((SELECT BLC_POINT_SCORE FROM CRM_MONTH_POINT_HST WHERE YYYYMM_CD = #{istDcsDe}-1), 0)
+          FROM (SELECT NVL(SUM(DECODE (B.USE_TYPE_CD, '002', B.OCCUR_POINT_SCORE, 0)),0) AS OCCUR_POINT_SCORE
+                       , '0' AS USE_POINT_SCORE
+                       , #{extncPointScore} AS EXTNC_POINT_SCORE
+                  FROM (SELECT 
+                               CASE WHEN A.USE_TYPE_CD = '002' THEN A.PBLS_DT
+                                    ELSE A.REG_DT
+                                END AS ZRT_DT           
+                               , A.USE_TYPE_CD                    
+                               , A.OCCUR_POINT_SCORE                                                  
+                          FROM CRM_POINT_HST A
+                         WHERE A.USE_TYPE_CD = '002' 
+                         UNION ALL
+                                        SELECT * FROM
+                                        (SELECT  
+                                              A.PBLS_DT AS ZRT_DT    /*취소-발행일시        */
+                                              , '002' AS USE_TYPE_CD                  
+                                              , (SELECT -1 * OCCUR_POINT_SCORE FROM CRM_POINT_HST WHERE CHIT_NO = A.CHIT_NO AND USE_TYPE_CD = '002') AS OCCUR_POINT_SCORE                                                  
+                                         FROM CRM_POINT_HST A
+                                        WHERE A.USE_TYPE_CD = '003')
+                                        WHERE OCCUR_POINT_SCORE IS NOT NULL) B 
+                 WHERE  TO_CHAR(B.ZRT_DT, 'YYYYMM') = #{istDcsDe})
+    </insert>
+    
+    <update id="updateMonthPointExtinction">
+        UPDATE CRM_MONTH_POINT_HST
+           SET (OCCUR_POINT_SCORE, USE_POINT_SCORE, EXTNC_POINT_SCORE, BLC_POINT_SCORE) 
+             = (SELECT 
+                       A.OCCUR_POINT_SCORE
+                       , A.USE_POINT_SCORE
+                       , A.EXTNC_POINT_SCORE
+                       , A.OCCUR_POINT_SCORE + A.USE_POINT_SCORE + A.EXTNC_POINT_SCORE + NVL((SELECT BLC_POINT_SCORE FROM CRM_MONTH_POINT_HST WHERE YYYYMM_CD = #{istDcsDe}-1), 0)
+                  FROM (SELECT 
+                               NVL(A.OCCUR_POINT_SCORE,0) AS OCCUR_POINT_SCORE
+                               , NVL((SELECT USE_POINT_SCORE FROM CRM_MONTH_POINT_HST WHERE YYYYMM_CD = #{istDcsDe}),0) AS USE_POINT_SCORE
+                               , NVL(A.EXTNC_POINT_SCORE,0) AS EXTNC_POINT_SCORE
+                          FROM (SELECT SUM(DECODE (B.USE_TYPE_CD, '002', B.OCCUR_POINT_SCORE, 0)) AS OCCUR_POINT_SCORE
+                                       , #{extncPointScore} AS EXTNC_POINT_SCORE 
+                                  FROM (SELECT 
+                                               CASE WHEN A.USE_TYPE_CD = '002' THEN A.PBLS_DT
+                                                    ELSE A.REG_DT
+                                                END AS ZRT_DT           
+                                               , A.USE_TYPE_CD                    
+                                               , A.OCCUR_POINT_SCORE                                                  
+                                          FROM CRM_POINT_HST A
+                                         WHERE A.USE_TYPE_CD = '002'
+                                         UNION ALL
+                                        SELECT * FROM
+                                        (SELECT  
+                                              A.PBLS_DT AS ZRT_DT    /*취소-발행일시        */
+                                              , '002' AS USE_TYPE_CD                  
+                                              , (SELECT -1 * OCCUR_POINT_SCORE FROM CRM_POINT_HST WHERE CHIT_NO = A.CHIT_NO AND USE_TYPE_CD = '002') AS OCCUR_POINT_SCORE                                                  
+                                         FROM CRM_POINT_HST A
+                                        WHERE A.USE_TYPE_CD = '003')
+                                        WHERE OCCUR_POINT_SCORE IS NOT NULL ) B 
+                                 WHERE  TO_CHAR(B.ZRT_DT, 'YYYYMM') = #{istDcsDe}) A
+                       ) A
+               )         
+         WHERE YYYYMM_CD = #{istDcsDe}
+    </update>
+    
+</mapper>

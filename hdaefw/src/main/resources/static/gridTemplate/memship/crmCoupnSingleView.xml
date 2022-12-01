@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="R"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <rowSelection value="Y"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <editable value="N"/>
+        <setSort value="none"/>
+
+    </meta>
+    
+    <column name="쿠폰마스터" field="mshipCoupnBasNo" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    
+    <column name="쿠폰마스터명" field="coupnBasNm" type="char" maxLength="100" width="120" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <!-- <column name="쿠폰발급방식" field="coupnClassCdNm" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="N"/> 
+    <column name="쿠폰종류" field="coupnKndCdNm" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>  --><!-- 22.11.8 제거 요청 -->
+   	<!-- <column name="중복사용여부" field="dupUseYnNm" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/> --> 
+   <!-- <column name="쿠폰명" field="coupnKndCdNm" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/> -->
+    <column name="쿠폰리스트" field="coupnTypeCdNm" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/> 
+   <!-- column name="상태" field="useYnNm" type="char" maxLength="3" width="50" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/> --><!-- 22.11.8 제거 요청 -->
+   <!-- 22.11.8 추가 요청 -->
+   <column name="쿠폰사용시작" field="fromUseStdDay" type="date" maxLength="8" width="60" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="쿠폰사용완료" field="toUseStdDay" type="date" maxLength="8" width="60" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    
+    <column name="멤버십구분" field="mshipGradeCd" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="제휴사코드번호" field="cprtCmpNo" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    
+    
+    <column name="쿠폰구분1" field="coupnApplyDivCd1" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>     
+    <column name="정산방법코드" field="admtMethCd" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/> 
+   <column name="쿠폰종류" field="coupnKndCd" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="쿠폰유형1" field="coupnTypeCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+     <column name="쿠폰분류코드" field="coupnClassCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+        
+    
+    <column name="중복사용여부" field="dupUseYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="Y" hidden="Y"/>
+    <column name="사용여부" field="useYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="Y" hidden="Y"/>
+    
+    <column name="쿠폰대상코드" field="coupnTgtCd" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="쿠폰적용구분코드2" field="coupnApplyDivCd2" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="FROM발행기준일" field="fromPblsStdDay" type="char" maxLength="8" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="TO발행기준일" field="toPblsStdDay" type="char" maxLength="8" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="사용기준일조건코드" field="useStdDayCondCd" type="char" maxLength="15" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="FROM사용기준일" field="fromUseStdDay" type="char" maxLength="8" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="TO사용기준일" field="toUseStdDay" type="char" maxLength="8" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <!-- <column name="지정기준년월일" field="appntStdYmd" type="char" maxLength="8" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/> -->
+    <column name="선물가능여부" field="giftPossYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="발급제한수" field="issueRstrtnCnt" type="int" maxLength="10" width="80" textAlignment="right" required="N" Pk="N" readOnly="Y" defaultValue="" digit="10" place="0" hidden="Y"/>
+    <column name="최대발급수" field="maxIssueCnt" type="int" maxLength="10" width="80" textAlignment="right" required="N" Pk="N" readOnly="Y" defaultValue="" digit="10" place="0" hidden="Y"/>
+    <column name="최대사용수" field="maxUseCnt" type="int" maxLength="10" width="80" textAlignment="right" required="N" Pk="N" readOnly="Y" defaultValue="" digit="10" place="0" hidden="Y"/>
+    <column name="적용금액" field="applyAmt" type="int" maxLength="20" width="80" textAlignment="right" required="N" Pk="N" readOnly="Y" defaultValue="" digit="20" place="0" hidden="Y"/>
+    <column name="적용율" field="applyRate" type="int" maxLength="3" width="80" textAlignment="right" required="N" Pk="N" readOnly="Y" defaultValue="" digit="3" place="0" hidden="Y"/>
+    <column name="최소구매금액" field="minBuyAmt" type="int" maxLength="20" width="80" textAlignment="right" required="N" Pk="N" readOnly="Y" defaultValue="" digit="20" place="0" hidden="Y"/>
+    <column name="최대할인율" field="maxDcAmt" type="int" maxLength="3" width="80" textAlignment="right" required="N" Pk="N" readOnly="Y" defaultValue="" digit="3" place="0" hidden="Y"/>
+    <column name="적용수" field="applyCnt" type="int" maxLength="10" width="80" textAlignment="right" required="N" Pk="N" readOnly="Y" defaultValue="" digit="10" place="0" hidden="Y"/>
+    <column name="증정제품코드" field="prsnttnGodsCd" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="사용요일" field="useDow" type="char" maxLength="1" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="FROM사용시간" field="fromUseHour" type="char" maxLength="2" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="TO사용시간" field="toUseHour" type="char" maxLength="2" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="사용채널코드" field="useChlCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>    
+    <column name="사용구분코드" field="useDivCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="쿠폰기본내용" field="coupnBasCtnts" type="char" maxLength="200" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="수정자ID" field="amdrId" type="char" maxLength="20" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="수정일시" field="amdDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="등록자ID" field="regrId" type="char" maxLength="20" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="등록일시" field="regDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="등록채널코드" field="regChlCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="정산방법코드" field="admtMethCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="쿠폰발급횟수방식" field="coupnIssueMethCd" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="쿠폰종류" field="coupnKnd" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="정산금액" field="admtAmt" type="int" maxLength="30" width="80" textAlignment="right" required="N" Pk="N" readOnly="Y" defaultValue="" digit="30" place="0" hidden="Y"/>
+   
+        
+   <column name="쿠폰사용가능일" field="coupnUsePossDay" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="쿠폰사용가능여부" field="coupnUsePossYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="쿠폰사용가능일수" field="coupnUsePossDayCnt" type="int" maxLength="10" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="10" place="0" hidden="Y"/>
+    
+    
+   <column name="쿠폰대상코드명" field="coupnTgtCdNm" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    
+    
+
+
+        <column name="요일1사용여부" field="dow1UseYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="요일2사용여부" field="dow2UseYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="요일3사용여부" field="dow3UseYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="요일4사용여부" field="dow4UseYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="요일5사용여부" field="dow5UseYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="요일6사용여부" field="dow6UseYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="요일7사용여부" field="dow7UseYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>  
+        <column name="회원등급코드" field="mshpGradeCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/> 
+        <column name="회원등급코드명" field="mshpGradeCdNm" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/> 
+          
+    <column name="FROM사용시간" field="fromUseHour1" type="char" maxLength="2" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="FROM사용시간" field="fromUseHour2" type="char" maxLength="2" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    
+    <column name="TO사용시간" field="toUseHour1" type="char" maxLength="2" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>
+    <column name="TO사용시간" field="toUseHour2" type="char" maxLength="2" width="80" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>        
+    
+</grid>

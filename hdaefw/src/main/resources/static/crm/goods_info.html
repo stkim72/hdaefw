@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div id="wrapIframe">
+	
+    <div class="mGrid1 type3"> <!-- class="type3" => left:610px -->
+        <!-- left -->
+        <div class="gLeft">
+
+            <!-- 고객정보 -->
+            <div class="mBox1">
+                <!-- title -->
+                <div class="gTitle1">
+                    <h3 class="mTitle1">제품정보 목록</h3>
+                </div>
+                <!-- //title -->
+                <!-- sort -->
+                <div class="mSort2 mini pl0"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                    <ul class="mr60"> <!-- class="mr60" => margin-right="60"-->
+                        <li class="w50per">
+                            <div class="tit w65">제품군</div>
+                            <div class="txt">
+                                <input type="text" class="it" title="제품군">
+                            </div>
+                        </li>
+                        <li class="w50per">
+                            <div class="tit w75">제품군 코드</div>
+                            <div class="txt">
+                                <input type="text" class="it" title="제품군 코드">
+                            </div>
+                        </li>
+                        <li class="w50per">
+                            <div class="tit w65">제품군명</div>
+                            <div class="txt">
+                                <input type="text" class="it" title="제품군명">
+                            </div>
+                        </li>
+                        <li class="w50per">
+                            <div class="tit w75">사용여부</div>
+                            <div class="txt">
+                                <select class="select" title="사용여부">
+                                    <option>선택</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="button posRt">
+                        <a href="#" class="mBtn1">검색</a>
+                    </div>
+                </div>
+                <!-- //sort -->
+                <!-- list -->
+                <div class="mBoard1 mCustomScrollbar hSortRow3"> <!-- class="hSortRow2" : 검색2줄 -->
+                    <table>
+                        <caption>제품정보 목록</caption>
+                        <colgroup>
+                            <col width="35">
+                            <col width="*">
+                            <col width="*">
+                            <col width="*">
+                        </colgroup>
+                        <thead>
+                            <tr class="nowrap">
+                                <th scope="col">NO</th>
+                                <th scope="col">제품군 코드</th>
+                                <th scope="col">제품군명</th>
+                                <th scope="col">등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>123456</td>
+                                <td>의료가전</td>
+                                <td>2019-02-04</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //list -->
+				<!-- paging -->
+				<div class="mPag1 mb0">
+					<div class="mCount1">총 <strong>5</strong>건</div>
+					<span title="처음 리스트" class="first">처음으로</span>
+					<span title="이전 리스트" href="###" class="prev">이전</span>
+					<!-- able 버튼
+						<a title="처음 리스트" href="###" class="first">처음으로</a>
+						<a title="이전 리스트" href="###" class="prev">이전</a>
+					-->
+					<a title="현재페이지" href="###" class="active">1</a>
+					<a title="2 페이지" href="###">2</a>
+					<a title="3 페이지" href="###">3</a>
+					<a title="4 페이지" href="###">4</a>
+					<a title="5 페이지" href="###">5</a>
+					<a title="6 페이지" href="###">6</a>
+					<a title="다음 리스트" href="###" class="next">다음</a>
+					<a title="마지막 리스트" href="###" class="last">마지막으로</a>
+					<!-- disabled 버튼
+						<span title="다음 리스트" class="next">다음</span>
+						<span title="마지막 리스트" class="last">마지막으로</span>
+					-->
+					<select class="select" title="갯수선택">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+					</select>
+				</div>
+				<!-- //paging -->
+                <button class="btnClose">고객정보 닫기</button>
+                <button class="btnWide">고객정보 크게보기</button> 
+            </div>
+            <!-- //고객정보 -->
+            
+        </div>
+        <!-- //left -->
+        <!-- right -->
+        <div class="gRight">
+            
+            <!-- box -->
+            <div class="mBox1">
+                <div class="gTitle1 line">
+                    <h3 class="mTitle1">기본정보</h3>
+                </div>
+                <!-- board -->
+                <div class="mBoard2">
+                    <table>
+                        <caption>기본정보</caption>
+                        <colgroup>
+                            <col width="12%">
+                            <col width="*">
+                            <col width="9%">
+                            <col width="10%">
+                            <col width="9%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="left">제품군코드</th>
+                                <td>
+                                    <input type="text" class="it" title="제품군코드">
+                                </td>
+                                <th scope="row" class="left">제품군명</th>
+                                <td>
+                                    <input type="text" class="it" title="제품군명">
+                                </td>
+                                <th scope="row" class="left" rowspan="2">제품군메모</th>
+                                <td class="left" rowspan="2">
+                                    <textarea class="textarea h40" rows="2"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="left">제품군사용여부</th>
+                                <td class="left">
+                                    <select class="select" title="제품군사용여부">
+                                        <option>선택</option>
+                                    </select>
+                                </td>
+                                <th scope="row" class="left">제품군등록일</th>
+                                <td class="left">
+                                    <input type="text" class="it date" title="1판당 스탬프 수">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+            </div>
+            <!-- //box -->
+
+            <!-- tab -->
+            <div class="mTab1 jsTab2">
+                <ul>
+                    <li class="active"><a href="#jsTabCont1_1">제품목록</a></li>
+                </ul>
+            </div>
+            <!-- box:제품목록 -->
+            <div id="jsTabCont1_1" class="mBox1 p10 tabCont ">
+                <!-- board -->
+                <div class="mBoard1 mCustomScrollbar h622">
+                    <table>
+                        <caption>제품목록</caption>
+                        <colgroup>
+                            <col width="8%">
+                            <col span="5"width="*">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col">제품코드</th>
+                                <th scope="col">제품명</th>
+                                <th scope="col">설명</th>
+                                <th scope="col">사용여부</th>
+                                <th scope="col">등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1234556</td>
+                                <td>MASTER  V6(마스터)</td>
+                                <td class="left">의료가전으로 근육통 완화와 혈액순환 개선, 추간판탈출증(디스크) 및 퇴행성협착증 치료에 도움</td>
+                                <td>Y</td>
+                                <td>2021-01-01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+				<!-- paging -->
+				<div class="mPag1 mb0">
+					<div class="mCount1">총 <strong>5</strong>건</div>
+					<span title="처음 리스트" class="first">처음으로</span>
+					<span title="이전 리스트" href="###" class="prev">이전</span>
+					<!-- able 버튼
+						<a title="처음 리스트" href="###" class="first">처음으로</a>
+						<a title="이전 리스트" href="###" class="prev">이전</a>
+					-->
+					<a title="현재페이지" href="###" class="active">1</a>
+					<a title="2 페이지" href="###">2</a>
+					<a title="3 페이지" href="###">3</a>
+					<a title="4 페이지" href="###">4</a>
+					<a title="5 페이지" href="###">5</a>
+					<a title="6 페이지" href="###">6</a>
+					<a title="다음 리스트" href="###" class="next">다음</a>
+					<a title="마지막 리스트" href="###" class="last">마지막으로</a>
+					<!-- disabled 버튼
+						<span title="다음 리스트" class="next">다음</span>
+						<span title="마지막 리스트" class="last">마지막으로</span>
+					-->
+					<select class="select" title="갯수선택">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+					</select>
+				</div>
+				<!-- //paging -->
+            </div>
+            <!-- //box:제품목록 -->
+
+        </div>
+        <!-- //right -->
+    </div>
+	
+</div>
+
+</body>
+</html>

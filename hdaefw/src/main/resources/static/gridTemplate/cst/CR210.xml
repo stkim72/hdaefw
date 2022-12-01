@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="N"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="Y"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+    <column name="일시" field="dt" type="datetime" maxLength="30" width="80" textAlignment="center" required="N" Pk="Y" hidden="N"/>
+    <column name="고객여정" field="col1" type="char" maxLength="100" width="100" textAlignment="center" required="Y" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="내역" field="col2" type="char" maxLength="100" width="100" textAlignment="center" required="Y" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+</grid>

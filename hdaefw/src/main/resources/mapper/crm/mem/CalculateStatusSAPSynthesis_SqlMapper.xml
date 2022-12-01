@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.mem.dao.CalculateStatusSAPSynthesisDao">
+    <sql id="sqlPkConditions">
+                WHERE POINT_HST_SEQ     =       #{pointHstSeq}
+    </sql>
+    
+    <sql id="sqlPointHstColsOld">
+    				A.PBLS_DT																				/*발행일시        */
+    				, A.USE_DT																			/*사용일시        */
+    				,CASE
+							WHEN A.USE_TYPE_CD = '001' THEN A.USE_DT
+							WHEN A.USE_TYPE_CD = '002' THEN A.PBLS_DT
+							WHEN A.USE_TYPE_CD = '003' THEN A.PBLS_DT
+							ELSE A.REG_DT
+						END AS DT																		/*발행구분:사용,취소-사용일시, 적립-발행일시, ELSE-등록일시*/
+    				, A.ITG_CUST_NO																		/*통합고객번호        */
+    				, A.PBLS_DIV_CD AS PBLS_DIV_NM														/*발행구분        */
+    				, A.PBLS_DIV_CD																		/*발행구분코드        */
+    				, A.USE_TYPE_CD AS USE_TYPE_NM														/*사용유형        */
+    				, A.USE_TYPE_CD																		/*사용유형코드        */
+    				, A.TXN																				/*내역        */
+    				, A.OCCUR_POINT_SCORE AS POINT_SCORE													/*발생포인트점수        */
+    				, A.REMAIN_POINT_SCORE																/*잔여포인트점수        */
+                    , A.EXTNC_DT																			/*소멸일시        */
+    				, B.STOR_NM			/*매장명        */
+				    , B.STOR_CHL_CD     /* 매장채널명        */
+    				, A.STOR_NO																			/*매장번호        */
+    				, A.PBLS_CHL_CD AS CHL_NM																/*발행채널        */
+    				, A.PBLS_CHL_CD AS CHL_CD																/*발행채널코드        */
+    				<!-- Hidden -->
+                    , A.POINT_HST_SEQ																		/*포인트이력일련번호        */
+                    , A.MSHIP_GRADE_CD																	/*멤버십등급코드        */
+                    , A.CHIT_NO																			/*전표번호        */
+                    , A.BUY_GODS_NO																		/*구매제품번호        */
+                    , A.ORDR_AMT																			/*주문금액        */
+                    , A.APPLY_AMT																			/*적용금액        */
+                    , A.PAY_AMT																			/*결제금액        */
+                    <!-- , A.VALID_PERD  										               					/*유효기간        */ -->
+                    , A.CARD_PBLS_HST_SEQ																	/*카드발행이력일련번호        */
+                    , A.DEAL_NO																			/*거래번호        */
+                    , A.PROM_NO																			/*프로모션번호        */
+                    , A.CAMP_NO																			/*캠페인번호        */
+                    , A.COUPN_NO																			/*쿠폰번호        */
+    				, A.REG_DT																			/*등록일시        */
+                    , A.AMDR_ID																			/*수정자ID        */
+                    , A.AMD_DT																			/*수정일시        */
+                    , A.REGR_ID																			/*등록자ID        */
+                    , A.REG_CHL_CD																		/*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP]*/
+    </sql>
+    
+    <sql id="sqlConditionsOld">
+        <where>
+		<if test="itgCustNo != null and itgCustNo != ''">
+                      AND B.ITG_CUST_NO      =       #{itgCustNo}
+        </if>                
+        <if test="strtDt != null and strtDt != ''">
+                      AND B.DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > B.DT
+        </if>
+        <if test="useTypeCd != null and useTypeCd != ''">
+                      AND B.USE_TYPE_CD      =       #{useTypeCd}
+        </if>
+        <if test="storNo != null and storNo != ''">
+                      AND B.STOR_NO      =       #{storNo}
+        </if>
+        </where>
+    </sql>
+    
+    
+    <select id="selectListCountOld" resultType="int">
+                 SELECT /* com.ceragem.crm.mem.dao.CalculateStatusSAPSynthesisDao.selectListCount */ COUNT(1)
+                 FROM (
+						WITH PONT AS (
+						-- 포인트이력 사용인것  USE_TYPE_CD = '001'
+						SELECT
+						    TO_CHAR(USE_DT , 'YYYYMM') USE_YMD
+						    , STOR_NO
+						    , DEAL_NO
+						    , ITG_CUST_NO
+						    , '1'                    AS DIS_GUBUN       /*할인구분 : 1포인트 , 2쿠폰 */
+						    , '포인트'                  AS DIS_GUBUN_NM       /*할인구분명 : 1포인트 , 2쿠폰 */
+						    , CASE WHEN USE_TYPE_CD = '001' THEN '1'
+                                   WHEN USE_TYPE_CD = '002' THEN '2'
+                              END AS USE_GUBUN                          /*사용구분 : 1사용 , 2적립*/
+						    , CASE WHEN USE_TYPE_CD = '001' THEN '사용'
+                                   WHEN USE_TYPE_CD = '002' THEN '적립'
+                              END AS USE_GUBUN_NM                       /*사용구분명 : 1사용 , 2적립*/                              
+						    , ABS(OCCUR_POINT_SCORE) AS DIS_AMT         /*사용포인트 : 할인금액*/
+						FROM CRM_POINT_HST
+						WHERE USE_TYPE_CD IN ('001' , '002')
+						AND   TO_CHAR(USE_DT , 'YYYYMM') = #{useDt}
+						UNION ALL
+						SELECT
+						    SUBSTR(USE_DT , 0 , 6) USE_YMD
+						    , STOR_NO
+						    , '' AS DEAL_NO     /*계야번호 : 쿠폰이력에는 계약번호가 없다 */
+						    , ITG_CUST_NO
+						    , '2'                    AS DIS_GUBUN       /*할인구분 : 1포인트 , 2쿠폰 */
+                            , '쿠폰'                  AS DIS_GUBUN_NM     /*할인구분명 : 1포인트 , 2쿠폰 */
+						    , CASE WHEN USE_YN = 'Y' THEN '1'
+                              END AS USE_GUBUN                       /*사용구분 : 1사용 , 2적립*/
+						    , CASE WHEN USE_YN = 'Y' THEN '사용'
+                              END AS USE_GUBUN_NM                       /*사용구분명 : 1사용 , 2적립*/	                              						    
+						    , ABS(APPLY_AMT)         AS DIS_AMT      /*사용포인트 : 할인금액*/
+						FROM CRM_COUPN_PBLS_HST
+						WHERE UPPER(USE_YN) = 'Y'
+						AND   SUBSTR(USE_DT , 0 , 6) = #{useDt}
+						)
+						-- 보스의 계약번호(CNTR_NO)와 포스의 계약번호(DEAL_NO)가 같은 포인트이력의 계약번호()
+						SELECT           
+						    PO.USE_YMD              /*사용일시 : 거래일시 */
+						    , PO.STOR_NO            /*매장번호 : 거래처코드 */
+						    , (SELECT ST.STOR_NM FROM CRM_STOR_BAS ST WHERE PO.STOR_NO = ST.STOR_NO) AS STOR_NM
+						    , PO.DIS_GUBUN          /*할인구분 */
+						    , PO.DIS_GUBUN_NM       /*할인구분명 */
+						    , PO.USE_GUBUN          /*사용구분*/
+						    , PO.USE_GUBUN_NM       /*사용구분명 */
+						    , SUM(PO.DIS_AMT)       /*사용포인트 */   
+						    , (SUM(PO.DIS_AMT) * 20)/100 AS DIS_AMT  /*사용포인트 */   
+						FROM  PONT PO
+						GROUP BY 
+                                 PO.USE_YMD
+                                 , PO.STOR_NO   
+                                 , PO.DIS_GUBUN
+                                 , PO.DIS_GUBUN_NM
+                                 , PO.USE_GUBUN
+                                 , PO.USE_GUBUN_NM
+					  ) B
+    </select>
+    
+    <select id="selectListOld" resultType="com.ceragem.crm.mem.model.CalculateStatusSAPDayVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+						WITH PONT AS (
+						-- 포인트이력 사용인것  USE_TYPE_CD = '001'
+						SELECT
+						    TO_CHAR(USE_DT , 'YYYYMM') USE_YMD
+						    , STOR_NO
+						    , DEAL_NO
+						    , ITG_CUST_NO
+						    , '1'                    AS DIS_GUBUN       /*할인구분 : 1포인트 , 2쿠폰 */
+						    , '포인트'                  AS DIS_GUBUN_NM       /*할인구분명 : 1포인트 , 2쿠폰 */
+						    , CASE WHEN USE_TYPE_CD = '001' THEN '1'
+                                   WHEN USE_TYPE_CD = '002' THEN '2'
+                              END AS USE_GUBUN                          /*사용구분 : 1사용 , 2적립*/
+						    , CASE WHEN USE_TYPE_CD = '001' THEN '사용'
+                                   WHEN USE_TYPE_CD = '002' THEN '적립'
+                              END AS USE_GUBUN_NM                       /*사용구분명 : 1사용 , 2적립*/                              
+						    , ABS(OCCUR_POINT_SCORE) AS DIS_AMT         /*사용포인트 : 할인금액*/
+						FROM CRM_POINT_HST
+						WHERE USE_TYPE_CD IN ('001' , '002')
+						AND   TO_CHAR(USE_DT , 'YYYYMM') = #{useDt}
+						UNION ALL
+						SELECT
+						    SUBSTR(USE_DT , 0 , 6) USE_YMD
+						    , STOR_NO
+						    , '' AS DEAL_NO     /*계야번호 : 쿠폰이력에는 계약번호가 없다 */
+						    , ITG_CUST_NO
+						    , '2'                    AS DIS_GUBUN       /*할인구분 : 1포인트 , 2쿠폰 */
+                            , '쿠폰'                  AS DIS_GUBUN_NM     /*할인구분명 : 1포인트 , 2쿠폰 */
+						    , CASE WHEN USE_YN = 'Y' THEN '1'
+                              END AS USE_GUBUN                       /*사용구분 : 1사용 , 2적립*/
+						    , CASE WHEN USE_YN = 'Y' THEN '사용'
+                              END AS USE_GUBUN_NM                       /*사용구분명 : 1사용 , 2적립*/	                              						    
+						    , ABS(APPLY_AMT)         AS DIS_AMT      /*사용포인트 : 할인금액*/
+						FROM CRM_COUPN_PBLS_HST
+						WHERE UPPER(USE_YN) = 'Y'
+						AND   SUBSTR(USE_DT , 0 , 6) = #{useDt}
+						)
+						-- 보스의 계약번호(CNTR_NO)와 포스의 계약번호(DEAL_NO)가 같은 포인트이력의 계약번호()
+						SELECT           
+						    PO.USE_YMD              /*사용일시 : 거래일시 */
+						    , PO.STOR_NO            /*매장번호 : 거래처코드 */
+						    , (SELECT ST.STOR_NM FROM CRM_STOR_BAS ST WHERE PO.STOR_NO = ST.STOR_NO) AS STOR_NM
+						    , PO.DIS_GUBUN          /*할인구분 */
+						    , PO.DIS_GUBUN_NM       /*할인구분명 */
+						    , PO.USE_GUBUN          /*사용구분*/
+						    , PO.USE_GUBUN_NM       /*사용구분명 */
+						    , SUM(PO.DIS_AMT) AS DIS_AMT       /*사용포인트 */   
+						    , (SUM(PO.DIS_AMT) * #{rate})/100 AS DIS_AMT_RATE  /*사용포인트 */   
+						FROM  PONT PO
+						GROUP BY 
+                                 PO.USE_YMD
+                                 , PO.STOR_NO   
+                                 , PO.DIS_GUBUN
+                                 , PO.DIS_GUBUN_NM
+                                 , PO.USE_GUBUN
+                                 , PO.USE_GUBUN_NM
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    
+    <select id="selectOld" resultType="com.ceragem.crm.mem.model.CalculateStatusSAPDayVo">
+               SELECT /* com.ceragem.crm.mem.dao.CalculateStatusSAPSynthesisDao.select */ * FROM
+               		(
+                 	  	SELECT <include refid="sqlPointHstColsOld"/>
+				          FROM CRM_POINT_HST A, CRM_STOR_BAS B
+                         WHERE A.STOR_NO = B.STOR_NO(+)
+					  ) B
+        <include refid="sqlPkConditions"/>
+    </select>
+    
+    
+    <!--  -->
+    
+    <sql id="sqlSapPointUseCols">
+                    '01' SALE_GB /*할인구분- 1:포인트 2:쿠폰*/
+                    ,'포인트' SALE_GB_NM /*할인구분- 1:포인트 2:쿠폰*/
+                    , CASE
+                        WHEN A.PBLS_CHL_CD = 'BOS' THEN TO_DATE((SELECT IST_DCS_DE FROM CRM_CUST_BOS_CNTRT_HST WHERE CNTR_NO = A.DEAL_NO),'YYYYMMDD')
+                        ELSE A.USE_DT
+                     END AS ZRT_DT                                                                                                                       /*등록채널BOS->설치완료일 ELSE->사용및적립일시*/
+                    , A.STOR_NO AS KUNNR                                                                                                                        /*매장번호        */
+                    , (SELECT STOR_NM FROM CRM_STOR_BAS T WHERE T.STOR_NO = A.STOR_NO) KUNNR_NM                                                          /*매장명        */
+                    , A.USE_TYPE_CD                                                                                                                     /*사용유형코드        */
+                    , '01' AS PNT_GB
+                    , '사용' AS PNT_GB_NM
+                    , A.OCCUR_POINT_SCORE AS PNT_PAY                                                                                               /*발생포인트점수        */
+                    , NVL2(#{rate}, CEIL(A.OCCUR_POINT_SCORE * #{rate} / 100), '0') AS PNT_PAY_USE                    /*가맹점부담포인트점수        */
+                    , 0 AS PNT_PAY_SAVE
+                    , (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = A.STOR_NO) KDGRP                                                  /* 매장구분코드        */ 
+    </sql>
+    <sql id="sqlSapPointCancelCols">
+                    '01' SALE_GB /*할인구분- 1:포인트 2:쿠폰*/
+                    ,'포인트' SALE_GB_NM /*할인구분- 1:포인트 2:쿠폰*/
+                    , CASE
+                        WHEN A.PBLS_CHL_CD = 'BOS' THEN TO_DATE((SELECT IST_DCS_DE FROM CRM_CUST_BOS_CNTRT_HST WHERE CNTR_NO = A.DEAL_NO),'YYYYMMDD')
+                        ELSE A.USE_DT
+                     END AS ZRT_DT                                                                                                                       /*등록채널BOS->설치완료일 ELSE->사용및적립일시*/
+                    , A.STOR_NO AS KUNNR                                                                                                                        /*매장번호        */
+                    , (SELECT STOR_NM FROM CRM_STOR_BAS T WHERE T.STOR_NO = A.STOR_NO) KUNNR_NM                                                          /*매장명        */
+                    , A.USE_TYPE_CD                                                                                                                     /*사용유형코드        */
+                    , '02' AS PNT_GB
+                    , '취소' AS PNT_GB_NM
+                    , (SELECT -1 * OCCUR_POINT_SCORE FROM CRM_POINT_HST WHERE CHIT_NO = A.CHIT_NO AND USE_TYPE_CD = '001') AS PNT_PAY                   /*발생포인트점수        */
+                    , NVL2(#{rate}, CEIL((SELECT -1 * OCCUR_POINT_SCORE FROM CRM_POINT_HST WHERE CHIT_NO = A.CHIT_NO AND USE_TYPE_CD = '001') * #{rate} / 100), '0') AS PNT_PAY_USE     /*가맹점부담포인트점수        */
+                    , 0 AS PNT_PAY_SAVE
+                    , (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = A.STOR_NO) KDGRP                                                  /* 매장구분코드        */ 
+    </sql>
+    <sql id="sqlSapCouponCols">
+                    '02' SALE_GB /*할인구분- 1:포인트 2:쿠폰*/
+                    ,'쿠폰' SALE_GB_NM /*할인구분- 1:포인트 2:쿠폰*/
+                    , CASE
+                        WHEN A.REG_CHL_CD = 'BOS' THEN TO_DATE((SELECT IST_DCS_DE FROM CRM_CUST_BOS_CNTRT_HST WHERE CNTR_NO = A.CHIT_NO),'YYYYMMDD')
+                        ELSE TO_DATE(A.USE_DT,'YYYYMMDDHH24MISS')
+                     END AS ZRT_DT                                                                                                                       /*등록채널BOS->설치완료일 ELSE->사용및적립일시*/
+                    , A.USE_STOR_NO AS KUNNR                                                                                                                        /*매장번호        */
+                    , (SELECT STOR_NM FROM CRM_STOR_BAS T WHERE T.STOR_NO = A.USE_STOR_NO) KUNNR_NM                                                          /*매장명        */
+                    , A.USE_DIV_CD USE_TYPE_CD                                                                                                          /*사용구분코드*/
+                    , '01' AS PNT_GB
+                    , '사용' AS PNT_GB_NM
+                    , A.SALE_AMT PNT_PAY                                                                                                           /*할인금액        */
+                    ,CASE WHEN A.SALE_AMT IS NULL THEN 0
+                          WHEN A.SALE_AMT = '' THEN 0
+                          ELSE (CASE WHEN A.ADMT_METH_CD = '001' THEN SALE_AMT - A.ADMT_AMT
+                                     WHEN A.ADMT_METH_CD = '002' THEN SALE_AMT * ((100-A.ADMT_AMT)/100)
+                                     ELSE 0
+                                END) 
+                     END AS PNT_PAY_USE                                                                                             /*가맹점부담포인트점수        */
+                    , 0 AS PNT_PAY_SAVE                       
+                    , (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = A.USE_STOR_NO) KDGRP                                                  /* 매장구분코드        */
+    </sql>
+    
+    <sql id="sqlSapConditions">
+        <where>
+                      B.KDGRP = '20' /*가맹점        */
+        <if test="zrtDt != null and zrtDt != ''">
+                      AND TO_CHAR(B.ZRT_DT, 'YYYYMM')      =       #{zrtDt}
+        </if>
+        </where>
+    </sql>
+    
+    <select id="selectListCount" resultType="int">
+              SELECT /* com.ceragem.crm.mem.dao.CalculateStatusSAPDayDao.selectListCount */ COUNT(1) FROM
+              (SELECT CASE
+                        WHEN A.PBLS_CHL_CD = 'BOS' THEN TO_DATE((SELECT IST_DCS_DE FROM CRM_CUST_BOS_CNTRT_HST WHERE CNTR_NO = A.DEAL_NO),'YYYYMMDD')
+                        ELSE A.USE_DT
+                      END AS ZRT_DT
+                     , A.OCCUR_POINT_SCORE AS PNT_PAY
+                     , (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = A.STOR_NO) KDGRP
+                FROM CRM_POINT_HST A
+               WHERE A.USE_TYPE_CD = '001' /* 사용 */
+              UNION ALL
+              SELECT * FROM 
+              (SELECT CASE
+                        WHEN A.PBLS_CHL_CD = 'BOS' THEN TO_DATE((SELECT IST_DCS_DE FROM CRM_CUST_BOS_CNTRT_HST WHERE CNTR_NO = A.DEAL_NO),'YYYYMMDD')
+                        ELSE A.USE_DT
+                      END AS ZRT_DT
+                     , (SELECT -1 * OCCUR_POINT_SCORE FROM CRM_POINT_HST WHERE CHIT_NO = A.CHIT_NO AND USE_TYPE_CD = '001') AS PNT_PAY
+                     , (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = A.STOR_NO) KDGRP
+                FROM CRM_POINT_HST A
+               WHERE A.USE_TYPE_CD = '003' /* 사용취소 */
+               ) A
+               WHERE A.PNT_PAY IS NOT NULL
+              UNION ALL
+              SELECT CASE
+                        WHEN A.REG_CHL_CD = 'BOS' THEN TO_DATE((SELECT IST_DCS_DE FROM CRM_CUST_BOS_CNTRT_HST WHERE CNTR_NO = A.CHIT_NO),'YYYYMMDD')
+                        ELSE TO_DATE(A.USE_DT,'YYYYMMDDHH24MISS')
+                     END AS ZRT_DT
+                     , A.SALE_AMT PNT_PAY
+                     , (SELECT STOR_DIV_CD FROM CRM_STOR_BAS T WHERE T.STOR_NO = A.USE_STOR_NO) KDGRP
+                FROM CRM_COUPN_PBLS_HST A
+               WHERE A.USE_YN = 'Y'
+                 AND (A.COUPN_KND_CD = '001' OR A.COUPN_KND_CD = '002' OR A.COUPN_KND_CD = '003') <!-- 001-정액/002-정률/003-증겅 -->) B
+        <include refid="sqlSapConditions"/>
+    </select>
+    
+    <select id="selectList" resultType="com.ceragem.crm.mem.model.CalculateStatusSAPDayVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+              SELECT /* com.ceragem.crm.mem.dao.CalculateStatusSAPDayDao.selectList */
+                     B.SALE_GB
+                     , B.SALE_GB_NM
+                     , TO_CHAR(B.ZRT_DT, 'YYYYMMDD') ZRT_DT
+                     , B.KUNNR
+                     , B.KUNNR_NM
+                     , B.USE_TYPE_CD
+                     , B.PNT_GB
+                     , B.PNT_GB_NM
+                     , B.PNT_PAY
+                     , B.PNT_PAY_USE
+                     , B.PNT_PAY_SAVE
+                     , B.KDGRP
+                FROM
+              (SELECT <include refid="sqlSapPointUseCols"/>
+                FROM CRM_POINT_HST A
+               WHERE A.USE_TYPE_CD = '001' /* 사용 */
+              UNION ALL
+              SELECT * FROM 
+              (SELECT <include refid="sqlSapPointCancelCols"/>
+                FROM CRM_POINT_HST A
+               WHERE A.USE_TYPE_CD = '003' /* 사용취소 */
+               ) A
+               WHERE A.PNT_PAY IS NOT NULL
+              UNION ALL
+              SELECT <include refid="sqlSapCouponCols"/>
+                FROM CRM_COUPN_PBLS_HST A
+               WHERE A.USE_YN = 'Y'
+                 AND (A.COUPN_KND_CD = '001' OR A.COUPN_KND_CD = '002' OR A.COUPN_KND_CD = '003') <!-- 001-정액/002-정률/003-증겅 -->) B
+        <include refid="sqlSapConditions"/>
+        ORDER BY B.ZRT_DT DESC
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    
+</mapper>

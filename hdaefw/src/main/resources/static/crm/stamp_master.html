@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div id="wrapIframe">
+	
+    <div class="mGrid1 type3"> <!-- class="type3" => left:610px -->
+        <!-- left -->
+        <div class="gLeft">
+
+            <!-- 고객정보 -->
+            <div class="mBox1">
+                <!-- title -->
+                <div class="gTitle1">
+                    <h3 class="mTitle1">스탬프마스터 목록</h3>
+                    <div class="gRt">
+                        <a href="#" class="mBtn1 lPrimary">제휴사 등록</a>
+                    </div>
+                </div>
+                <!-- //title -->
+                <!-- sort -->
+                <div class="mSort2 mini pl0"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                    <ul class="mr60"> <!-- class="mr60" => margin-right="60"-->
+                        <li class="w50per">
+                            <div class="tit w90">스탬프 마스터명</div>
+                            <div class="txt">
+                                <input type="text" class="it" title="스탬프 마스터명">
+                            </div>
+                        </li>
+                        <li class="w50per">
+                            <div class="tit w75">발행기간</div>
+                            <div class="txt">
+                                <div class="mDate1">
+                                    <input type="text" class="it date" title="발행기간 시작일" value="2022-01-01">
+                                    <span class="bar">~</span>
+                                    <input type="text" class="it date" title="발행기간 마지막일" value="2022-01-03">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="w50per">
+                            <div class="tit w90">스탬프 유형</div>
+                            <div class="txt">
+                                <select class="select" title="스탬프 유형">
+                                    <option>결제 시 적립</option>
+                                    <option>이벤트시 적립</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="w50per">
+                            <div class="tit w142">스탬프 사용여부</div>
+                            <div class="txt">
+                                <select class="select" title="스탬프 사용여부">
+                                    <option>사용</option>
+                                    <option>미사용</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="w50per">
+                            <div class="tit w90">1판당 스탬프 수</div>
+                            <div class="txt">
+                                <input type="text" class="it right w35" title="1판당 스탬프 수" value="00"> 개
+                            </div>
+                        </li>
+                        <li class="w50per">
+                            <div class="tit w142">스탬프 개별 유효기간</div>
+                            <div class="txt">
+                                <select class="select" title="스탬프 개별 유효기간">
+                                    <option>있음</option>
+                                    <option>없음</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="button posRt">
+                        <a href="#" class="mBtn1">검색</a>
+                    </div>
+                </div>
+                <!-- //sort -->
+                <!-- list -->
+                <div class="mBoard1 mCustomScrollbar hSortRow3"> <!-- class="hSortRow2" : 검색2줄 -->
+                    <table>
+                        <caption>스탬프마스터 목록</caption>
+                        <colgroup>
+                            <col span="2" width="35">
+                            <col width="10%">
+                            <col width="18%">
+                            <col width="14%">
+                            <col width="*">
+                            <col width="*">
+                            <col width="*">
+                            <col width="13%">
+                        </colgroup>
+                        <thead>
+                            <tr class="nowrap">
+                                <th scope="col">NO</th>
+                                <th scope="col">
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" name="" title="선택">
+                                        <span class="label">전체선택</span>
+                                    </label>
+                                </th>
+                                <th scope="col"><div class="ellipsis">스탬프마스터 코드</div></th>
+                                <th scope="col"><div class="ellipsis">스탬프 마스터명</div></th>
+                                <th scope="col"><div class="ellipsis">스탬프 유형</div></th>
+                                <th scope="col"><div class="ellipsis">개별 유효기간</div></th>
+                                <th scope="col"><div class="ellipsis">사용여부</div></th>
+                                <th scope="col"><div class="ellipsis">1판당 스탬프 수</div></th>
+                                <th scope="col"><div class="ellipsis">발행일자</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" name="" title="선택">
+                                        <span class="label">전체선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>음료구매스탬프</td>
+                                <td>결제 시 적립</td>
+                                <td>있음</td>
+                                <td>사용</td>
+                                <td>10</td>
+                                <td>2019-02-04</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //list -->
+				<!-- paging -->
+				<div class="mPag1 mb0">
+					<div class="mCount1">총 <strong>5</strong>건</div>
+					<span title="처음 리스트" class="first">처음으로</span>
+					<span title="이전 리스트" href="###" class="prev">이전</span>
+					<!-- able 버튼
+						<a title="처음 리스트" href="###" class="first">처음으로</a>
+						<a title="이전 리스트" href="###" class="prev">이전</a>
+					-->
+					<a title="현재페이지" href="###" class="active">1</a>
+					<a title="2 페이지" href="###">2</a>
+					<a title="3 페이지" href="###">3</a>
+					<a title="4 페이지" href="###">4</a>
+					<a title="5 페이지" href="###">5</a>
+					<a title="6 페이지" href="###">6</a>
+					<a title="다음 리스트" href="###" class="next">다음</a>
+					<a title="마지막 리스트" href="###" class="last">마지막으로</a>
+					<!-- disabled 버튼
+						<span title="다음 리스트" class="next">다음</span>
+						<span title="마지막 리스트" class="last">마지막으로</span>
+					-->
+					<select class="select" title="갯수선택">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+					</select>
+				</div>
+				<!-- //paging -->
+                <button class="btnClose">고객정보 닫기</button>
+                <button class="btnWide">고객정보 크게보기</button> 
+            </div>
+            <!-- //고객정보 -->
+            
+        </div>
+        <!-- //left -->
+        <!-- right -->
+        <div class="gRight">
+            
+            <!-- sort -->
+            <div class="mSort2 medium"> <!-- class="medium" => 상하좌우 여백 좁은 사이즈-->
+                <ul>
+                    <li class="wAuto">
+                        <div class="tit">스탬프 마스터 코드</div>
+                        <div class="txt">
+                            <input type="text" class="it" title="스탬프 마스터 코드" value="XXXXTTTTAAAA">
+                        </div>
+                    </li>
+                </ul>
+                <div class="button posRt"> <!-- 우측 정렬 : class="posRt" -->
+                    <a href="#" class="mBtn1 lGray">정책 API 반영</a>
+                    <a href="#" class="mBtn1 lWhite">스탬프 발급</a>
+                </div>
+            </div>
+            <!-- //sort -->
+
+            <!-- box -->
+            <div class="mBox1">
+                <div class="gTitle1 line">
+                    <h3 class="mTitle1">기본정보</h3>
+                    <div class="gRt">
+                        <a href="#" class="mBtn1 lGray">수정</a>
+                        <a href="#" class="mBtn1 lPrimary">등록</a>
+                    </div>
+                </div>
+                <!-- board -->
+                <div class="mBoard2">
+                    <table>
+                        <caption>기본정보</caption>
+                        <colgroup>
+                            <col width="12%">
+                            <col width="*">
+                            <col width="8%">
+                            <col width="12%">
+                            <col width="8%">
+                            <col width="8%">
+                            <col width="12%">
+                            <col width="8%">
+                            <col width="11%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="left">스탬프 마스터명</th>
+                                <td>
+                                    <input type="text" class="it" title="스탬프 마스터명">
+                                </td>
+                                <th scope="row" class="left">스탬프 유형</th>
+                                <td colspan="2">
+                                    <select class="select" title="스탬프 유형">
+                                        <option>결제 시 적립</option>
+                                        <option>이벤트시 적립</option>
+                                    </select>
+                                </td>
+                                <th scope="row" class="left">스탬프 발행기간</th>
+                                <td class="left" colspan="3">
+                                    <input type="text" class="it date w70" title="스탬프 발행기간 시작일" value="2022-01-01">
+                                    <span class="bar">~</span>
+                                    <input type="text" class="it date w70" title="스탬프 발행기간 마지막일" value="2022-01-03">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="left">스탬프 1판 당 유효기간</th>
+                                <td class="left">
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="없음" checked="checked">
+                                        <span class="label">없음</span>
+                                    </label>
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="있음">
+                                        <span class="label">있음</span>
+                                    </label>
+                                    <input type="text" class="it w75" title="일"> 일
+                                </td>
+                                <th scope="row" class="left">1판당 스탬프 수</th>
+                                <td class="left">
+                                    <input type="text" class="it w75" title="1판당 스탬프 수"> 개
+                                </td>
+                                <th scope="row" class="left">최대 판 수</th>
+                                <td class="left" colspan="2">
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="무제한" checked="checked">
+                                        <span class="label">무제한</span>
+                                    </label>
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="최대">
+                                        <span class="label">최대</span>
+                                    </label>
+                                    <input type="text" class="it w75" title="판"> 판
+                                </td>
+                                <th scope="row" class="left">사용여부</th>
+                                <td>
+                                    <select class="select" title="기업유형">
+                                        <option>사용</option>
+                                        <option>사용안함</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+                
+                <div class="gTitle1 line mt13">
+                    <h3 class="mTitle1">발급정책</h3>
+                </div>
+                <!-- board -->
+                <div class="mBoard2">
+                    <table>
+                        <caption>발급정책</caption>
+                        <colgroup>
+                            <col width="8%">
+                            <col width="10%">
+                            <col width="8%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="8%">
+                            <col width="8%">
+                            <col width="12%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="left">적립채널</th>
+                                <td class="left" colspan="3">
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="POS" checked="checked">
+                                        <span class="label">POS</span>
+                                    </label>
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="온라인 웹">
+                                        <span class="label">온라인 웹</span>
+                                    </label>
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="온라인 앱">
+                                        <span class="label">온라인 앱</span>
+                                    </label>
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="HP">
+                                        <span class="label">HP</span>
+                                    </label>
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="HC">
+                                        <span class="label">HC</span>
+                                    </label>
+                                </td>
+                                <th scope="row" class="left">조건 상품 설정</th>
+                                <td colspan="2">
+                                    <div class="mFlex2">
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                        <span class="flex">
+                                            <select class="select" title="조건 상품 설정">
+                                                <option>선택</option>
+                                            </select>
+                                        </span>
+                                        <a href="#" class="mBtn1 m lWhite">버튼</a>
+                                    </div>
+                                </td>
+                                <th scope="row" class="left">쿠폰 할인 시 적립 여부</th>
+                                <td>
+                                    <select class="select" title="쿠폰 할인 시 적립 여부">
+                                        <option>예</option>
+                                        <option>아니오</option>
+                                    </select>
+                                </td>
+                                <th scope="row" class="left">1회 적립 최대횟수</th>
+                                <td colspan="3">
+                                    <div class="mFlex2">
+                                        <input type="text" class="it" title="1회 적립 최대횟수"> 
+                                        <span class="bar5">번</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="left">적용회원등급</th>
+                                <td class="left" colspan="3">
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="VIP" checked="checked">
+                                        <span class="label">VIP</span>
+                                    </label>
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="골드">
+                                        <span class="label">골드</span>
+                                    </label>
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="실버">
+                                        <span class="label">실버</span>
+                                    </label>
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="브론즈">
+                                        <span class="label">브론즈</span>
+                                    </label>
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="화이트">
+                                        <span class="label">화이트</span>
+                                    </label>
+                                </td>
+                                <th scope="row" class="left">조건 금액 설정</th>
+                                <td colspan="2" class="br0">
+                                    <div class="mFlex2">
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                        <span class="flex">
+                                            <input type="text" class="it" title="조건 금액 설정"> 
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="left bl0">원 이상 결제 시 적립</td>
+                                <th scope="row" class="left">적립매장</th>
+                                <td colspan="2">
+                                    <div class="mFlex2">
+                                        <span class="flex">
+                                            <input type="text" class="it" title="적립매장">
+                                        </span>
+                                        <a href="#" class="mBtn1 m lWhite">버튼</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="left">적립기준</th>
+                                <td class="left">
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="주문건당">
+                                        <span class="label">주문건당</span>
+                                    </label>
+                                </td>
+                                <th scope="row" class="left">주문 상품 총 개수</th>
+                                <td class="left">
+                                    <input type="text" class="it w60" title="주문 상품 총 개수"> 개
+                                </td>
+                                <th scope="row" class="left">조건 상품 총 개수</th>
+                                <td class="left">
+                                    <input type="text" class="it w60" title="조건 상품 총 개수"> 개
+                                </td>
+                                <th scope="row" class="left">주문금액</th>
+                                <td class="left">
+                                    <input type="text" class="it w60" title="주문금액"> 원/당
+                                </td>
+                                <th scope="row" class="left">등록일</th>
+                                <td colspan="2">
+                                    <div class="mFlex2">
+                                        <input type="text" class="it" title="등록일" value="2022-12-12">
+                                        <input type="text" class="it" title="등록일">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+                
+                <div class="gTitle1 line mt13">
+                    <h3 class="mTitle1">혜택정책</h3>
+                </div>
+                <!-- board -->
+                <div class="mBoard2">
+                    <table>
+                        <caption>혜택정책</caption>
+                        <colgroup>
+                            <col width="8%">
+                            <col width="25%">
+                            <col width="8%">
+                            <col width="20%">
+                            <col width="8%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="left">혜택 지급 기중</th>
+                                <td>
+                                    <input type="text" class="it" title="혜택 지급 기중">
+                                </td>
+                                <th scope="row" class="left">혜택 재화 선택</th>
+                                <td class="left">
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" name="" title="쿠폰">
+                                        <span class="label">쿠폰</span>
+                                    </label>
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" name="" title="포인트">
+                                        <span class="label">포인트</span>
+                                    </label>
+                                </td>
+                                <th scope="row" class="left">혜택 쿠폰 선택</th>
+                                <td>
+                                    <div class="mFlex2">
+                                        <span class="flex">
+                                            <input type="text" class="it" title="적립매장">
+                                        </span>
+                                        <a href="#" class="mBtn1 m lWhite">버튼</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+            </div>
+            <!-- //box -->
+
+            <!-- tab -->
+            <div class="mTab1 jsTab2">
+                <ul>
+                    <li class="active"><a href="#jsTabCont1_1">적용매장</a></li>
+                    <li><a href="#jsTabCont1_2">적용메뉴</a></li>
+                    <li><a href="#jsTabCont1_3">적립채널</a></li>
+                    <li><a href="#jsTabCont1_4">발행스탬프</a></li>
+                </ul>
+            </div>
+            <!-- box:적용매장 -->
+            <div id="jsTabCont1_1" class="mBox1 p10 tabCont ">
+                <!-- sort -->
+                <div class="mSort2 mini"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                    <ul>
+                        <li class="wAuto ml20">
+                            <div class="tit">지역</div>
+                            <div class="txt">
+                                <select class="select" title="지역">
+                                    <option>지역선택</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="wAuto ml35">
+                            <div class="tit">매장코드</div>
+                            <div class="txt">
+                                <input type="text" class="it w90" title="매장코드">
+                            </div>
+                        </li>
+                        <li class="wAuto ml35">
+                            <div class="tit">매장코드</div>
+                            <div class="txt">
+                                <input type="text" class="it w90" title="매장코드">
+                            </div>
+                        </li>
+                        <li class="wAuto ml35">
+                            <div class="tit">매장명</div>
+                            <div class="txt">
+                                <input type="text" class="it w90" title="매장명">
+                            </div>
+                            <span class="button">
+                                <a href="#" class="mBtn1">검색</a>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="button posRt"> <!-- 우측 정렬 : class="posRt" -->
+                        <a href="#" class="mBtn1 lPrimary">관리</a>
+                    </div>
+                </div>
+                <!-- //sort -->
+                <!-- board -->
+                <div class="mBoard1 mCustomScrollbar h322">
+                    <table>
+                        <caption>적용매장</caption>
+                        <colgroup>
+                            <col width="8%">
+                            <col span="4"width="*">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col">지역</th>
+                                <th scope="col">매장코드</th>
+                                <th scope="col">매장명</th>
+                                <th scope="col">등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>서울</td>
+                                <td>0001</td>
+                                <td class="left">현재자동차 본점 임직원 카페</td>
+                                <td>2021-01-01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+				<!-- paging -->
+				<div class="mPag1 mb0">
+					<div class="mCount1">총 <strong>5</strong>건</div>
+					<span title="처음 리스트" class="first">처음으로</span>
+					<span title="이전 리스트" href="###" class="prev">이전</span>
+					<!-- able 버튼
+						<a title="처음 리스트" href="###" class="first">처음으로</a>
+						<a title="이전 리스트" href="###" class="prev">이전</a>
+					-->
+					<a title="현재페이지" href="###" class="active">1</a>
+					<a title="2 페이지" href="###">2</a>
+					<a title="3 페이지" href="###">3</a>
+					<a title="4 페이지" href="###">4</a>
+					<a title="5 페이지" href="###">5</a>
+					<a title="6 페이지" href="###">6</a>
+					<a title="다음 리스트" href="###" class="next">다음</a>
+					<a title="마지막 리스트" href="###" class="last">마지막으로</a>
+					<!-- disabled 버튼
+						<span title="다음 리스트" class="next">다음</span>
+						<span title="마지막 리스트" class="last">마지막으로</span>
+					-->
+					<select class="select" title="갯수선택">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+					</select>
+				</div>
+				<!-- //paging -->
+            </div>
+            <!-- //box:적용매장 -->
+            <!-- box:적용메뉴 -->
+            <div id="jsTabCont1_2" class="mBox1 p10 tabCont hidden">
+                <!-- sort -->
+                <div class="mSort2 mini"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                    <ul>
+                        <li class="wAuto ml20">
+                            <div class="tit">상품군</div>
+                            <div class="txt">
+                                <select class="select" title="상품군">
+                                    <option>상품군 선택</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="wAuto ml35">
+                            <div class="tit">메뉴명</div>
+                            <div class="txt">
+                                <input type="text" class="it w90" title="메뉴명">
+                            </div>
+                            <span class="button">
+                                <a href="#" class="mBtn1">검색</a>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="button posRt"> <!-- 우측 정렬 : class="posRt" -->
+                        <a href="#" class="mBtn1 lPrimary">관리</a>
+                    </div>
+                </div>
+                <!-- //sort -->
+                <!-- board -->
+                <div class="mBoard1 mCustomScrollbar h322">
+                    <table>
+                        <caption>적용매장</caption>
+                        <colgroup>
+                            <col width="8%">
+                            <col span="4"width="*">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col">상품군명</th>
+                                <th scope="col">메뉴명</th>
+                                <th scope="col">등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>커피</td>
+                                <td>아메리카노</td>
+                                <td>2021-01-01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+				<!-- paging -->
+				<div class="mPag1 mb0">
+					<div class="mCount1">총 <strong>5</strong>건</div>
+					<span title="처음 리스트" class="first">처음으로</span>
+					<span title="이전 리스트" href="###" class="prev">이전</span>
+					<!-- able 버튼
+						<a title="처음 리스트" href="###" class="first">처음으로</a>
+						<a title="이전 리스트" href="###" class="prev">이전</a>
+					-->
+					<a title="현재페이지" href="###" class="active">1</a>
+					<a title="2 페이지" href="###">2</a>
+					<a title="3 페이지" href="###">3</a>
+					<a title="4 페이지" href="###">4</a>
+					<a title="5 페이지" href="###">5</a>
+					<a title="6 페이지" href="###">6</a>
+					<a title="다음 리스트" href="###" class="next">다음</a>
+					<a title="마지막 리스트" href="###" class="last">마지막으로</a>
+					<!-- disabled 버튼
+						<span title="다음 리스트" class="next">다음</span>
+						<span title="마지막 리스트" class="last">마지막으로</span>
+					-->
+					<select class="select" title="갯수선택">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+					</select>
+				</div>
+				<!-- //paging -->
+            </div>
+            <!-- //box:적용메뉴 -->
+            <!-- box:적립채널 -->
+            <div id="jsTabCont1_3" class="mBox1 p10 tabCont hidden">
+                <!-- sort -->
+                <div class="mSort2 mini"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                    <ul>
+                        <li class="wAuto ml20">
+                            <div class="tit">채널</div>
+                            <div class="txt">
+                                <select class="select" title="채널">
+                                    <option>채널명 선택</option>
+                                </select>
+                            </div>
+                            <span class="button">
+                                <a href="#" class="mBtn1">검색</a>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="button posRt"> <!-- 우측 정렬 : class="posRt" -->
+                        <a href="#" class="mBtn1 lPrimary">관리</a>
+                    </div>
+                </div>
+                <!-- //sort -->
+                <!-- board -->
+                <div class="mBoard1 mCustomScrollbar h322">
+                    <table>
+                        <caption>적립채널</caption>
+                        <colgroup>
+                            <col width="8%">
+                            <col span="4"width="*">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col">채널코드</th>
+                                <th scope="col">채널명</th>
+                                <th scope="col">등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>POS</td>
+                                <td>POS</td>
+                                <td>2021-01-01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+				<!-- paging -->
+				<div class="mPag1 mb0">
+					<div class="mCount1">총 <strong>5</strong>건</div>
+					<span title="처음 리스트" class="first">처음으로</span>
+					<span title="이전 리스트" href="###" class="prev">이전</span>
+					<!-- able 버튼
+						<a title="처음 리스트" href="###" class="first">처음으로</a>
+						<a title="이전 리스트" href="###" class="prev">이전</a>
+					-->
+					<a title="현재페이지" href="###" class="active">1</a>
+					<a title="2 페이지" href="###">2</a>
+					<a title="3 페이지" href="###">3</a>
+					<a title="4 페이지" href="###">4</a>
+					<a title="5 페이지" href="###">5</a>
+					<a title="6 페이지" href="###">6</a>
+					<a title="다음 리스트" href="###" class="next">다음</a>
+					<a title="마지막 리스트" href="###" class="last">마지막으로</a>
+					<!-- disabled 버튼
+						<span title="다음 리스트" class="next">다음</span>
+						<span title="마지막 리스트" class="last">마지막으로</span>
+					-->
+					<select class="select" title="갯수선택">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+					</select>
+				</div>
+				<!-- //paging -->
+            </div>
+            <!-- //box:적립채널 -->
+            <!-- box:발행스탬프 -->
+            <div id="jsTabCont1_4" class="mBox1 p10 tabCont hidden">
+                <!-- sort -->
+                <div class="mSort2 mini"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                    <ul>
+                        <li class="w30per">
+                            <div class="tit w75">스탬프유형</div>
+                            <div class="txt">
+                                <select class="select" title="스탬프유형">
+                                    <option>결제 시 적립</option>
+                                    <option>이벤트시 적립</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="w25per">
+                            <div class="tit w115">스탬프 사용여부</div>
+                            <div class="txt">
+                                <select class="select" title="스탬프 사용여부">
+                                    <option>전체</option>
+                                    <option>사용</option>
+                                    <option>미사용</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="w45per">
+                            <div class="tit w80">발행기간</div>
+                            <div class="txt">
+                                <input type="text" class="it date w65" title="발행기간 시작일" value="2022-01-01"> <!-- modify20220421 -->
+                                <span class="bar">~</span>
+                                <input type="text" class="it date w65" title="발행기간 마지막일" value="2022-01-03"> <!-- modify20220421 -->
+                            </div>
+                        </li>
+                        <li class="w30per">
+                            <div class="tit w75">채널명</div>
+                            <div class="txt">
+                                <select class="select" title="채널명">
+                                    <option>채널명선택</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="w25per">
+                            <div class="tit w115">스탬프 개별 유효기간</div>
+                            <div class="txt">
+                                <select class="select" title="스탬프 개별 유효기간">
+                                    <option>채널명선택</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="w45per">
+                            <div class="tit w80">사용기간</div>
+                            <div class="txt">
+                                <input type="text" class="it date w65" title="사용기간 시작일" value="2022-01-01">
+                                <span class="bar">~</span>
+                                <input type="text" class="it date w65" title="사용기간 마지막일" value="2022-01-03">
+                                <span class="button">
+                                    <a href="#" class="mBtn1">검색</a>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- //sort -->
+                <!-- board -->
+                <div class="mBoard1 mCustomScrollbar h290">
+                    <table>
+                        <caption>적립채널</caption>
+                        <colgroup>
+                            <col width="8%">
+                            <col span="4"width="*">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col">채널코드</th>
+                                <th scope="col">채널명</th>
+                                <th scope="col">등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>POS</td>
+                                <td>POS</td>
+                                <td>2021-01-01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+				<!-- paging -->
+				<div class="mPag1 mb0">
+					<div class="mCount1">총 <strong>5</strong>건</div>
+					<span title="처음 리스트" class="first">처음으로</span>
+					<span title="이전 리스트" href="###" class="prev">이전</span>
+					<!-- able 버튼
+						<a title="처음 리스트" href="###" class="first">처음으로</a>
+						<a title="이전 리스트" href="###" class="prev">이전</a>
+					-->
+					<a title="현재페이지" href="###" class="active">1</a>
+					<a title="2 페이지" href="###">2</a>
+					<a title="3 페이지" href="###">3</a>
+					<a title="4 페이지" href="###">4</a>
+					<a title="5 페이지" href="###">5</a>
+					<a title="6 페이지" href="###">6</a>
+					<a title="다음 리스트" href="###" class="next">다음</a>
+					<a title="마지막 리스트" href="###" class="last">마지막으로</a>
+					<!-- disabled 버튼
+						<span title="다음 리스트" class="next">다음</span>
+						<span title="마지막 리스트" class="last">마지막으로</span>
+					-->
+					<select class="select" title="갯수선택">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+					</select>
+				</div>
+				<!-- //paging -->
+            </div>
+            <!-- //box:발행스탬프 -->
+
+        </div>
+        <!-- //right -->
+    </div>
+	
+</div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="N"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="N"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+	
+    <column name="구분" field="statType" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="Y"/>
+    <column name="구분" field="statTypeNm" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+    <column name="전체" field="totalCnt" type="number" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+    <column name="10대(미만포함)" field="age10" type="number" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+    <column name="20대" field="age20" type="number" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+    <column name="30대" field="age30" type="number" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+    <column name="40대" field="age40" type="number" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+    <column name="50대" field="age50" type="number" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+    <column name="60대" field="age60" type="number" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+    <column name="70대" field="age70" type="number" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+    <column name="연령정보 없음" field="ageetc" type="number" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" hidden="N"/>
+	    
+</grid>

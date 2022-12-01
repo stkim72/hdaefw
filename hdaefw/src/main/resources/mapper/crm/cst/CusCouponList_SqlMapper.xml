@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CusCouponListDao">
+    
+    <sql id="sqlPkConditions">
+                WHERE COUPN_PBLS_HST_SEQ       =       #{coupnPblsHstSeq}
+    </sql>
+    
+    <sql id="sqlCouponCols">
+                        A.COUPN_PBLS_BAS_NO                        /*쿠폰발행기본번호*/
+                        , A.USE_DT                                /*사용일시*/
+                        , A.REG_DT                            /*등록일시*/
+                        ,CASE
+                            WHEN A.USE_DIV_CD = '001' THEN TO_DATE(A.USE_DT,'YYYYMMDDHH24MISS')
+                            WHEN A.USE_DIV_CD = '002' THEN A.REG_DT
+                            ELSE A.REG_DT
+                        END AS DT                            /*사용구분:사용-사용일시, 적립-등록일시, 취소-?대기*/
+                        , A.ITG_CUST_NO                        /*통합고객번호*/
+                        , A.USE_DIV_CD                        /*사용구분코드*/
+                        , A.USE_DIV_CD AS USE_DIV_NM            /*사용구분*/
+                        , A.COUPN_TYPE_CD                        /*쿠폰유형코드*/
+                        , A.COUPN_TYPE_CD AS COUPN_TYPE_NM    /*쿠폰유형*/
+                        , A.COUPN_KND_CD                        /*쿠폰종류코드*/
+                        , A.COUPN_KND_CD AS COUPN_KND_NM    /*쿠폰종류*/
+                        , A.COUPN_BAS_NM                        /*쿠폰기본명*/
+                        , A.USE_STOR_NO                            /*사용매장번호*/
+                        , B.STOR_NM            /*매장명        */
+                        , B.STOR_CHL_CD     /* 매장채널명        */
+                        , A.REG_CHL_CD                        /*등록채널코드*/
+                        , A.REG_CHL_CD AS REG_CHL_NM            /*등록채널코드*/
+                        , A.USE_YN
+                        , C.REGR_ID
+    </sql>
+    
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.CusCouponListVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+              SELECT /* com.ceragem.crm.cst.dao.CusCouponListDao.selectList */ * FROM
+               (SELECT <include refid="sqlCouponCols"/>
+               		, CASE
+                         WHEN C.USE_STD_DAY_COND_CD = 'Y' THEN TO_CHAR(A.REG_DT , 'YYYY-MM-DD')
+                         ELSE TO_CHAR(TO_DATE(C.FROM_USE_STD_DAY,'YYYY-MM-DD'),'YYYY-MM-DD')
+                     END COND_FROM_DT
+                     , CASE
+                         WHEN C.USE_STD_DAY_COND_CD = 'Y' THEN TO_CHAR(SYSDATE + C.COUPN_USE_POSS_DAY , 'YYYY-MM-DD')
+                         ELSE TO_CHAR(TO_DATE(C.TO_USE_STD_DAY,'YYYY-MM-DD'),'YYYY-MM-DD')
+                     END COND_TO_DT
+                 FROM CRM_MSHIP_COUPN_BAS C JOIN CRM_COUPN_PBLS_HST A
+                    ON C.MSHIP_COUPN_BAS_NO = A.MSHIP_COUPN_BAS_NO
+                    LEFT JOIN CRM_STOR_BAS B
+                    ON A.USE_STOR_NO = B.STOR_NO
+                    ) B
+                   
+         <include refid="sqlConditions"/>
+               ORDER BY B.REG_DT DESC
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.cst.dao.CusCouponListDao.selectListCount */ COUNT(1)
+                 FROM (SELECT <include refid="sqlCouponCols"/>
+                 FROM CRM_MSHIP_COUPN_BAS C JOIN CRM_COUPN_PBLS_HST A
+                    ON C.MSHIP_COUPN_BAS_NO = A.MSHIP_COUPN_BAS_NO
+                    LEFT JOIN CRM_STOR_BAS B
+                    ON A.USE_STOR_NO = B.STOR_NO) B
+       <include refid="sqlConditions"/>
+       
+    </select>
+
+    <sql id="sqlConditions">
+        <where>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                      AND B.ITG_CUST_NO      =       #{itgCustNo}
+        </if>                
+        <if test="strtDt != null and strtDt != ''">
+                      AND B.REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > B.REG_DT
+        </if>
+        <if test="useYn != null and useYn != ''">
+                      AND B.USE_YN      =       #{useYn}
+        </if>
+        <if test="useStorNo != null and useStorNo != ''">
+                      AND B.USE_STOR_NO      =       #{useStorNo}
+        </if>
+        </where>
+    </sql>
+</mapper>

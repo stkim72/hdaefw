@@ -1,0 +1,1789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CrmCustGrpBasDao">
+	<!-- 고객그룹 기본정보 관련 -->
+	<select id="selectGroupBasListCount" resultType="int">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectGroupBasListCount */ 
+			COUNT(1) 
+		FROM CRM_CUST_GRP_BAS
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="searchUseDateType != null and searchUseDateType != ''">
+				<choose>
+					<when test="searchUseDateType.equals('USE_STA_DT')">
+						<if test="searchUseStaDay != null and searchUseStaDay != ''">
+							AND USE_STA_DAY <![CDATA[>=]]> #{searchUseStaDay}
+						</if>
+						<if test="searchUseEndDay != null and searchUseEndDay != ''">
+							AND USE_STA_DAY <![CDATA[<=]]> #{searchUseEndDay}
+						</if>
+					</when>
+					<when test="searchUseDateType.equals('USE_END_DT')">
+						<if test="searchUseStaDay != null and searchUseStaDay != ''">
+							AND USE_END_DAY <![CDATA[>=]]> #{searchUseStaDay}
+						</if>
+						<if test="searchUseEndDay != null and searchUseEndDay != ''">
+							AND USE_END_DAY <![CDATA[<=]]> #{searchUseEndDay}
+						</if>
+					</when>
+					<otherwise>
+						<if test="searchUseStaDay != null and searchUseStaDay != ''">
+							AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[>=]]> #{searchUseStaDay}
+						</if>
+						<if test="searchUseEndDay != null and searchUseEndDay != ''">
+							AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[<=]]> #{searchUseEndDay}
+						</if>
+					</otherwise>
+				</choose>
+			</if>
+			<if test="custGrpNm != null and custGrpNm != ''">
+				AND CUST_GRP_NM LIKE '%' || #{custGrpNm} || '%'
+			</if>
+			<if test="ottpYn != null and ottpYn != ''">
+				<choose>
+					<when test="ottpYn instanceof String">
+						AND OTTP_YN = #{ottpYn}
+					</when>
+					<otherwise>
+						AND OTTP_YN IN
+						<foreach item="item" index="index" collection="ottpYn" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</otherwise>
+				</choose>
+			</if>
+			<if test="useYn != null and useYn != ''">
+				<choose>
+					<when test="useYn instanceof String">
+						AND USE_YN = #{useYn}
+					</when>
+					<otherwise>
+						AND USE_YN IN
+						<foreach item="item" index="index" collection="useYn" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</otherwise>
+				</choose>
+			</if>
+		</trim>
+	</select>
+
+	<select id="selectGroupBasList" resultType="com.ceragem.crm.cst.model.CrmCustGrpBasVo">
+		<!-- <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/> -->
+			SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectGroupBasList */
+				  CUST_GRP_NO
+				, CUST_GRP_TYPE_CD
+				, CUST_GRP_NM
+				, USE_STA_DAY
+				, USE_END_DAY
+				, OTTP_YN
+				, USE_YN
+				, REG_DT
+				, (
+					SELECT 
+						COUNT(1)
+					FROM CRM_CUST_GRP_TGTR_REL grpRel
+					WHERE TGT_YN = 'Y' 
+					AND grpBas.CUST_GRP_NO = grpRel.CUST_GRP_NO
+				) CUST_CNT
+			FROM CRM_CUST_GRP_BAS grpBas
+			<trim prefix="WHERE" prefixOverrides="AND">
+				<if test="searchUseDateType != null and searchUseDateType != ''">
+					<choose>
+						<when test="searchUseDateType.equals('USE_STA_DT')">
+							<if test="searchUseStaDay != null and searchUseStaDay != ''">
+								AND USE_STA_DAY <![CDATA[>=]]> #{searchUseStaDay}
+							</if>
+							<if test="searchUseEndDay != null and searchUseEndDay != ''">
+								AND USE_STA_DAY <![CDATA[<=]]> #{searchUseEndDay}
+							</if>
+						</when>
+						<when test="searchUseDateType.equals('USE_END_DT')">
+							<if test="searchUseStaDay != null and searchUseStaDay != ''">
+								AND USE_END_DAY <![CDATA[>=]]> #{searchUseStaDay}
+							</if>
+							<if test="searchUseEndDay != null and searchUseEndDay != ''">
+								AND USE_END_DAY <![CDATA[<=]]> #{searchUseEndDay}
+							</if>
+						</when>
+						<otherwise>
+							<if test="searchUseStaDay != null and searchUseStaDay != ''">
+								AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[>=]]> #{searchUseStaDay}
+							</if>
+							<if test="searchUseEndDay != null and searchUseEndDay != ''">
+								AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[<=]]> #{searchUseEndDay}
+							</if>
+						</otherwise>
+					</choose>
+				</if>
+				<if test="custGrpNm != null and custGrpNm != ''">
+					AND CUST_GRP_NM LIKE '%' || #{custGrpNm} || '%'
+				</if>
+				<if test="ottpYn != null and ottpYn != ''">
+					<choose>
+						<when test="ottpYn instanceof String">
+							AND OTTP_YN = #{ottpYn}
+						</when>
+						<otherwise>
+							AND OTTP_YN IN
+							<foreach item="item" index="index" collection="ottpYn" open="(" separator="," close=")">
+								#{item}
+							</foreach>
+						</otherwise>
+					</choose>
+				</if>
+				<if test="useYn != null and useYn != ''">
+					<choose>
+						<when test="useYn instanceof String">
+							AND USE_YN = #{useYn}
+						</when>
+						<otherwise>
+							AND USE_YN IN
+							<foreach item="item" index="index" collection="useYn" open="(" separator="," close=")">
+								#{item}
+							</foreach>
+						</otherwise>
+					</choose>
+				</if>
+			</trim>
+			ORDER BY CUST_GRP_NO DESC
+		<!-- <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/> -->
+	</select>
+	
+	<select id="selectGroupBasInfo" resultType="com.ceragem.crm.cst.model.CrmCustGrpBasVo">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectGroupBasInfo */
+			  CUST_GRP_NO
+			, CUST_GRP_TYPE_CD
+			, CUST_GRP_NM
+			, CUST_GRP_CTNTS
+			, CUST_GRP_EXTR_SQL_CTNTS
+			, USE_STA_DAY
+			, USE_END_DAY
+			, OTTP_YN
+			, USE_YN
+			, TO_CHAR(gTB.REG_DT, 'YYYY-MM-DD') AS REG_DT
+			, EMP_NM || NVL2(ORG_NM, '('|| ORG_NM ||')', '') AS REGR_INFO
+		FROM CRM_CUST_GRP_BAS gTB
+		LEFT JOIN CRM_EMP_BAS eTB
+		ON(gTB.REGR_ID = eTB.EMP_ID)
+		LEFT JOIN CRM_ORG_BAS oTB
+		ON(eTB.ORG_ID = oTB.ORG_ID)
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</select>
+	
+	<insert id="insertGroupBasInfo">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertGroupBasInfo */
+		CRM_CUST_GRP_BAS(
+			CUST_GRP_NO, CUST_GRP_TYPE_CD, CUST_GRP_NM, CUST_GRP_CTNTS, CUST_GRP_EXTR_SQL_CTNTS, USE_STA_DAY, USE_END_DAY, OTTP_YN, USE_YN, REGR_ID
+		) VALUES (
+			#{custGrpNo}, 
+			#{custGrpTypeCd}, 
+			#{custGrpNm}, 
+			#{custGrpCtnts}, 
+			#{custGrpExtrSqlCtnts}, 
+			#{useStaDay}, 
+			#{useEndDay},
+			#{ottpYn}, 
+			#{useYn},
+			#{regrId}
+		)
+	</insert>
+	
+	<update id="updateGroupBasInfo">
+		UPDATE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.updateGroupBasInfo */
+		CRM_CUST_GRP_BAS 
+		SET CUST_GRP_TYPE_CD = #{custGrpTypeCd}
+			, CUST_GRP_NM = #{custGrpNm}
+			, CUST_GRP_CTNTS = #{custGrpCtnts}
+			, CUST_GRP_EXTR_SQL_CTNTS = #{custGrpExtrSqlCtnts}
+			, USE_STA_DAY = #{useStaDay}
+			, USE_END_DAY = #{useEndDay}
+			, OTTP_YN = #{ottpYn}
+			, USE_YN = #{useYn}
+			, AMDR_ID = #{amdrId}
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</update>
+	
+	<delete id="deleteGroupBasInfo">
+		DELETE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.deleteGroupBasInfo */
+		FROM CRM_CUST_GRP_BAS
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</delete>
+	<!-- 고객그룹 기본정보 관련 -->
+	
+	<!-- 고객마스터 조건정보 관련 -->
+	<select id="selectMstrCondInfo" resultType="com.ceragem.crm.cst.model.CrmCustGrpMstrCondVo">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectMstrCondInfo */
+			  CUST_GRP_NO									/*고객그룹번호*/
+			, BIRTHDAY_STA									/*생년월일 시작*/
+			, BIRTHDAY_END									/*생년월일 종료*/
+			, AGE_STT										/*연령대 시작*/
+			, AGE_END										/*연령대 종료*/
+			, GNDR_CD										/*성별코드*/
+			, CUST_STATUS_CD								/*고객상태코드*/
+			, CUST_TYPE_CD									/*고객유형코드*/
+			, CUST_DIV_CD									/*고객구분코드*/
+			, DISTRCT_DIV_CD								/*지역구분코드*/
+			, MARRY_YN										/*결혼여부*/
+			, FAMLY_REL_CD									/*가족관계코드*/
+			, INTRST_FILD_CD								/*관심분야코드*/
+			, DWEL_NFPY_CD									/*주거평수코드*/
+			, DBMS_LOB.SUBSTR(STOR_NO, 4000, 1) AS STOR_NO	/*매장번호*/
+			, SBSC_DAY_STA									/*가입일 시작*/
+			, SBSC_DAY_END									/*가입일 종료*/
+			, SMS_RCV_AGREE_YN								/*SMS수신동의여부*/
+			, EMAIL_RCV_AGREE_YN							/*이메일수신동의여부*/
+			, PUSH_RCV_AGREE_YN								/*PUSH수신동의여부*/
+			, RCV_RFSL_YN									/*수신거부여부*/
+			, MSHIP_GRADE_CD								/*멤버십등급코드*/
+			, MSHIP_TYPE_CD									/*멤버십유형코드*/
+			, MSHIP_SBSC_DAY_STA							/*멤버십가입일 시작*/
+			, MSHIP_SBSC_DAY_END							/*멤버십가입일 종료*/
+			, MSHIP_ADVNCMT_SCORE_STA						/*등급점수 시작*/
+			, MSHIP_ADVNCMT_SCORE_END						/*등급점수 종료*/
+		FROM CRM_CUST_GRP_MSTR_COND
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</select>
+	
+	<insert id="insertMstrCondInfo">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertMstrCondInfo */
+		CRM_CUST_GRP_MSTR_COND(
+			CUST_GRP_NO, REGR_ID
+		) VALUES (
+			#{custGrpNo}, #{regrId}
+		)
+	</insert>
+	
+	<update id="updateMstrCondInfo">
+		UPDATE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.updateMstrCondInfo */
+		CRM_CUST_GRP_MSTR_COND
+		SET AMD_DT = SYSDATE
+			, BIRTHDAY_STA                            =         #{birthdaySta}
+			, BIRTHDAY_END                            =         #{birthdayEnd}
+			, AGE_STT                                 =         #{ageStt}
+			, AGE_END                                 =         #{ageEnd}
+			, GNDR_CD                                 =         #{gndrCd}
+			, CUST_STATUS_CD                          =         #{custStatusCd}
+			, CUST_TYPE_CD                            =         #{custTypeCd}
+			, CUST_DIV_CD                             =         #{custDivCd}
+			, DISTRCT_DIV_CD                          =         #{distrctDivCd}
+			, MARRY_YN                                =         #{marryYn}
+			, FAMLY_REL_CD                            =         #{famlyRelCd}
+			, INTRST_FILD_CD                          =         #{intrstFildCd}
+			, DWEL_NFPY_CD                            =         #{dwelNfpyCd}
+			, STOR_NO                                 =         #{storNo}
+			, SBSC_DAY_STA                            =         #{sbscDaySta}
+			, SBSC_DAY_END                            =         #{sbscDayEnd}
+			, SMS_RCV_AGREE_YN                        =         #{smsRcvAgreeYn}
+			, EMAIL_RCV_AGREE_YN                      =         #{emailRcvAgreeYn}
+			, PUSH_RCV_AGREE_YN                       =         #{pushRcvAgreeYn}
+			, RCV_RFSL_YN                             =         #{rcvRfslYn}
+			, MSHIP_GRADE_CD                          =         #{mshipGradeCd}
+			, MSHIP_TYPE_CD                           =         #{mshipTypeCd}
+			, MSHIP_SBSC_DAY_STA                      =         #{mshipSbscDaySta}
+			, MSHIP_SBSC_DAY_END                      =         #{mshipSbscDayEnd}
+			, MSHIP_ADVNCMT_SCORE_STA                 =         #{mshipAdvncmtScoreSta}
+			, MSHIP_ADVNCMT_SCORE_END                 =         #{mshipAdvncmtScoreEnd}
+			, AMDR_ID                                 =         #{amdrId}
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</update>
+	
+	<delete id="deleteMstrCondInfo">
+		DELETE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.deleteMstrCondInfo */
+		FROM CRM_CUST_GRP_MSTR_COND
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</delete>
+	<!-- 고객마스터 조건정보 관련 -->
+	
+	<!-- 접촉이력 조건정보 관련 -->
+	<select id="selectCnttHstCondInfo" resultType="com.ceragem.crm.cst.model.CrmCustGrpCnttHstCondVo">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectCnttHstCondInfo */
+			  CUST_GRP_NO									/*고객그룹번호*/
+			, MESR_CNT_STA									/*측정횟수 시작*/
+			, MESR_CNT_END									/*측정횟수 종료*/
+			, MESR_DAY_STA									/*측정일 시작*/
+			, MESR_DAY_END									/*측정일 종료*/
+			, TOT_SCORE_STA									/*총점수 시작*/
+			, TOT_SCORE_END									/*총점수 종료*/
+			, CNSLG_TYPE_CD									/*상담유형코드*/
+			, CNSLG_DAY_STA									/*상담일 시작*/
+			, CNSLG_DAY_END									/*상담일 종료*/
+			, CNSLG_CNT_STA									/*상담횟수 시작*/
+			, CNSLG_CNT_END									/*상담횟수 종료*/
+			, DNA_CHK_YN									/*DNA검사여부*/
+			, DNA_CHK_DAY_STA								/*DNA검사일 시작*/
+			, DNA_CHK_DAY_END								/*DNA검사일 종료*/
+			, GRNT_EXP_DAY_STA								/*보증 만료일 시작*/
+			, GRNT_EXP_DAY_END								/*보증 만료일 종료*/
+			, AS_DAY_STA									/*AS일 시작*/
+			, AS_DAY_END									/*AS일 종료*/
+			, IOT_USE_EXCLD_YN								/*IOT사용 제외여부*/
+			, IOT_USE_DAY_STA								/*IOT사용일 시작*/
+			, IOT_USE_DAY_END								/*IOT사용일 종료*/
+			, IOT_USE_CNT_STA								/*IOT사용 횟수 시작*/
+			, IOT_USE_CNT_END								/*IOT사용 횟수 종료*/
+			, EXPRN_RCMD_CNT_STA							/*체험추천 횟수 시작*/
+			, EXPRN_RCMD_CNT_END							/*체험추천 횟수 종료*/
+			, BUY_RCMD_CNT_STA								/*구매추천 횟수 시작*/
+			, BUY_RCMD_CNT_END								/*구매추천 횟수 종료*/
+			, SBSC_RCMD_CNT_STA								/*가입추천 횟수 시작*/
+			, SBSC_RCMD_CNT_END								/*가입추천 횟수 종료*/
+			, RCNTLY_ATVY_DAY_STA							/*최종활동일 시작*/
+			, RCNTLY_ATVY_DAY_END							/*최종활동일 종료*/
+			, STOR_EXPRN_CNT_STA							/*매장체험 횟수 시작*/
+			, STOR_EXPRN_CNT_END							/*매장체험 횟수 종료*/
+			, STOR_EXPRN_PERD_STA							/*매장체험 기간 시작*/
+			, STOR_EXPRN_PERD_END							/*매장체험 기간 종료*/
+			, STOR_EXPRN_GODS_NO							/*매장체험 제품번호*/
+			, (
+				SELECT 
+					GODS_NM
+				FROM CRM_GODS_BAS gTB
+				WHERE cTB.STOR_EXPRN_GODS_NO = gTB.GODS_NO
+			) STOR_EXPRN_GODS_NM							/*매장체험 제품명*/
+			, HOME_EXPRN_EXCLD_YN							/*홈체험 제외여부*/
+			, HOME_EXPRN_PERD_STA							/*홈체험 기간 시작*/
+			, HOME_EXPRN_PERD_END							/*홈체험 기간 종료*/
+			, HOME_EXPRN_GODS_NO							/*홈체험 제품번호*/
+			, (
+				SELECT 
+					GODS_NM
+				FROM CRM_GODS_BAS gTB
+				WHERE cTB.HOME_EXPRN_GODS_NO = gTB.GODS_NO
+			) HOME_EXPRN_GODS_NM							/*홈체험 제품명*/
+		FROM CRM_CUST_GRP_CNTT_HST_COND cTB
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</select>
+	
+	<insert id="insertCnttHstCondInfo">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertCnttHstCondInfo */
+		CRM_CUST_GRP_CNTT_HST_COND(
+			CUST_GRP_NO, REGR_ID
+		) VALUES (
+			#{custGrpNo}, #{regrId}
+		)
+	</insert>
+	
+	<update id="updateCnttHstCondInfo">
+		UPDATE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.updateCnttHstCondInfo */
+		CRM_CUST_GRP_CNTT_HST_COND
+		SET AMD_DT = SYSDATE
+			, MESR_CNT_STA                            =         #{mesrCntSta}
+			, MESR_CNT_END                            =         #{mesrCntEnd}
+			, MESR_DAY_STA                            =         #{mesrDaySta}
+			, MESR_DAY_END                            =         #{mesrDayEnd}
+			, CNSLG_TYPE_CD                           =         #{cnslgTypeCd}
+			, CNSLG_DAY_STA                           =         #{cnslgDaySta}
+			, CNSLG_DAY_END                           =         #{cnslgDayEnd}
+			, CNSLG_CNT_STA                           =         #{cnslgCntSta}
+			, CNSLG_CNT_END                           =         #{cnslgCntEnd}
+			, DNA_CHK_YN                              =         #{dnaChkYn}
+			, DNA_CHK_DAY_STA                         =         #{dnaChkDaySta}
+			, DNA_CHK_DAY_END                         =         #{dnaChkDayEnd}
+			, GRNT_EXP_DAY_STA                        =         #{grntExpDaySta}
+			, GRNT_EXP_DAY_END                        =         #{grntExpDayEnd}
+			, AS_DAY_STA                              =         #{asDaySta}
+			, AS_DAY_END                              =         #{asDayEnd}
+			, IOT_USE_EXCLD_YN                        =         #{iotUseExcldYn}
+			, IOT_USE_DAY_STA                         =         #{iotUseDaySta}
+			, IOT_USE_DAY_END                         =         #{iotUseDayEnd}
+			, IOT_USE_CNT_STA                         =         #{iotUseCntSta}
+			, IOT_USE_CNT_END                         =         #{iotUseCntEnd}
+			, EXPRN_RCMD_CNT_STA                      =         #{exprnRcmdCntSta}
+			, EXPRN_RCMD_CNT_END                      =         #{exprnRcmdCntEnd}
+			, BUY_RCMD_CNT_STA                        =         #{buyRcmdCntSta}
+			, BUY_RCMD_CNT_END                        =         #{buyRcmdCntEnd}
+			, SBSC_RCMD_CNT_STA                       =         #{sbscRcmdCntSta}
+			, SBSC_RCMD_CNT_END                       =         #{sbscRcmdCntEnd}
+			, RCNTLY_ATVY_DAY_STA                     =         #{rcntlyAtvyDaySta}
+			, RCNTLY_ATVY_DAY_END                     =         #{rcntlyAtvyDayEnd}
+			, STOR_EXPRN_CNT_STA                      =         #{storExprnCntSta}
+			, STOR_EXPRN_CNT_END                      =         #{storExprnCntEnd}
+			, STOR_EXPRN_PERD_STA                     =         #{storExprnPerdSta}
+			, STOR_EXPRN_PERD_END                     =         #{storExprnPerdEnd}
+			<choose>
+				<when test="storExprnGodsNm != null and storExprnGodsNm != ''">
+					, STOR_EXPRN_GODS_NO              =         #{storExprnGodsNo}
+				</when>
+				<otherwise>
+					, STOR_EXPRN_GODS_NO              =         NULL
+				</otherwise>
+			</choose>
+			, HOME_EXPRN_EXCLD_YN                     =         #{homeExprnExcldYn}
+			, HOME_EXPRN_PERD_STA                     =         #{homeExprnPerdSta}
+			, HOME_EXPRN_PERD_END                     =         #{homeExprnPerdEnd}
+			<choose>
+				<when test="homeExprnGodsNm != null and homeExprnGodsNm != ''">
+					, HOME_EXPRN_GODS_NO              =         #{homeExprnGodsNo}
+				</when>
+				<otherwise>
+					, HOME_EXPRN_GODS_NO              =         NULL
+				</otherwise>
+			</choose>
+			, AMDR_ID                                 =         #{amdrId}
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</update>
+	
+	<delete id="deleteCnttHstCondInfo">
+		DELETE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.deleteCnttHstCondInfo */
+		FROM CRM_CUST_GRP_CNTT_HST_COND
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</delete>
+	
+	<sql id="sqlExprnGodsSearchList">
+		SELECT 
+			dTB.GODS_NO, gTB.GODS_NM, gTB.GODS_CLASS_CD, GODS_MCLSS_CD, GODS_MCLSS_CD_NM, gTB.REG_DT
+		FROM (
+			<choose>
+				<when test="exprnType == 'store'">
+					SELECT 
+						ITEM_CD AS GODS_NO
+					FROM CRM_CUST_EXPRN_HST
+					GROUP BY ITEM_CD
+				</when>
+				<otherwise>
+					SELECT 
+						BASE_ITEM_CD AS GODS_NO
+					FROM CRM_CUST_BOS_CNTRT_HST
+					WHERE EXPRN_CNTR_NO IS NOT NULL
+					GROUP BY BASE_ITEM_CD
+				</otherwise>
+			</choose>
+		) dTB
+		LEFT JOIN CRM_GODS_BAS gTB
+		ON(dTB.GODS_NO = gTB.GODS_NO)
+		LEFT JOIN CRM_GODS_CLASS_BAS gcTB
+		ON(gTB.GODS_CLASS_CD = gcTB.GODS_CLASS_CD)
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="godsClassCd != null and godsClassCd != ''">
+				<choose>
+					<when test="godsClassCd instanceof String">
+						AND GODS_MCLSS_CD = #{godsClassCd}
+					</when>
+					<otherwise>
+						AND GODS_MCLSS_CD IN
+						<foreach item="item" index="index" collection="godsClassCd" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</otherwise>
+				</choose>
+			</if>
+			<if test="godsNo != null and godsNo != ''">
+				AND dTB.GODS_NO = #{godsNo}
+			</if>
+			<if test="godsNm != null and godsNm != ''">
+				AND gTB.GODS_NM LIKE '%' || #{godsNm} || '%'
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="selectExprnGodsSearchListCount" resultType="int">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectExprnGodsSearchListCount */
+			COUNT(1) 
+		FROM(
+			<include refid="sqlExprnGodsSearchList"/>
+		)
+	</select>
+	
+	<select id="selectExprnGodsSearchList" resultType="EzMap">
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+		/* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectExprnGodsSearchList */
+		<include refid="sqlExprnGodsSearchList"/>
+		ORDER BY dTB.GODS_NO DESC
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+	</select>
+	<!-- 접촉이력 조건정보 관련 -->
+	
+	<!-- 거래이력 조건정보 관련 -->
+	<select id="selectDealHstCondInfo" resultType="com.ceragem.crm.cst.model.CrmCustGrpDealHstCondVo">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectDealHstCondInfo */
+			  CUST_GRP_NO				/*고객그룹번호*/
+			, DEAL_DAY_STA				/*거래일 시작*/
+			, DEAL_DAY_END				/*거래일 종료*/
+			, BUY_TOT_AMT_STA			/*구매총금액 시작*/
+			, BUY_TOT_AMT_END			/*구매총금액 종료*/
+			, PAY_TOT_AMT_STA			/*결재총금액 시작*/
+			, PAY_TOT_AMT_END			/*결재총금액 종료*/
+			, BUY_CHL_CD				/*구매채널코드*/
+			, GODS_EXCLD_YN				/*제품적용 여부*/
+		FROM CRM_CUST_GRP_DEAL_COND
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</select>
+	
+	<insert id="insertDealHstCondInfo">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertDealHstCondInfo */
+		CRM_CUST_GRP_DEAL_COND(
+			CUST_GRP_NO, REGR_ID
+		) VALUES (
+			#{custGrpNo}, #{regrId}
+		)
+	</insert>
+	
+	<delete id="deleteDealHstCondInfo">
+		DELETE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.deleteDealHstCondInfo */
+		FROM CRM_CUST_GRP_DEAL_COND
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</delete>
+	
+	<update id="updateDealHstCondInfo">
+		UPDATE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.updateDealHstCondInfo */
+		CRM_CUST_GRP_DEAL_COND
+		SET AMD_DT = SYSDATE
+			, DEAL_DAY_STA                            =         #{dealDaySta}
+			, DEAL_DAY_END                            =         #{dealDayEnd}
+			, BUY_TOT_AMT_STA                         =         #{buyTotAmtSta}
+			, BUY_TOT_AMT_END                         =         #{buyTotAmtEnd}
+			, PAY_TOT_AMT_STA                         =         #{payTotAmtSta}
+			, PAY_TOT_AMT_END                         =         #{payTotAmtEnd}
+			, BUY_CHL_CD                              =         #{buyChlCd}
+			, GODS_EXCLD_YN                           =         #{godsExcldYn}
+			, AMDR_ID                                 =         #{amdrId}
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</update>
+	
+	<delete id="deleteDealGodsCondInfo">
+		DELETE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.deleteDealGodsCondInfo */
+		FROM CRM_CUST_GRP_DEAL_COND_GODS_REL
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</delete>
+	
+	<sql id="sqlDealGodsSearchList">
+		SELECT
+			dTB.GODS_NO, gTB.GODS_NM, gTB.GODS_CLASS_CD, GODS_MCLSS_CD, GODS_MCLSS_CD_NM, BUY_TOT_AMT, DEAL_DAY
+		FROM(
+			SELECT
+				GODS_NO, SUM(BUY_TOT_AMT) AS BUY_TOT_AMT, SUM(PAY_TOT_AMT) AS PAY_TOT_AMT,
+				MIN(ORD_DATE) ||' ~ '|| MAX(ORD_DATE) AS DEAL_DAY
+			FROM(
+				SELECT 
+					ITG_CUST_NO, STOR_CHL_CD,
+					BASE_ITEM_CD AS GODS_NO, NVL(SETL_AMT, 0) AS BUY_TOT_AMT, NVL(BASS_SALE_AMT, 0) AS PAY_TOT_AMT,
+					ORD_DE AS ORD_DATE
+				FROM CRM_CUST_BOS_CNTRT_HST bosTB
+				LEFT JOIN CRM_STOR_BAS storTB
+				ON(bosTB.SALE_ORGZ_CUST_CD = storTB.STOR_NO)
+				WHERE ITG_CUST_NO IS NOT NULL
+				UNION ALL
+				SELECT
+					ITG_CUST_NO,
+					dTB.STOR_CHL_CD, dTB.GODS_NO,
+					NVL(dTB.TOT_SALE_AMT, 0) AS BUY_TOT_AMT, NVL(dTB.NETSAL_AMT, 0) AS PAY_TOT_AMT,
+					dTB.SALE_DATE AS ORD_DATE
+				FROM CRM_CUST_POS_SALE_HST hTB
+				LEFT JOIN CRM_CUST_POS_SALE_DTL dTB
+				ON(hTB.CMP_CD = dTB.CMP_CD AND hTB.STOR_CHL_CD = dTB.STOR_CHL_CD AND hTB.SALE_DATE = dTB.SALE_DATE AND hTB.STOR_NO = dTB.STOR_NO AND hTB.POS_NO = dTB.POS_NO AND hTB.DEAL_NO = dTB.DEAL_NO)
+				WHERE ITG_CUST_NO IS NOT NULL
+			)
+			GROUP BY GODS_NO
+		) dTB
+		LEFT JOIN CRM_GODS_BAS gTB
+		ON(dTB.GODS_NO = gTB.GODS_NO)
+		LEFT JOIN CRM_GODS_CLASS_BAS gcTB
+		ON(gTB.GODS_CLASS_CD = gcTB.GODS_CLASS_CD)
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="godsClassCd != null and godsClassCd != ''">
+				<choose>
+					<when test="godsClassCd instanceof String">
+						AND GODS_MCLSS_CD = #{godsClassCd}
+					</when>
+					<otherwise>
+						AND GODS_MCLSS_CD IN
+						<foreach item="item" index="index" collection="godsClassCd" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</otherwise>
+				</choose>
+			</if>
+			<if test="godsNo != null and godsNo != ''">
+				AND dTB.GODS_NO = #{godsNo}
+			</if>
+			<if test="godsNm != null and godsNm != ''">
+				AND gTB.GODS_NM LIKE '%' || #{godsNm} || '%'
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="selectDealGodsSearchListCount" resultType="int">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectDealGodsSearchListCount */
+			COUNT(1) 
+		FROM(
+			<include refid="sqlDealGodsSearchList"/>
+		)
+	</select>
+	
+	<select id="selectDealGodsSearchList" resultType="EzMap">
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+		/* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectDealGodsSearchList */
+		<include refid="sqlDealGodsSearchList"/>
+		ORDER BY GODS_NM ASC
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+	</select>
+	
+	<select id="selectDealGodsCondList" resultType="EzMap">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectDealGodsCondList */ 
+			CUST_GRP_COND_SEQ,
+			gTB.GODS_NO, gTB.GODS_NM, gTB.GODS_CLASS_CD, GODS_MCLSS_CD, GODS_MCLSS_CD_NM,
+			BUY_TOT_AMT, DEAL_DAY
+		FROM(
+			SELECT
+				  CUST_GRP_COND_SEQ
+				, CUST_GRP_NO
+				, lTB.GODS_NO
+				, GODS_NM
+				, GODS_CLASS_CD
+			FROM CRM_CUST_GRP_DEAL_COND_GODS_REL lTB
+			LEFT JOIN CRM_GODS_BAS rTB
+			ON(lTB.GODS_NO = rTB.GODS_NO)
+			WHERE CUST_GRP_NO = #{custGrpNo}
+		) gTB
+		LEFT JOIN(
+			SELECT
+				GODS_NO, SUM(BUY_TOT_AMT) AS BUY_TOT_AMT, SUM(PAY_TOT_AMT) AS PAY_TOT_AMT,
+				MIN(ORD_DATE) ||' ~ '|| MAX(ORD_DATE) AS DEAL_DAY
+			FROM(
+				SELECT 
+					ITG_CUST_NO, STOR_CHL_CD,
+					BASE_ITEM_CD AS GODS_NO, NVL(SETL_AMT, 0) AS BUY_TOT_AMT, NVL(BASS_SALE_AMT, 0) AS PAY_TOT_AMT,
+					ORD_DE AS ORD_DATE
+				FROM CRM_CUST_BOS_CNTRT_HST bosTB
+				LEFT JOIN CRM_STOR_BAS storTB
+				ON(bosTB.SALE_ORGZ_CUST_CD = storTB.STOR_NO)
+				WHERE ITG_CUST_NO IS NOT NULL
+				UNION ALL
+				SELECT
+					ITG_CUST_NO,
+					dTB.STOR_CHL_CD, dTB.GODS_NO,
+					NVL(dTB.TOT_SALE_AMT, 0) AS BUY_TOT_AMT, NVL(dTB.NETSAL_AMT, 0) AS PAY_TOT_AMT,
+					dTB.SALE_DATE AS ORD_DATE
+				FROM CRM_CUST_POS_SALE_HST hTB
+				LEFT JOIN CRM_CUST_POS_SALE_DTL dTB
+				ON(hTB.CMP_CD = dTB.CMP_CD AND hTB.STOR_CHL_CD = dTB.STOR_CHL_CD AND hTB.SALE_DATE = dTB.SALE_DATE AND hTB.STOR_NO = dTB.STOR_NO AND hTB.POS_NO = dTB.POS_NO AND hTB.DEAL_NO = dTB.DEAL_NO)
+				WHERE ITG_CUST_NO IS NOT NULL
+			)
+			GROUP BY GODS_NO
+		) hTB
+		ON(gTB.GODS_NO = hTB.GODS_NO)
+		LEFT JOIN CRM_GODS_CLASS_BAS gcTB
+		ON(gTB.GODS_CLASS_CD = gcTB.GODS_CLASS_CD)
+		ORDER BY GODS_NM ASC
+	</select>
+	
+	<update id="insertDealGodsCondList">
+		/* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertDealGodsCondList */ 
+		<foreach collection="godsList" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" "> 
+			INTO CRM_CUST_GRP_DEAL_COND_GODS_REL(CUST_GRP_COND_SEQ, CUST_GRP_NO, GODS_NO) 
+			VALUES(FN_CRM_AUTO_SEQ('REL'), #{custGrpNo}, #{item.godsNo})
+		</foreach>
+	</update>
+	
+	<delete id="deleteDealGodsCondList">
+		DELETE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.deleteDealGodsCondList */ 
+		FROM CRM_CUST_GRP_DEAL_COND_GODS_REL
+		WHERE CUST_GRP_COND_SEQ IN 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item.custGrpCondSeq}
+		</foreach>
+	</delete>
+	<!-- 거래이력 조건정보 관련 -->
+	
+	<!-- 대상 고객추출 관련 -->
+	<sql id="sqlTargetSearchList">
+		WITH custTB AS
+		(
+			SELECT 
+				ITG_CUST_NO										/*통합고객번호*/
+				, GNDR_CD										/*성별코드*/
+				, TO_NUMBER(BIRTHDAY) AS BIRTHDAY				/*생년월일*/
+				, (
+					TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')) - 
+					TO_NUMBER(SUBSTRB(BIRTHDAY, 0, 4))
+				) AS AGE										/*연령*/
+				, CUST_STATUS_CD								/*고객상태코드*/
+				, CUST_TYPE_CD									/*고객유형코드*/
+				, CUST_DIV_CD									/*고객구분코드*/
+				, DISTRCT_CD									/*지역코드*/
+				, RCMD_STOR_NO									/*추천매장번호*/
+				, MARRY_YN										/*결혼여부*/
+				, FAMLY_REL_CD									/*가족관계코드*/
+				, DWEL_NFPY_CD									/*주거평수코드*/
+				, INTRST_FILD_CD								/*관심분야코드*/
+				, SMS_RCV_AGREE_YN								/*SMS수신동의여부*/
+				, EMAIL_RCV_AGREE_YN							/*이메일수신동의여부*/
+				, PUSH_RCV_AGREE_YN								/*PUSH수신동의여부*/
+				, RCV_RFSL_YN									/*수신거부여부*/
+				, MSHIP_SBSC_YN									/*멤버십가입여부*/
+				, MSHIP_TYPE_CD									/*멤버십유형코드*/
+				, MSHIP_SBSC_DT									/*멤버십가입일시*/
+				, MSHIP_ADVNCMT_SCORE							/*멤버십등급점수*/
+				, NVL(MSHIP_GRADE_CD, '001') AS MSHIP_GRADE_CD	/*멤버십등급코드*/
+				, REG_DT										/*등록일시*/
+			FROM CRM_CUST_BAS
+		)
+		SELECT
+			dTB.ITG_CUST_NO, cTB.CUST_NM, cTB.GNDR_CD, cTB.BIRTHDAY, 
+			cTB.MPHON_NO, cTB.MPHON_BK_DGT_NO, NVL2(cTB.MPHON_BK_DGT_NO, '010-****-'|| cTB.MPHON_BK_DGT_NO, '') AS MPHON_NO_MASKING
+		FROM(
+			SELECT
+				ITG_CUST_NO
+			FROM(
+				<choose>
+					<when test="custMasterCond.isAllDataNull == true and cnttHstCond.isAllDataNull == true and dealHstCond.isAllDataNull == true">
+						SELECT ITG_CUST_NO FROM custTB WHERE 1=0
+					</when>
+					<otherwise>
+						<trim prefixOverrides="INTERSECT">
+						<!-- 고객마스터 조건 -->
+						<if test="custMasterCond.isAllDataNull != true">
+							INTERSECT
+							SELECT
+								ITG_CUST_NO
+							FROM custTB
+							<trim prefix="WHERE" prefixOverrides="AND">
+								<if test="custMasterCond.birthdaySta != null and custMasterCond.birthdaySta != ''">
+									AND BIRTHDAY <![CDATA[>=]]> TO_NUMBER(#{custMasterCond.birthdaySta})
+								</if>
+								<if test="custMasterCond.birthdayEnd != null and custMasterCond.birthdayEnd != ''">
+									AND BIRTHDAY <![CDATA[<=]]> TO_NUMBER(#{custMasterCond.birthdayEnd})
+								</if>
+								<if test="custMasterCond.ageStt != null and custMasterCond.ageStt != ''">
+									AND AGE <![CDATA[>=]]> TO_NUMBER(#{custMasterCond.ageStt})
+								</if>
+								<if test="custMasterCond.ageEnd != null and custMasterCond.ageEnd != ''">
+									AND AGE <![CDATA[<]]> TO_NUMBER(#{custMasterCond.ageEnd})+10
+								</if>
+								<if test="custMasterCond.gndrCd != null and custMasterCond.gndrCd != ''">
+									AND GNDR_CD = #{custMasterCond.gndrCd}
+								</if>
+								<if test="custMasterCond.custStatusCd != null and custMasterCond.custStatusCd != ''">
+									AND REGEXP_LIKE(CUST_STATUS_CD, REPLACE(#{custMasterCond.custStatusCd}, ',', '|'))
+								</if>
+								<if test="custMasterCond.custTypeCd != null and custMasterCond.custTypeCd != ''">
+									AND REGEXP_LIKE(CUST_TYPE_CD, REPLACE(#{custMasterCond.custTypeCd}, ',', '|'))
+								</if>
+								<if test="custMasterCond.custDivCd != null and custMasterCond.custDivCd != ''">
+									AND REGEXP_LIKE(CUST_DIV_CD, REPLACE(#{custMasterCond.custDivCd}, ',', '|'))
+								</if>
+								<if test="custMasterCond.distrctDivCd != null and custMasterCond.distrctDivCd != ''">
+									AND REGEXP_LIKE(DISTRCT_CD, REPLACE(#{custMasterCond.distrctDivCd}, ',', '|'))
+								</if>
+								<if test="custMasterCond.marryYn != null and custMasterCond.marryYn != ''">
+									AND MARRY_YN = #{custMasterCond.marryYn}
+								</if>
+								<if test="custMasterCond.famlyRelCd != null and custMasterCond.famlyRelCd != ''">
+									AND REGEXP_LIKE(FAMLY_REL_CD, REPLACE(#{custMasterCond.famlyRelCd}, ',', '|'))
+								</if>
+								<if test="custMasterCond.dwelNfpyCd != null and custMasterCond.dwelNfpyCd != ''">
+									AND REGEXP_LIKE(DWEL_NFPY_CD, REPLACE(#{custMasterCond.dwelNfpyCd}, ',', '|'))
+								</if>
+								<if test="custMasterCond.storNo != null and custMasterCond.storNo != ''">
+									AND REGEXP_LIKE(RCMD_STOR_NO, REPLACE(#{custMasterCond.storNo}, ',', '|'))
+								</if>
+								<if test="custMasterCond.sbscDaySta != null and custMasterCond.sbscDaySta != ''">
+									AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[>=]]> #{custMasterCond.sbscDaySta}
+								</if>
+								<if test="custMasterCond.sbscDayEnd != null and custMasterCond.sbscDayEnd != ''">
+									AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[<=]]> #{custMasterCond.sbscDayEnd}
+								</if>
+								<if test="custMasterCond.intrstFildCd != null and custMasterCond.intrstFildCd != ''">
+									AND REGEXP_LIKE(INTRST_FILD_CD, REPLACE(#{custMasterCond.intrstFildCd}, ',', '|'))
+								</if>
+								<if test="custMasterCond.smsRcvAgreeYn != null and custMasterCond.smsRcvAgreeYn != ''">
+									AND SMS_RCV_AGREE_YN = #{custMasterCond.smsRcvAgreeYn}
+								</if>
+								<if test="custMasterCond.emailRcvAgreeYn != null and custMasterCond.emailRcvAgreeYn != ''">
+									AND EMAIL_RCV_AGREE_YN = #{custMasterCond.emailRcvAgreeYn}
+								</if>
+								<if test="custMasterCond.pushRcvAgreeYn != null and custMasterCond.pushRcvAgreeYn != ''">
+									AND PUSH_RCV_AGREE_YN = #{custMasterCond.pushRcvAgreeYn}
+								</if>
+								<if test="custMasterCond.rcvRfslYn != null and custMasterCond.rcvRfslYn != ''">
+									AND RCV_RFSL_YN = #{custMasterCond.rcvRfslYn}
+								</if>
+								<if test="custMasterCond.mshipGradeCd != null and custMasterCond.mshipGradeCd != ''">
+									AND REGEXP_LIKE(MSHIP_GRADE_CD, REPLACE(#{custMasterCond.mshipGradeCd}, ',', '|'))
+								</if>
+								<if test="custMasterCond.mshipTypeCd != null and custMasterCond.mshipTypeCd != ''">
+									AND REGEXP_LIKE(MSHIP_TYPE_CD, REPLACE(#{custMasterCond.mshipTypeCd}, ',', '|'))
+								</if>
+								<if test="custMasterCond.mshipSbscDaySta != null and custMasterCond.mshipSbscDaySta != ''">
+									AND TO_CHAR(MSHIP_SBSC_DT, 'YYYYMMDD') <![CDATA[>=]]> #{custMasterCond.mshipSbscDaySta}
+								</if>
+								<if test="custMasterCond.mshipSbscDayEnd != null and custMasterCond.mshipSbscDayEnd != ''">
+									AND TO_CHAR(MSHIP_SBSC_DT, 'YYYYMMDD') <![CDATA[<=]]> #{custMasterCond.mshipSbscDayEnd}
+								</if>
+								<if test="custMasterCond.mshipAdvncmtScoreSta != null and custMasterCond.mshipAdvncmtScoreSta != ''">
+									AND MSHIP_ADVNCMT_SCORE <![CDATA[>=]]> TO_NUMBER(#{custMasterCond.mshipAdvncmtScoreSta})
+								</if>
+								<if test="custMasterCond.mshipAdvncmtScoreEnd != null and custMasterCond.mshipAdvncmtScoreEnd != ''">
+									AND MSHIP_ADVNCMT_SCORE <![CDATA[<=]]> TO_NUMBER(#{custMasterCond.mshipAdvncmtScoreEnd})
+								</if>
+							</trim>
+						</if>
+						<!-- 고객마스터 조건 -->
+						<!-- 접촉이력 조건 -->
+						<if test="cnttHstCond.isAllDataNull != true">
+							INTERSECT
+							SELECT
+								ITG_CUST_NO
+							FROM (
+								/* 세라체크 */
+								SELECT
+									ITG_CUST_NO
+								FROM(
+									SELECT
+										ITG_CUST_NO, COUNT(1) AS MESR_CNT
+									FROM CRM_CUST_CRCK_HST
+									<choose>
+										<when test="cnttHstCond.isCeraChkDataNull == true">
+											WHERE 1=0
+										</when>
+										<otherwise>
+											<trim prefix="WHERE" prefixOverrides="AND">
+												<if test="cnttHstCond.mesrDaySta != null and cnttHstCond.mesrDaySta != ''">
+													AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[>=]]> #{cnttHstCond.mesrDaySta}
+												</if>
+												<if test="cnttHstCond.mesrDayEnd != null and cnttHstCond.mesrDayEnd != ''">
+													AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[<=]]> #{cnttHstCond.mesrDayEnd}
+												</if>
+											</trim>
+										</otherwise>
+									</choose>
+									GROUP BY ITG_CUST_NO
+								)
+								<trim prefix="WHERE" prefixOverrides="AND">
+									<if test="cnttHstCond.mesrCntSta != null and cnttHstCond.mesrCntSta != ''">
+										AND MESR_CNT <![CDATA[>=]]> TO_NUMBER(#{cnttHstCond.mesrCntSta})
+									</if>
+									<if test="cnttHstCond.mesrCntEnd != null and cnttHstCond.mesrCntEnd != ''">
+										AND MESR_CNT <![CDATA[<=]]> TO_NUMBER(#{cnttHstCond.mesrCntEnd})
+									</if>
+								</trim>
+								/* 세라체크 */
+								UNION ALL
+								/* 상담이력 */
+								SELECT
+									ITG_CUST_NO
+								FROM(
+									SELECT 
+										ITG_CUST_NO, COUNT(1) AS CNSLG_CNT
+									FROM CRM_CUST_CNSL_HST
+									<choose>
+										<when test="cnttHstCond.isCnslDataNull == true">
+											WHERE 1=0
+										</when>
+										<otherwise>
+											<trim prefix="WHERE" prefixOverrides="AND">
+												<if test="cnttHstCond.cnslgTypeCd != null and cnttHstCond.cnslgTypeCd != ''">
+													AND REGEXP_LIKE(CNSL_TYP_CD, REPLACE(#{cnttHstCond.cnslgTypeCd}, ',', '|'))
+												</if>
+												<if test="cnttHstCond.cnslgDaySta != null and cnttHstCond.cnslgDaySta != ''">
+													AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[>=]]> #{cnttHstCond.cnslgDaySta}
+												</if>
+												<if test="cnttHstCond.cnslgDayEnd != null and cnttHstCond.cnslgDayEnd != ''">
+													AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[<=]]> #{cnttHstCond.cnslgDayEnd}
+												</if>
+											</trim>
+										</otherwise>
+									</choose>
+									GROUP BY ITG_CUST_NO
+								)
+								<trim prefix="WHERE" prefixOverrides="AND">
+									<if test="cnttHstCond.cnslgCntSta != null and cnttHstCond.cnslgCntSta != ''">
+										AND CNSLG_CNT <![CDATA[>=]]> TO_NUMBER(#{cnttHstCond.cnslgCntSta})
+									</if>
+									<if test="cnttHstCond.cnslgCntEnd != null and cnttHstCond.cnslgCntEnd != ''">
+										AND CNSLG_CNT <![CDATA[<=]]> TO_NUMBER(#{cnttHstCond.cnslgCntEnd})
+									</if>
+								</trim>
+								/* 상담이력 */
+								UNION ALL
+								/* 세라체크 DNA */
+								SELECT
+									ITG_CUST_NO
+								FROM CRM_CUST_CRCK_DNA_HST
+								<choose>
+									<when test="cnttHstCond.isCeraChkDnaDataNull == true">
+										WHERE 1=0
+									</when>
+									<otherwise>
+										<trim prefix="WHERE" prefixOverrides="AND">
+											<if test="cnttHstCond.dnaChkYn != null and cnttHstCond.dnaChkYn != ''">
+												AND STATUS = #{cnttHstCond.dnaChkYn}
+											</if>
+											<if test="cnttHstCond.dnaChkDaySta != null and cnttHstCond.dnaChkDaySta != ''">
+												AND RECEIPT_DATE <![CDATA[>=]]> #{cnttHstCond.dnaChkDaySta}
+											</if>
+											<if test="cnttHstCond.dnaChkDayEnd != null and cnttHstCond.dnaChkDayEnd != ''">
+												AND RECEIPT_DATE <![CDATA[<=]]> #{cnttHstCond.dnaChkDayEnd}
+											</if>
+										</trim>
+									</otherwise>
+								</choose>
+								GROUP BY ITG_CUST_NO
+								/* 세라체크 DNA */
+								UNION ALL
+								/* AS이력 */
+								SELECT
+									ITG_CUST_NO
+								FROM CRM_CUST_AS_SUBMIT_HST
+								<choose>
+									<when test="cnttHstCond.isAsDataNull == true">
+										WHERE 1=0
+									</when>
+									<otherwise>
+										<trim prefix="WHERE" prefixOverrides="AND">
+											<if test="cnttHstCond.grntExpDaySta != null and cnttHstCond.grntExpDaySta != ''">
+												AND NVL2(CNTRT_EXP_DAY, REPLACE(CNTRT_EXP_DAY,'-',''), '') <![CDATA[>=]]> #{cnttHstCond.grntExpDaySta}
+											</if>
+											<if test="cnttHstCond.grntExpDayEnd != null and cnttHstCond.grntExpDayEnd != ''">
+												AND NVL2(CNTRT_EXP_DAY, REPLACE(CNTRT_EXP_DAY,'-',''), '') <![CDATA[<=]]> #{cnttHstCond.grntExpDayEnd}
+											</if>
+											<if test="cnttHstCond.asDaySta != null and cnttHstCond.asDaySta != ''">
+												AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[>=]]> #{cnttHstCond.asDaySta}
+											</if>
+											<if test="cnttHstCond.asDayEnd != null and cnttHstCond.asDayEnd != ''">
+												AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[<=]]> #{cnttHstCond.asDayEnd}
+											</if>
+										</trim>
+									</otherwise>
+								</choose>
+								GROUP BY ITG_CUST_NO
+								/* AS이력 */
+								UNION ALL
+								/* IOT사용이력 */
+								<choose>
+									<when test="cnttHstCond.iotUseExcldYn == null or cnttHstCond.iotUseExcldYn == '' or cnttHstCond.isIotDataNull == true">
+										SELECT 
+											ITG_CUST_NO
+										FROM CRM_CUST_BAS
+										WHERE 1=0
+									</when>
+									<otherwise>
+										SELECT 
+											ITG_CUST_NO
+										FROM CRM_CUST_BAS
+										<choose>
+											<when test="cnttHstCond.iotUseExcldYn eq 'N'.toString()">
+												INTERSECT
+											</when>
+											<otherwise>
+												MINUS
+											</otherwise>
+										</choose>
+										SELECT
+											ITG_CUST_NO
+										FROM(
+											SELECT
+												ITG_CUST_NO, COUNT(1) AS USE_CNT
+											FROM CRM_CUST_IOT_HST
+											<choose>
+												<when test="cnttHstCond.isIotDataNull == true">
+													WHERE 1=0
+												</when>
+												<otherwise>
+													<trim prefix="WHERE" prefixOverrides="AND">
+														<if test="cnttHstCond.iotUseDaySta != null and cnttHstCond.iotUseDaySta != ''">
+															AND TO_CHAR(HISTORY_REG_DT, 'YYYYMMDD') <![CDATA[>=]]> #{cnttHstCond.iotUseDaySta}
+														</if>
+														<if test="cnttHstCond.iotUseDayEnd != null and cnttHstCond.iotUseDayEnd != ''">
+															AND TO_CHAR(HISTORY_REG_DT, 'YYYYMMDD') <![CDATA[<=]]> #{cnttHstCond.iotUseDayEnd}
+														</if>
+													</trim>
+												</otherwise>
+											</choose>
+											GROUP BY ITG_CUST_NO
+										)
+										<trim prefix="WHERE" prefixOverrides="AND">
+											<if test="cnttHstCond.iotUseCntSta != null and cnttHstCond.iotUseCntSta != ''">
+												AND USE_CNT <![CDATA[>=]]> TO_NUMBER(#{cnttHstCond.iotUseCntSta})
+											</if>
+											<if test="cnttHstCond.iotUseCntEnd != null and cnttHstCond.iotUseCntEnd != ''">
+												AND USE_CNT <![CDATA[<=]]> TO_NUMBER(#{cnttHstCond.iotUseCntEnd})
+											</if>
+										</trim>
+									</otherwise>
+								</choose>
+								
+								/* IOT사용이력 */
+								UNION ALL
+								/* 추천이력 */
+								SELECT
+									ITG_CUST_NO
+								FROM(
+									SELECT
+										ITG_CUST_NO, RCMD_TYPE_CD, COUNT(1) AS RCMD_CNT
+									FROM CRM_RCMD_HST
+									<choose>
+										<when test="cnttHstCond.isRcmdDataNull == true">
+											WHERE 1=0
+										</when>
+										<otherwise>
+										</otherwise>
+									</choose>
+									GROUP BY ITG_CUST_NO, RCMD_TYPE_CD
+								)
+								<trim prefix="WHERE (" suffix=")" prefixOverrides="OR">
+									<if test="(cnttHstCond.exprnRcmdCntSta != null and cnttHstCond.exprnRcmdCntSta != '') or (cnttHstCond.exprnRcmdCntEnd != null and cnttHstCond.exprnRcmdCntEnd != '')">
+										OR RCMD_TYPE_CD = '002' 
+										<if test="cnttHstCond.exprnRcmdCntSta != null and cnttHstCond.exprnRcmdCntSta != ''">
+											AND RCMD_CNT <![CDATA[>=]]> TO_NUMBER(#{cnttHstCond.exprnRcmdCntSta})
+										</if>
+										<if test="cnttHstCond.exprnRcmdCntEnd != null and cnttHstCond.exprnRcmdCntEnd != ''">
+											AND RCMD_CNT <![CDATA[<=]]> TO_NUMBER(#{cnttHstCond.exprnRcmdCntEnd})
+										</if>
+									</if>
+									<if test="(cnttHstCond.buyRcmdCntSta != null and cnttHstCond.buyRcmdCntSta != '') or (cnttHstCond.buyRcmdCntEnd != null and cnttHstCond.buyRcmdCntEnd != '')">
+										OR RCMD_TYPE_CD = '001' 
+										<if test="cnttHstCond.buyRcmdCntSta != null and cnttHstCond.buyRcmdCntSta != ''">
+											AND RCMD_CNT <![CDATA[>=]]> TO_NUMBER(#{cnttHstCond.buyRcmdCntSta})
+										</if>
+										<if test="cnttHstCond.buyRcmdCntEnd != null and cnttHstCond.buyRcmdCntEnd != ''">
+											AND RCMD_CNT <![CDATA[<=]]> TO_NUMBER(#{cnttHstCond.buyRcmdCntEnd})
+										</if>
+									</if>
+									<if test="(cnttHstCond.sbscRcmdCntSta != null and cnttHstCond.sbscRcmdCntSta != '') or (cnttHstCond.sbscRcmdCntEnd != null and cnttHstCond.sbscRcmdCntEnd != '')">
+										OR RCMD_TYPE_CD = '003' 
+										<if test="cnttHstCond.sbscRcmdCntSta != null and cnttHstCond.sbscRcmdCntSta != ''">
+											AND RCMD_CNT <![CDATA[>=]]> TO_NUMBER(#{cnttHstCond.sbscRcmdCntSta})
+										</if>
+										<if test="cnttHstCond.sbscRcmdCntEnd != null and cnttHstCond.sbscRcmdCntEnd != ''">
+											AND RCMD_CNT <![CDATA[<=]]> TO_NUMBER(#{cnttHstCond.sbscRcmdCntEnd})
+										</if>
+									</if>
+								</trim>
+								/* 추천이력 */
+								UNION ALL
+								/* 매장체험이력 */
+								SELECT 
+									ITG_CUST_NO
+								FROM (
+									SELECT 
+										ITG_CUST_NO, COUNT(1) AS EXPRN_CNT
+									FROM CRM_CUST_EXPRN_HST
+									<choose>
+										<when test="cnttHstCond.isStorExprnDataNull == true">
+											WHERE 1=0
+										</when>
+										<otherwise>
+											<trim prefix="WHERE" prefixOverrides="AND">
+												<if test="cnttHstCond.storExprnGodsNo != null and cnttHstCond.storExprnGodsNo != ''">
+													AND ITEM_CD = #{cnttHstCond.storExprnGodsNo}
+												</if>
+												<if test="cnttHstCond.storExprnPerdSta != null and cnttHstCond.storExprnPerdSta != ''">
+													AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[>=]]> #{cnttHstCond.storExprnPerdSta}
+												</if>
+												<if test="cnttHstCond.storExprnPerdEnd != null and cnttHstCond.storExprnPerdEnd != ''">
+													AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[<=]]> #{cnttHstCond.storExprnPerdEnd}
+												</if>
+											</trim>
+										</otherwise>
+									</choose>
+									GROUP BY ITG_CUST_NO
+								)
+								<trim prefix="WHERE" prefixOverrides="AND">
+									<if test="cnttHstCond.storExprnCntSta != null and cnttHstCond.storExprnCntSta != ''">
+										AND EXPRN_CNT <![CDATA[>=]]> TO_NUMBER(#{cnttHstCond.storExprnCntSta})
+									</if>
+									<if test="cnttHstCond.storExprnCntEnd != null and cnttHstCond.storExprnCntEnd != ''">
+										AND EXPRN_CNT <![CDATA[<=]]> TO_NUMBER(#{cnttHstCond.storExprnCntEnd})
+									</if>
+								</trim>
+								/* 매장체험이력 */
+								UNION ALL
+								/* 홈체험이력 */
+								SELECT 
+									ITG_CUST_NO
+								FROM (
+									SELECT 
+										ITG_CUST_NO
+									FROM CRM_CUST_BAS
+									<choose>
+										<when test="cnttHstCond.homeExprnExcldYn == null or cnttHstCond.homeExprnExcldYn == '' or cnttHstCond.isHomeExprnDataNull == true">
+										WHERE 1=0
+										</when>
+										<otherwise>
+											<choose>
+												<when test="cnttHstCond.homeExprnExcldYn eq 'N'.toString()">
+													INTERSECT
+												</when>
+												<otherwise>
+													MINUS
+												</otherwise>
+											</choose>
+											SELECT 
+												ITG_CUST_NO
+											FROM CRM_CUST_BOS_CNTRT_HST
+											WHERE EXPRN_CNTR_NO IS NOT NULL
+											<if test="cnttHstCond.homeExprnGodsNo != null and cnttHstCond.homeExprnGodsNo != ''">
+												AND BASE_ITEM_CD = #{cnttHstCond.homeExprnGodsNo}
+											</if>
+											<if test="cnttHstCond.homeExprnPerdSta != null and cnttHstCond.homeExprnPerdSta != ''">
+												AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[>=]]> #{cnttHstCond.homeExprnPerdSta}
+											</if>
+											<if test="cnttHstCond.homeExprnPerdEnd != null and cnttHstCond.homeExprnPerdEnd != ''">
+												AND TO_CHAR(REG_DT, 'YYYYMMDD') <![CDATA[<=]]> #{cnttHstCond.homeExprnPerdEnd}
+											</if>
+											GROUP BY ITG_CUST_NO
+										</otherwise>
+									</choose>
+								)
+								/* 홈체험이력 */
+								UNION ALL
+								/* 최종활동이력 */
+								SELECT
+									ITG_CUST_NO
+								FROM CRM_CUST_RCNTLY_ATVY_HST
+								<choose>
+									<when test="cnttHstCond.isAtvtDataNull == true">
+										WHERE 1=0
+									</when>
+									<otherwise>
+										<trim prefix="WHERE" prefixOverrides="AND">
+											<if test="cnttHstCond.rcntlyAtvyDaySta != null and cnttHstCond.rcntlyAtvyDaySta != ''">
+												AND CHL_ATVY_DATE <![CDATA[>=]]> #{cnttHstCond.rcntlyAtvyDaySta}
+											</if>
+											<if test="cnttHstCond.rcntlyAtvyDayEnd != null and cnttHstCond.rcntlyAtvyDayEnd != ''">
+												AND CHL_ATVY_DATE <![CDATA[<=]]> #{cnttHstCond.rcntlyAtvyDayEnd}
+											</if>
+										</trim>
+									</otherwise>
+								</choose>
+								GROUP BY ITG_CUST_NO
+								/* 최종활동이력 */
+							)
+							GROUP BY ITG_CUST_NO
+						</if>
+						<!-- 접촉이력 조건 -->
+						<!-- 거래이력 조건 -->
+						<if test="dealHstCond.isAllDataNull != true">
+							INTERSECT
+							SELECT
+								ITG_CUST_NO
+							FROM (
+								<if test="dealHstCond.godsList.size != 0">
+									<if test="dealHstCond.godsExcldYn eq 'Y'.toString()">
+										SELECT ITG_CUST_NO FROM CRM_CUST_BAS
+										MINUS
+									</if>
+								</if>
+								SELECT
+									ITG_CUST_NO
+								FROM (
+									SELECT 
+										ITG_CUST_NO, SUM(PAY_TOT_AMT) AS PAY_TOT_AMT, SUM(BUY_TOT_AMT) AS BUY_TOT_AMT
+									FROM (
+										SELECT 
+											ITG_CUST_NO, STOR_CHL_CD,
+											BASE_ITEM_CD AS GODS_NO, NVL(SETL_AMT, 0) AS BUY_TOT_AMT, NVL(BASS_SALE_AMT, 0) AS PAY_TOT_AMT,
+											ORD_DE AS ORD_DATE , CNTR_STS_CD , CNTR_STS_DTL_CD
+										FROM CRM_CUST_BOS_CNTRT_HST bosTB
+										LEFT JOIN CRM_STOR_BAS storTB
+										ON(bosTB.SALE_ORGZ_CUST_CD = storTB.STOR_NO)
+										WHERE ITG_CUST_NO IS NOT NULL
+										UNION ALL
+										SELECT
+											ITG_CUST_NO,
+											dTB.STOR_CHL_CD, dTB.GODS_NO,
+											NVL(dTB.TOT_SALE_AMT, 0) AS BUY_TOT_AMT, NVL(dTB.NETSAL_AMT, 0) AS PAY_TOT_AMT,
+											dTB.SALE_DATE AS ORD_DATE , '' CNTR_STS_CD , '' CNTR_STS_DTL_CD
+										FROM CRM_CUST_POS_SALE_HST hTB
+										LEFT JOIN CRM_CUST_POS_SALE_DTL dTB
+										ON(hTB.CMP_CD = dTB.CMP_CD AND hTB.STOR_CHL_CD = dTB.STOR_CHL_CD AND hTB.SALE_DATE = dTB.SALE_DATE AND hTB.STOR_NO = dTB.STOR_NO AND hTB.POS_NO = dTB.POS_NO AND hTB.DEAL_NO = dTB.DEAL_NO)
+										WHERE ITG_CUST_NO IS NOT NULL
+									)
+									<trim prefix="WHERE" prefixOverrides="AND">
+										<if test="dealHstCond.dealDaySta != null and dealHstCond.dealDaySta != ''">
+											AND ORD_DATE <![CDATA[>=]]> #{dealHstCond.dealDaySta}
+										</if>
+										<if test="dealHstCond.dealDayEnd != null and dealHstCond.dealDayEnd != ''">
+											AND ORD_DATE <![CDATA[<=]]> #{dealHstCond.dealDayEnd}
+										</if>
+										<if test="dealHstCond.buyChlCd != null and dealHstCond.buyChlCd != ''">
+											AND REGEXP_LIKE(STOR_CHL_CD, REPLACE(#{dealHstCond.buyChlCd}, ',', '|'))
+										</if>
+										<if test="dealHstCond.godsList.size != 0">
+											<foreach collection="dealHstCond.godsList" item="item" open="AND GODS_NO IN (" close=")" separator=","> 
+												#{item.godsNo}
+											</foreach>
+											AND CNTR_STS_CD != '99'
+											AND CNTR_STS_DTL_CD IN ( '11', '22', '32', '81')
+										</if>
+									</trim>
+									GROUP BY ITG_CUST_NO
+								)
+								<trim prefix="WHERE" prefixOverrides="AND">
+									<if test="dealHstCond.buyTotAmtSta != null and dealHstCond.buyTotAmtSta != ''">
+										AND BUY_TOT_AMT <![CDATA[>=]]> TO_NUMBER(#{dealHstCond.buyTotAmtSta})
+									</if>
+									<if test="dealHstCond.buyTotAmtEnd != null and dealHstCond.buyTotAmtEnd != ''">
+										AND BUY_TOT_AMT <![CDATA[<=]]> TO_NUMBER(#{dealHstCond.buyTotAmtEnd})
+									</if>
+									<if test="dealHstCond.payTotAmtSta != null and dealHstCond.payTotAmtSta != ''">
+										AND PAY_TOT_AMT <![CDATA[>=]]> TO_NUMBER(#{dealHstCond.payTotAmtSta})
+									</if>
+									<if test="dealHstCond.payTotAmtEnd != null and dealHstCond.payTotAmtEnd != ''">
+										AND PAY_TOT_AMT <![CDATA[<=]]> TO_NUMBER(#{dealHstCond.payTotAmtEnd})
+									</if>
+								</trim>
+							)
+						</if>
+						<!-- 거래이력 조건 -->
+						</trim>
+					</otherwise>
+				</choose>
+			) grpTB
+			GROUP BY ITG_CUST_NO
+		) dTB
+		LEFT JOIN CRM_CUST_BAS cTB
+		ON(dTB.ITG_CUST_NO = cTB.ITG_CUST_NO)
+		WHERE dTB.ITG_CUST_NO IS NOT NULL
+		ORDER BY dTB.ITG_CUST_NO DESC
+	</sql>
+	
+	<select id="selectTargetSearchList" parameterType="com.ceragem.crm.cst.model.CrmCustGrpTargetCondVo" resultType="com.ceragem.crm.cst.model.CrmCustGrpTargetRelVo">
+		/* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetSearchList */ 
+		<include refid="sqlTargetSearchList"/>
+	</select>
+	
+	<select id="selectTargetSearchPagingListCount" parameterType="com.ceragem.crm.cst.model.CrmCustGrpTargetCondVo" resultType="int">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetSearchPagingListCount */ 
+			COUNT(1)
+		FROM(
+			<include refid="sqlTargetSearchList"/>
+		)
+	</select>
+	
+	<select id="selectTargetSearchPagingList" parameterType="com.ceragem.crm.cst.model.CrmCustGrpTargetCondVo" resultType="com.ceragem.crm.cst.model.CrmCustGrpTargetRelVo">
+		/* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetSearchPagingList */ 
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+		<include refid="sqlTargetSearchList"/>
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+	</select>
+	
+	<select id="selectTargetWithQueryCount" resultType="int">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetWithQueryCount */ 
+			COUNT(1)
+		FROM(
+			SELECT
+				iTB.ITG_CUST_NO, cTB.CUST_NM, cTB.BIRTHDAY, cTB.GNDR_CD,
+				cTB.MPHON_NO, cTB.MPHON_BK_DGT_NO
+			FROM(
+				${inputQuery}
+			) iTB
+			LEFT JOIN crm_cust_bas cTB
+			ON(iTB.ITG_CUST_NO = cTB.ITG_CUST_NO)
+		)
+	</select>
+	
+	<select id="selectTargetWithQuery" resultType="com.ceragem.crm.cst.model.CrmCustGrpTargetRelVo">
+		/* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetWithQuery */ 
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+		SELECT
+			iTB.ITG_CUST_NO, cTB.CUST_NM, cTB.BIRTHDAY, cTB.GNDR_CD,
+			cTB.MPHON_NO, NVL2(cTB.MPHON_BK_DGT_NO, '010-****-'|| cTB.MPHON_BK_DGT_NO, '') AS MPHON_NO_MASKING
+		FROM(
+			${inputQuery}
+		) iTB
+		LEFT JOIN crm_cust_bas cTB
+		ON(iTB.ITG_CUST_NO = cTB.ITG_CUST_NO)
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+	</select>
+	
+	<update id="saveTargetQuery">
+		UPDATE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.saveTargetQuery */ 
+		CRM_CUST_GRP_BAS
+		SET CUST_GRP_EXTR_SQL_CTNTS = #{inputQuery}
+			, AMDR_ID = #{amdrId}
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</update>
+	<!-- 대상 고객추출 관련 -->
+	
+	<!-- 대상 고객선정 관련 -->
+	<select id="selectTargetRelListCount" resultType="int">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetRelListCount */ 
+			COUNT(1)
+		FROM CRM_CUST_GRP_TGTR_REL
+		WHERE CUST_GRP_NO = #{custGrpNo}
+		<if test="targetYN != null and targetYN != ''">
+			AND TGT_YN = #{targetYN}
+		</if>
+	</select>
+
+	<select id="selectTargetRelList" resultType="com.ceragem.crm.cst.model.CrmCustGrpTargetRelVo">
+		SELECT T.*
+		FROM ( 
+			SELECT ROWNUM AS ROW_INDEX, A.*
+			FROM (
+				SELECT	/* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetRelList */ 
+					CUST_GRP_TGTR_REL_NO, CUST_GRP_NO,
+					rTB.ITG_CUST_NO, 
+					NVL(rTB.CUST_NM, cTB.CUST_NM) AS CUST_NM, 
+					NVL(rTB.GNDR_CD, cTB.GNDR_CD) AS GNDR_CD, 
+					NVL(rTB.BIRTHDAY, cTB.BIRTHDAY) AS BIRTHDAY,
+					NVL2(NVL(rTB.MPHON_BK_DGT_NO, cTB.MPHON_BK_DGT_NO), '010-****-'|| NVL(rTB.MPHON_BK_DGT_NO, cTB.MPHON_BK_DGT_NO), '') AS MPHON_NO_MASKING,
+					rTB.REG_DT
+				FROM(
+					SELECT 
+						  CUST_GRP_TGTR_REL_NO			/*고객그룹대상자관계번호*/
+						, CUST_GRP_NO					/*고객그룹번호*/
+						, ITG_CUST_NO					/*통합고객번호*/
+						, CUST_NM						/*고객명*/
+						, GNDR_CD						/*성별코드*/
+						, BIRTHDAY						/*생년월일*/
+						, MPHON_BK_DGT_NO				/*이동전화번호*/
+						, TGT_YN						/*대상여부*/
+						, REG_DT						/*대상등록일*/
+					FROM CRM_CUST_GRP_TGTR_REL
+					WHERE CUST_GRP_NO = #{custGrpNo}
+					<if test="targetYN != null and targetYN != ''">
+						AND TGT_YN = #{targetYN}
+					</if>
+				) rTB
+				LEFT JOIN CRM_CUST_BAS cTB
+				ON(rTB.ITG_CUST_NO = cTB.ITG_CUST_NO)
+			) A
+			WHERE ROWNUM <![CDATA[<=]]> NVL(#{lastRecordIndex},30)
+		) T
+		WHERE NVL(#{firstRecordIndex},1) <![CDATA[<=]]> T.ROW_INDEX
+	</select>
+	
+	<select id="selectTargetCustNoEmptyList" resultType="EzMap">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetCustNoEmptyList */ 
+			CUST_GRP_NO,
+			CUST_GRP_TGTR_REL_NO, 
+			rTB.ITG_CUST_NO
+		FROM(
+			SELECT 
+				CUST_GRP_TGTR_REL_NO, ITG_CUST_NO, CUST_NM, MPHON_NO, CUST_GRP_NO
+			FROM CRM_CUST_GRP_TGTR_REL 
+			WHERE CUST_GRP_NO = #{custGrpNo}
+			AND (ITG_CUST_NO IS NULL AND CUST_NM IS NOT NULL AND MPHON_NO IS NOT NULL)
+			AND TGT_YN = 'N'
+		) lTB
+		INNER JOIN CRM_CUST_BAS rTB
+		ON(lTB.CUST_NM = rTB.CUST_NM AND lTB.MPHON_NO = rTB.MPHON_NO)
+	</select>
+	
+	<update id="updateTargetCustNoEmpty">
+		UPDATE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.updateTargetCustNoEmpty */ 
+			CRM_CUST_GRP_TGTR_REL
+		SET ITG_CUST_NO = #{itgCustNo}
+		WHERE CUST_GRP_NO = #{custGrpNo}
+		AND CUST_GRP_TGTR_REL_NO = #{custGrpTgtrRelNo}
+	</update>
+	
+	<delete id="deleteTargetRelAll">
+		DELETE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.deleteTargetRelAll */ 
+		FROM CRM_CUST_GRP_TGTR_REL
+		WHERE CUST_GRP_NO = #{custGrpNo}
+	</delete>
+	
+	<delete id="deleteTargetRelList">
+		DELETE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.deleteTargetRelList */ 
+		CRM_CUST_GRP_TGTR_REL
+		WHERE CUST_GRP_NO = #{custGrpNo}
+		<if test="targetData != null and targetData != ''">
+			AND CUST_GRP_TGTR_REL_NO IN 
+			<foreach item="item" index="index" collection="targetData" open="(" separator="," close=")">
+				#{item.custGrpTgtrRelNo}
+			</foreach>
+		</if>
+	</delete>
+	
+	<update id="updateTargetRelList">
+		UPDATE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.updateTargetRelList */ 
+		CRM_CUST_GRP_TGTR_REL
+		SET TGT_YN = #{targetYN}
+			, AMDR_ID = #{amdrId}
+		WHERE CUST_GRP_NO = #{custGrpNo}
+		<if test="targetData != null and targetData != ''">
+			AND CUST_GRP_TGTR_REL_NO IN 
+			<foreach item="item" index="index" collection="targetData" open="(" separator="," close=")">
+				#{item.custGrpTgtrRelNo}
+			</foreach>
+		</if>
+	</update>
+	
+	<insert id="insertTargetRelExcelInfo">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertTargetRelExcelInfo */
+		CRM_CUST_GRP_TGTR_REL(
+			CUST_GRP_TGTR_REL_NO, CUST_GRP_NO, ITG_CUST_NO, CUST_NM, GNDR_CD, BIRTHDAY, MPHON_NO, MPHON_BK_DGT_NO, TGT_YN, REGR_ID
+		) VALUES (
+			FN_CRM_AUTO_SEQ('REL'), 
+			#{custGrpNo}, 
+			#{itgCustNo}, 
+			#{custNm}, 
+			#{gndrCd}, 
+			#{birthday}, 
+			DAMO.ENCRYPT_VAR_B64('AES_256', #{mphonNo}, ''), 
+			#{mphonBkDgtNo},
+			'N',
+			#{regrId}
+		)
+	</insert>
+	
+	<insert id="insertTargetRelInfo">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertTargetRelInfo */
+		CRM_CUST_GRP_TGTR_REL(
+			CUST_GRP_TGTR_REL_NO, CUST_GRP_NO, ITG_CUST_NO, CUST_NM, GNDR_CD, BIRTHDAY, MPHON_NO, MPHON_BK_DGT_NO, TGT_YN, REGR_ID
+		) VALUES (
+			FN_CRM_AUTO_SEQ('REL'), 
+			#{custGrpNo}, 
+			#{itgCustNo}, 
+			#{custNm}, 
+			#{gndrCd}, 
+			#{birthday}, 
+			#{mphonNo}, 
+			#{mphonBkDgtNo},
+			'N',
+			#{regrId}
+		)
+	</insert>
+	
+	<update id="insertTargetRelList" parameterType="com.ceragem.crm.cst.model.CrmCustGrpTargetCondVo">
+		INSERT INTO CRM_CUST_GRP_TGTR_REL(CUST_GRP_TGTR_REL_NO, CUST_GRP_NO, ITG_CUST_NO, CUST_NM, GNDR_CD, BIRTHDAY, MPHON_NO, MPHON_BK_DGT_NO, TGT_YN, REGR_ID)
+		SELECT
+			FN_CRM_AUTO_SEQ('REL'), #{custMasterCond.custGrpNo}, 
+			ITG_CUST_NO, CUST_NM, GNDR_CD, BIRTHDAY, MPHON_NO, MPHON_BK_DGT_NO, 'N', #{custMasterCond.regrId}
+		FROM(
+			<include refid="sqlTargetSearchList"/>
+		)
+	</update>
+	
+	<update id="insertTargetRelInpQuery">
+		INSERT INTO CRM_CUST_GRP_TGTR_REL(CUST_GRP_TGTR_REL_NO, CUST_GRP_NO, ITG_CUST_NO, CUST_NM, GNDR_CD, BIRTHDAY, MPHON_NO, MPHON_BK_DGT_NO, TGT_YN, REGR_ID)
+		SELECT
+			FN_CRM_AUTO_SEQ('REL'), #{custGrpNo}, 
+			ITG_CUST_NO, CUST_NM, GNDR_CD, BIRTHDAY, MPHON_NO, MPHON_BK_DGT_NO, 'N', #{regrId}
+		FROM(
+			SELECT
+				iTB.ITG_CUST_NO, cTB.CUST_NM, cTB.GNDR_CD, cTB.BIRTHDAY,
+				cTB.MPHON_NO, cTB.MPHON_BK_DGT_NO
+			FROM(
+				${inputQuery}
+			) iTB
+			LEFT JOIN crm_cust_bas cTB
+			ON(iTB.ITG_CUST_NO = cTB.ITG_CUST_NO)
+		)
+	</update>
+	<!-- 대상 고객선정 관련 -->
+	
+	<!-- 대상 고객검색 관련 -->
+	<select id="selectTargetCustGradeList" resultType="map">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetCustGradeList */ 
+			COMN_CD, COMN_CD_NM, NVL(GRADE_CNT, 0) AS GRADE_CNT
+		FROM(
+			SELECT 
+				COMN_CD, COMN_CD_NM, COMN_CD_ODRG
+			FROM CRM_COMN_CD_BAS
+			WHERE TOP_COMN_CD = 'MB020' 
+			AND COMN_CD_LVL_NO = 2
+		) cdTB
+		LEFT JOIN(
+			SELECT
+				MSHIP_GRADE_CD, COUNT(1) AS GRADE_CNT
+			FROM(
+				SELECT
+					lTB.ITG_CUST_NO, NVL(MSHIP_GRADE_CD, '001') AS MSHIP_GRADE_CD
+				FROM CRM_CUST_GRP_TGTR_REL lTB
+				LEFT JOIN CRM_CUST_BAS rTB
+				ON (lTB.ITG_CUST_NO = rTB.ITG_CUST_NO)
+				WHERE CUST_GRP_NO = #{custGrpNo}
+				AND TGT_YN = 'Y'
+			)
+			GROUP BY MSHIP_GRADE_CD
+		) custTB
+		ON(cdTB.COMN_CD = custTB.MSHIP_GRADE_CD)
+		ORDER BY COMN_CD_ODRG ASC
+	</select>
+	
+	<sql id="sqlTargetCustList">
+		SELECT
+			dTB.*
+		FROM(
+			SELECT
+				CUST_GRP_TGTR_REL_NO
+				, CUST_GRP_NO
+				, rTB.ITG_CUST_NO
+				, SUBSTRB((NVL(rTB.CUST_NM, cTB.CUST_NM)),1,40) AS CUST_NM
+				, NVL(rTB.MPHON_NO, cTB.MPHON_NO) AS MPHON_NO
+				--, NVL2(NVL(rTB.MPHON_BK_DGT_NO, cTB.MPHON_BK_DGT_NO), '010-****-'|| NVL(rTB.MPHON_BK_DGT_NO, cTB.MPHON_BK_DGT_NO), '') AS MPHON_NO_MASKING
+				, DAMO.DECRYPT_VAR_B64('AES_256', NVL(rTB.MPHON_NO, cTB.MPHON_NO), '') AS MPHON_NO_MASKING
+				, DAMO.DECRYPT_VAR_B64('AES_256', EMAIL_ADDR, '') AS EMAIL_ADDR
+				, NVL(MSHIP_GRADE_CD, '001') AS MSHIP_GRADE_CD
+				, NVL(SMS_RCV_AGREE_YN, 'N') AS SMS_RCV_AGREE_YN
+				, NVL(EMAIL_RCV_AGREE_YN, 'N') AS EMAIL_RCV_AGREE_YN
+				, NVL(ALRM_TK_RCV_AGREE_YN, 'N') AS ALRM_TK_RCV_AGREE_YN
+				, NVL(PUSH_RCV_AGREE_YN, 'N') AS PUSH_RCV_AGREE_YN
+				, rTB.REG_DT
+			FROM(
+				SELECT
+					CUST_GRP_TGTR_REL_NO		/*고객그룹대상자관계번호*/
+					, CUST_GRP_NO				/*고객그룹번호*/
+					, ITG_CUST_NO				/*통합고객번호*/
+					, CUST_NM					/*고객명*/
+					, MPHON_NO					/*이동전화번호*/
+					, MPHON_BK_DGT_NO			/*이동전화뒤자리번호*/
+					, REG_DT					/*대상등록일*/
+				FROM CRM_CUST_GRP_TGTR_REL
+				WHERE CUST_GRP_NO = #{custGrpNo}
+				AND TGT_YN = 'Y'
+				<if test="custNm != null and custNm != ''">
+					AND CUST_NM LIKE '%' || #{custNm} || '%'
+				</if>
+				<if test="mphonNo != null and mphonNo != ''">
+					AND MPHON_NO = DAMO.ENCRYPT_VAR_B64('AES_256', #{mphonNo}, '')
+				</if>
+			) rTB
+			LEFT JOIN CRM_CUST_BAS cTB
+			ON(rTB.ITG_CUST_NO = cTB.ITG_CUST_NO AND CUST_STATUS_CD != '003')
+		) dTB 
+        
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="mshipGradeCd != null and mshipGradeCd != ''">
+				AND MSHIP_GRADE_CD = #{mshipGradeCd}
+			</if>
+			<if test="smsRcvAgreeYn != null and smsRcvAgreeYn != ''">
+				AND SMS_RCV_AGREE_YN = #{smsRcvAgreeYn}
+			</if>
+			<if test="emailRcvAgreeYn != null and emailRcvAgreeYn != ''">
+				AND EMAIL_RCV_AGREE_YN = #{emailRcvAgreeYn}
+			</if>
+			<if test="alrmTkRcvAgreeYn != null and alrmTkRcvAgreeYn != ''">
+				AND ALRM_TK_RCV_AGREE_YN = #{alrmTkRcvAgreeYn}
+			</if>
+			<if test="pushRcvAgreeYn != null and pushRcvAgreeYn != ''">
+				AND PUSH_RCV_AGREE_YN = #{pushRcvAgreeYn}
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="selectTargetCustListCount" resultType="int">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetRelListCount */ 
+			COUNT(1)
+		FROM (
+			<include refid="sqlTargetCustList"/>
+		)
+	</select>
+	
+	<select id="selectTargetCustList"  resultType="com.ceragem.crm.cst.model.CrmCustGrpTargetCustVo">
+		/* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetCustList */ 
+		SELECT T.*
+		FROM ( 
+			SELECT ROWNUM AS ROW_INDEX, A.*
+			FROM (
+			<include refid="sqlTargetCustList"/>
+			) A
+			WHERE ROWNUM <![CDATA[<=]]> NVL(#{lastRecordIndex},30)
+			--ORDER BY ITG_CUST_NO DESC
+		) T
+		WHERE NVL(#{firstRecordIndex},1) <![CDATA[<=]]> T.ROW_INDEX
+	</select>
+	<!-- 대상 고객검색 관련 -->
+	
+	<!-- 대상 고객발송 관련 -->
+	<delete id="deleteTargetSendGroup">
+		DELETE /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.deleteTargetSendGroup */
+		FROM EON.CRM_EMAIL_QSTNR_GRP_BAS
+		WHERE EMAIL_QSTNR_GRP_NO = #{sendGrpType}
+	</delete>
+	
+	<insert id="insertTargetSendGroup">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertTargetSendGroup */
+		EON.CRM_EMAIL_QSTNR_GRP_BAS(
+			EMAIL_QSTNR_GRP_NO, ITG_CUST_NO, MSHP_NM, TEL_NO, EMAIL_ADDR
+		) VALUES (
+			#{sendGrpType}, 
+			#{itgCustNo}, 
+			#{custNm}, 
+			DAMO.DECRYPT_VAR_B64('AES_256', #{mphonNo}, ''),
+			#{emailAddr}
+		)
+	</insert>
+	
+	<update id="insertTotalTargetSendGroup">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertTotalTargetSendGroup */
+		EON.CRM_EMAIL_QSTNR_GRP_BAS(
+			EMAIL_QSTNR_GRP_NO, ITG_CUST_NO, MSHP_NM, TEL_NO, EMAIL_ADDR
+		)SELECT
+			#{sendGrpType} AS sendGrpType, 
+			ITG_CUST_NO, CUST_NM, DAMO.DECRYPT_VAR_B64('AES_256', MPHON_NO, ''), EMAIL_ADDR
+		FROM(
+			<include refid="sqlTargetCustList"/>
+		)
+  WHERE MPHON_NO IS NOT NULL AND LENGTH(MPHON_NO_MASKING) = 11
+	</update>
+	
+	<insert id="insertTargetBySms">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertTargetBySms */
+		EON.SMS_SND_LIST(
+			CLIENT, CAMPAIGN_ID, MEMBER_SEQ, REV_ID, REV_NM, DESTEL, MAPPING1, MAPPING2, DUMMY1, DUMMY2, DUMMY10
+		) VALUES (
+			#{clientId}, 
+			#{campId}, 
+			#{memSeq}, 
+			#{itgCustNo}, 
+			#{custNm}, 
+			DAMO.DECRYPT_VAR_B64('AES_256', #{mphonNo}, ''),
+			#{custNm}, 
+			#{emailAddr}, 
+			#{campId},
+			#{custGrpNo},
+			#{itgCustNo}
+		)
+	</insert>
+	
+	<update id="insertTotalTargetBySms">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertTotalTargetBySms */
+		EON.SMS_SND_LIST(
+			MEMBER_SEQ, CLIENT, CAMPAIGN_ID, REV_ID, REV_NM, DESTEL, MAPPING1, MAPPING2, DUMMY1, DUMMY2, DUMMY10
+		)SELECT
+			ROWNUM AS rnum, #{clientId}, #{campId}, 
+			ITG_CUST_NO, CUST_NM, DAMO.DECRYPT_VAR_B64('AES_256', MPHON_NO, ''), CUST_NM, EMAIL_ADDR,
+			#{campId}, #{custGrpNo}, ITG_CUST_NO
+		FROM(
+			<include refid="sqlTargetCustList"/>
+    <!-- WHERE dTB.MPHON_NO IS NOT NULL AND LENGTH(dTB.MPHON_NO_MASKING) = 11 -->
+		)
+   WHERE MPHON_NO IS NOT NULL AND LENGTH(MPHON_NO_MASKING) = 11
+	</update>
+	
+	<insert id="insertTargetByMail">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertTargetByMail */
+		EON.MAIL_SND_LIST(
+			CLIENT, CAMPAIGN_ID, MEMBER_SEQ, REV_ID, REV_NM, REV_EMAIL, MAP_AFLD1, MAP_AFLD2, DUMMY1, DUMMY2, DUMMY10
+		) VALUES (
+			#{clientId}, 
+			#{campId}, 
+			#{memSeq}, 
+			#{itgCustNo}, 
+			#{custNm}, 
+			#{emailAddr},
+			#{custNm}, 
+			#{emailAddr},
+			#{campId},
+			#{custGrpNo},
+			#{itgCustNo}
+		)
+	</insert>
+	
+	<update id="insertTotalTargetByMail">
+		INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertTotalTargetByMail */
+		EON.MAIL_SND_LIST(
+			MEMBER_SEQ, CLIENT, CAMPAIGN_ID, REV_ID, REV_NM, REV_EMAIL, MAP_AFLD1, MAP_AFLD2, DUMMY1, DUMMY2, DUMMY10
+		)SELECT
+			ROWNUM AS rnum, #{clientId}, #{campId}, 
+			ITG_CUST_NO, CUST_NM, EMAIL_ADDR, CUST_NM, EMAIL_ADDR,
+			#{campId}, #{custGrpNo}, ITG_CUST_NO
+		FROM(
+			<include refid="sqlTargetCustList"/>
+		)
+  WHERE MPHON_NO IS NOT NULL AND LENGTH(MPHON_NO_MASKING) = 11
+	</update>
+	
+	<sql id="sqlTargetCustSendList">
+		SELECT
+			dTB.*
+		FROM(
+			SELECT
+				'003' AS SND_TYPE,
+				C00A_CP_ID AS ORG_CP_ID,
+				C00A_DUMMY1 AS CP_ID,
+				C00A_SEQ AS SND_SEQ,
+				C00A_DUMMY2 AS CUST_GRP_NO,
+				C00A_MB_ID AS ITG_CUST_NO,
+				C00A_MB_NM AS CUST_NM,
+				C00A_MB_EMAIL AS SND_ADDR,
+				CASE 
+					WHEN C00A_UDCD = '00' THEN 'Y'
+					ELSE 'N'
+				END AS SND_RESULT,
+				C00A_CP_SNDT AS SND_DATE
+			FROM EON.WSOMC00A
+			WHERE C00A_DUMMY2 = #{custGrpNo}
+			UNION ALL
+			SELECT
+				CASE 
+					WHEN Z412_C001_EOS_TY = '02' OR Z412_C001_EOS_TY = '03' OR Z412_C001_EOS_TY = '04' THEN '001'
+					WHEN Z412_C001_EOS_TY = '09' THEN '002'
+					ELSE '000'
+				END AS SND_TYPE,
+				Z415_CMMX_CP_ID AS ORG_CP_ID, 
+				Z415_DUMMY1 AS CP_ID,
+				Z415_CMMX_SEQ AS SND_SEQ, 
+				Z415_DUMMY2 AS CUST_GRP_NO,
+				Z415_DUMMY10 AS ITG_CUST_NO,
+				Z415_CMMX_MB_NM AS CUST_NM, 
+				Z415_CMMX_MB_HP AS SND_ADDR, 
+				CASE 
+					WHEN Z415_CMMX_UDCD = '0' THEN 'Y'
+					ELSE 'N'
+				END AS SND_RESULT,
+				Z415_CMMX_CP_SNDT AS SND_DATE
+			FROM EON.WSOMZ415 A, EON.WSOMZ412 B
+			WHERE A.Z415_ID=B.Z412_ID AND A.Z415_CMMX_CP_ID=B.Z412_C001_CP_ID
+			AND Z415_DUMMY2 = #{custGrpNo}
+			AND Z415_CMMX_CP_SNDT IS NOT NULL
+		) dTB
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="sendType != null and sendType != ''">
+				<choose>
+					<when test="sendType instanceof String">
+						AND SND_TYPE = #{sendType}
+					</when>
+					<otherwise>
+						AND SND_TYPE IN
+						<foreach item="item" index="index" collection="sendType" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</otherwise>
+				</choose>
+			</if>
+			<if test="orgCpId != null and orgCpId != ''">
+				AND ORG_CP_ID = #{orgCpId}
+			</if>
+			<if test="custNm != null and custNm != ''">
+				AND CUST_NM LIKE '%' || #{custNm} || '%'
+			</if>
+			<if test="sendResult != null and sendResult != ''">
+				AND SND_RESULT = #{sendResult}
+			</if>
+			<if test="sendDate != null and sendDate != ''">
+				AND TO_CHAR(SND_DATE, 'YYYYMMDD') = #{sendDate}
+			</if>
+			<if test="sendAddr != null and sendAddr != ''">
+				AND SND_ADDR LIKE '%' || #{sendAddr} || '%'
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="selectTargetCustSendListCount" resultType="int">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetCustSendListCount */ 
+			COUNT(1)
+		FROM(
+			<include refid="sqlTargetCustSendList"/>
+		)
+	</select>
+	
+	<select id="selectTargetCustSendList" resultType="EzMap">
+		/* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectTargetCustSendList */ 
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+		<include refid="sqlTargetCustSendList"/>
+		ORDER BY SND_DATE DESC, CP_ID DESC
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+	</select>
+	<!-- 대상 고객발송 관련 -->
+	
+	
+	
+	
+	
+	
+	<!-- test -->
+	<select id="selectSQLCount" resultType="int" parameterType="com.ceragem.crm.cst.model.CrmCustGrpTargetCondVo">
+		SELECT 
+			COUNT(CUST_GRP_NO)
+		FROM CRM_CUST_GRP_MSTR_COND
+		WHERE CUST_GRP_NO = #{custMasterCond.custGrpNo}
+	</select>
+	
+</mapper>

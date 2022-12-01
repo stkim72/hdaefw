@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.memship.dao.CrmCustTypeUpdHstDao">
+    <sql id="sqlPkConditions">
+                WHERE CUST_TYPE_UPD_BAS =       #{custTypeUpdBas}
+    </sql>
+    <sql id="sqlCols">
+                      CUST_TYPE_UPD_BAS                    /*고객유형업데이트기본번호        */
+                    , CUST_TYPE_CD                    /*현재 유형코드(변경전)        */
+                    , UP_CUST_TYPE_CD                    /*변경된 유형 코드        */
+                    , REG_DT                    /*등록일자        */
+                    , ITG_CUST_NO                    /*통합고객기본번호        */
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.CUST_TYPE_UPD_BAS                    /*고객유형업데이트기본번호        */
+                    , A.CUST_TYPE_CD                    /*현재 유형코드(변경전)        */
+                    , A.UP_CUST_TYPE_CD                    /*변경된 유형 코드        */
+                    , A.REG_DT   REG_DT                    /*등록일자        */
+                    , A.ITG_CUST_NO                    /*통합고객기본번호        */
+                    
+                    , CUST_NM   /* 회원명        */
+                    , A.CUST_TYPE_CD  CUST_TYPE_CD_NM    /* 변경전 유형명        */
+                    , A.UP_CUST_TYPE_CD  UP_CUST_TYPE_CD_NM    /* 변경후 유형명        */
+                    
+                    , B.RCMDR_CUST_NO 
+    </sql>
+    
+    
+        <sql id="sqlSelectCols2">
+                      A.CUST_TYPE_UPD_BAS                    /*고객유형업데이트기본번호        */
+                    , A.CUST_TYPE_CD                    /*현재 유형코드(변경전)        */
+                    , A.UP_CUST_TYPE_CD                    /*변경된 유형 코드        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일자        */
+                    , A.ITG_CUST_NO                    /*통합고객기본번호        */
+                    
+                    , FN_DEC_DATA( A.CUST_NM, 'N' )  CUST_NM    /* 회원명        */
+                    , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS B WHERE B.TOP_COMN_CD = 'CU030' and B.COMN_CD = A.CUST_TYPE_CD ) CUST_TYPE_CD_NM    /* 변경전 유형명        */
+                    , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS B WHERE B.TOP_COMN_CD = 'CU030' and B.COMN_CD = A.UP_CUST_TYPE_CD ) UP_CUST_TYPE_CD_NM    /* 변경후 유형명        */
+                    
+                    , (SELECT COUNT(*)  /* 구매 추천 이력 : 구매 추천아닌 것도 포함하기로 함  */ FROM CRM_RCMD_HST B WHERE B.RCMDR_CUST_NO IS NOT NULL AND B.RCMDR_CUST_NO = A.ITG_CUST_NO ) BB_CNT
+                    
+                    , ( SELECT COUNT(*) /* BOS 본인 구매 이력 */ FROM CRM_CUST_BOS_CNTRT_HST C WHERE C.ITG_CUST_NO = A.ITG_CUST_NO  ) BR_CNT /* BOS 본인 구매 카운트 */
+					, ( SELECT COUNT(*) /* 홈체험 카운트 */ FROM CRM_CUST_BOS_CNTRT_HST C WHERE C.ITG_CUST_NO = A.ITG_CUST_NO AND EXPRN_CNTR_NO IS NOT NULL ) HH_CNT /* 홈체험 */
+					, ( SELECT COUNT(*) /* 체험 카운트 */ FROM CRM_CUST_EXPRN_HST C WHERE C.ITG_CUST_NO = A.ITG_CUST_NO ) WW_CNT  /* 카페 체험 */
+					, ( SELECT 
+						 DECODE(SMS_RCV_AGREE_YN, 'Y', 1, 0) + 
+						 DECODE(EMAIL_RCV_AGREE_YN, 'Y', 1, 0)  +
+						 DECODE(ALRM_TK_RCV_AGREE_YN,  'Y', 1, 0)  +
+						 DECODE(PUSH_RCV_AGREE_YN,  'Y', 1, 0) AS TOTAUTH 
+						FROM CRM_CUST_BAS C WHERE C.ITG_CUST_NO = A.ITG_CUST_NO ) MM_CNT  /* 마케팅 동의 */
+                    
+    </sql>
+    
+    
+    
+    <sql id="sqlConditions">
+        <where>
+            <if test="custTypeUpdBas != null and custTypeUpdBas != ''">
+                      AND A.CUST_TYPE_UPD_BAS=       #{custTypeUpdBas}
+            </if>
+            
+             <if test="custNm != null and custNm != ''">
+                     <!--  AND B.CUST_NM LIKE  '%'|| #{custNm} || '%' -->
+                      
+                     AND B.CUST_NM = #{custNm}
+            </if>
+            
+            
+            
+              <if test="pblsStaDt != null and pblsStaDt != ''  and ( pblsEndDt == null or pblsEndDt == '') " >
+                  <!--  AND  TO_CHAR(A.REG_DT, 'YYYYMMDD')  <![CDATA[>=]]>  #{pblsStaDt}  -->
+                   AND A.REG_DT <![CDATA[>=]]> TO_DATE( #{pblsStaDt} ,'YYYYMMDD')
+		        </if>        
+		    
+		        
+		       <if test="pblsStaDt != null and pblsStaDt != '' and pblsEndDt != null and pblsEndDt != ''" >
+		                 <!--  AND ( TO_CHAR(A.REG_DT, 'YYYYMMDD')  <![CDATA[>=]]>  #{pblsStaDt} AND   TO_CHAR(A.REG_DT, 'YYYYMMDD')  <![CDATA[<=]]>  #{pblsEndDt}  ) -->
+		                  
+		                  AND ( A.REG_DT BETWEEN TO_DATE( #{pblsStaDt} ,'YYYYMMDD') AND  TO_DATE( #{pblsEndDt} ,'YYYYMMDD') + 0.99999 )
+		        </if>
+        
+        
+        
+            
+            <if test="custTypeCd != null and custTypeCd != ''">
+                <choose>
+                    <when test="custTypeCd instanceof String">
+                        AND A.CUST_TYPE_CD    =       #{custTypeCd}
+                    </when>
+                    <otherwise>
+                        AND A.CUST_TYPE_CD    IN
+                        <foreach item="item" index="index" collection="custTypeCd" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="upCustTypeCd != null and upCustTypeCd != ''">
+                <choose>
+                    <when test="upCustTypeCd instanceof String">
+                        AND A.UP_CUST_TYPE_CD =       #{upCustTypeCd}
+                    </when>
+                    <otherwise>
+                        AND A.UP_CUST_TYPE_CD IN
+                        <foreach item="item" index="index" collection="upCustTypeCd" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="itgCustNo != null and itgCustNo != ''">
+                      AND A.ITG_CUST_NO     =       #{itgCustNo}
+            </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('custTypeUpdBas')">
+                ORDER BY      CUST_TYPE_UPD_BAS
+            </when>
+            <when test="colSortName.equals('custTypeCd')">
+                ORDER BY      CUST_TYPE_CD
+            </when>
+            <when test="colSortName.equals('upCustTypeCd')">
+                ORDER BY      UP_CUST_TYPE_CD
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.memship.dao.CrmCustTypeUpdHstDao.selectListCount */ COUNT(1)
+                 FROM CRM_CUST_TYPE_UPD_HST A
+                 LEFT JOIN CRM_CUST_BAS B ON B.ITG_CUST_NO = A.ITG_CUST_NO 
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.memship.model.CrmCustTypeUpdHstVo">
+    
+       SELECT /* com.ceragem.crm.memship.dao.CrmCustTypeUpdHstDao.selectList */ 
+         	<include refid="sqlSelectCols2"/>
+       
+        	FROM 
+        (  	
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+        
+        
+	               SELECT /* com.ceragem.crm.memship.dao.CrmCustTypeUpdHstDao.selectList */ <include refid="sqlSelectCols"/>
+	                 FROM CRM_CUST_TYPE_UPD_HST A
+	                 LEFT JOIN CRM_CUST_BAS B ON B.ITG_CUST_NO = A.ITG_CUST_NO 
+		        <include refid="sqlConditions"/>
+		        <include refid="sqlOrderBy"/>
+	        
+	        
+	        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+       ) A
+    </select>
+    <select id="select" resultType="com.ceragem.crm.memship.model.CrmCustTypeUpdHstVo">
+               SELECT /* com.ceragem.crm.memship.dao.CrmCustTypeUpdHstDao.select */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_TYPE_UPD_HST A
+                 LEFT JOIN CRM_CUST_BAS B ON B.ITG_CUST_NO = A.ITG_CUST_NO 
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT /* com.ceragem.crm.memship.dao.CrmCustTypeUpdHstDao.insert */ INTO CRM_CUST_TYPE_UPD_HST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{custTypeUpdBas}
+                     , #{custTypeCd}
+                     , #{upCustTypeCd}
+                     , SYSDATE
+                     , #{itgCustNo}
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.memship.dao.CrmCustTypeUpdHstDao.update */ CRM_CUST_TYPE_UPD_HST
+                  SET CUST_TYPE_CD                            =         #{custTypeCd}
+                    , UP_CUST_TYPE_CD                         =         #{upCustTypeCd}
+                    , ITG_CUST_NO                             =         #{itgCustNo}
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.memship.dao.CrmCustTypeUpdHstDao.delete */
+                 FROM CRM_CUST_TYPE_UPD_HST
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

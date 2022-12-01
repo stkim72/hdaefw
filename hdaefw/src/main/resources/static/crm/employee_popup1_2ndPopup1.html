@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1>직원등록(매장용)</h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+	
+</div>
+
+<!-- layer -->
+<div id="jsLayer1" class="mLayer1">
+    <div class="title">
+        <h2>고객조회</h2>
+        <a href="#jsLayer1" class="close jsBtnClose1">팝업 닫기</a>
+    </div>
+    <!-- sort -->
+    <div class="mSort2 mini"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+        <ul>
+            <li class="wAuto ml20">
+                <div class="tit">이름</div>
+                <div class="txt">
+                    <input type="text" class="it w90" title="이름" value="김**">
+                </div>
+            </li>
+            <li class="wAuto ml35">
+                <div class="tit">휴대전화</div>
+                <div class="txt">
+                    <input type="text" class="it w90" title="휴대전화" value="4432">
+                    <span class="button">
+                        <a href="#" class="mBtn1">검색</a>
+                    </span>
+                </div>
+            </li>
+        </ul>
+        <div class="button posRt"> <!-- 우측 정렬 : class="posRt" -->
+            <a href="#" class="mBtn1 lPrimary">확인</a>
+        </div>
+    </div>
+    <!-- //sort -->
+    <div class="mBox1">
+        <!-- board -->
+        <div class="mBoard1 mCustomScrollbar">
+            <table>
+                <caption>관리자/직원정보</caption>
+                <colgroup>
+                    <col width="5%">
+                    <col span="10"width="*">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">NO</th>
+                        <th scope="col">통합고객번호</th>
+                        <th scope="col">이름</th>
+                        <th scope="col">휴대전화</th>
+                        <th scope="col">일반전화</th>
+                        <th scope="col">이메일</th>
+                        <th scope="col">생년월일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>00032</td>
+                        <td>김**</td>
+                        <td>010-5555-5555</td>
+                        <td>02-5555-5555</td>
+                        <td>adcdef_1234@ceragem.co.kr</td>
+                        <td>20221212</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- //board -->
+        <!-- paging -->
+        <div class="mPag1 mb0">
+            <div class="mCount1">총 <strong>5</strong>건</div>
+            <span title="처음 리스트" class="first">처음으로</span>
+            <span title="이전 리스트" href="###" class="prev">이전</span>
+            <!-- able 버튼
+                <a title="처음 리스트" href="###" class="first">처음으로</a>
+                <a title="이전 리스트" href="###" class="prev">이전</a>
+            -->
+            <a title="현재페이지" href="###" class="active">1</a>
+            <a title="2 페이지" href="###">2</a>
+            <a title="3 페이지" href="###">3</a>
+            <a title="4 페이지" href="###">4</a>
+            <a title="5 페이지" href="###">5</a>
+            <a title="6 페이지" href="###">6</a>
+            <a title="다음 리스트" href="###" class="next">다음</a>
+            <a title="마지막 리스트" href="###" class="last">마지막으로</a>
+            <!-- disabled 버튼
+                <span title="다음 리스트" class="next">다음</span>
+                <span title="마지막 리스트" class="last">마지막으로</span>
+            -->
+            <select class="select" title="갯수선택">
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+            </select>
+        </div>
+        <!-- //paging -->
+    </div>
+</div>
+<!-- //layer -->
+
+</body>
+</html>

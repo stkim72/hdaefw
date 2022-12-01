@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <rowSelection value="Y"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+    
+    
+    
+    <column name="지역" field="distrctCdNm" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="매장코드" field="storNo" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="매장명" field="storNm" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    
+    <column name="등록일시" field="regDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    
+</grid>

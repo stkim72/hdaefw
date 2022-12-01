@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CrmCustPosSaleHstDao">
+    <sql id="sqlPkConditions">
+                WHERE SALE_DATE         =       #{saleDate}
+                  AND DEAL_NO           =       #{dealNo}
+                  AND POS_NO            =       #{posNo}
+    </sql>
+    <sql id="sqlCols">
+                      SALE_DATE                    /*매출일자        */
+                    , DEAL_NO                    /*거래번호        */
+                    , POS_NO                    /*POS번호        */
+                    , STOR_NO                    /*매장번호        */
+                    , DEAL_DIV_CD                    /*거래구분코드        */
+                    , DEAL_DIV_NM                    /*거래구분명        */
+                    , ITG_CUST_NO                    /*통합고객번호        */
+                    , BUY_QNTY                    /*구매수량        */
+                    , TOT_SALE_AMT                    /*총매출금액        */
+                    , DC_AMT                    /*할인금액        */
+                    , ACTSAL_AMT                    /*실매출금액        */
+                    , VAT_AMT                    /*부가세금액        */
+                    , NETSAL_AMT                    /*순매출금액        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.SALE_DATE                    /*매출일자        */
+                    , A.DEAL_NO                    /*거래번호        */
+                    , A.POS_NO                    /*POS번호        */
+                    , A.STOR_NO                    /*매장번호        */
+                    , A.DEAL_DIV_CD                    /*거래구분코드        */
+                    , A.DEAL_DIV_NM                    /*거래구분명        */
+                    , A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.BUY_QNTY                    /*구매수량        */
+                    , A.TOT_SALE_AMT                    /*총매출금액        */
+                    , A.DC_AMT                    /*할인금액        */
+                    , A.ACTSAL_AMT                    /*실매출금액        */
+                    , A.VAT_AMT                    /*부가세금액        */
+                    , A.NETSAL_AMT                    /*순매출금액        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+    </sql>
+    <sql id="sqlConditions">
+      <where>
+<!--         <if test="strtDt != null and strtDt != ''"> -->
+<!--                   AND A.SALE_DATE       =       #{strtDt} -->
+<!--         </if> -->
+<!--         <if test="endDt != null and endDt != ''"> -->
+<!--                   AND A.SALE_DATE       =       #{endDt} -->
+<!--         </if> -->
+                
+        <if test="strtDt != null and strtDt != ''">
+                      AND TO_DATE(A.SALE_DATE,'YYYYMMDD')      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > TO_DATE(A.SALE_DATE,'YYYYMMDD')
+        </if>                 
+                
+        <if test="dealNo != null and dealNo != ''">
+                  AND A.DEAL_NO         =       #{dealNo}
+        </if>
+        <if test="posNo != null and posNo != ''">
+                  AND A.POS_NO          =       #{posNo}
+        </if>
+        <if test="storNo != null and storNo != ''">
+                  AND A.STOR_NO         =       #{storNo}
+        </if>
+        <if test="dealDivCd != null and dealDivCd != ''">
+            <choose>
+                <when test="dealDivCd instanceof String">
+                    AND A.DEAL_DIV_CD     =       #{dealDivCd}
+                </when>
+                <otherwise>
+                    AND A.DEAL_DIV_CD     IN
+                    <foreach item="item" index="index" collection="dealDivCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="dealDivNm != null and dealDivNm != ''">
+                  AND A.DEAL_DIV_NM     =       #{dealDivNm}
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO     =       #{itgCustNo}
+        </if>
+        <if test="buyQnty != null and buyQnty != ''">
+                  AND A.BUY_QNTY        =       #{buyQnty}
+        </if>
+        <if test="totSaleAmt != null and totSaleAmt != ''">
+                  AND A.TOT_SALE_AMT    =       #{totSaleAmt}
+        </if>
+        <if test="dcAmt != null and dcAmt != ''">
+                  AND A.DC_AMT          =       #{dcAmt}
+        </if>
+        <if test="actsalAmt != null and actsalAmt != ''">
+                  AND A.ACTSAL_AMT      =       #{actsalAmt}
+        </if>
+        <if test="vatAmt != null and vatAmt != ''">
+                  AND A.VAT_AMT         =       #{vatAmt}
+        </if>
+        <if test="netsalAmt != null and netsalAmt != ''">
+                  AND A.NETSAL_AMT      =       #{netsalAmt}
+        </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      SALE_DATE DESC
+            </when>
+            <when test="colSortName.equals('saleDate')">
+                ORDER BY      SALE_DATE
+            </when>
+            <when test="colSortName.equals('dealNo')">
+                ORDER BY      DEAL_NO
+            </when>
+            <when test="colSortName.equals('posNo')">
+                ORDER BY      POS_NO
+            </when>
+            <when test="colSortName.equals('storNo')">
+                ORDER BY      STOR_NO
+            </when>
+            <when test="colSortName.equals('dealDivCd')">
+                ORDER BY      DEAL_DIV_CD
+            </when>
+            <when test="colSortName.equals('dealDivNm')">
+                ORDER BY      DEAL_DIV_NM
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('buyQnty')">
+                ORDER BY      BUY_QNTY
+            </when>
+            <when test="colSortName.equals('totSaleAmt')">
+                ORDER BY      TOT_SALE_AMT
+            </when>
+            <when test="colSortName.equals('dcAmt')">
+                ORDER BY      DC_AMT
+            </when>
+            <when test="colSortName.equals('actsalAmt')">
+                ORDER BY      ACTSAL_AMT
+            </when>
+            <when test="colSortName.equals('vatAmt')">
+                ORDER BY      VAT_AMT
+            </when>
+            <when test="colSortName.equals('netsalAmt')">
+                ORDER BY      NETSAL_AMT
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <otherwise>
+                ORDER BY      SALE_DATE
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.cst.dao.CrmCustPosSaleHstDao.selectListCount */ COUNT(1)
+                 FROM CRM_CUST_POS_SALE_HST A
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.CrmCustPosSaleHstVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.cst.dao.CrmCustPosSaleHstDao.selectList */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_POS_SALE_HST A
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.cst.model.CrmCustPosSaleHstVo">
+               SELECT /* com.ceragem.crm.cst.dao.CrmCustPosSaleHstDao.select */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_POS_SALE_HST A
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT /* com.ceragem.crm.cst.dao.CrmCustPosSaleHstDao.insert */ INTO CRM_CUST_POS_SALE_HST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{saleDate}
+                     , #{dealNo}
+                     , #{posNo}
+                     , #{storNo}
+                     , #{dealDivCd}
+                     , #{dealDivNm}
+                     , #{itgCustNo}
+                     , #{buyQnty}
+                     , #{totSaleAmt}
+                     , #{dcAmt}
+                     , #{actsalAmt}
+                     , #{vatAmt}
+                     , #{netsalAmt}
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.cst.dao.CrmCustPosSaleHstDao.update */ CRM_CUST_POS_SALE_HST
+                  SET STOR_NO                                 =         #{storNo}
+                    , DEAL_DIV_CD                             =         #{dealDivCd}
+                    , DEAL_DIV_NM                             =         #{dealDivNm}
+                    , ITG_CUST_NO                             =         #{itgCustNo}
+                    , BUY_QNTY                                =         #{buyQnty}
+                    , TOT_SALE_AMT                            =         #{totSaleAmt}
+                    , DC_AMT                                  =         #{dcAmt}
+                    , ACTSAL_AMT                              =         #{actsalAmt}
+                    , VAT_AMT                                 =         #{vatAmt}
+                    , NETSAL_AMT                              =         #{netsalAmt}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.cst.dao.CrmCustPosSaleHstDao.delete */
+                 FROM CRM_CUST_POS_SALE_HST
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

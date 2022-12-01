@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="N"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+	
+	<column name="통합고객번호" field="itgCustNo" type="char" maxLength="30" width="120" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+	<column name="이름" masking="name" field="custNm" type="char" maxLength="100" width="80" textAlignment="center" required="Y" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="성별" field="gndrCd" type="combo" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" codeId="S040" hidden="N"/>
+    <column name="생년월일" field="birthday" type="date" maxLength="8" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+	<column name="휴대전화번호" masking="phone" field="mphonNo" type="char" maxLength="20" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+	<column name="이메일" masking ="email" field="emailAddr" type="char" maxLength="1000" width="100" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+	<column name="가입매장" field="storNm" type="char" maxLength="30" width="150" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+	<column name="고객상태" field="custStatusCd" type="combo" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" codeId="CU020" hidden="N"/>
+    <column name="고객유형" field="custTypeCd" type="combo" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" codeId="CU030" hidden="N"/>
+	<column name="회원등급" field="mshipGradeCd" type="combo" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" codeId="MB020" hidden="N"/>
+	<column name="추천인고객" field="rcmdrCustNo" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="추천임직원" field="rcmdExecvdempNo" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+	<column name="결혼여부" field="marryYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="가족관계" field="famlyRelCd" type="combo" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" codeId="CU040" hidden="Y"/>
+    <column name="주거평수" field="dwelNfpyCd" type="combo" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" codeId="CU050" hidden="N"/>
+	<column name="SMS수신동의" field="smsRcvAgreeYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+	<column name="이메일수신동의" field="emailRcvAgreeYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+	<column name="알람톡수신동의" field="alrmTkRcvAgreeYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="PUSH수신동의" field="pushRcvAgreeYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="등록일" field="regDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="가입매장" field="rcmdStorNo" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+	<column name="수신거부여부" field="rcvRfslYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="법인구분여부" field="corpDivYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="사업자등록번호" field="bizNo" type="char" maxLength="10" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="법인등록번호" field="corpRegNo" type="char" maxLength="13" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="법인전화번호" field="corpTelNo" type="char" maxLength="20" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="외국인여부" field="fornYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="대표명" field="repNm" type="char" maxLength="100" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="이동전화번호암호화값" field="mphonNoEncVal" type="char" maxLength="1000" width="80" textAlignment="left" required="Y" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="이동전화뒤자리번호" field="mphonBkDgtNo" type="char" maxLength="4" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="담당자명" field="picNm" type="char" maxLength="100" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="담당자이동전화번호" field="picMphonNo" type="char" maxLength="20" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="담당자이동전화뒤자리번호" field="picMphonBkDgtNo" type="char" maxLength="4" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="담당자이메일주소" field="picEmailAddr" type="char" maxLength="1000" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="개인정보유효기간시작일시" field="indiInfoValidPerdStaDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="개인정보유효기간종료일시" field="indiInfoValidPerdEndDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="고객상태변경일시" field="custStatusChngDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="고객정보변경일시" field="custInfoChngDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="고객구분코드" field="custDivCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="우편번호" field="zipCd" type="char" maxLength="5" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="주소1내용" field="addr1Ctnts" type="char" maxLength="1000" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="주소2내용" field="addr2Ctnts" type="char" maxLength="1000" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="대표가구번호" field="repHshldNo" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="관심분야코드" field="intrstFildCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="대표제품번호" field="repGodsNo" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="대표사용고객구분코드" field="repUseCustDivCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="SMS수신동의일시" field="smsRcvAgreeDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="SMS수신동의채널코드" field="smsRcvAgreeChlCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="이메일수신동의일시" field="emailRcvAgreeDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="이메일수신동의채널코드" field="emailRcvAgreeChlCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="알람톡수신동의일시" field="alrmTkRcvAgreeDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="알람톡수신동의채널코드" field="alrmTkRcvAgreeChlCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="PUSH수신동의일시" field="pushRcvAgreeDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="PUSH수신동의채널코드" field="pushRcvAgreeChlCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="CI인증여부" field="ciCertfYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="CI" field="ci" type="char" maxLength="88" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="DI인증여부" field="diCertfYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="DI" field="di" type="char" maxLength="64" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십가입여부" field="mshipSbscYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십로그인ID" field="mshipLoginId" type="char" maxLength="100" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십대체번호" field="mshipSbtNo" type="char" maxLength="14" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십로그인비밀번호" field="mshipLoginPwd" type="char" maxLength="1000" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십최종로그인일시" field="mshipLastLoginDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십최종로그인IP주소" field="mshipLastLoginIpAddr" type="char" maxLength="100" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십최종매장방문일시" field="mshipLastStorVisitDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십최종방문매장번호" field="mshipLastVisitStorNo" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십유형코드" field="mshipTypeCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십가입일시" field="mshipSbscDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십등급변경일시" field="mshipGradeChngDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십정보변경일시" field="mshipInfoChngDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십정보확인자임직원번호" field="mshipInfoConfrExecvdempNo" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="제휴임직원번호" field="cprtExecvdempNo" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="멤버십탈퇴일시" field="mshipLeaveDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="소멸포인트한도점수" field="extncPointLmtScore" type="int" maxLength="30" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="30" place="0" hidden="Y"/>
+    <column name="적립포인트한도점수" field="accumPointLmtScore" type="int" maxLength="30" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="30" place="0" hidden="Y"/>
+    <column name="잔여포인트점수" field="remainPointScore" type="int" maxLength="30" width="80" textAlignment="right" required="N" Pk="N" readOnly="N" defaultValue="" digit="30" place="0" hidden="Y"/>
+    <column name="멤버십채널코드" field="mshipChlCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="블랙등록매장번호" field="bllkRegStorNo" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="블랙회원여부" field="bllkmshpYn" type="checkbox" maxLength="1" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="블랙등록채널코드" field="bllkRegChlCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="블랙등록사유내용" field="bllkRegWhyCtnts" type="char" maxLength="4000" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="블랙등록일시" field="bllkRegDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="수정자ID" field="amdrId" type="char" maxLength="20" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="수정일시" field="amdDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="등록자ID" field="regrId" type="char" maxLength="20" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="등록채널코드" field="regChlCd" type="combo" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" codeId="S000" hidden="Y"/>
+    
+</grid>

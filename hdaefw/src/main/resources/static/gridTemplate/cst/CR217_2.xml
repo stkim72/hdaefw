@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="N"/>
+        <showStateBar value="N"/>
+        <rowSelection value="Y"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+
+    <column name="구분" field="statsTitle" type="char" maxLength="10" textAlignment="center" required="Y" Pk="N" hidden="N"/>
+    <column name="전체" field="totalCnt" type="char" maxLength="10" textAlignment="center" required="Y" Pk="N" hidden="N"/>
+    <column name="남성" field="gndrm" type="char" maxLength="10" textAlignment="center" required="Y" Pk="N" hidden="N"/>
+    <column name="여성" field="gndrf" type="char" maxLength="10" textAlignment="center" required="Y" Pk="N" hidden="N"/>
+    <column name="성별정보 없음" field="gndrn" type="char" maxLength="10" textAlignment="center" required="Y" Pk="N" hidden="N"/>
+</grid>

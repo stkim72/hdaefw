@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="N"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="Y"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+    
+    <column name="소멸일자" field="dt" type="date" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="매장구분" field="storDivCd" type="combo" maxLength="30" width="80" textAlignment="center" required="N"  codeId="ST010" hidden="N"/>
+    <column name="매장번호" field="storNo" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="소멸매장" field="storNm" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="발행구분" field="pblsDivCd" type="char" maxLength="30" width="80" textAlignment="center" required="N" hidden="N"/>
+    <column name="통합고객번호" field="itgCustNo" type="char" maxLength="30" width="100" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="고객명" masking="name" field="custNm" type="char" maxLength="30" width="60" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="회원등급" field="mshipGradeCd" type="combo" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" codeId="MB020" hidden="Y"/>
+    <column name="소멸포인트" field="expirePoint" type="number" maxLength="30" width="80" textAlignment="center" required="N" hidden="N"/>
+</grid>
+

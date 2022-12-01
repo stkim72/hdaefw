@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1>캠페인 대상 - 쿠폰 혜택 선택</h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+    <!-- cont -->
+    <div class="cont">
+
+        <div class="gTitle1 mb10">
+            <h3 class="mTitle1">쿠폰 혜택 선택</h3>
+            <div class="gRt posT-5">
+                <a href="#" class="mBtn1 lGray">승인요청</a>
+                <a href="#" class="mBtn1 lPrimary">정보수정</a>
+            </div>
+        </div>
+        <!-- box -->
+        <div class="mBox1 p5">
+            <!-- sort -->
+            <div class="mSort2 mini"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                <ul>
+                    <li>
+                        <div class="tit">혜택 유형</div>
+                        <div class="txt">
+                            <select class="select" title="혜택 유형">
+                                <option>선택</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="w31per">
+                        <div class="tit">적용 쿠폰</div>
+                        <div class="txt">
+                            <input type="text" class="it" title="적용 쿠폰" placeholder="로그인 매장">
+                        </div>
+                        <span class="button">
+                            <a href="#" class="mBtn1">검색</a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <!-- //sort -->
+            <!-- board -->
+            <div class="mBoard1 pd5 mCustomScrollbar pType1 h370"> 
+                <table>
+                    <caption>캠페인 목록</caption>
+                    <colgroup>
+                        <col span="2" width="3%">
+                        <col width="12%">
+                        <col width="*">
+                        <col span="5" width="10%">
+                        <col width="7%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">NO</th>
+                            <th scope="col">선택</th>
+                            <th scope="col">쿠폰마스터 코드</th>
+                            <th scope="col">쿠폰마스터명</th>
+                            <th scope="col">쿠폰구분</th>
+                            <th scope="col">적용기준</th>
+                            <th scope="col">중복여부</th>
+                            <th scope="col">쿠폰분류</th>
+                            <th scope="col">쿠폰유형</th>
+                            <th scope="col">상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <label class="mCheckbox1 notext">
+                                    <input type="checkbox" title="선택">
+                                    <span class="label">선택</span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td class="left"><a href="#">생일쿠폰</a></td>
+                            <td>적립</td>
+                            <td>정률</td>
+                            <td>중복</td>
+                            <td>증정</td>
+                            <td>음료쿠폰</td>
+                            <td>사용</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- //board -->
+            <!-- paging -->
+            <div class="mPag1 mb0">
+                <div class="mCount1">총 <strong>5</strong>건</div>
+                <span title="처음 리스트" class="first">처음으로</span>
+                <span title="이전 리스트" href="###" class="prev">이전</span>
+                <!-- able 버튼
+                    <a title="처음 리스트" href="###" class="first">처음으로</a>
+                    <a title="이전 리스트" href="###" class="prev">이전</a>
+                -->
+                <a title="현재페이지" href="###" class="active">1</a>
+                <a title="2 페이지" href="###">2</a>
+                <a title="3 페이지" href="###">3</a>
+                <a title="4 페이지" href="###">4</a>
+                <a title="5 페이지" href="###">5</a>
+                <a title="6 페이지" href="###">6</a>
+                <a title="다음 리스트" href="###" class="next">다음</a>
+                <a title="마지막 리스트" href="###" class="last">마지막으로</a>
+                <!-- disabled 버튼
+                    <span title="다음 리스트" class="next">다음</span>
+                    <span title="마지막 리스트" class="last">마지막으로</span>
+                -->
+                <select class="select" title="갯수선택">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                </select>
+            </div>
+            <!-- //paging -->
+        </div>
+        <!-- //box -->
+        
+    </div>
+    <!-- //cont -->
+	
+</div>
+
+</body>
+</html>

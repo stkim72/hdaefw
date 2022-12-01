@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="Y"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+    
+    <!-- <column name="사용및적립일시" field="dt" type="char" maxLength="30" width="50" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/> -->
+    <column name="적립일시" field="accumDt" type="datetime" width="60" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="스탬프명" field="stmpBasNm" type="char" maxLength="100" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="1판당 스탬프 수" field="stmpQnty" type="char" maxLength="30" width="30" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="적립회수" field="stmpAccumQnty" type="char" maxLength="30" width="30" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="발행회수" field="issueCnt" type="char" maxLength="30" width="30" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="발급상태" field="accumStatus" type="char" maxLength="50" width="40" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="사용및적립매장" field="storNm" type="char" maxLength="30" width="60" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="발급자" field="regrId" type="char" maxLength="30" width="50" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/><!-- 22.11.8 발급자 추가 -->
+    <column name="채널" field="chlNm" type="char" maxLength="60" width="50" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    
+    
+    
+    <!-- <column name="스탬프코드" field="mshipStmpBasNo" type="char" maxLength="80" width="80" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="스탬프명" field="stmpBasNm" type="char" maxLength="100" width="100" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="스탬프 발행번호" field="stmpHstSeq" type="char" maxLength="80" width="80" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="발생일시" field="accumDt" type="datetime" maxLength="90" width="90" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="채널" field="chlNm" type="char" maxLength="60" width="60" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="발생장소" field="storNm" type="char" maxLength="100" width="100" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="적립유형" field="stmpTypeNm" type="char" maxLength="40" width="40" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="통합고객번호" field="itgCustNo" type="char" maxLength="90" width="90" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="회원명" field="custNm" type="char" maxLength="60" width="60" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="판수" field="stmpMaxCnt" type="char" maxLength="30" width="30" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="1판당 스탬프 수" field="stmpQnty" type="char" maxLength="30" width="30" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="적립회수" field="stmpAccumQnty" type="char" maxLength="30" width="30" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="발행회수" field="issueCnt" type="char" maxLength="30" width="30" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/> -->
+    
+    <!-- 변경전 -->
+    <!--
+    <column name="적립일시" field="accumDt" type="char" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="통합고객번호" field="itgCustNo" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="구분" field="useTypeCd" type="combo" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" codeId="PO010" hidden="Y"/>
+    <column name="스탬프명" field="stmpBasNm" type="char" maxLength="100" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="스탬프적립수량" field="stmpAccumQnty" type="number" maxLength="20" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" digit="20" place="0" hidden="N"/>
+    <column name="사용및적립매장" field="storNm" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="채널" field="storChlCd" type="combo" maxLength="50" width="50" textAlignment="center" required="N" codeId="ST040" hidden="N"/>
+    -->
+</grid>

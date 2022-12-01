@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="N"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="Y"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/> 
+    </meta>
+    <column name="No." field="userNum" type="char" maxLength="20" width="0" textAlignment="center" required="N" hidden="Y" readOnly="Y"/>
+    <column name="사용자명" field="userName" type="char" maxLength="20" width="20" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    <column name="사용자 ID" field="loginId" type="char" maxLength="20" width="40" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    <column name="전화번호" field="userPhoneNumber" type="char" maxLength="100" width="40" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    <column name="이메일" field="userEmail" type="char" maxLength="100" width="60" textAlignment="left" required="N" hidden="N" readOnly="Y"/>
+    <column name="성별" field="userGender" type="char" maxLength="100" width="10" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    <column name="생년월일" field="userBirth" type="char" maxLength="20" width="40" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    <column name="등록일시" field="createdAt" type="char" maxLength="20" width="40" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    
+</grid>

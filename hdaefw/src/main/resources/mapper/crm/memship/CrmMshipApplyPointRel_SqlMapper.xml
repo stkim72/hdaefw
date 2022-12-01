@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.memship.dao.CrmMshipApplyPointRelDao">
+    <sql id="sqlPkConditions">
+                WHERE EVENT_POINT_BAS_NO=       #{eventPointBasNo}
+    </sql>
+    <sql id="sqlCols">
+                      EVENT_POINT_BAS_NO                    /*이벤트포인트기본번호        */
+                    , EVENT_COMN_CD                    /*이벤트공통코드        */
+                    , MSHIP_PLCY_BAS_NO                    /*멤버십정책기본번호        */
+                    , ACCUM_POINT_SCORE                    /*적립포인트점수        */
+                    , TOT_APPNT_CNT                    /*총지정수        */
+                    , DAY_APPNT_CNT                    /*일지정수        */
+                    , MONTH_APPNT_CNT                    /*월지정수        */
+                    , VALID_PERD                    /*유효기간        */
+                    , GIFT_POSS_YN                    /*선물가능여부        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.EVENT_POINT_BAS_NO                    /*이벤트포인트기본번호        */
+                    , B.COMN_CD EVENT_COMN_CD                    /*이벤트공통코드        */
+                    , A.MSHIP_PLCY_BAS_NO                    /*멤버십정책기본번호        */
+                    , A.ACCUM_POINT_SCORE                    /*적립포인트점수        */
+                    , A.TOT_APPNT_CNT                    /*총지정수        */
+                    , A.DAY_APPNT_CNT                    /*일지정수        */
+                    , A.MONTH_APPNT_CNT                    /*월지정수        */
+                    , VALID_PERD                    /*유효기간        */
+                    , A.GIFT_POSS_YN                    /*선물가능여부        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYY.MM.DD')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYY.MM.DD')    REG_DT                    /*등록일시        */
+                    , B.COMN_CD_NM
+                    , B.TOP_COMN_CD TOP_COMN_CD2
+                    , B.COMN_CD COMN_CD2
+    </sql>
+    <sql id="sqlConditions">
+                WHERE ( B.TOP_COMN_CD = 'EV100' AND B.PRNTS_COMN_CD = 'EV100' ) 
+                  AND B.COMN_CD_2_USE_YN='Y' 
+        <if test="eventPointBasNo != null and eventPointBasNo != ''">
+                  AND A.EVENT_POINT_BAS_NO=       #{eventPointBasNo}
+        </if>
+        
+        <if test="eventComnCd != null and eventComnCd != ''">
+            <choose>
+                <when test="eventComnCd instanceof String">
+                    AND A.EVENT_COMN_CD   =       #{eventComnCd}
+                </when>
+                <otherwise>
+                    AND A.EVENT_COMN_CD   IN
+                    <foreach item="item" index="index" collection="eventComnCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+       
+      <!--   <if test="mshipPlcyBasNo != null and mshipPlcyBasNo != ''">
+                AND ( A.MSHIP_PLCY_BAS_NO=       #{mshipPlcyBasNo}  )
+        </if> -->
+       
+        <if test="accumPointScore != null and accumPointScore != ''">
+                  AND A.ACCUM_POINT_SCORE=       #{accumPointScore}
+        </if>
+        <if test="totAppntCnt != null and totAppntCnt != ''">
+                  AND A.TOT_APPNT_CNT   =       #{totAppntCnt}
+        </if>
+        <if test="dayAppntCnt != null and dayAppntCnt != ''">
+                  AND A.DAY_APPNT_CNT   =       #{dayAppntCnt}
+        </if>
+        <if test="monthAppntCnt != null and monthAppntCnt != ''">
+                  AND A.MONTH_APPNT_CNT =       #{monthAppntCnt}
+        </if>
+        <if test="giftPossYn != null and giftPossYn != ''">
+                  AND A.GIFT_POSS_YN    =       #{giftPossYn}
+        </if>
+    </sql>
+    <sql id="sqlOrderBy">
+    
+      ORDER BY EVENT_COMN_CD
+      
+       <!--  <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('eventPointBasNo')">
+                ORDER BY      EVENT_POINT_BAS_NO
+            </when>
+            <when test="colSortName.equals('eventComnCd')">
+                ORDER BY      EVENT_COMN_CD
+            </when>
+            <when test="colSortName.equals('coupnTypeCd')">
+                ORDER BY      COUPN_TYPE_CD
+            </when>
+            <when test="colSortName.equals('mshipPlcyBasNo')">
+                ORDER BY      MSHIP_PLCY_BAS_NO
+            </when>
+            <when test="colSortName.equals('mshipCoupnBasNo')">
+                ORDER BY      MSHIP_COUPN_BAS_NO
+            </when>
+            <when test="colSortName.equals('accumPointScore')">
+                ORDER BY      ACCUM_POINT_SCORE
+            </when>
+            <when test="colSortName.equals('totAppntCnt')">
+                ORDER BY      TOT_APPNT_CNT
+            </when>
+            <when test="colSortName.equals('dayAppntCnt')">
+                ORDER BY      DAY_APPNT_CNT
+            </when>
+            <when test="colSortName.equals('monthAppntCnt')">
+                ORDER BY      MONTH_APPNT_CNT
+            </when>
+            <when test="colSortName.equals('giftPossYn')">
+                ORDER BY      GIFT_POSS_YN
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose> -->
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.memship.dao.CrmMshipApplyPointRelDao.selectListCount */ COUNT(1)
+                 FROM CRM_COMN_CD_BAS B
+                 LEFT JOIN CRM_MSHIP_APPLY_POINT_REL A ON 
+				(
+                   A.EVENT_COMN_CD = B.COMN_CD 
+                   <if test="mshipPlcyBasNo != null and mshipPlcyBasNo != ''">
+			                  AND  A.MSHIP_PLCY_BAS_NO=       #{mshipPlcyBasNo}  
+			        </if>
+                  )
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.memship.model.CrmMshipApplyPointRelVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.memship.dao.CrmMshipApplyPointRelDao.selectList */ <include refid="sqlSelectCols"/>
+                FROM CRM_COMN_CD_BAS B
+                 LEFT JOIN CRM_MSHIP_APPLY_POINT_REL A ON 
+				(
+                   A.EVENT_COMN_CD = B.COMN_CD 
+                   <if test="mshipPlcyBasNo != null and mshipPlcyBasNo != ''">
+			                  AND  A.MSHIP_PLCY_BAS_NO=       #{mshipPlcyBasNo}  
+			        </if>
+                  )
+                  
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.memship.model.CrmMshipApplyPointRelVo">
+               SELECT /* com.ceragem.crm.memship.dao.CrmMshipApplyPointRelDao.select */ <include refid="sqlSelectCols"/>
+                FROM CRM_COMN_CD_BAS B
+                 LEFT JOIN CRM_MSHIP_APPLY_POINT_REL A ON
+                  (
+                   A.EVENT_COMN_CD = B.COMN_CD 
+                   <if test="mshipPlcyBasNo != null and mshipPlcyBasNo != ''">
+			                  AND  A.MSHIP_PLCY_BAS_NO=       #{mshipPlcyBasNo}  
+			        </if>
+                  )
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT INTO /* com.ceragem.crm.memship.dao.CrmMshipApplyPointRelDao.insert */ CRM_MSHIP_APPLY_POINT_REL (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                      NVL(#{eventPointBasNo}, FN_CRM_AUTO_SEQ('EPB') )
+                     , #{eventComnCd}
+                     , #{mshipPlcyBasNo}
+                     , #{accumPointScore}
+                     , #{totAppntCnt}
+                     , #{dayAppntCnt}
+                     , #{monthAppntCnt}
+                     , #{validPerd}        
+                     , NVL(#{giftPossYn},'N')
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.memship.dao.CrmMshipApplyPointRelDao.update */ CRM_MSHIP_APPLY_POINT_REL
+                  SET EVENT_COMN_CD                           =         #{eventComnCd}
+                    , MSHIP_PLCY_BAS_NO                       =         #{mshipPlcyBasNo}
+                    , ACCUM_POINT_SCORE                       =         #{accumPointScore}
+                    , TOT_APPNT_CNT                           =         #{totAppntCnt}
+                    , DAY_APPNT_CNT                           =         #{dayAppntCnt}
+                    , MONTH_APPNT_CNT                         =         #{monthAppntCnt}
+                    , VALID_PERD                              =         #{validPerd}
+                    , GIFT_POSS_YN                            =         NVL(#{giftPossYn},'N')
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.memship.dao.CrmMshipApplyPointRelDao.delete */  FROM CRM_MSHIP_APPLY_POINT_REL
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

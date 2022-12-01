@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/Chart.min.js"></script>
+<script type="text/javascript" src="js/chartjs-plugin-labels.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+    
+    <!-- grid -->
+    <div class="mGrid4">
+        <!-- 공지사항 -->
+        <div class="col mNotice1">
+            <h3 class="mTitle2">공지사항</h3>
+            <ul>
+                <li>
+                    <a href="#" class="tit">
+                        <span class="n">1</span> 
+                        <strong class="txtRed">[긴급]</strong> 일반공지 사항입니다.
+                    </a>
+                    <a href="#" class="iAttach1">첨부파일</a>
+                    <div class="dat">2022-12-12   00:00</div>
+                </li>
+                <li>
+                    <a href="#" class="tit">
+                        <span class="n">2</span> 
+                        <strong class="txtRed">[긴급]</strong> 일반공지 사항입니다.
+                    </a>
+                    <a href="#" class="iAttach1">첨부파일</a>
+                    <div class="dat">2022-12-12   00:00</div>
+                </li>
+                <li>
+                    <a href="#" class="tit">
+                        <span class="n">3</span> 
+                        <strong>[일반]</strong> 일반공지 사항입니다.
+                    </a>
+                    <div class="dat">2022-12-12   00:00</div>
+                </li>
+                <li>
+                    <a href="#" class="tit">
+                        <span class="n">4</span> 
+                        <strong>[일반]</strong> 일반공지 사항입니다.
+                    </a>
+                    <div class="dat">2022-12-12   00:00</div>
+                </li>
+                <li>
+                    <a href="#" class="tit">
+                        <span class="n">5</span> 
+                        <strong>[일반]</strong> 일반공지 사항입니다.
+                    </a>
+                    <div class="dat">2022-12-12   00:00</div>
+                </li>
+                <li>
+                    <a href="#" class="tit">
+                        <span class="n">6</span> 
+                        <strong>[일반]</strong> 일반공지 사항입니다.
+                    </a>
+                    <div class="dat">2022-12-12   00:00</div>
+                </li>
+                <li>
+                    <a href="#" class="tit">
+                        <span class="n">7</span> 
+                        <strong>[일반]</strong> 일반공지 사항입니다.
+                    </a>
+                    <div class="dat">2022-12-12   00:00</div>
+                </li>
+            </ul>
+        </div>
+        <!-- //공지사항 -->
+
+        <!-- 고객여정 20221020 수정-->
+        <div class="col chart-map">
+            <h3 class="mTitle2">고객여정</h3>
+            <div>
+                <div class="float-l custom-width">등급<br>점수</div>
+                <div class="float-l map-bg with90">
+                    <div class="chart-map-con">
+                        <div class="height-h2 ml6">
+                          <div class="rectangle rec6"><span class="result-number">0</span>명(0%)</div>
+                        </div>
+                        <div class="height-h ml5">
+                            <div class="rectangle rec5"><span class="result-number">0</span>명(0%)</div>
+                        </div>
+                        <div class="height-h ml4">
+                          <div class="rectangle rec4"><span class="result-number">496,795</span>명(35%)</div>
+                        </div>
+                        <div class="height-h ml3">
+                            <div class="rectangle rec3"><span class="result-number">272,485</span>명(19%)</div>
+                        </div>
+                        <div class="height-h ml2">
+                          <div class="rectangle rec2"><span class="result-number">181,794</span>명(13%)</div>
+                        </div>
+                        <div class="height-h">
+                            <div class="rectangle rec1"><span class="result-number">474,739</span>명(50%)</div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div>
+                        <div class="label-item type-gray">잠재고객</div>
+                        <div class="label-item type-gray">가망고객</div>
+                        <div class="label-item type-gray">체험고객</div>
+                        <div class="label-item type-red">구매고객</div>
+                        <div class="label-item type-black">추천고객</div>
+                        <div class="label-item type-black">충성고객</div>
+                    </div>   
+                </div>
+                <div class="float-r custom-width align-top-r">고객<br>유형</div>  
+                <div class="clear"></div>
+            </div> 
+        </div>
+        <!-- //고객여정-->
+
+        <!-- 쿠폰사용 현황 -->
+        <div class="col mGraph3">
+            <h3 class="mTitle2 mb0">쿠폰사용 현황</h3>
+            <!-- graph -->
+            <div class="graph">
+                <canvas id="chart1" width="330" height="210"></canvas>
+                <div class="label lt">
+                    <strong class="ti">사용</strong>
+                    <div class="tx4">200,000</div>
+                    <div class="tx4">150,000</div>
+                    <div class="tx3">100,000</div>
+                    <div class="tx2">50,000</div>
+                    <div class="tx1">0</div>
+                </div>
+                <div class="label rt">
+                    <strong class="ti">발행</strong>
+                    <div class="tx4">200,000</div>
+                    <div class="tx4">150,000</div>
+                    <div class="tx3">100,000</div>
+                    <div class="tx2">50,000</div>
+                    <div class="tx1">0</div>
+                </div>
+            </div>
+            <script>
+                var chart1 = document.getElementById("chart1").getContext("2d");
+                var chart1 = new Chart(chart1, {
+                    type: 'line',
+                    data: {
+                        labels: ['', '1월 20일 월', '1월 21일 화', '1월 22일 수', '1월 23일 목', '1월 24일 금', '1월 25일 토', ''],
+                        datasets: [{
+                            label: '발행',
+                            data: [,0,7500,10000,12500,11000,16500,9000,],
+                            borderColor: "rgba(171, 171, 171, 1)",
+                            backgroundColor: "rgba(171, 171, 171, 1)",
+                            fill: false,
+                            lineTension: 0,
+                            borderWidth: 1,
+                            pointRadius: 2,
+                        },{
+                            label: '사용',
+                            data: [,4000,5100,7500,9000,8000,3500,,],
+                            borderColor: "rgba(251, 203, 203, 1)",
+                            backgroundColor: "rgba(251, 203, 203, 1)",
+                            fill: false,
+                            lineTension: 0,
+                            borderWidth: 1,
+                            pointRadius: 2,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAxes: [{
+                                barPercentage: 0.2,
+                                gridLines : {
+                                    display : false
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    min: 0,
+                                    max: 20000,
+                                    stepSize: 5000
+                                }
+                            }]
+                        },
+                        maintainAspectRatio: false,
+                        tooltips: {
+                            mode: 'index',
+                            intersect: true
+                        }
+                    }
+                });
+            </script>
+            <!--./graph-->
+        </div>
+        <!-- //쿠폰사용 현황 -->
+    </div>
+    <!-- //grid -->
+    
+    <!-- grid -->
+    <div class="mGrid4 type2">
+        <!-- 주간 멤버십 신규회원 가입현황 -->
+        <div class="col">
+            <div class="gTitle2">
+                <h3 class="mTitle2">주간 멤버십 신규회원 가입현황</h3>
+                <div class="rt">전체회원 : 000명</div>
+            </div>
+            <!-- graph -->
+            <div class="graph">
+                <canvas id="chart2" width="330" height="230"></canvas>
+                <script type="text/javascript">
+                    var chart2 = document.getElementById('chart2');
+                    var chart2 = new Chart(chart2, {
+                        type: 'bar',
+                        data: {
+                            labels: ['12/12 일', '12/12 월', '12/12 화', '12/12 수', '12/12 목', '12/12 금', '12/12 토'],
+                            datasets: [{
+                                    type: 'bar',
+                                    label: '금주',
+                                    backgroundColor: 'rgba(171, 171, 171, 1)',
+                                    borderColor: 'rgba(171, 171, 171, 1)',
+                                    borderWidth: 0,
+                                    data: [400, 200, 250, 250, 250, 250, 800],
+                                },
+                                {
+                                    type: 'bar',
+                                    label: '전주',
+                                    backgroundColor: 'rgba(251, 203, 203, 1)',
+                                    borderColor: 'rgba(251, 203, 203, 1)',
+                                    borderWidth: 0,
+                                    data: [750, 200, 650, 650, 650, 650, 900],
+                                }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                xAxes: [{
+                                    gridLines : {
+                                        display : false
+                                    }
+                                }],
+                                yAxes: [{
+					                ticks: {
+                                        min: 0,
+                                        max: 1500,
+                                        stepSize: 500,
+                                        userCallback(value, index, values) {
+                                            return value.toLocaleString()
+                                        }
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                </script>
+            </div>
+            <!-- //graph -->
+        </div>
+        <!-- //주간 멤버십 신규회원 가입현황 -->
+        <!-- 주간 통합고객  신규등록 비율 20221025 수정-->
+        <div class="col">
+            <div class="gTitle2">
+                <h3 class="mTitle2">주간 통합고객  신규등록 비율</h3>
+                <div class="rt">전체회원 : 000명</div>
+            </div>
+            <!-- graph -->
+            <div class="graph flex">
+                <div class="co">
+                    <div class="ti">금주</div>
+                    <canvas id="chart3" width="200" height="190"></canvas>
+                    <script type="text/javascript">
+                        var chart3 = document.getElementById('chart3');
+                        var chart3 = new Chart(chart3, {
+                            type: 'doughnut', 
+                            data: {
+                                labels: ['멤버십', '세라체크', '상담', 'IoT', 'AS', '세라체크DNA', '월카페(POS)', '보모님연구소', 'BOS'],
+                                datasets: [{
+                                    data: [19, 20, 26, 13, 10, 1, 1, 1, 1],
+                                    backgroundColor: [
+                                        'rgba(255, 242, 198, 1)', 
+                                        'rgba(255, 231, 231, 1)', 
+                                        'rgba(229, 229, 233, 1)', 
+                                        'rgba(255, 203, 203, 1)', 
+                                        'rgba(193, 193, 193, 1)', 
+                                        'rgba(255, 174, 148, 1)', 
+                                        'rgba(201, 234, 255, 1)', 
+                                        'rgba(255, 207, 235, 1)', 
+                                        'rgba(255, 255, 255, 1)'
+                                    ]
+                                }] 
+                            },
+                            options: {
+                                    responsive: false,
+                                    legend: {
+                                        display: false
+                                    },
+                                }
+                            }); 
+                    </script>
+                </div>
+                <div class="co">
+                    <div class="ti">전주</div>
+                    <canvas id="chart4" width="200" height="190"></canvas>
+                    <script type="text/javascript">
+                        var chart4 = document.getElementById('chart4');
+                        var chart4 = new Chart(chart4, {
+                            type: 'doughnut', 
+                            data: {
+                                labels: ['멤버십', '세라체크', '상담', 'IoT', 'AS', '세라체크DNA', '월카페(POS)', '보모님연구소', 'BOS'],
+                                datasets: [{
+                                    data: [13, 20, 26, 13, 7, 4, 4, 4, 1],
+                                    backgroundColor: [
+                                        'rgba(255, 242, 198, 1)', 
+                                        'rgba(255, 231, 231, 1)', 
+                                        'rgba(229, 229, 233, 1)', 
+                                        'rgba(255, 203, 203, 1)', 
+                                        'rgba(193, 193, 193, 1)', 
+                                        'rgba(255, 174, 148, 1)', 
+                                        'rgba(201, 234, 255, 1)', 
+                                        'rgba(255, 207, 235, 1)', 
+                                        'rgba(255, 255, 255, 1)'
+                                    ]
+                                }] 
+                            },
+                            options: {
+                                responsive: false,
+                                legend: {
+                                    display: false
+                                },
+                            }
+                        }); 
+                    </script>
+                </div>
+                <!-- 20221026 수정-->
+                <div class="label type2">
+                    <table class="table-con">
+                        <thead >
+                            <th width="140px"></th>
+                            <th width="3px"></th>
+                            <th width="140px"></th>
+                        </thead>
+                        <tbody >
+                          <tr>
+                            <td class="ta-bg1">상담</td>
+                            <td></td>
+                            <td class="ta-bg2">멤버십</td>
+                          </tr>
+                          <tr>
+                            <td colspan="3" class="ta-h"></td>
+                          </tr>
+                          <tr>
+                              <td class="ta-bg3">세라체크</td>
+                              <td></td>
+                              <td class="ta-bg4">BOS</td>
+                          </tr>
+                          <tr>
+                            <td colspan="3" class="ta-h"></td>
+                          </tr>
+                          <tr>
+                              <td class="ta-bg5">세라DNA</td>
+                              <td></td>
+                              <td class="ta-bg6">IoT</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="ta-h"></td>
+                              </tr>
+                            <tr>
+                                <td class="ta-bg7">POS</td>
+                                <td></td>
+                                <td class="ta-bg8">부모님연구소</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="ta-h"></td>
+                              </tr>
+                            <tr>
+                              <td class="ta-bg9">AS</td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                        </tbody>
+                      </table>
+                </div>
+                 <!-- //20221026 수정-->
+            </div>
+            <!-- //graph -->
+        </div>
+        <!-- //주간 통합고객  신규등록 비율 -->
+    </div>
+    <!-- //grid -->
+	
+    <!-- 구매건수 -->
+    <div class="mGrid4">
+        <div class="col h260">
+            <div class="gTitle2">
+                <h3 class="mTitle2">구매건수</h3>
+            </div>
+            <!-- graph -->
+            <div class="graph">
+                <canvas id="chart5" width="100%" height="180"></canvas>
+                <script type="text/javascript">
+                    var chart5 = document.getElementById('chart5');
+                    var chart5 = new Chart(chart5, {
+                        type: 'bar',
+                        data: {
+                            labels: ['12/12 일', '12/12 월', '12/12 화', '12/12 수', '12/12 목', '12/12 금', '12/12 토'],
+                            datasets: [{
+                                    type: 'bar',
+                                    label: '금주',
+                                    backgroundColor: 'rgba(171, 171, 171, 1)',
+                                    borderColor: 'rgba(171, 171, 171, 1)',
+                                    borderWidth: 0,
+                                    data: [400, 200, 250, 250, 250, 250, 800],
+                                },
+                                {
+                                    type: 'bar',
+                                    label: '전주',
+                                    backgroundColor: 'rgba(251, 203, 203, 1)',
+                                    borderColor: 'rgba(251, 203, 203, 1)',
+                                    borderWidth: 0,
+                                    data: [750, 200, 650, 650, 650, 650, 900],
+                                }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                xAxes: [{
+                                    barPercentage: 0.4,
+                                    gridLines : {
+                                        display : false
+                                    }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                        max: 1500,
+                                        stepSize: 500,
+                                        userCallback(value, index, values) {
+                                            return value.toLocaleString()
+                                        }
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                </script>
+            </div>
+            <!-- //graph -->
+        </div>
+    </div>
+    <!-- //구매건수 -->
+
+</body>
+</html>

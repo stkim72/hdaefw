@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.camp.dao.CrmCampDspHstDao">
+    <sql id="sqlPkConditions">
+    </sql>
+    <sql id="sqlCols">
+                      CAMP_DSP_HST_SEQ                    /*캠페인발송이력일련번호        */
+                    , ITG_CUST_NO                    /*통합고객번호        */
+                    , CAMP_TGT_GRP_BAS_NO                    /*캠페인대상그룹기본번호        */
+                    , CAMP_BAS_NO                    /*캠페인기본번호        */
+                    , CUST_NM                    /*고객명        */
+                    , MPHON_NO                    /*이동전화번호        */
+                    , EMAIL_ADDR                    /*이메일주소        */
+                    , DSP_CHL_CD                    /*발송채널코드        */
+                    , DSP_YMDHMS                    /*발송년월일시분초        */
+                    , CHL_ERR_YN                    /*채널오류여부        */
+                    , DR_RSPN_CD                    /*직접반응코드        */
+                    , DR_RSPN_COLLCT_YMDHMS                    /*직접반응수집년월일시분초        */
+                    , INDIR_RSPN_CD                    /*간접반응코드        */
+                    , INDIR_RSPN_COLLCT_YMDHMS                    /*간접반응수집년월일시분초        */
+                    , USE_CHL_CD                    /*사용채널코드        */
+                    , CHIT_NO                    /*전표번호        */
+                    , BUY_GODS_NO                    /*구매제품번호        */
+                    , PAY_AMT                    /*결제금액        */
+                    , APPLY_AMT                    /*적용금액        */
+                    , ORDR_AMT                    /*주문금액        */
+                    , PBLS_DIV_CD                    /*발행구분코드        */
+                    , OCCUR_POINT_SCORE                    /*발생포인트점수        */
+                    , POINT_VALID_PERD                    /*포인트유효기간        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS , BOS : BOS , MEM : 멤버십 , CERA : 세라체크 , DNA : 세라DNA , IoT : IoT]*/
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REG_DT                    /*등록일시        */
+                    , APPLY_POINT_STA_YMD                    /*포인트유효기간시작년월일        */
+                    , APPLY_POINT_END_YMD                    /*포인트유효기간종료년월일        */
+                    , COUPN_BAS_NO                    /*쿠폰마스터번호        */
+                    , COUPN_ISSUE_CNT                    /*쿠폰발급수        */
+    </sql>
+    <sql id="sqlSelectCols">
+    
+    			
+                      A.CAMP_DSP_HST_SEQ                    /*캠페인발송이력일련번호        */
+                    , A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.CAMP_TGT_GRP_BAS_NO                    /*캠페인대상그룹기본번호        */
+                    , A.CAMP_BAS_NO                    /*캠페인기본번호        */
+                    
+                    ,  A.CUST_NM   /*고객명        */  
+                    ,  A.CUST_NM ORG_CUST_NM  /*고객명        */                    
+                    ,  A.MPHON_NO  /*이동전화번호        */
+                    ,  A.EMAIL_ADDR   /* 고객명        */
+ 					
+                    , A.DSP_CHL_CD                    /*발송채널코드        */
+                    , A.DSP_YMDHMS                    /*발송년월일시분초        */
+                    , A.CHL_ERR_YN                    /*채널오류여부        */
+                    , A.DR_RSPN_CD                    /*직접반응코드        */
+                    , A.DR_RSPN_COLLCT_YMDHMS                    /*직접반응수집년월일시분초        */
+                    , A.INDIR_RSPN_CD                    /*간접반응코드        */
+                    , A.INDIR_RSPN_COLLCT_YMDHMS                    /*간접반응수집년월일시분초        */
+                    , A.USE_CHL_CD                    /*사용채널코드        */
+                    , A.CHIT_NO                    /*전표번호        */
+                    , A.BUY_GODS_NO                    /*구매제품번호        */
+                    , A.PAY_AMT                    /*결제금액        */
+                    , A.APPLY_AMT                    /*적용금액        */
+                    , A.ORDR_AMT                    /*주문금액        */
+                    , A.PBLS_DIV_CD                    /*발행구분코드        */
+                    , A.OCCUR_POINT_SCORE                    /*발생포인트점수        */
+                    , A.POINT_VALID_PERD                    /*포인트유효기간        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , A.REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS , BOS : BOS , MEM : 멤버십 , CERA : 세라체크 , DNA : 세라DNA , IoT : IoT]*/
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , A.AMD_DT                  /*수정일시        */
+                    , A.REG_DT                /*등록일시        */
+                    , A.APPLY_POINT_STA_YMD                    /*포인트유효기간시작년월일        */
+                    , A.APPLY_POINT_END_YMD                    /*포인트유효기간종료년월일        */
+                    , A.COUPN_BAS_NO                    /*쿠폰마스터번호        */
+                    , A.COUPN_ISSUE_CNT                    /*쿠폰발급수        */
+                   <!--  , (SELECT DECODE( Z023_DUMMY1, '02', 'SMS', '04', 'LMS', '06', 'BARCODE', '07', 'PUSH' )  FROM EON.WSOMZ023   WHERE  TO_CHAR( Z023_SEQ ) = B.DSP_CTNT_TYPE_NO  AND Z023_USRID IN ( 'crm_1', 'EONSMSEMTC' ) ) DSP_TYPE -->
+                    , B.CAMP_BAS_NM
+             
+    </sql>
+    
+    
+    <sql id="sqlSelectCols2">
+    
+    			
+                      A.CAMP_DSP_HST_SEQ                    /*캠페인발송이력일련번호        */
+                    , A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.CAMP_TGT_GRP_BAS_NO                    /*캠페인대상그룹기본번호        */
+                    , A.CAMP_BAS_NO                    /*캠페인기본번호        */
+                    
+                    , FN_DEC_DATA( A.CUST_NM , 'N' ) CUST_NM  /*고객명        */  
+                    , A.ORG_CUST_NM  /*고객명        */                    
+                    , FN_DEC_DATA( A.MPHON_NO , 'H' ) MPHON_NO  /*이동전화번호        */
+                    , FN_DEC_DATA( A.EMAIL_ADDR , 'E') EMAIL_ADDR  /* 고객명        */
+ 					
+                    , A.DSP_CHL_CD                    /*발송채널코드        */
+                    , A.DSP_YMDHMS                    /*발송년월일시분초        */
+                    , A.CHL_ERR_YN                    /*채널오류여부        */
+                    , A.DR_RSPN_CD                    /*직접반응코드        */
+                    , A.DR_RSPN_COLLCT_YMDHMS                    /*직접반응수집년월일시분초        */
+                    , A.INDIR_RSPN_CD                    /*간접반응코드        */
+                    , A.INDIR_RSPN_COLLCT_YMDHMS                    /*간접반응수집년월일시분초        */
+                    , A.USE_CHL_CD                    /*사용채널코드        */
+                    , A.CHIT_NO                    /*전표번호        */
+                    , A.BUY_GODS_NO                    /*구매제품번호        */
+                    , A.PAY_AMT                    /*결제금액        */
+                    , A.APPLY_AMT                    /*적용금액        */
+                    , A.ORDR_AMT                    /*주문금액        */
+                    , A.PBLS_DIV_CD                    /*발행구분코드        */
+                    , A.OCCUR_POINT_SCORE                    /*발생포인트점수        */
+                    , A.POINT_VALID_PERD                    /*포인트유효기간        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , A.REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS , BOS : BOS , MEM : 멤버십 , CERA : 세라체크 , DNA : 세라DNA , IoT : IoT]*/
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , A.APPLY_POINT_STA_YMD                    /*포인트유효기간시작년월일        */
+                    , A.APPLY_POINT_END_YMD                    /*포인트유효기간종료년월일        */
+                    , A.COUPN_BAS_NO                    /*쿠폰마스터번호        */
+                    , A.COUPN_ISSUE_CNT                    /*쿠폰발급수        */
+                   <!--  , (SELECT DECODE( Z023_DUMMY1, '02', 'SMS', '04', 'LMS', '06', 'BARCODE', '07', 'PUSH' )  FROM EON.WSOMZ023   WHERE  TO_CHAR( Z023_SEQ ) = B.DSP_CTNT_TYPE_NO  AND Z023_USRID IN ( 'crm_1', 'EONSMSEMTC' ) ) DSP_TYPE -->
+                    , A.CAMP_BAS_NM
+             
+    </sql>
+    
+    <sql id="sqlConditions">
+        <where>
+        
+         <if test="hstStaYmd != null and hstStaYmd != '' and hstEndYmd == null and hstEndYmd == ''">
+                  AND TO_CHAR( TO_DATE( A.REG_DT, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDD')  <![CDATA[>=]]>      #{hstStaYmd}
+        </if>
+        
+        <if test="hstStaYmd == null and hstStaYmd == '' and campEndYmd != null and hstEndYmd != ''">
+                  AND TO_CHAR( TO_DATE( A.REG_DT, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDD')  <![CDATA[<=]]>   #{hstEndYmd}
+        </if>
+        
+        <if test="hstStaYmd != null and hstStaYmd != '' and hstEndYmd  != null and hstEndYmd != '' ">
+                  AND ( TO_CHAR( TO_DATE( A.REG_DT, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDD')   <![CDATA[>=]]>   #{hstStaYmd}  AND TO_CHAR( TO_DATE( A.REG_DT, 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDD')  <![CDATA[<=]]>  #{hstEndYmd} )
+        </if>
+        
+        
+          <if test=" dspType != ''  and dspType != null  ">
+                AND DSP_TYPE = #{dspType}
+         </if>
+         
+              <if test=" campBasNm != ''  and campBasNm != null  ">
+                AND CAMP_BAS_NM LIKE '%'|| #{campBasNm} ||'%'
+         </if>
+        
+        
+            <if test="campDspHstSeq != null and campDspHstSeq != ''">
+                      AND A.CAMP_DSP_HST_SEQ=       #{campDspHstSeq}
+            </if>
+            <if test="itgCustNo != null and itgCustNo != ''">
+                      AND A.ITG_CUST_NO     =       #{itgCustNo}
+            </if>
+            <if test="campTgtGrpBasNo != null and campTgtGrpBasNo != ''">
+                      AND A.CAMP_TGT_GRP_BAS_NO=       #{campTgtGrpBasNo}
+            </if>
+            <if test="campBasNo != null and campBasNo != ''">
+                      AND A.CAMP_BAS_NO     =       #{campBasNo}
+            </if>
+            <if test="custNm != null and custNm != ''">
+                      AND A.ORG_CUST_NM         =       #{custNm}
+            </if>
+            <if test="mphonNo != null and mphonNo != ''">
+                      AND A.MPHON_NO        =       #{mphonNo}
+            </if>
+            <if test="emailAddr != null and emailAddr != ''">
+                      AND A.EMAIL_ADDR      =       #{emailAddr}
+            </if>
+            <if test="dspChlCd != null and dspChlCd != ''">
+                <choose>
+                    <when test="dspChlCd instanceof String">
+                        AND A.DSP_CHL_CD      =       #{dspChlCd}
+                    </when>
+                    <otherwise>
+                        AND A.DSP_CHL_CD      IN
+                        <foreach item="item" index="index" collection="dspChlCd" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="dspYmdhms != null and dspYmdhms != ''">
+                      AND A.DSP_YMDHMS      =       #{dspYmdhms}
+            </if>
+            <if test="chlErrYn != null and chlErrYn != ''">
+                      AND A.CHL_ERR_YN      =       #{chlErrYn}
+            </if>
+            <if test="drRspnCd != null and drRspnCd != ''">
+                <choose>
+                    <when test="drRspnCd instanceof String">
+                        AND A.DR_RSPN_CD      =       #{drRspnCd}
+                    </when>
+                    <otherwise>
+                        AND A.DR_RSPN_CD      IN
+                        <foreach item="item" index="index" collection="drRspnCd" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="drRspnCollctYmdhms != null and drRspnCollctYmdhms != ''">
+                      AND A.DR_RSPN_COLLCT_YMDHMS=       #{drRspnCollctYmdhms}
+            </if>
+            <if test="indirRspnCd != null and indirRspnCd != ''">
+                <choose>
+                    <when test="indirRspnCd instanceof String">
+                        AND A.INDIR_RSPN_CD   =       #{indirRspnCd}
+                    </when>
+                    <otherwise>
+                        AND A.INDIR_RSPN_CD   IN
+                        <foreach item="item" index="index" collection="indirRspnCd" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="indirRspnCollctYmdhms != null and indirRspnCollctYmdhms != ''">
+                      AND A.INDIR_RSPN_COLLCT_YMDHMS=       #{indirRspnCollctYmdhms}
+            </if>
+            <if test="useChlCd != null and useChlCd != ''">
+                <choose>
+                    <when test="useChlCd instanceof String">
+                        AND A.USE_CHL_CD      =       #{useChlCd}
+                    </when>
+                    <otherwise>
+                        AND A.USE_CHL_CD      IN
+                        <foreach item="item" index="index" collection="useChlCd" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="chitNo != null and chitNo != ''">
+                      AND A.CHIT_NO         =       #{chitNo}
+            </if>
+            <if test="buyGodsNo != null and buyGodsNo != ''">
+                      AND A.BUY_GODS_NO     =       #{buyGodsNo}
+            </if>
+            <if test="payAmt != null and payAmt != ''">
+                      AND A.PAY_AMT         =       #{payAmt}
+            </if>
+            <if test="applyAmt != null and applyAmt != ''">
+                      AND A.APPLY_AMT       =       #{applyAmt}
+            </if>
+            <if test="ordrAmt != null and ordrAmt != ''">
+                      AND A.ORDR_AMT        =       #{ordrAmt}
+            </if>
+            <if test="pblsDivCd != null and pblsDivCd != ''">
+                <choose>
+                    <when test="pblsDivCd instanceof String">
+                        AND A.PBLS_DIV_CD     =       #{pblsDivCd}
+                    </when>
+                    <otherwise>
+                        AND A.PBLS_DIV_CD     IN
+                        <foreach item="item" index="index" collection="pblsDivCd" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="occurPointScore != null and occurPointScore != ''">
+                      AND A.OCCUR_POINT_SCORE=       #{occurPointScore}
+            </if>
+            <if test="pointValidPerd != null and pointValidPerd != ''">
+                      AND A.POINT_VALID_PERD=       #{pointValidPerd}
+            </if>
+            <if test="regChlCd != null and regChlCd != ''">
+                <choose>
+                    <when test="regChlCd instanceof String">
+                        AND A.REG_CHL_CD      =       #{regChlCd}
+                    </when>
+                    <otherwise>
+                        AND A.REG_CHL_CD      IN
+                        <foreach item="item" index="index" collection="regChlCd" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="applyPointStaYmd != null and applyPointStaYmd != ''">
+                      AND A.APPLY_POINT_STA_YMD=       #{applyPointStaYmd}
+            </if>
+            <if test="applyPointEndYmd != null and applyPointEndYmd != ''">
+                      AND A.APPLY_POINT_END_YMD=       #{applyPointEndYmd}
+            </if>
+            <if test="coupnBasNo != null and coupnBasNo != ''">
+                      AND A.COUPN_BAS_NO    =       #{coupnBasNo}
+            </if>
+            <if test="coupnIssueCnt != null and coupnIssueCnt != ''">
+                      AND A.COUPN_ISSUE_CNT =       #{coupnIssueCnt}
+            </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('campDspHstSeq')">
+                ORDER BY      CAMP_DSP_HST_SEQ
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('campTgtGrpBasNo')">
+                ORDER BY      CAMP_TGT_GRP_BAS_NO
+            </when>
+            <when test="colSortName.equals('campBasNo')">
+                ORDER BY      CAMP_BAS_NO
+            </when>
+            <when test="colSortName.equals('custNm')">
+                ORDER BY      CUST_NM
+            </when>
+            <when test="colSortName.equals('mphonNo')">
+                ORDER BY      MPHON_NO
+            </when>
+            <when test="colSortName.equals('emailAddr')">
+                ORDER BY      EMAIL_ADDR
+            </when>
+            <when test="colSortName.equals('dspChlCd')">
+                ORDER BY      DSP_CHL_CD
+            </when>
+            <when test="colSortName.equals('dspYmdhms')">
+                ORDER BY      DSP_YMDHMS
+            </when>
+            <when test="colSortName.equals('chlErrYn')">
+                ORDER BY      CHL_ERR_YN
+            </when>
+            <when test="colSortName.equals('drRspnCd')">
+                ORDER BY      DR_RSPN_CD
+            </when>
+            <when test="colSortName.equals('drRspnCollctYmdhms')">
+                ORDER BY      DR_RSPN_COLLCT_YMDHMS
+            </when>
+            <when test="colSortName.equals('indirRspnCd')">
+                ORDER BY      INDIR_RSPN_CD
+            </when>
+            <when test="colSortName.equals('indirRspnCollctYmdhms')">
+                ORDER BY      INDIR_RSPN_COLLCT_YMDHMS
+            </when>
+            <when test="colSortName.equals('useChlCd')">
+                ORDER BY      USE_CHL_CD
+            </when>
+            <when test="colSortName.equals('chitNo')">
+                ORDER BY      CHIT_NO
+            </when>
+            <when test="colSortName.equals('buyGodsNo')">
+                ORDER BY      BUY_GODS_NO
+            </when>
+            <when test="colSortName.equals('payAmt')">
+                ORDER BY      PAY_AMT
+            </when>
+            <when test="colSortName.equals('applyAmt')">
+                ORDER BY      APPLY_AMT
+            </when>
+            <when test="colSortName.equals('ordrAmt')">
+                ORDER BY      ORDR_AMT
+            </when>
+            <when test="colSortName.equals('pblsDivCd')">
+                ORDER BY      PBLS_DIV_CD
+            </when>
+            <when test="colSortName.equals('occurPointScore')">
+                ORDER BY      OCCUR_POINT_SCORE
+            </when>
+            <when test="colSortName.equals('pointValidPerd')">
+                ORDER BY      POINT_VALID_PERD
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regChlCd')">
+                ORDER BY      REG_CHL_CD
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <when test="colSortName.equals('applyPointStaYmd')">
+                ORDER BY      APPLY_POINT_STA_YMD
+            </when>
+            <when test="colSortName.equals('applyPointEndYmd')">
+                ORDER BY      APPLY_POINT_END_YMD
+            </when>
+            <when test="colSortName.equals('coupnBasNo')">
+                ORDER BY      COUPN_BAS_NO
+            </when>
+            <when test="colSortName.equals('coupnIssueCnt')">
+                ORDER BY      COUPN_ISSUE_CNT
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.camp.dao.CrmCampDspHstDao.selectListCount */ COUNT(1) FROM
+                 ( SELECT 
+               			<include refid="sqlSelectCols"/>
+	                 FROM CRM_CAMP_DSP_HST A
+	                 LEFT JOIN CRM_CAMP_BAS B ON A.CAMP_BAS_NO = B.CAMP_BAS_NO
+                 ) A 
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.camp.model.CrmCampDspHstVo">
+    
+    	SELECT  /* com.ceragem.crm.camp.dao.CrmCampDspHstDao.selectList */ 
+
+			<include refid="sqlSelectCols2"/>
+			
+	 	FROM (
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.camp.dao.CrmCampDspHstDao.selectList */ A.* FROM 
+               		( SELECT 
+               			<include refid="sqlSelectCols"/>
+	                 FROM CRM_CAMP_DSP_HST A
+	                 LEFT JOIN CRM_CAMP_BAS B ON A.CAMP_BAS_NO = B.CAMP_BAS_NO
+                 ) A
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        
+        ) A
+        
+        
+        
+    </select>
+    <select id="select" resultType="com.ceragem.crm.camp.model.CrmCampDspHstVo">
+               SELECT /* com.ceragem.crm.camp.dao.CrmCampDspHstDao.select */ 
+
+				
+               			<include refid="sqlSelectCols"/>
+               		
+               		
+                 FROM CRM_CAMP_DSP_HST A
+                 LEFT JOIN CRM_CAMP_BAS B ON A.CAMP_BAS_NO = B.CAMP_BAS_NO
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT /* com.ceragem.crm.camp.dao.CrmCampDspHstDao.insert */ INTO CRM_CAMP_DSP_HST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{campDspHstSeq}
+                     , #{itgCustNo}
+                     , #{campTgtGrpBasNo}
+                     , #{campBasNo}
+                     , #{custNm}
+                     , #{mphonNo}
+                     , #{emailAddr}
+                     , #{dspChlCd}
+                     , #{dspYmdhms}
+                     , NVL(#{chlErrYn},'N')
+                     , #{drRspnCd}
+                     , #{drRspnCollctYmdhms}
+                     , #{indirRspnCd}
+                     , #{indirRspnCollctYmdhms}
+                     , #{useChlCd}
+                     , #{chitNo}
+                     , #{buyGodsNo}
+                     , #{payAmt}
+                     , #{applyAmt}
+                     , #{ordrAmt}
+                     , #{pblsDivCd}
+                     , #{occurPointScore}
+                     , #{pointValidPerd}
+                     , #{regrId}
+                     , #{regChlCd}
+                     , #{amdrId}
+                     , SYSDATE
+                     , SYSDATE
+                     , #{applyPointStaYmd}
+                     , #{applyPointEndYmd}
+                     , #{coupnBasNo}
+                     , #{coupnIssueCnt}
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.camp.dao.CrmCampDspHstDao.update */ CRM_CAMP_DSP_HST
+                  SET CAMP_DSP_HST_SEQ                        =         #{campDspHstSeq}
+                    , ITG_CUST_NO                             =         #{itgCustNo}
+                    , CAMP_TGT_GRP_BAS_NO                     =         #{campTgtGrpBasNo}
+                    , CAMP_BAS_NO                             =         #{campBasNo}
+                    , CUST_NM                                 =         #{custNm}
+                    , MPHON_NO                                =         #{mphonNo}
+                    , EMAIL_ADDR                              =         #{emailAddr}
+                    , DSP_CHL_CD                              =         #{dspChlCd}
+                    , DSP_YMDHMS                              =         #{dspYmdhms}
+                    , CHL_ERR_YN                              =         NVL(#{chlErrYn},'N')
+                    , DR_RSPN_CD                              =         #{drRspnCd}
+                    , DR_RSPN_COLLCT_YMDHMS                   =         #{drRspnCollctYmdhms}
+                    , INDIR_RSPN_CD                           =         #{indirRspnCd}
+                    , INDIR_RSPN_COLLCT_YMDHMS                =         #{indirRspnCollctYmdhms}
+                    , USE_CHL_CD                              =         #{useChlCd}
+                    , CHIT_NO                                 =         #{chitNo}
+                    , BUY_GODS_NO                             =         #{buyGodsNo}
+                    , PAY_AMT                                 =         #{payAmt}
+                    , APPLY_AMT                               =         #{applyAmt}
+                    , ORDR_AMT                                =         #{ordrAmt}
+                    , PBLS_DIV_CD                             =         #{pblsDivCd}
+                    , OCCUR_POINT_SCORE                       =         #{occurPointScore}
+                    , POINT_VALID_PERD                        =         #{pointValidPerd}
+                    , REG_CHL_CD                              =         #{regChlCd}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+                    , APPLY_POINT_STA_YMD                     =         #{applyPointStaYmd}
+                    , APPLY_POINT_END_YMD                     =         #{applyPointEndYmd}
+                    , COUPN_BAS_NO                            =         #{coupnBasNo}
+                    , COUPN_ISSUE_CNT                         =         #{coupnIssueCnt}
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.camp.dao.CrmCampDspHstDao.delete */
+                 FROM CRM_CAMP_DSP_HST
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

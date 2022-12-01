@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="N"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="Y"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+    
+    <column name="사용및적립일시" field="dt" type="datetime" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="정산기준일시" field="calDt" type="date" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="매장구분" field="storDivCd" type="combo" maxLength="30" width="80" textAlignment="center" required="N"  codeId="ST010" hidden="N"/>
+    <column name="매장번호" field="storNo" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="사용및발생매장" field="storNm" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="거래번호" field="chitNo" type="char" maxLength="30" width="120" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="사용유형" field="useTypeCd" type="combo" maxLength="30" width="80" textAlignment="center" required="N"  codeId="PO010" hidden="N"/>
+    <column name="제품상품 구분" field="itemPrCdNm" type="char" maxLength="30" width="80" textAlignment="center" required="N" hidden="N"/>
+    <column name="발행구분" field="pblsDivCd" type="combo" maxLength="30" width="80" textAlignment="center" required="N"  codeId="EV100" hidden="N"/>
+    <column name="통합고객번호" field="itgCustNo" type="char" maxLength="30" width="100" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="고객명" masking="name" field="custNm" type="char" maxLength="30" width="60" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="회원등급" field="mshipGradeCd" type="combo" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" codeId="MB020" hidden="N"/>
+    <column name="결제금액" field="payAmt" type="number" maxLength="20" width="80" textAlignment="center" required="N" hidden="N"/>    
+    <column name="포인트증감" field="pointScore" type="number" maxLength="30" width="80" textAlignment="center" required="N" hidden="N"/>
+    <column name="가맹점부담포인트" field="storPointScore" type="number" maxLength="30" width="80" textAlignment="center" required="N" hidden="N"/>
+    <column name="내역" field="txn" type="char" maxLength="1000" width="150" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="소멸예정" field="extncDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="채널" field="storChlCd" type="combo" maxLength="50" width="50" textAlignment="center" required="N" codeId="ST040" hidden="Y"/>
+    <column name="정상여부" field="" type="char" maxLength="30" width="40" textAlignment="center" required="N" hidden="N"/>
+</grid>
+

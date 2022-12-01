@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.sys.dao.CrmSnstvInfoInqryHstDao">
+    <sql id="sqlPkConditions">
+                WHERE INFO_INQRY_HST_SEQ=       #{infoInqryHstSeq}
+    </sql>
+    <sql id="sqlCols">
+                      INFO_INQRY_HST_SEQ                    /*정보조회이력일련번호        */
+                    , ITG_CUST_NO                    /*통합고객번호        */
+                    , INDI_INFO_HANDL_PRSN_NO                    /*개인정보취급자번호        */
+                    , CONN_PRSN_IP_ADDR                    /*접속자IP주소        */
+                    , PFM_WORK_CD                    /*수행업무코드        */
+                    , INQRY_CNT
+                    , DNLD_TXN
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP]*/
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.INFO_INQRY_HST_SEQ                    /*정보조회이력일련번호        */
+                    , A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.INDI_INFO_HANDL_PRSN_NO                    /*개인정보취급자번호        */
+                    , A.CONN_PRSN_IP_ADDR                    /*접속자IP주소        */
+                    , A.PFM_WORK_CD                    /*수행업무코드        */
+                    , A.DNLD_TXN
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , A.REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP]*/
+                    , B.CUST_NM || CASE WHEN NVL(A.INQRY_CNT,1) > 1 THEN ' 외 ' || (A.INQRY_CNT  -1)  || '건' ELSE '' END CUST_NM
+                    , A.INQRY_CNT                  /*조회수*/
+    </sql>
+    <sql id="sqlConditions">
+                WHERE A.ITG_CUST_NO = B.ITG_CUST_NO
+        <if test="infoInqryHstSeq != null and infoInqryHstSeq != ''">
+                  AND A.INFO_INQRY_HST_SEQ=       #{infoInqryHstSeq}
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO     =       #{itgCustNo}
+        </if>
+        <if test="indiInfoHandlPrsnNo != null and indiInfoHandlPrsnNo != ''">
+                  AND A.INDI_INFO_HANDL_PRSN_NO=       #{indiInfoHandlPrsnNo}
+        </if>
+        <if test="connPrsnIpAddr != null and connPrsnIpAddr != ''">
+                  AND A.CONN_PRSN_IP_ADDR=       #{connPrsnIpAddr}
+        </if>
+        <if test="pfmWorkCd != null and pfmWorkCd != ''">
+            <choose>
+                <when test="pfmWorkCd instanceof String">
+                    AND A.PFM_WORK_CD     =       #{pfmWorkCd}
+                </when>
+                <otherwise>
+                    AND A.PFM_WORK_CD     IN
+                    <foreach item="item" index="index" collection="pfmWorkCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="regChlCd != null and regChlCd != ''">
+            <choose>
+                <when test="regChlCd instanceof String">
+                    AND A.REG_CHL_CD      =       #{regChlCd}
+                </when>
+                <otherwise>
+                    AND A.REG_CHL_CD      IN
+                    <foreach item="item" index="index" collection="regChlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+         <if test="strtDt != null and strtDt != ''">
+                      AND A.REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.REG_DT
+        </if>
+<!--         <if test="loginIdLike != null and loginIdLike != ''"> -->
+<!--                       AND B.LOGIN_ID         LIKE   '%' ||  #{loginIdLike} ||'%' -->
+<!--         </if> -->
+        <if test="custNm != null and custNm != ''">
+                      AND B.CUST_NM        = #{custNm}
+        </if>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('infoInqryHstSeq')">
+                ORDER BY      INFO_INQRY_HST_SEQ
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('indiInfoHandlPrsnNo')">
+                ORDER BY      INDI_INFO_HANDL_PRSN_NO
+            </when>
+            <when test="colSortName.equals('connPrsnIpAddr')">
+                ORDER BY      CONN_PRSN_IP_ADDR
+            </when>
+            <when test="colSortName.equals('pfmWorkCd')">
+                ORDER BY      PFM_WORK_CD
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <when test="colSortName.equals('regChlCd')">
+                ORDER BY      REG_CHL_CD
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /*com.ceragem.crm.sys.dao.CrmSnstvInfoInqryHstDao.selectListCount*/ COUNT(1)
+                 FROM CRM_SNSTV_INFO_INQRY_HST A
+                    , CRM_CUST_BAS B
+        <include refid="sqlConditions"/>
+ 
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmSnstvInfoInqryHstVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*com.ceragem.crm.sys.dao.CrmSnstvInfoInqryHstDao.selectList*/ <include refid="sqlSelectCols"/>
+                 FROM CRM_SNSTV_INFO_INQRY_HST A
+                    , CRM_CUST_BAS B
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.sys.model.CrmSnstvInfoInqryHstVo">
+               SELECT /*com.ceragem.crm.sys.dao.CrmSnstvInfoInqryHstDao.select*/ <include refid="sqlSelectCols"/>
+                 FROM CRM_SNSTV_INFO_INQRY_HST A
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+        <selectKey order="BEFORE" keyProperty="infoInqryHstSeq" resultType="String">
+            SELECT FN_CRM_AUTO_SEQ('IIH') FROM DUAL
+        </selectKey>
+                INSERT /*com.ceragem.crm.sys.dao.CrmSnstvInfoInqryHstDao.insert*/ INTO CRM_SNSTV_INFO_INQRY_HST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{infoInqryHstSeq}
+                     , #{itgCustNo}
+                     , #{indiInfoHandlPrsnNo}
+                     , #{connPrsnIpAddr}
+                     , #{pfmWorkCd}
+                     , NVL(#{inqryCnt},1)
+                     , #{dnldTxn}
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                     , #{regChlCd}
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /*com.ceragem.crm.sys.dao.CrmSnstvInfoInqryHstDao.update*/ CRM_SNSTV_INFO_INQRY_HST
+                  SET ITG_CUST_NO                             =         #{itgCustNo}
+                    , INDI_INFO_HANDL_PRSN_NO                 =         #{indiInfoHandlPrsnNo}
+                    , CONN_PRSN_IP_ADDR                       =         #{connPrsnIpAddr}
+                    , PFM_WORK_CD                             =         #{pfmWorkCd}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+                    , REG_CHL_CD                              =         #{regChlCd}
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /*com.ceragem.crm.sys.dao.CrmSnstvInfoInqryHstDao.delete*/  
+                 FROM CRM_SNSTV_INFO_INQRY_HST
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

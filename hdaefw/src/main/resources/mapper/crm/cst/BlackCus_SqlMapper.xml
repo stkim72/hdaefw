@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.BlackCusDao">
+
+    <sql id="sqlPkConditions">
+                WHERE ITG_CUST_NO       =       #{itgCustNo}
+    </sql>
+    <sql id="sqlBlackPkConditions">
+                WHERE BLLK_CUST_HST_SEQ =       #{bllkCustHstSeq}
+    </sql>
+    <sql id="sqlBlackCols">
+                      BLLK_CUST_HST_SEQ                    /*블랙고객이력일련번호        */
+                    , ITG_CUST_NO                    /*통합고객번호        */
+                    , BLLK_REG_WHY_CD                    /*블랙등록사유코드        */
+                    , BLLK_REG_WHY_CTNTS                    /*블랙등록사유내용        */
+                    , STOR_NO                    /*매장번호        */
+                    , DEL_YN                    /*삭제여부        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS]*/
+    </sql>
+    
+    <sql id="sqlSelectCols">
+                      A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.CORP_DIV_YN                    /*법인구분여부        */
+                    , A.CUST_NM                    /*고객명        */
+                    , A.GNDR_CD                    /*성별코드        */
+                    , A.GNDR_CD AS GNDR_NM             /*성별*/
+                    , A.BIRTHDAY                    /*생년월일        */
+                    , A.BIZ_NO                    /*사업자등록번호        */
+                    , A.CORP_REG_NO                    /*법인등록번호        */
+                    , A.CORP_TEL_NO                    /*법인전화번호        */
+                    , A.FORN_YN                    /*외국인여부        */
+                    , A.REP_NM                    /*대표명        */
+                    --, '010-****-' || A.MPHON_BK_DGT_NO MPHON_NO                    /*이동전화번호        */
+                    , DAMO.DECRYPT_VAR_B64('AES_256',A.MPHON_NO,'') MPHON_NO                    /*이동전화번호        */
+                    , A.MPHON_NO MPHON_NO_ENC_VAL                    /*이동전화번호암호화값        */
+                    , A.MPHON_BK_DGT_NO                    /*이동전화뒤자리번호        */
+                    , DAMO.DECRYPT_VAR_B64('AES_256',A.EMAIL_ADDR,'') EMAIL_ADDR                    /*이메일주소        */
+                    , A.PIC_NM                    /*담당자명        */
+                    , DAMO.DECRYPT_VAR_B64('AES_256',A.PIC_MPHON_NO,'')  PIC_MPHON_NO                    /*담당자이동전화번호        */
+                    , A.PIC_MPHON_BK_DGT_NO                    /*담당자이동전화뒤자리번호        */
+                    , DAMO.DECRYPT_VAR_B64('AES_256',A.PIC_EMAIL_ADDR,'')  PIC_EMAIL_ADDR
+                    , TO_CHAR(A.INDI_INFO_VALID_PERD_STA_DT,'YYYYMMDDHH24MISS')    INDI_INFO_VALID_PERD_STA_DT                    /*개인정보유효기간시작일시        */
+                    , TO_CHAR(A.INDI_INFO_VALID_PERD_END_DT,'YYYYMMDDHH24MISS')    INDI_INFO_VALID_PERD_END_DT                    /*개인정보유효기간종료일시        */
+                    , A.CUST_STATUS_CD                    /*고객상태코드        */
+                    , A.CUST_STATUS_CD AS CUST_STATUS_NM /*고객상태코드*/
+                    , TO_CHAR(A.CUST_STATUS_CHNG_DT,'YYYYMMDDHH24MISS')    CUST_STATUS_CHNG_DT                    /*고객상태변경일시        */
+                    , TO_CHAR(A.CUST_INFO_CHNG_DT,'YYYYMMDDHH24MISS')    CUST_INFO_CHNG_DT                    /*고객정보변경일시        */
+                    , A.CUST_TYPE_CD                    /*고객유형코드        */
+                    , A.CUST_TYPE_CD AS CUST_TYPE_NM /*고객유형코드*/
+                    , A.CUST_DIV_CD                    /*고객구분코드        */
+                    , A.ZIP_CD                    /*우편번호        */
+                    , A.ADDR_1_CTNTS                    /*주소1내용        */
+                    , DAMO.DECRYPT_VAR_B64('AES_256',A.ADDR_2_CTNTS,'') ADDR_2_CTNTS                    /*주소2내용        */
+                    , A.RCMD_STOR_NO                    /*추천매장번호        */
+                    , A.RCMDR_CUST_NO                    /*추천인고객번호        */
+                    , A.RCMD_EXECVDEMP_NO                    /*추천임직원번호        */
+                    , A.MARRY_YN                    /*결혼여부        */
+                    , A.REP_HSHLD_NO                    /*대표가구번호        */
+                    , A.FAMLY_REL_CD                    /*가족관계코드        */
+                    , A.DWEL_NFPY_CD                    /*주거평수코드        */
+                    , A.FAMLY_REL_CD AS FAMLY_REL_NM /*가족관계*/
+                    , A.DWEL_NFPY_CD AS DWEL_NFPY_NM /*주거평수*/
+                    , A.INTRST_FILD_CD                    /*관심분야코드        */
+                    , A.REP_GODS_NO                    /*대표제품번호        */
+                    , A.REP_USE_CUST_DIV_CD                    /*대표사용고객구분코드        */
+                    , A.SMS_RCV_AGREE_YN                    /*SMS수신동의여부        */
+                    , TO_CHAR(A.SMS_RCV_AGREE_DT,'YYYYMMDDHH24MISS')    SMS_RCV_AGREE_DT                    /*SMS수신동의일시        */
+                    , A.SMS_RCV_AGREE_CHL_CD                    /*SMS수신동의채널코드        */
+                    , A.EMAIL_RCV_AGREE_YN                    /*이메일수신동의여부        */
+                    , TO_CHAR(A.EMAIL_RCV_AGREE_DT,'YYYYMMDDHH24MISS')    EMAIL_RCV_AGREE_DT                    /*이메일수신동의일시        */
+                    , A.EMAIL_RCV_AGREE_CHL_CD                    /*이메일수신동의채널코드        */
+                    , A.ALRM_TK_RCV_AGREE_YN                    /*알람톡수신동의여부        */
+                    , TO_CHAR(A.ALRM_TK_RCV_AGREE_DT,'YYYYMMDDHH24MISS')    ALRM_TK_RCV_AGREE_DT                    /*알람톡수신동의일시        */
+                    , A.ALRM_TK_RCV_AGREE_CHL_CD                    /*알람톡수신동의채널코드        */
+                    , A.PUSH_RCV_AGREE_YN                    /*PUSH수신동의여부        */
+                    , TO_CHAR(A.PUSH_RCV_AGREE_DT,'YYYYMMDDHH24MISS')    PUSH_RCV_AGREE_DT                    /*PUSH수신동의일시        */
+                    , A.PUSH_RCV_AGREE_CHL_CD                    /*PUSH수신동의채널코드        */
+                    , A.CI_CERTF_YN                    /*CI인증여부        */
+                    , A.CI                    /*CI        */
+                    , A.DI_CERTF_YN                    /*DI인증여부        */
+                    , A.DI                    /*DI        */
+                    , A.RCV_RFSL_YN                    /*수신거부여부        */
+                    , A.MSHIP_SBSC_YN                    /*멤버십가입여부        */
+                    , A.MSHIP_LOGIN_ID                    /*멤버십로그인ID        */
+                    , A.MSHIP_SBT_NO                    /*멤버십대체번호        */
+                    , A.MSHIP_LOGIN_PWD                    /*멤버십로그인비밀번호        */
+                    , TO_CHAR(A.MSHIP_LAST_LOGIN_DT,'YYYYMMDDHH24MISS')    MSHIP_LAST_LOGIN_DT                    /*멤버십최종로그인일시        */
+                    , A.MSHIP_LAST_LOGIN_IP_ADDR                    /*멤버십최종로그인IP주소        */
+                    , TO_CHAR(A.MSHIP_LAST_STOR_VISIT_DT,'YYYYMMDDHH24MISS')    MSHIP_LAST_STOR_VISIT_DT                    /*멤버십최종매장방문일시        */
+                    , A.MSHIP_LAST_VISIT_STOR_NO                    /*멤버십최종방문매장번호        */
+                    , A.MSHIP_TYPE_CD                    /*멤버십유형코드        */
+                    , TO_CHAR(A.MSHIP_SBSC_DT,'YYYYMMDDHH24MISS')    MSHIP_SBSC_DT                    /*멤버십가입일시        */
+                    , A.MSHIP_GRADE_CD                    /*멤버십등급코드        */
+                    , TO_CHAR(A.MSHIP_GRADE_CHNG_DT,'YYYYMMDDHH24MISS')    MSHIP_GRADE_CHNG_DT                    /*멤버십등급변경일시        */
+                    , TO_CHAR(A.MSHIP_INFO_CHNG_DT,'YYYYMMDDHH24MISS')    MSHIP_INFO_CHNG_DT                    /*멤버십정보변경일시        */
+                    , A.MSHIP_INFO_CONFR_EXECVDEMP_NO                    /*멤버십정보확인자임직원번호        */
+                    , A.CPRT_EXECVDEMP_NO                    /*제휴임직원번호        */
+                    , TO_CHAR(A.MSHIP_LEAVE_DT,'YYYYMMDDHH24MISS')    MSHIP_LEAVE_DT                    /*멤버십탈퇴일시        */
+                    , A.EXTNC_POINT_LMT_SCORE                    /*소멸포인트한도점수        */
+                    , A.ACCUM_POINT_LMT_SCORE                    /*적립포인트한도점수        */
+                    , A.REMAIN_POINT_SCORE                    /*잔여포인트점수        */
+                    , A.MSHIP_CHL_CD                    /*멤버십채널코드        */
+                    , A.BLLK_REG_STOR_NO                    /*블랙등록매장번호        */
+                    , A.BLLKMSHP_YN                    /*블랙회원여부        */
+                    , A.BLLK_REG_CHL_CD                    /*블랙등록채널코드        */
+                    , A.BLLK_REG_WHY_CTNTS                    /*블랙등록사유내용        */
+                    , TO_CHAR(A.BLLK_REG_DT,'YYYYMMDD')    BLLK_REG_DT                    /*블랙등록일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , A.REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS]*/
+    </sql>
+    <sql id="sqlConditions">
+        <where>
+                  A.BLLKMSHP_YN = 'Y'
+                  AND B.DEL_YN = 'N'
+                  AND A.ITG_CUST_NO = B.ITG_CUST_NO
+        <!-- CRM_CUST_BAS 조회조건 START -->
+        <if test="custNm != null and custNm != ''">
+                  AND A.CUST_NM    LIKE  '%' ||    #{custNm} || '%'
+        </if>
+        <if test="gndrCd != null and gndrCd != ''">
+            <choose>
+                <when test="gndrCd instanceof String">
+                    AND A.GNDR_CD         =       #{gndrCd}
+                </when>
+                <otherwise>
+                    AND A.GNDR_CD         IN
+                    <foreach item="item" index="index" collection="gndrCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="birthday != null and birthday != ''">
+                  <!-- AND A.BIRTHDAY        =       #{birthday} -->
+                  AND A.BIRTHDAY    LIKE  '%' ||    #{birthday} || '%'
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO    LIKE  '%' ||    #{itgCustNo} || '%'
+        </if>
+        <if test="mphonNo != null and mphonNo != ''">
+                  AND A.MPHON_NO    =    DAMO.ENCRYPT_VAR_B64('AES_256',#{mphonNo},'')
+        </if>
+        <if test="emailAddr != null and emailAddr != ''">
+                  AND A.EMAIL_ADDR    =    DAMO.ENCRYPT_VAR_B64('AES_256',#{emailAddr},'')
+        </if>
+        <if test="mshipLoginId != null and mshipLoginId != ''">
+                  AND A.MSHIP_LOGIN_ID    =    #{mshipLoginId}
+        </if>
+        <if test="mshipGradeCd != null and mshipGradeCd != ''">
+            <choose>
+                <when test="mshipGradeCd instanceof String">
+                    AND A.MSHIP_GRADE_CD  =       #{mshipGradeCd}
+                </when>
+                <otherwise>
+                    AND A.MSHIP_GRADE_CD  IN
+                    <foreach item="item" index="index" collection="mshipGradeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <!-- CRM_CUST_BAS 조회조건 END -->
+        <!-- CRM_BLLK_CUST_HST 조회조건 START -->
+        <if test="regChlCd != null and regChlCd != ''">
+            <choose>
+                <when test="regChlCd instanceof String">
+                    AND B.REG_CHL_CD  =       #{regChlCd}
+                </when>
+                <otherwise>
+                    AND B.REG_CHL_CD  IN
+                    <foreach item="item" index="index" collection="regChlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="bllkRegWhyCd != null and bllkRegWhyCd != ''">
+            <choose>
+                <when test="bllkRegWhyCd instanceof String">
+                    AND B.BLLK_REG_WHY_CD  =       #{bllkRegWhyCd}
+                </when>
+                <otherwise>
+                    AND B.REG_CHL_CD  IN
+                    <foreach item="item" index="index" collection="bllkRegWhyCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="strtDt != null and strtDt != ''">
+                  AND B.REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                  AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > B.REG_DT
+        </if>
+        </where>
+        <!-- CRM_BLLK_CUST_HST 조회조건 END -->
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('corpDivYn')">
+                ORDER BY      CORP_DIV_YN
+            </when>
+            <when test="colSortName.equals('custNm')">
+                ORDER BY      CUST_NM
+            </when>
+            <when test="colSortName.equals('gndrCd')">
+                ORDER BY      GNDR_CD
+            </when>
+            <when test="colSortName.equals('birthday')">
+                ORDER BY      BIRTHDAY
+            </when>
+            <when test="colSortName.equals('bizNo')">
+                ORDER BY      BIZ_NO
+            </when>
+            <when test="colSortName.equals('corpRegNo')">
+                ORDER BY      CORP_REG_NO
+            </when>
+            <when test="colSortName.equals('corpTelNo')">
+                ORDER BY      CORP_TEL_NO
+            </when>
+            <when test="colSortName.equals('fornYn')">
+                ORDER BY      FORN_YN
+            </when>
+            <when test="colSortName.equals('repNm')">
+                ORDER BY      REP_NM
+            </when>
+            <when test="colSortName.equals('mphonNo')">
+                ORDER BY      MPHON_NO
+            </when>
+            <when test="colSortName.equals('mphonNoEncVal')">
+                ORDER BY      MPHON_NO
+            </when>
+            <when test="colSortName.equals('mphonBkDgtNo')">
+                ORDER BY      MPHON_BK_DGT_NO
+            </when>
+            <when test="colSortName.equals('emailAddr')">
+                ORDER BY      EMAIL_ADDR
+            </when>
+            <when test="colSortName.equals('picNm')">
+                ORDER BY      PIC_NM
+            </when>
+            <when test="colSortName.equals('picMphonNo')">
+                ORDER BY      PIC_MPHON_NO
+            </when>
+            <when test="colSortName.equals('picMphonBkDgtNo')">
+                ORDER BY      PIC_MPHON_BK_DGT_NO
+            </when>
+            <when test="colSortName.equals('picEmailAddr')">
+                ORDER BY      PIC_EMAIL_ADDR
+            </when>
+            <when test="colSortName.equals('indiInfoValidPerdStaDt')">
+                ORDER BY      INDI_INFO_VALID_PERD_STA_DT
+            </when>
+            <when test="colSortName.equals('indiInfoValidPerdEndDt')">
+                ORDER BY      INDI_INFO_VALID_PERD_END_DT
+            </when>
+            <when test="colSortName.equals('custStatusCd')">
+                ORDER BY      CUST_STATUS_CD
+            </when>
+            <when test="colSortName.equals('custStatusChngDt')">
+                ORDER BY      CUST_STATUS_CHNG_DT
+            </when>
+            <when test="colSortName.equals('custInfoChngDt')">
+                ORDER BY      CUST_INFO_CHNG_DT
+            </when>
+            <when test="colSortName.equals('custTypeCd')">
+                ORDER BY      CUST_TYPE_CD
+            </when>
+            <when test="colSortName.equals('custDivCd')">
+                ORDER BY      CUST_DIV_CD
+            </when>
+            <when test="colSortName.equals('zipCd')">
+                ORDER BY      ZIP_CD
+            </when>
+            <when test="colSortName.equals('addr1Ctnts')">
+                ORDER BY      ADDR_1_CTNTS
+            </when>
+            <when test="colSortName.equals('addr2Ctnts')">
+                ORDER BY      ADDR_2_CTNTS
+            </when>
+            <when test="colSortName.equals('rcmdStorNo')">
+                ORDER BY      RCMD_STOR_NO
+            </when>
+            <when test="colSortName.equals('rcmdrCustNo')">
+                ORDER BY      RCMDR_CUST_NO
+            </when>
+            <when test="colSortName.equals('rcmdExecvdempNo')">
+                ORDER BY      RCMD_EXECVDEMP_NO
+            </when>
+            <when test="colSortName.equals('marryYn')">
+                ORDER BY      MARRY_YN
+            </when>
+            <when test="colSortName.equals('repHshldNo')">
+                ORDER BY      REP_HSHLD_NO
+            </when>
+            <when test="colSortName.equals('famlyRelCd')">
+                ORDER BY      FAMLY_REL_CD
+            </when>
+            <when test="colSortName.equals('dwelNfpyCd')">
+                ORDER BY      DWEL_NFPY_CD
+            </when>
+            <when test="colSortName.equals('intrstFildCd')">
+                ORDER BY      INTRST_FILD_CD
+            </when>
+            <when test="colSortName.equals('repGodsNo')">
+                ORDER BY      REP_GODS_NO
+            </when>
+            <when test="colSortName.equals('repUseCustDivCd')">
+                ORDER BY      REP_USE_CUST_DIV_CD
+            </when>
+            <when test="colSortName.equals('smsRcvAgreeYn')">
+                ORDER BY      SMS_RCV_AGREE_YN
+            </when>
+            <when test="colSortName.equals('smsRcvAgreeDt')">
+                ORDER BY      SMS_RCV_AGREE_DT
+            </when>
+            <when test="colSortName.equals('smsRcvAgreeChlCd')">
+                ORDER BY      SMS_RCV_AGREE_CHL_CD
+            </when>
+            <when test="colSortName.equals('emailRcvAgreeYn')">
+                ORDER BY      EMAIL_RCV_AGREE_YN
+            </when>
+            <when test="colSortName.equals('emailRcvAgreeDt')">
+                ORDER BY      EMAIL_RCV_AGREE_DT
+            </when>
+            <when test="colSortName.equals('emailRcvAgreeChlCd')">
+                ORDER BY      EMAIL_RCV_AGREE_CHL_CD
+            </when>
+            <when test="colSortName.equals('alrmTkRcvAgreeYn')">
+                ORDER BY      ALRM_TK_RCV_AGREE_YN
+            </when>
+            <when test="colSortName.equals('alrmTkRcvAgreeDt')">
+                ORDER BY      ALRM_TK_RCV_AGREE_DT
+            </when>
+            <when test="colSortName.equals('alrmTkRcvAgreeChlCd')">
+                ORDER BY      ALRM_TK_RCV_AGREE_CHL_CD
+            </when>
+            <when test="colSortName.equals('pushRcvAgreeYn')">
+                ORDER BY      PUSH_RCV_AGREE_YN
+            </when>
+            <when test="colSortName.equals('pushRcvAgreeDt')">
+                ORDER BY      PUSH_RCV_AGREE_DT
+            </when>
+            <when test="colSortName.equals('pushRcvAgreeChlCd')">
+                ORDER BY      PUSH_RCV_AGREE_CHL_CD
+            </when>
+            <when test="colSortName.equals('ciCertfYn')">
+                ORDER BY      CI_CERTF_YN
+            </when>
+            <when test="colSortName.equals('ci')">
+                ORDER BY      CI
+            </when>
+            <when test="colSortName.equals('diCertfYn')">
+                ORDER BY      DI_CERTF_YN
+            </when>
+            <when test="colSortName.equals('di')">
+                ORDER BY      DI
+            </when>
+            <when test="colSortName.equals('rcvRfslYn')">
+                ORDER BY      RCV_RFSL_YN
+            </when>
+            <when test="colSortName.equals('mshipSbscYn')">
+                ORDER BY      MSHIP_SBSC_YN
+            </when>
+            <when test="colSortName.equals('mshipLoginId')">
+                ORDER BY      MSHIP_LOGIN_ID
+            </when>
+            <when test="colSortName.equals('mshipSbtNo')">
+                ORDER BY      MSHIP_SBT_NO
+            </when>
+            <when test="colSortName.equals('mshipLoginPwd')">
+                ORDER BY      MSHIP_LOGIN_PWD
+            </when>
+            <when test="colSortName.equals('mshipLastLoginDt')">
+                ORDER BY      MSHIP_LAST_LOGIN_DT
+            </when>
+            <when test="colSortName.equals('mshipLastLoginIpAddr')">
+                ORDER BY      MSHIP_LAST_LOGIN_IP_ADDR
+            </when>
+            <when test="colSortName.equals('mshipLastStorVisitDt')">
+                ORDER BY      MSHIP_LAST_STOR_VISIT_DT
+            </when>
+            <when test="colSortName.equals('mshipLastVisitStorNo')">
+                ORDER BY      MSHIP_LAST_VISIT_STOR_NO
+            </when>
+            <when test="colSortName.equals('mshipTypeCd')">
+                ORDER BY      MSHIP_TYPE_CD
+            </when>
+            <when test="colSortName.equals('mshipSbscDt')">
+                ORDER BY      MSHIP_SBSC_DT
+            </when>
+            <when test="colSortName.equals('mshipGradeCd')">
+                ORDER BY      MSHIP_GRADE_CD
+            </when>
+            <when test="colSortName.equals('mshipGradeChngDt')">
+                ORDER BY      MSHIP_GRADE_CHNG_DT
+            </when>
+            <when test="colSortName.equals('mshipInfoChngDt')">
+                ORDER BY      MSHIP_INFO_CHNG_DT
+            </when>
+            <when test="colSortName.equals('mshipInfoConfrExecvdempNo')">
+                ORDER BY      MSHIP_INFO_CONFR_EXECVDEMP_NO
+            </when>
+            <when test="colSortName.equals('cprtExecvdempNo')">
+                ORDER BY      CPRT_EXECVDEMP_NO
+            </when>
+            <when test="colSortName.equals('mshipLeaveDt')">
+                ORDER BY      MSHIP_LEAVE_DT
+            </when>
+            <when test="colSortName.equals('extncPointLmtScore')">
+                ORDER BY      EXTNC_POINT_LMT_SCORE
+            </when>
+            <when test="colSortName.equals('accumPointLmtScore')">
+                ORDER BY      ACCUM_POINT_LMT_SCORE
+            </when>
+            <when test="colSortName.equals('remainPointScore')">
+                ORDER BY      REMAIN_POINT_SCORE
+            </when>
+            <when test="colSortName.equals('mshipChlCd')">
+                ORDER BY      MSHIP_CHL_CD
+            </when>
+            <when test="colSortName.equals('bllkRegStorNo')">
+                ORDER BY      BLLK_REG_STOR_NO
+            </when>
+            <when test="colSortName.equals('bllkmshpYn')">
+                ORDER BY      BLLKMSHP_YN
+            </when>
+            <when test="colSortName.equals('bllkRegChlCd')">
+                ORDER BY      BLLK_REG_CHL_CD
+            </when>
+            <when test="colSortName.equals('bllkRegWhyCtnts')">
+                ORDER BY      BLLK_REG_WHY_CTNTS
+            </when>
+            <when test="colSortName.equals('bllkRegDt')">
+                ORDER BY      BLLK_REG_DT
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <when test="colSortName.equals('regChlCd')">
+                ORDER BY      REG_CHL_CD
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    
+    <select id="selectListCount" resultType="int">
+               SELECT /* com.ceragem.crm.cst.dao.BlackCusDao.selectListCount */
+                      COUNT(DISTINCT A.ITG_CUST_NO) 
+               FROM CRM_CUST_BAS A, CRM_BLLK_CUST_HST B
+              <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.BlackCusVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.cst.dao.BlackCusDao.selectList */
+                       DISTINCT 
+                       <include refid="sqlSelectCols"/>
+                     , (SELECT 
+                               AMDR_ID 
+                          FROM (SELECT 
+                                       AMDR_ID 
+                                  FROM CRM_BLLK_CUST_HST
+                                 WHERE ITG_CUST_NO = A.ITG_CUST_NO
+                                   AND DEL_YN = 'N'
+                        <if test="bllkRegWhyCd != null and bllkRegWhyCd != ''">
+                           <choose>
+                               <when test="bllkRegWhyCd instanceof String">
+                                   AND BLLK_REG_WHY_CD  =       #{bllkRegWhyCd}
+                               </when>
+                               <otherwise>
+                                   AND BLLK_REG_WHY_CD  IN
+                                   <foreach item="item" index="index" collection="bllkRegWhyCd" open="(" separator="," close=")">
+                                       #{item}
+                                   </foreach>
+                               </otherwise>
+                           </choose>
+                       </if>
+                       <if test="strtDt != null and strtDt != ''">
+                                 AND REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+                       </if>
+                       <if test="endDt != null and endDt != ''">
+                                 AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > REG_DT
+                       </if>
+                                 ORDER BY REG_DT DESC) 
+                         WHERE ROWNUM  <![CDATA[<=]]>  1) AS AMDR_ID
+                    , (SELECT 
+                               TO_CHAR(AMD_DT,'YYYYMMDDHH24MISS') 
+                          FROM (SELECT 
+                                       AMD_DT 
+                                  FROM CRM_BLLK_CUST_HST
+                                 WHERE ITG_CUST_NO = A.ITG_CUST_NO
+                                   AND DEL_YN = 'N'
+                       <if test="bllkRegWhyCd != null and bllkRegWhyCd != ''">
+                           <choose>
+                               <when test="bllkRegWhyCd instanceof String">
+                                   AND BLLK_REG_WHY_CD  =       #{bllkRegWhyCd}
+                               </when>
+                               <otherwise>
+                                   AND BLLK_REG_WHY_CD  IN
+                                   <foreach item="item" index="index" collection="bllkRegWhyCd" open="(" separator="," close=")">
+                                       #{item}
+                                   </foreach>
+                               </otherwise>
+                           </choose>
+                       </if>
+                       <if test="strtDt != null and strtDt != ''">
+                                 AND REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+                       </if>
+                       <if test="endDt != null and endDt != ''">
+                                 AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > REG_DT
+                       </if>             
+                                 ORDER BY REG_DT DESC) 
+                         WHERE ROWNUM  <![CDATA[<=]]>  1) AS AMD_DT
+                     , (SELECT 
+                               BLLK_REG_WHY_CD 
+                          FROM (SELECT 
+                                       BLLK_REG_WHY_CD 
+                                  FROM CRM_BLLK_CUST_HST
+                                 WHERE ITG_CUST_NO = A.ITG_CUST_NO
+                                   AND DEL_YN = 'N'
+                       <if test="bllkRegWhyCd != null and bllkRegWhyCd != ''">
+                           <choose>
+                               <when test="bllkRegWhyCd instanceof String">
+                                   AND BLLK_REG_WHY_CD  =       #{bllkRegWhyCd}
+                               </when>
+                               <otherwise>
+                                   AND BLLK_REG_WHY_CD  IN
+                                   <foreach item="item" index="index" collection="bllkRegWhyCd" open="(" separator="," close=")">
+                                       #{item}
+                                   </foreach>
+                               </otherwise>
+                           </choose>
+                       </if>
+                       <if test="strtDt != null and strtDt != ''">
+                                 AND REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+                       </if>
+                       <if test="endDt != null and endDt != ''">
+                                 AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > REG_DT
+                       </if>
+                                 ORDER BY REG_DT DESC) 
+                         WHERE ROWNUM <![CDATA[<=]]> 1) AS BLLK_REG_WHY_CD
+                     , (SELECT 
+                               REGR_ID 
+                          FROM (SELECT 
+                                       REGR_ID 
+                                  FROM CRM_BLLK_CUST_HST 
+                                 WHERE ITG_CUST_NO = A.ITG_CUST_NO
+                                   AND DEL_YN = 'N'
+                       <if test="bllkRegWhyCd != null and bllkRegWhyCd != ''">
+                           <choose>
+                               <when test="bllkRegWhyCd instanceof String">
+                                   AND BLLK_REG_WHY_CD  =       #{bllkRegWhyCd}
+                               </when>
+                               <otherwise>
+                                   AND BLLK_REG_WHY_CD  IN
+                                   <foreach item="item" index="index" collection="bllkRegWhyCd" open="(" separator="," close=")">
+                                       #{item}
+                                   </foreach>
+                               </otherwise>
+                           </choose>
+                       </if>
+                       <if test="strtDt != null and strtDt != ''">
+                                 AND REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+                       </if>
+                       <if test="endDt != null and endDt != ''">
+                                 AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > REG_DT
+                       </if>
+                              ORDER BY REG_DT DESC) WHERE ROWNUM <![CDATA[<=]]> 1) AS BLLK_REGR_ID
+                 FROM CRM_CUST_BAS A, CRM_BLLK_CUST_HST B
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    
+    <select id="getBlackHistoryCount" resultType="int">
+                SELECT /* com.ceragem.crm.cst.dao.BlackCusDao.getBlackHistoryCount */ COUNT(1)
+                 FROM 
+                 (
+                        SELECT 
+                            <include refid="sqlBlackCols"/>
+                        FROM CRM_BLLK_CUST_HST
+                            <include refid="sqlPkConditions"/>
+                            AND DEL_YN = 'N'
+                 )
+    </select>
+    <select id="getBlackHistoryList" resultType="com.ceragem.crm.cst.model.BlackCusVo">
+               SELECT /* com.ceragem.crm.cst.dao.BlackCusDao.getBlackHistoryList */
+                       <include refid="sqlBlackCols"/>
+                 FROM CRM_BLLK_CUST_HST
+                    <include refid="sqlPkConditions"/>
+    </select>
+    
+    <update id="updateBlack">
+               UPDATE /* com.ceragem.crm.cst.dao.BlackCusDao.updateBlack */ CRM_CUST_BAS
+                  SET BLLK_REG_STOR_NO                        =         #{bllkRegStorNo}
+                    , BLLKMSHP_YN                             =         NVL(#{bllkmshpYn},'N')
+                    , BLLK_REG_CHL_CD                         =         #{bllkRegChlCd}
+                    , BLLK_REG_WHY_CTNTS                      =         #{bllkRegWhyCtnts}
+                    , BLLK_REG_DT                             =         TO_DATE(#{bllkRegDt},'YYYYMMDDHH24MISS')
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+        <include refid="sqlPkConditions"/>
+    </update>
+    
+    <insert id="insertBlackHistory">
+                INSERT /* com.ceragem.crm.cst.dao.BlackCusDao.insertBlackHistory */ INTO CRM_BLLK_CUST_HST (
+        <include refid="sqlBlackCols"/>
+                 ) VALUES (
+                       FN_CRM_AUTO_SEQ('BLK')
+                     , #{itgCustNo}
+                     , #{bllkRegWhyCd}
+                     , #{bllkRegWhyCtnts}
+                     , #{bllkRegStorNo}
+                     , NVL(#{delYn},'N')
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                     , #{bllkRegChlCd}
+                 )
+    </insert>
+    <update id="updateBlackHistory">
+               UPDATE /* com.ceragem.crm.cst.dao.BlackCusDao.updateBlackHistory */ CRM_BLLK_CUST_HST
+                  SET ITG_CUST_NO                             =         #{itgCustNo}
+                    , BLLK_REG_WHY_CD                         =         #{bllkRegWhyCd}
+                    , BLLK_REG_WHY_CTNTS                      =         #{bllkRegWhyCtnts}
+                    , STOR_NO                                 =         #{storNo}
+                    , DEL_YN                                  =         NVL(#{delYn},'N')
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+                    , REG_CHL_CD                              =         #{regChlCd}
+        <include refid="sqlBlackPkConditions"/>
+    </update>
+    
+    <!-- 블랙 고객발송 관련 -->
+    <insert id="insertTargetBySms">
+        INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertTargetBySms */
+        EON.SMS_SND_LIST(
+            CLIENT, CAMPAIGN_ID, MEMBER_SEQ, REV_ID, REV_NM, DESTEL<!-- , MAPPING1, MAPPING2, DUMMY1, DUMMY2, DUMMY10 -->
+        ) VALUES (
+            #{clientId}, 
+            #{campId}, 
+            #{memSeq}, 
+            #{itgCustNo}, 
+            #{custNm}, 
+            DAMO.DECRYPT_VAR_B64('AES_256', #{mphonNoEncVal}, '')
+            <!-- #{custNm}, 
+            #{emailAddr}, 
+            #{campId},
+            #{custGrpNo},
+            #{itgCustNo} -->
+        )
+    </insert>
+    
+    <insert id="insertTargetByMail">
+        INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.insertTargetByMail */
+        EON.MAIL_SND_LIST(
+            CLIENT, CAMPAIGN_ID, MEMBER_SEQ, REV_ID, REV_NM, REV_EMAIL<!-- , MAP_AFLD1, MAP_AFLD2, DUMMY1, DUMMY2, DUMMY10 -->
+        ) VALUES (
+            #{clientId}, 
+            #{campId}, 
+            #{memSeq}, 
+            #{itgCustNo}, 
+            #{custNm}, 
+            #{emailAddr}
+            <!-- #{custNm}, 
+            #{emailAddr},
+            #{campId},
+            #{custGrpNo},
+            #{itgCustNo} -->
+        )
+    </insert>
+    
+</mapper>

@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CusSendListDao">
+    <sql id="sqlPkConditions">
+                WHERE DSP_HST_SEQ       =       #{dspHstSeq}
+    </sql>
+    <sql id="sqlCols">
+                      DSP_HST_SEQ                    /*발송이력일련번호        */
+                    , ITG_CUST_NO                    /*통합고객번호        */
+                    , DSP_CTNT_TYPE_CD                    /*발송콘텐츠유형코드        */
+                    , MPHON_NO                    /*이동전화번호        */
+                    , EMAIL_ADDR                    /*이메일주소        */
+                    , DSP_DT                    /*발송일시        */
+                    , DSP_STATUS_CD                    /*발송상태코드        */
+                    , TMPLT_TXN                    /*템플릿내역        */
+                    , DSP_WHY_TXN                    /*발송사유내역        */
+                    , DSP_CHL_CD                    /*발송채널코드        */
+                    , PROM_NO                    /*프로모션번호        */
+                    , CAMP_NO                    /*캠페인번호        */
+                    , STOR_NO                    /*매장번호        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS]*/
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.DSP_HST_SEQ                    /*발송이력일련번호        */
+                    , A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.DSP_CTNT_TYPE_CD AS DSP_CTNT_TYPE_NM                    /*발송콘텐츠유형코드        */
+                    , A.DSP_CTNT_TYPE_CD                    /*발송콘텐츠유형코드        */
+                    , A.MPHON_NO                    /*이동전화번호        */
+                    , A.EMAIL_ADDR                    /*이메일주소        */
+                    , TO_CHAR(A.DSP_DT,'YYYYMMDDHH24MISS')    DSP_DT                    /*발송일시        */
+                    , A.DSP_STATUS_CD AS DSP_STATUS_NM                    /*발송상태        */
+                    , A.DSP_STATUS_CD                    /*발송상태코드        */
+                    , A.TMPLT_TXN                    /*템플릿내역        */
+                    , A.DSP_WHY_TXN                    /*발송사유내역        */
+                    , A.DSP_CHL_CD AS DSP_CHL_NM                   /*발송채널코드        */
+                    , A.DSP_CHL_CD                    /*발송채널코드        */
+                    , A.PROM_NO                    /*프로모션번호        */
+                    , A.CAMP_NO                    /*캠페인번호        */
+                    , A.STOR_NO                    /*매장번호        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , A.REG_CHL_CD AS REG_CHL_NM                    /*등록채널*/
+                    , A.REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS]*/
+    </sql>
+    <sql id="sqlConditions">
+        <where>
+        <if test="dspHstSeq != null and dspHstSeq != ''">
+                  AND A.DSP_HST_SEQ     =       #{dspHstSeq}
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO     =       #{itgCustNo}
+        </if>
+        <if test="strtDt != null and strtDt != ''">
+                      AND A.DSP_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.DSP_DT
+        </if>
+        <if test="dspCtntTypeCd != null and dspCtntTypeCd != ''">
+            <choose>
+                <when test="dspCtntTypeCd instanceof String">
+                    AND A.DSP_CTNT_TYPE_CD=       #{dspCtntTypeCd}
+                </when>
+                <otherwise>
+                    AND A.DSP_CTNT_TYPE_CDIN
+                    <foreach item="item" index="index" collection="dspCtntTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="mphonNo != null and mphonNo != ''">
+                  AND A.MPHON_NO        =       #{mphonNo}
+        </if>
+        <if test="emailAddr != null and emailAddr != ''">
+                  AND A.EMAIL_ADDR      =       #{emailAddr}
+        </if>
+        <if test="dspStatusCd != null and dspStatusCd != ''">
+            <choose>
+                <when test="dspStatusCd instanceof String">
+                    AND A.DSP_STATUS_CD   =       #{dspStatusCd}
+                </when>
+                <otherwise>
+                    AND A.DSP_STATUS_CD   IN
+                    <foreach item="item" index="index" collection="dspStatusCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="tmpltTxn != null and tmpltTxn != ''">
+                  AND A.TMPLT_TXN       =       #{tmpltTxn}
+        </if>
+        <if test="dspWhyTxn != null and dspWhyTxn != ''">
+                  AND A.DSP_WHY_TXN     =       #{dspWhyTxn}
+        </if>
+        <if test="dspChlCd != null and dspChlCd != ''">
+            <choose>
+                <when test="dspChlCd instanceof String">
+                    AND A.DSP_CHL_CD      =       #{dspChlCd}
+                </when>
+                <otherwise>
+                    AND A.DSP_CHL_CD      IN
+                    <foreach item="item" index="index" collection="dspChlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="promNo != null and promNo != ''">
+                  AND A.PROM_NO         =       #{promNo}
+        </if>
+        <if test="campNo != null and campNo != ''">
+                  AND A.CAMP_NO         =       #{campNo}
+        </if>
+        <if test="storNo != null and storNo != ''">
+                  AND A.STOR_NO         =       #{storNo}
+        </if>
+        <if test="regChlCd != null and regChlCd != ''">
+            <choose>
+                <when test="regChlCd instanceof String">
+                    AND A.REG_CHL_CD      =       #{regChlCd}
+                </when>
+                <otherwise>
+                    AND A.REG_CHL_CD      IN
+                    <foreach item="item" index="index" collection="regChlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('dspHstSeq')">
+                ORDER BY      DSP_HST_SEQ
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('dspCtntTypeCd')">
+                ORDER BY      DSP_CTNT_TYPE_CD
+            </when>
+            <when test="colSortName.equals('mphonNo')">
+                ORDER BY      MPHON_NO
+            </when>
+            <when test="colSortName.equals('emailAddr')">
+                ORDER BY      EMAIL_ADDR
+            </when>
+            <when test="colSortName.equals('dspDt')">
+                ORDER BY      DSP_DT
+            </when>
+            <when test="colSortName.equals('dspStatusCd')">
+                ORDER BY      DSP_STATUS_CD
+            </when>
+            <when test="colSortName.equals('tmpltTxn')">
+                ORDER BY      TMPLT_TXN
+            </when>
+            <when test="colSortName.equals('dspWhyTxn')">
+                ORDER BY      DSP_WHY_TXN
+            </when>
+            <when test="colSortName.equals('dspChlCd')">
+                ORDER BY      DSP_CHL_CD
+            </when>
+            <when test="colSortName.equals('promNo')">
+                ORDER BY      PROM_NO
+            </when>
+            <when test="colSortName.equals('campNo')">
+                ORDER BY      CAMP_NO
+            </when>
+            <when test="colSortName.equals('storNo')">
+                ORDER BY      STOR_NO
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <when test="colSortName.equals('regChlCd')">
+                ORDER BY      REG_CHL_CD
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+        SELECT /* com.ceragem.crm.cst.dao.CusSendListDao.selectListCount */
+			COUNT(1)
+		FROM(
+			<include refid="sqlSendList"/>
+		)
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.CusSendListVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+        <include refid="sqlSendList"/>
+        ORDER BY SND_DATE DESC
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.cst.model.CusSendListVo">
+               SELECT /* com.ceragem.crm.cst.dao.CusSendListDao.select */ <include refid="sqlSelectCols"/>
+                 FROM CRM_DSP_HST A
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT /* com.ceragem.crm.cst.dao.CusSendListDao.insert */ INTO CRM_DSP_HST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{dspHstSeq}
+                     , #{itgCustNo}
+                     , #{dspCtntTypeCd}
+                     , #{mphonNo}
+                     , #{emailAddr}
+                     , TO_DATE(#{dspDt},'YYYYMMDDHH24MISS')
+                     , #{dspStatusCd}
+                     , #{tmpltTxn}
+                     , #{dspWhyTxn}
+                     , #{dspChlCd}
+                     , #{promNo}
+                     , #{campNo}
+                     , #{storNo}
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                     , #{regChlCd}
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.cst.dao.CusSendListDao.update */ CRM_DSP_HST
+                  SET ITG_CUST_NO                             =         #{itgCustNo}
+                    , DSP_CTNT_TYPE_CD                        =         #{dspCtntTypeCd}
+                    , MPHON_NO                                =         #{mphonNo}
+                    , EMAIL_ADDR                              =         #{emailAddr}
+                    , DSP_DT                                  =         TO_DATE(#{dspDt},'YYYYMMDDHH24MISS')
+                    , DSP_STATUS_CD                           =         #{dspStatusCd}
+                    , TMPLT_TXN                               =         #{tmpltTxn}
+                    , DSP_WHY_TXN                             =         #{dspWhyTxn}
+                    , DSP_CHL_CD                              =         #{dspChlCd}
+                    , PROM_NO                                 =         #{promNo}
+                    , CAMP_NO                                 =         #{campNo}
+                    , STOR_NO                                 =         #{storNo}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+                    , REG_CHL_CD                              =         #{regChlCd}
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.cst.dao.CusSendListDao.delete */ FROM CRM_DSP_HST
+        <include refid="sqlPkConditions"/>
+    </delete>
+    
+    <sql id="sqlSendList">
+		
+		SELECT
+			dTB.*
+		FROM(
+			SELECT
+				'003' AS SND_TYPE,
+				C00A_CP_ID AS ORG_CP_ID,
+				C00A_DUMMY1 AS CP_ID,
+				C00A_SEQ AS SND_SEQ,
+				C00A_DUMMY2 AS CUST_GRP_NO,
+				C00A_MB_ID AS ITG_CUST_NO,
+				C00A_MB_NM AS CUST_NM,
+				C00A_MB_EMAIL AS SND_ADDR,
+				CASE 
+					WHEN C00A_UDCD = '00' THEN 'Y'
+					ELSE 'N'
+				END AS SND_RESULT,
+				C00A_CP_SNDT AS SND_DATE,
+				'' AS SND_MSG
+			FROM EON.WSOMC00A
+			WHERE C00A_DUMMY10 = #{itgCustNo}
+			UNION ALL
+			SELECT
+				CASE 
+					WHEN Z412_C001_EOS_TY = '02' OR Z412_C001_EOS_TY = '03' OR Z412_C001_EOS_TY = '04' THEN '001'
+					WHEN Z412_C001_EOS_TY = '09' THEN '002'
+					ELSE '000'
+				END AS SND_TYPE,
+				Z415_CMMX_CP_ID AS ORG_CP_ID, 
+				Z415_DUMMY1 AS CP_ID,
+				Z415_CMMX_SEQ AS SND_SEQ, 
+				Z415_DUMMY2 AS CUST_GRP_NO,
+				Z415_DUMMY10 AS ITG_CUST_NO,
+				Z415_CMMX_MB_NM AS CUST_NM, 
+				Z415_CMMX_MB_HP AS SND_ADDR, 
+				CASE 
+					WHEN Z415_CMMX_UDCD = '0' THEN 'Y'
+					ELSE 'N'
+				END AS SND_RESULT,
+				Z415_CMMX_CP_SNDT AS SND_DATE,
+				Z415_CMMX_MSG AS SND_MSG
+			FROM EON.WSOMZ415 A, EON.WSOMZ412 B
+			WHERE A.Z415_ID=B.Z412_ID AND A.Z415_CMMX_CP_ID=B.Z412_C001_CP_ID
+			AND Z415_DUMMY10 = #{itgCustNo}
+			AND Z415_CMMX_CP_SNDT IS NOT NULL
+		) dTB
+		
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<!-- <if test="sendType != null and sendType != ''">
+				<choose>
+					<when test="sendType instanceof String">
+						AND SND_TYPE = #{sendType}
+					</when>
+					<otherwise>
+						AND SND_TYPE IN
+						<foreach item="item" index="index" collection="sendType" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</otherwise>
+				</choose>
+			</if> -->
+			<if test="strtDt != null and strtDt != ''">
+                AND SND_DATE >= TO_DATE(#{strtDt},'YYYYMMDD')
+	        </if>
+	        <if test="endDt != null and endDt != ''">
+	            AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > SND_DATE
+	        </if>
+			<if test="sendType != null and sendType != ''">
+				AND SND_TYPE = #{sendType}
+			</if>
+			<if test="sendResult != null and sendResult != ''">
+				AND SND_RESULT = #{sendResult}
+			</if>
+		</trim>
+	</sql>
+</mapper>

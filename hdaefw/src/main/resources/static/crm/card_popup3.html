@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1>적용채널</h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+    <!-- cont -->
+    <div class="cont">
+        
+        <!-- grid -->
+        <div class="mGrid2 type2">
+            <!-- left -->
+            <div class="lt">
+                <div class="gTitle1">
+                    <h3 class="mTitle1">전체 채널 목록</h3>
+                </div>
+                <!-- sort -->
+                <div class="mSort2 mini"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                    <ul>
+                        <li class="wAuto">
+                            <div class="tit">채널</div>
+                            <div class="txt">
+                                <select class="select w150" title="채널">
+                                    <option>전체/멤버십/</option>
+                                </select>
+                            </div>
+                            <span class="button">
+                                <a href="#" class="mBtn1">검색</a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- //sort -->
+                <!-- list -->
+                <div class="list">
+                    <div class="mBoard1 mCustomScrollbar">
+                        <table>
+                            <caption>전체 채널 목록</caption>
+                            <colgroup>
+                                <col span="2" width="6%">
+                                <col span="3" width="*">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">전체선택</span>
+                                        </label>
+                                    </th>
+                                    <th scope="col">채널코드</th>
+                                    <th scope="col">채널명</th>
+                                    <th scope="col">등록일</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td>MEMAPP</td>
+                                    <td>멤버십  앱</td>
+                                    <td>2021-01-01</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td>MEMAPP</td>
+                                    <td>멤버십  앱</td>
+                                    <td>2021-01-01</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- paging -->
+                    <div class="mPag1 mb0">
+                        <div class="mCount1">총 <strong>5</strong>건</div>
+                    </div>
+                    <!-- //paging -->
+                </div>
+                <!-- //list -->
+            </div>
+            <!-- //left -->
+            <!-- prev/next -->
+            <div class="mPn1">
+                <a href="#" class="prev">왼쪽으로 이동</a>
+                <a href="#" class="next">오른쪽으로 이동</a>
+            </div>
+            <!-- //prev/next -->
+            <!-- right -->
+            <div class="rt">
+                <div class="gTitle1">
+                    <h3 class="mTitle1">적용 채널 목록</h3>
+                </div>
+                <!-- sort -->
+                <div class="mSort2 mini"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                    <ul>
+                        <li class="wAuto">
+                            <div class="tit">채널</div>
+                            <div class="txt">
+                                <select class="select w150" title="채널">
+                                    <option>전체/멤버십/</option>
+                                </select>
+                            </div>
+                            <span class="button">
+                                <a href="#" class="mBtn1">검색</a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- //sort -->
+                <!-- list -->
+                <div class="list">
+                    <div class="mBoard1 mCustomScrollbar">
+                        <table>
+                            <caption>전체 채널 목록</caption>
+                            <colgroup>
+                                <col span="2" width="6%">
+                                <col span="3" width="*">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">전체선택</span>
+                                        </label>
+                                    </th>
+                                    <th scope="col">채널코드</th>
+                                    <th scope="col">채널명</th>
+                                    <th scope="col">등록일</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td>MEMAPP</td>
+                                    <td>멤버십  앱</td>
+                                    <td>2021-01-01</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td>MEMAPP</td>
+                                    <td>멤버십  앱</td>
+                                    <td>2021-01-01</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- paging -->
+                    <div class="mPag1 mb0">
+                        <div class="mCount1">총 <strong>5</strong>건</div>
+                    </div>
+                    <!-- //paging -->
+                </div>
+                <!-- //list -->
+            </div>
+            <!-- //right -->
+        </div>
+        <!-- //grid -->
+        
+    </div>
+    <!-- //cont -->
+	
+</div>
+
+</body>
+</html>

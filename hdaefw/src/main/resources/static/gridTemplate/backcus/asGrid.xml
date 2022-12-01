@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="N"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="Y"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/> 
+    </meta>
+    <column name="AS CASE ID" field="asCaseId" type="char" maxLength="20" width="8" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    <column name="고객ID" field="customerId" type="char" maxLength="20" width="8" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    <column name="고객명" field="customerName" type="char" maxLength="100" width="20" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    <column name="전화번호" field="asPhone" type="char" maxLength="100" width="12" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    <column name="휴대전화번호" field="asMobile" type="char" maxLength="100" width="12" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    <column name="우편코드" field="asZipcode" type="char" maxLength="20" width="10" textAlignment="center" required="N" hidden="N" readOnly="Y"/>
+    <column name="주소" field="asAddress" type="char" maxLength="20" width="30" textAlignment="left" required="N" hidden="N" readOnly="Y"/>
+    <column name="이메일" field="asEmail" type="char" maxLength="20" width="20" textAlignment="left" required="N" hidden="N" readOnly="Y"/>
+</grid>

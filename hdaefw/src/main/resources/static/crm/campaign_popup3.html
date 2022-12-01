@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1></h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+	
+</div>
+
+<!-- layer -->
+<div id="jsLayer1" class="mLayer1">
+    <div class="title">
+        <h2>2차 캠페인 생성</h2>
+        <a href="#jsLayer1" class="close jsBtnClose1">팝업 닫기</a>
+    </div>
+    <!-- cont -->
+    <div class="cont mCustomScrollbar">
+        <div class="con">
+
+            <div class="gTitle1 line">
+                <h3 class="mTitle1">캠페인 설정</h3>
+            </div>
+            <!-- board -->
+            <div class="mBoard2"> 
+                <table>
+                    <caption>캠페인 설정</caption>
+                    <colgroup>
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="*">
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="15%">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th class="left" scope="row">캠페인 코드</th>
+                            <td colspan="2">
+                                <input type="text" class="it" title="캠페인 코드">
+                            </td>
+                            <th class="left" scope="row">캠페인 명</th>
+                            <td colspan="3">
+                                <input type="text" class="it" title="캠페인 명">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="left" scope="row"></th>
+                            <td class="left" colspan="4">
+                                <label class="mCheckbox1">
+                                    <input type="checkbox" title="POS" checked="checked">
+                                    <span class="label">POS</span>
+                                </label>
+                                <label class="mCheckbox1">
+                                    <input type="checkbox" title="온라인 웹">
+                                    <span class="label">온라인 웹</span>
+                                </label>
+                                <label class="mCheckbox1">
+                                    <input type="checkbox" title="온라인 앱">
+                                    <span class="label">온라인 앱</span>
+                                </label>
+                                <label class="mCheckbox1">
+                                    <input type="checkbox" title="HP">
+                                    <span class="label">HP</span>
+                                </label>
+                                <label class="mCheckbox1">
+                                    <input type="checkbox" title="HC">
+                                    <span class="label">HC</span>
+                                </label>
+                            </td>
+                            <th class="left" scope="row">캠페인 상태</th>
+                            <td class="left">
+                                <select class="select" title="캠페인 상태">
+                                    <option>준비중</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="left" scope="row">직접반응</th>
+                            <td class="left" colspan="6">
+                                <select class="select w106" title="직접반응">
+                                    <option>참여</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="left" scope="row">2차 캠페인 기간</th>
+                            <td class="left" colspan="6">
+                                <select class="select w106" title="2차 캠페인 기간">
+                                    <option>1차 종료 후</option>
+                                </select>
+                                <input type="text" class="it right w35" title="일" value="30"> 일
+                                <input type="text" class="it date w75 ml15" title="2차 캠페인 시작일" value="2022-01-01">
+                                <span class="bar">~</span>
+                                <input type="text" class="it date w75" title="2차 캠페인 마지막일" value="2022-01-03">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- //board -->
+
+            <!-- list -->
+            <div class="mList3 type2">
+                <!-- col -->
+                <div class="col">
+                    <div class="ti">혜택</div>
+                    <div class="tx2">포인트 <strong>5000 쿠폰</strong></div>
+                    <a href="#" class="mBtn1 round">선택</a>
+                </div>
+                <!-- //col -->
+                <!-- col -->
+                <div class="col">
+                    <div class="ti">발송채널</div>
+                    <div class="tx2">
+                        <select class="select" title="발송채널">
+                            <option>알림톡</option>
+                        </select>
+                    </div>
+                    <a href="#" class="mBtn1 round">선택</a>
+                </div>
+                <!-- //col -->
+                <!-- col -->
+                <div class="col">
+                    <div class="ti">발송 컨텐츠</div>
+                    <div class="tx2">
+                        <select class="select" title="발송 컨텐츠">
+                            <option>회원가입</option>
+                        </select>
+                    </div>
+                    <a href="#" class="mBtn1 round">선택</a>
+                </div>
+                <!-- //col -->
+            </div>
+            <!-- //list -->
+            
+        </div>
+    </div>
+    <!-- //cont -->
+    <div class="button">
+        <a href="#jsLayer1" class="jsBtnClose1"><strong>저장</strong></a>
+    </div>
+</div>
+<!-- //layer -->
+
+</body>
+</html>

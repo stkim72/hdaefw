@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.RecommendCusDao">
+    <sql id="sqlPkConditions">
+                WHERE A.ITG_CUST_NO       =       #{itgCustNo}
+    </sql>
+    
+    <sql id="sqlSelectCols">
+                      A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.CUST_NM                    /*고객명        */
+                    , A.GNDR_CD                    /*성별코드        */
+                    , A.BIRTHDAY                    /*생년월일        */
+                    --, '010-****-' || A.MPHON_BK_DGT_NO MPHON_NO                    /*이동전화번호        */
+                    , DAMO.DECRYPT_VAR_B64('AES_256',A.MPHON_NO,'') MPHON_NO                    /*이동전화번호        */
+                    , DAMO.DECRYPT_VAR_B64('AES_256',A.EMAIL_ADDR,'') EMAIL_ADDR                    /*이메일주소        */
+                    , (SELECT STOR_NM FROM CRM_STOR_BAS WHERE STOR_NO = A.RCMD_STOR_NO ) AS STOR_NM                    /*가입매장명        */
+                    , A.RCMD_STOR_NO                      /*가입매장번호        */
+                    , A.CUST_STATUS_CD                    /*고객상태코드        */
+                    , A.CUST_TYPE_CD                    /*고객유형코드        */
+                    , A.MSHIP_GRADE_CD                    /*멤버십등급코드        */
+                    , B.REG_DT                          /*등록일시        */
+                    , A.SALE_AGGR_AMT                    /*매출합계        */
+                    <!-- , A.REG_DT                    /*등록일시        */ -->
+    </sql>
+    
+    <sql id="sqlDetailSelectCols">
+                      B.RCMDR_HST_SEQ                    /*추천인이력일련번호        */
+                    , B.ITG_CUST_NO                    /*통합고객번호        */
+                    <!-- , B.RCMDR_CUST_NO                    /*추천인고객번호        */ -->
+                    , B.ITG_CUST_NO AS RCMDR_CUST_NO
+                    <!-- , A.CUST_NM AS RCMDR_CUST_NM         /*추천인고객명        */ -->
+                    , (SELECT CUST_NM FROM CRM_CUST_BAS WHERE ITG_CUST_NO = B.ITG_CUST_NO) AS RCMDR_CUST_NM
+                    , B.RCMD_EXECVDEMP_NO                    /*추천임직원번호        */
+                    , B.RCMD_STOR_NO                    /*추천매장번호        */
+                    , B.RCMD_TYPE_CD                    /*추천유형코드        */
+                    , B.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(B.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , B.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(B.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , B.REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS]*/
+    </sql>
+    
+    <sql id="sqlConditions">
+        <where>
+                  A.ITG_CUST_NO     =       B.ITG_CUST_NO (+)
+                   AND A.CUST_STATUS_CD != '003'
+        <if test="custTypeCd != null and custTypeCd != ''">
+            <choose>
+                <when test="custTypeCd instanceof String">
+                    AND A.CUST_TYPE_CD    =       #{custTypeCd}
+                </when>
+                <otherwise>
+                    AND A.CUST_TYPE_CD    IN
+                    <foreach item="item" index="index" collection="custTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>    
+        <if test="strtDt != null and strtDt != ''">
+                  AND A.REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                  AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.REG_DT
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO    LIKE  '%' ||    #{itgCustNo} || '%'
+        </if>
+        <if test="gndrCd != null and gndrCd != ''">
+            <choose>
+                <when test="gndrCd instanceof String">
+                    AND A.GNDR_CD         =       #{gndrCd}
+                </when>
+                <otherwise>
+                    AND A.GNDR_CD         IN
+                    <foreach item="item" index="index" collection="gndrCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="birthdayStrtDt != null and birthdayStrtDt != ''">
+                  AND TO_DATE(A.BIRTHDAY,'YYYYMMDD')      >=       TO_DATE(#{birthdayStrtDt},'YYYYMMDD')
+        </if>
+        <if test="birthdayEndDt != null and birthdayEndDt != ''">
+                  AND TO_DATE(#{birthdayEndDt},'YYYYMMDD') + 1 > TO_DATE(A.BIRTHDAY,'YYYYMMDD')
+        </if>
+        <if test="fromSaleAggrAmt != null and fromSaleAggrAmt != ''">
+               AND A.SALE_AGGR_AMT >= #{fromSaleAggrAmt}
+        </if>
+        <if test="toSaleAggrAmt != null and toSaleAggrAmt != ''">
+               AND #{toSaleAggrAmt} >= A.SALE_AGGR_AMT 
+        </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('custNm')">
+                ORDER BY      CUST_NM
+            </when>
+            <when test="colSortName.equals('gndrCd')">
+                ORDER BY      GNDR_CD
+            </when>
+            <when test="colSortName.equals('birthday')">
+                ORDER BY      BIRTHDAY
+            </when>
+            <when test="colSortName.equals('mphonNo')">
+                ORDER BY      MPHON_NO
+            </when>
+            <when test="colSortName.equals('emailAddr')">
+                ORDER BY      EMAIL_ADDR
+            </when>
+            <when test="colSortName.equals('custStatusCd')">
+                ORDER BY      CUST_STATUS_CD
+            </when>
+            <when test="colSortName.equals('custTypeCd')">
+                ORDER BY      CUST_TYPE_CD
+            </when>
+            <when test="colSortName.equals('mshipGradeCd')">
+                ORDER BY      MSHIP_GRADE_CD
+            </when>
+            <when test="colSortName.equals('cnt')">
+                ORDER BY      CNT
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    
+    <sql id="sqlDetailConditions">
+        <where>
+        <if test="rcmdrHstSeq != null and rcmdrHstSeq != ''">
+                  AND A.RCMDR_HST_SEQ   =       #{rcmdrHstSeq}
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO     =       #{itgCustNo}
+        </if>
+        <if test="rcmdrCustNo != null and rcmdrCustNo != ''">
+                  AND A.RCMDR_CUST_NO   =       #{rcmdrCustNo}
+        </if>
+        <if test="rcmdExecvdempNo != null and rcmdExecvdempNo != ''">
+                  AND A.RCMD_EXECVDEMP_NO=       #{rcmdExecvdempNo}
+        </if>
+        <if test="rcmdStorNo != null and rcmdStorNo != ''">
+                  AND A.RCMD_STOR_NO    =       #{rcmdStorNo}
+        </if>
+        <if test="rcmdTypeCd != null and rcmdTypeCd != ''">
+            <choose>
+                <when test="rcmdTypeCd instanceof String">
+                    AND A.RCMD_TYPE_CD    =       #{rcmdTypeCd}
+                </when>
+                <otherwise>
+                    AND A.RCMD_TYPE_CD    IN
+                    <foreach item="item" index="index" collection="rcmdTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="regChlCd != null and regChlCd != ''">
+            <choose>
+                <when test="regChlCd instanceof String">
+                    AND A.REG_CHL_CD      =       #{regChlCd}
+                </when>
+                <otherwise>
+                    AND A.REG_CHL_CD      IN
+                    <foreach item="item" index="index" collection="regChlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        </where>
+    </sql>
+    <sql id="sqlDetailOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      A.REG_DT DESC
+            </when>
+            <when test="colSortName.equals('rcmdrHstSeq')">
+                ORDER BY      A.RCMDR_HST_SEQ
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      A.ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('rcmdrCustNo')">
+                ORDER BY      A.RCMDR_CUST_NO
+            </when>
+            <when test="colSortName.equals('rcmdExecvdempNo')">
+                ORDER BY      A.RCMD_EXECVDEMP_NO
+            </when>
+            <when test="colSortName.equals('rcmdStorNo')">
+                ORDER BY      A.RCMD_STOR_NO
+            </when>
+            <when test="colSortName.equals('rcmdTypeCd')">
+                ORDER BY      A.RCMD_TYPE_CD
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      A.AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      A.AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      A.REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      A.REG_DT
+            </when>
+            <when test="colSortName.equals('regChlCd')">
+                ORDER BY      A.REG_CHL_CD
+            </when>
+            <otherwise>
+                ORDER BY      A.REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    
+    
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.cst.dao.RecommendCusDao.selectListCount */ COUNT(1)
+                  FROM 
+                (SELECT 
+                          A.ITG_CUST_NO                    /*통합고객번호        */
+                        , A.CUST_NM                    /*고객명        */
+                        , A.GNDR_CD                    /*성별코드        */
+                        , A.BIRTHDAY                    /*생년월일        */
+                        , A.MPHON_NO                    /*이동전화번호        */
+                        , A.EMAIL_ADDR                    /*이메일주소        */
+                        , A.STOR_NM                    /*가입매장명        */
+                        , A.RCMD_STOR_NO
+                        , A.CUST_STATUS_CD                    /*고객상태코드        */
+                        , A.CUST_TYPE_CD                    /*고객유형코드        */
+                        , A.MSHIP_GRADE_CD                    /*멤버십등급코드        */
+                        <!-- , COUNT(1) AS CNT                  /*계약건수        */ -->
+                        , (SELECT COUNT(*) DD /* 구매 추천 이력 : 구매 추천아닌 것도 포함하기로 함  */ FROM CRM_RCMD_HST B WHERE B.RCMDR_CUST_NO IS NOT NULL AND B.RCMDR_CUST_NO = A.ITG_CUST_NO  )  CNT
+                        , MAX(A.REG_DT) AS REG_DT           /*최신등록일자        */
+                        , A.SALE_AGGR_AMT
+                  FROM (SELECT <include refid="sqlSelectCols"/>
+                          FROM CRM_CUST_BAS A, CRM_RCMD_HST B
+                         <include refid="sqlConditions"/> ) A
+              GROUP BY A.ITG_CUST_NO, A.CUST_NM, A.GNDR_CD, A.BIRTHDAY, A.MPHON_NO, A.EMAIL_ADDR, A.STOR_NM, A.CUST_STATUS_CD, A.CUST_TYPE_CD, A.MSHIP_GRADE_CD, A.RCMD_STOR_NO, A.SALE_AGGR_AMT
+              <if test="cnt != null and cnt != ''">
+                HAVING COUNT(1) >= #{cnt} 
+              </if>
+              ) 
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.RecommendCusVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+                SELECT /* com.ceragem.crm.cst.dao.RecommendCusDao.selectList */
+                          A.ITG_CUST_NO                    /*통합고객번호        */
+                        , A.CUST_NM                    /*고객명        */
+                        , A.GNDR_CD                    /*성별코드        */
+                        , A.BIRTHDAY                    /*생년월일        */
+                        , A.MPHON_NO                    /*이동전화번호        */
+                        , A.EMAIL_ADDR                    /*이메일주소        */
+                        , A.STOR_NM                    /*가입매장명        */
+                        , A.RCMD_STOR_NO
+                        , A.CUST_STATUS_CD                    /*고객상태코드        */
+                        , A.CUST_TYPE_CD                    /*고객유형코드        */
+                        , A.MSHIP_GRADE_CD                    /*멤버십등급코드        */
+                        <!-- , COUNT(1) AS CNT                  /*계약건수        */ -->
+                        ,  (SELECT COUNT(*) DD /* 구매 추천 이력 : 구매 추천아닌 것도 포함하기로 함  */ FROM CRM_RCMD_HST B WHERE B.RCMDR_CUST_NO IS NOT NULL AND B.RCMDR_CUST_NO = A.ITG_CUST_NO  )  CNT
+                        , MAX(A.REG_DT) AS REG_DT           /*최신등록일자        */
+                        , A.SALE_AGGR_AMT
+                  FROM (SELECT <include refid="sqlSelectCols"/>
+                          FROM CRM_CUST_BAS A, CRM_RCMD_HST B
+                         <include refid="sqlConditions"/> ) A
+              GROUP BY A.ITG_CUST_NO, A.CUST_NM, A.GNDR_CD, A.BIRTHDAY, A.MPHON_NO, A.EMAIL_ADDR, A.STOR_NM, A.CUST_STATUS_CD, A.CUST_TYPE_CD, A.MSHIP_GRADE_CD, A.RCMD_STOR_NO, A.SALE_AGGR_AMT
+              <if test="cnt != null and cnt != ''">
+                HAVING COUNT(1) >= #{cnt} 
+              </if>
+        <include refid="sqlOrderBy"/>         
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    
+    <select id="selectDetail" resultType="com.ceragem.crm.cst.model.RecommendCusVo">
+               SELECT /* com.ceragem.crm.cst.dao.RecommendCusDao.selectDetail */ <include refid="sqlDetailSelectCols"/>
+                FROM CRM_CUST_BAS  A,  CRM_RCMD_HST B
+        <include refid="sqlPkConditions"/>
+                      AND A.ITG_CUST_NO = B.RCMDR_CUST_NO
+                      <!-- AND A.RCMD_TYPE_CD = '001' /*추천유형코드        공통코드 : CU340        [001 : 구매추천 , 002 : 체험추천 , 003 : 가입추천]*/ -->
+        <include refid="sqlDetailOrderBy"/>              
+    </select>
+       
+       <select id="selectDetailCount" resultType="int">
+               SELECT /* com.ceragem.crm.cst.dao.RecommendCusDao.selectDetailCount */ COUNT(1)
+                FROM CRM_CUST_BAS  A,  CRM_RCMD_HST B
+        <include refid="sqlPkConditions"/>
+                       AND A.ITG_CUST_NO = B.RCMDR_CUST_NO
+                      <!-- AND A.RCMD_TYPE_CD = '001' /*추천유형코드        공통코드 : CU340        [001 : 구매추천 , 002 : 체험추천 , 003 : 가입추천]*/ -->
+        <include refid="sqlDetailOrderBy"/>              
+    </select>
+    
+</mapper>

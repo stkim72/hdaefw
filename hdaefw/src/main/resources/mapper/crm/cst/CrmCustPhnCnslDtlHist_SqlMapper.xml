@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CrmCustPhnCnslDtlHistDao">
+    <sql id="sqlPkConditions">
+                WHERE CNSL_HIST_NO      =       #{cnslHistNo} 
+        <if test="cnslHistDtlNo != null and cnslHistDtlNo != ''">
+                  AND CNSL_HIST_DTL_NO=       #{cnslHistDtlNo}
+        </if>                
+                  AND ASP_CUST_KEY      =       #{aspCustKey}
+    </sql>
+    <sql id="sqlCols">
+                      CNSL_HIST_NO                    /*상담이력번호        */
+                    , CNSL_HIST_DTL_NO                    /*상담이력상세번호        */
+                    , ASP_CUST_KEY                    /*ASP_고객사_키        */
+                    , ITG_CUST_NO                    /*통합고객번호        */
+                    , CNSL_TYP_CD                    /*상담유형코드        */
+                    , CNSL_TYP_CD_2                    /*상담유형코드2        */
+                    , CNSL_TYP_CD_3                    /*상담유형코드3        */
+                    , PROC_CODE_LCLS                    /*처리코드대분류        */
+                    , PROC_CODE_MDCLS                    /*처리코드중분류        */
+                    , PROC_CODE_SCLS                    /*처리코드소분류        */
+                    , CNSL_CNTN                    /*상담내용        */
+                    , REPLE_CNTN                    /*답변내용        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.CNSL_HIST_NO                    /*상담이력번호        */
+                    , A.CNSL_HIST_DTL_NO                    /*상담이력상세번호        */
+                    , A.ASP_CUST_KEY                    /*ASP_고객사_키        */
+                    , A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.CNSL_TYP_CD                    /*상담유형코드        */
+                    , A.CNSL_TYP_CD_2                    /*상담유형코드2        */
+                    , A.CNSL_TYP_CD_3                    /*상담유형코드3        */
+                    , A.PROC_CODE_LCLS                    /*처리코드대분류        */
+                    , A.PROC_CODE_MDCLS                    /*처리코드중분류        */
+                    , A.PROC_CODE_SCLS                    /*처리코드소분류        */
+                    , A.CNSL_CNTN                    /*상담내용        */
+                    , A.REPLE_CNTN                    /*답변내용        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+    </sql>
+    <sql id="sqlConditions">
+    <where>
+        <if test="cnslHistNo != null and cnslHistNo != ''">
+                  AND A.CNSL_HIST_NO    =       #{cnslHistNo}
+        </if>
+        <if test="cnslHistDtlNo != null and cnslHistDtlNo != ''">
+                  AND A.CNSL_HIST_DTL_NO=       #{cnslHistDtlNo}
+        </if>
+        <if test="aspCustKey != null and aspCustKey != ''">
+                  AND A.ASP_CUST_KEY    =       #{aspCustKey}
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO     =       #{itgCustNo}
+        </if>
+        <if test="cnslTypCd != null and cnslTypCd != ''">
+            <choose>
+                <when test="cnslTypCd instanceof String">
+                    AND A.CNSL_TYP_CD     =       #{cnslTypCd}
+                </when>
+                <otherwise>
+                    AND A.CNSL_TYP_CD     IN
+                    <foreach item="item" index="index" collection="cnslTypCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="cnslTypCd2 != null and cnslTypCd2 != ''">
+                  AND A.CNSL_TYP_CD_2   =       #{cnslTypCd2}
+        </if>
+        <if test="cnslTypCd3 != null and cnslTypCd3 != ''">
+                  AND A.CNSL_TYP_CD_3   =       #{cnslTypCd3}
+        </if>
+        <if test="procCodeLcls != null and procCodeLcls != ''">
+                  AND A.PROC_CODE_LCLS  =       #{procCodeLcls}
+        </if>
+        <if test="procCodeMdcls != null and procCodeMdcls != ''">
+                  AND A.PROC_CODE_MDCLS =       #{procCodeMdcls}
+        </if>
+        <if test="procCodeScls != null and procCodeScls != ''">
+                  AND A.PROC_CODE_SCLS  =       #{procCodeScls}
+        </if>
+        <if test="cnslCntn != null and cnslCntn != ''">
+                  AND A.CNSL_CNTN       =       #{cnslCntn}
+        </if>
+        <if test="repleCntn != null and repleCntn != ''">
+                  AND A.REPLE_CNTN      =       #{repleCntn}
+        </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('cnslHistNo')">
+                ORDER BY      CNSL_HIST_NO
+            </when>
+            <when test="colSortName.equals('cnslHistDtlNo')">
+                ORDER BY      CNSL_HIST_DTL_NO
+            </when>
+            <when test="colSortName.equals('aspCustKey')">
+                ORDER BY      ASP_CUST_KEY
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('cnslTypCd')">
+                ORDER BY      CNSL_TYP_CD
+            </when>
+            <when test="colSortName.equals('cnslTypCd2')">
+                ORDER BY      CNSL_TYP_CD_2
+            </when>
+            <when test="colSortName.equals('cnslTypCd3')">
+                ORDER BY      CNSL_TYP_CD_3
+            </when>
+            <when test="colSortName.equals('procCodeLcls')">
+                ORDER BY      PROC_CODE_LCLS
+            </when>
+            <when test="colSortName.equals('procCodeMdcls')">
+                ORDER BY      PROC_CODE_MDCLS
+            </when>
+            <when test="colSortName.equals('procCodeScls')">
+                ORDER BY      PROC_CODE_SCLS
+            </when>
+            <when test="colSortName.equals('cnslCntn')">
+                ORDER BY      CNSL_CNTN
+            </when>
+            <when test="colSortName.equals('repleCntn')">
+                ORDER BY      REPLE_CNTN
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.cst.dao.CrmCustPhnCnslDtlHistDao.selectListCount */ COUNT(1)
+                 FROM CRM_CUST_PHN_CNSL_DTL_HIST A
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.CrmCustPhnCnslDtlHistVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.cst.dao.CrmCustPhnCnslDtlHistDao.selectList */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_PHN_CNSL_DTL_HIST A
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.cst.model.CrmCustPhnCnslDtlHistVo">
+               SELECT /* com.ceragem.crm.cst.dao.CrmCustPhnCnslDtlHistDao.select */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_PHN_CNSL_DTL_HIST A
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT INTO /* com.ceragem.crm.cst.dao.CrmCustPhnCnslDtlHistDao.insert */ CRM_CUST_PHN_CNSL_DTL_HIST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{cnslHistNo}
+                     , #{cnslHistDtlNo}
+                     , #{aspCustKey}
+                     , #{itgCustNo}
+                     , #{cnslTypCd}
+                     , #{cnslTypCd2}
+                     , #{cnslTypCd3}
+                     , #{procCodeLcls}
+                     , #{procCodeMdcls}
+                     , #{procCodeScls}
+                     , #{cnslCntn}
+                     , #{repleCntn}
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.cst.dao.CrmCustPhnCnslDtlHistDao.update */ CRM_CUST_PHN_CNSL_DTL_HIST
+                  SET ITG_CUST_NO                             =         #{itgCustNo}
+                    , CNSL_TYP_CD                             =         #{cnslTypCd}
+                    , CNSL_TYP_CD_2                           =         #{cnslTypCd2}
+                    , CNSL_TYP_CD_3                           =         #{cnslTypCd3}
+                    , PROC_CODE_LCLS                          =         #{procCodeLcls}
+                    , PROC_CODE_MDCLS                         =         #{procCodeMdcls}
+                    , PROC_CODE_SCLS                          =         #{procCodeScls}
+                    , CNSL_CNTN                               =         #{cnslCntn}
+                    , REPLE_CNTN                              =         #{repleCntn}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.cst.dao.CrmCustPhnCnslDtlHistDao.delete */  FROM CRM_CUST_PHN_CNSL_DTL_HIST
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.sys.dao.BatchExecHstDao">
+    <sql id="sqlPkConditions">
+                WHERE BATCH_HST_CD      =       #{batchHstCd}
+    </sql>
+    <sql id="sqlCols">
+                      BATCH_HST_CD                    /*배치이력코드        */
+                    , BATCH_CD                    /*배치코드        */
+                    , SYS_CD                    /*시스템코드        */
+                    , WRK_ID                    /*작업ID        */
+                    , BATCH_RSLT_CD                    /*배치결과코드        */
+                    , BATCH_CALL_DT                    /*배치호출일시        */
+                    , BATCH_EXEC_MSEC                    /*배치실행밀리초        */
+                    , ERR_MSG_TXN                    /*오류메시지내역        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.BATCH_HST_CD                    /*배치이력코드        */
+                    , A.BATCH_CD                    /*배치코드        */
+                    , A.SYS_CD                    /*시스템코드        */
+                    , A.WRK_ID                    /*작업ID        */
+                    , A.BATCH_RSLT_CD                    /*배치결과코드        */
+                    , TO_CHAR(A.BATCH_CALL_DT,'YYYYMMDDHH24MISS')    BATCH_CALL_DT                    /*배치호출일시        */
+                    , A.BATCH_EXEC_MSEC                    /*배치실행밀리초        */
+                    , A.ERR_MSG_TXN                    /*오류메시지내역        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+    </sql>
+    <sql id="sqlConditions">
+        <where>
+        <if test="batchHstCd != null and batchHstCd != ''">
+            <choose>
+                <when test="batchHstCd instanceof String">
+                    AND A.BATCH_HST_CD    =       #{batchHstCd}
+                </when>
+                <otherwise>
+                    AND A.BATCH_HST_CD    IN
+                    <foreach item="item" index="index" collection="batchHstCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="batchCd != null and batchCd != ''">
+            <choose>
+                <when test="batchCd instanceof String">
+                    AND A.BATCH_CD        =       #{batchCd}
+                </when>
+                <otherwise>
+                    AND A.BATCH_CD        IN
+                    <foreach item="item" index="index" collection="batchCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="sysCd != null and sysCd != ''">
+            <choose>
+                <when test="sysCd instanceof String">
+                    AND A.SYS_CD          =       #{sysCd}
+                </when>
+                <otherwise>
+                    AND A.SYS_CD          IN
+                    <foreach item="item" index="index" collection="sysCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="wrkId != null and wrkId != ''">
+                  AND A.WRK_ID          =       #{wrkId}
+        </if>
+        <if test="batchRsltCd != null and batchRsltCd != ''">
+            <choose>
+                <when test="batchRsltCd instanceof String">
+                    AND A.BATCH_RSLT_CD   =       #{batchRsltCd}
+                </when>
+                <otherwise>
+                    AND A.BATCH_RSLT_CD   IN
+                    <foreach item="item" index="index" collection="batchRsltCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="batchCallDt != null and batchCallDt != ''">
+                  AND A.BATCH_CALL_DT   =       TO_DATE(#{batchCallDt},'YYYYMMDDHH24MISS')
+        </if>
+        <if test="batchExecMsec != null and batchExecMsec != ''">
+                  AND A.BATCH_EXEC_MSEC =       #{batchExecMsec}
+        </if>
+        <if test="errMsgTxn != null and errMsgTxn != ''">
+                  AND A.ERR_MSG_TXN     =       #{errMsgTxn}
+        </if>
+        <if test="jobIdLike != null and jobIdLike != ''">
+                  AND WRK_ID LIKE  '%' || #{jobIdLike}  || '%'
+        </if>
+        <if test="strtDt != null and strtDt != ''">
+                      AND A.BATCH_CALL_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.BATCH_CALL_DT
+        </if>
+        <if test="batchRsltCdLike != null and batchRsltCdLike != ''">
+                      AND A.BATCH_RSLT_CD      LIKE       '%' || #{batchRsltCdLike}  || '%'
+        </if>
+        <if test="successYn != null and successYn != ''">
+                      AND A.BATCH_RSLT_CD      =       #{successYn} 
+        </if>
+        
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      BATCH_CALL_DT DESC
+            </when>
+            <when test="colSortName.equals('batchHstCd')">
+                ORDER BY      BATCH_HST_CD
+            </when>
+            <when test="colSortName.equals('batchCd')">
+                ORDER BY      BATCH_CD
+            </when>
+            <when test="colSortName.equals('sysCd')">
+                ORDER BY      SYS_CD
+            </when>
+            <when test="colSortName.equals('wrkId')">
+                ORDER BY      WRK_ID
+            </when>
+            <when test="colSortName.equals('batchRsltCd')">
+                ORDER BY      BATCH_RSLT_CD
+            </when>
+            <when test="colSortName.equals('batchCallDt')">
+                ORDER BY      BATCH_CALL_DT
+            </when>
+            <when test="colSortName.equals('batchExecMsec')">
+                ORDER BY      BATCH_EXEC_MSEC
+            </when>
+            <when test="colSortName.equals('errMsgTxn')">
+                ORDER BY      ERR_MSG_TXN
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.sys.dao.BatchExecHstDao.selectListCount */ COUNT(1)
+                 FROM BATCH_EXEC_HST A
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.sys.model.BatchExecHstVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.sys.dao.BatchExecHstDao.selectList */ <include refid="sqlSelectCols"/>
+                    , NVL((SELECT BATCH_NM FROM BATCH_INFO_BAS WHERE BATCH_CD = A.BATCH_CD), (SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE WRK_ID = A.WRK_ID AND SYS_CD = A.SYS_CD AND ROWNUM = 1 ))  BATCH_NM
+                 FROM BATCH_EXEC_HST A
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.sys.model.BatchExecHstVo">
+               SELECT /* com.ceragem.crm.sys.dao.BatchExecHstDao.select */ <include refid="sqlSelectCols"/>
+                    , NVL((SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE BATCH_CD = A.BATCH_CD), (SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE WRK_ID = A.WRK_ID AND SYS_CD = A.SYS_CD AND ROWNUM = 1 ))  BATCH_NM
+                 FROM BATCH_EXEC_HST A
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+        <selectKey order="BEFORE" keyProperty="batchHstCd" resultType="String">
+            SELECT FN_CRM_AUTO_SEQ('BEH') 
+              FROM DUAL
+        </selectKey>    
+                INSERT /* com.ceragem.crm.sys.dao.BatchExecHstDao.insert */ INTO BATCH_EXEC_HST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{batchHstCd}
+                     , #{batchCd}
+                     , #{sysCd}
+                     , #{wrkId}
+                     , #{batchRsltCd}
+                     , TO_DATE(#{batchCallDt},'YYYYMMDDHH24MISS')
+                     , #{batchExecMsec}
+                     , #{errMsgTxn}
+                     , #{regrId}
+                     , SYSDATE
+                     , #{amdrId}
+                     , SYSDATE
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.sys.dao.BatchExecHstDao.update */ BATCH_EXEC_HST
+                  SET BATCH_CD                                =         #{batchCd}
+                    , SYS_CD                                  =         #{sysCd}
+                    , WRK_ID                                  =         #{wrkId}
+                    , BATCH_RSLT_CD                           =         #{batchRsltCd}
+                    , BATCH_CALL_DT                           =         TO_DATE(#{batchCallDt},'YYYYMMDDHH24MISS')
+                    , BATCH_EXEC_MSEC                         =         #{batchExecMsec}
+                    , ERR_MSG_TXN                             =         #{errMsgTxn}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.sys.dao.BatchExecHstDao.delete */
+                 FROM BATCH_EXEC_HST
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

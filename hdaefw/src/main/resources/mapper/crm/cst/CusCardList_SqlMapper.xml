@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CusCardListDao">
+    <sql id="sqlPkConditions">
+                WHERE CARD_PBLS_HST_SEQ =       #{cardPblsHstSeq}
+    </sql>
+    
+    <sql id="sqlCols">
+                      REG_DT                            /*등록일시        */
+                    , ITG_CUST_NO                       /*통합고객번호        */
+                    , REGEXP_REPLACE(CARD_BAS_NO, '(.{4})(.{4})(.{4})(.{4})', '\1-\2-\3-\4') AS CARD_BAS_NO /*카드기본번호        */
+                    , CARD_TYPE_CD                      /*카드유형코드        */
+                    , CARD_TYPE_CD AS CARD_TYPE_NM      /*카드유형        */
+                    , CARD_DIV_CD                       /*카드구분코드        */
+                    , CARD_DIV_CD AS CARD_DIV_NM        /*카드구분        */
+                    , USE_YN                            /*사용여부        */
+                    , REG_CHL_CD AS REG_CHL_NM          /*등록채널*/
+                    , REG_CHL_CD                        /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , test : test]*/
+                    , CARD_PBLS_HST_SEQ                 /*카드발행이력일련번호        */
+                    , MSHP_NM                           /*회원명        */
+                    , MPHON_NO                          /*이동전화번호        */
+                    , MSHIP_GRADE_CD                    /*멤버십등급코드        */
+                    , FROM_USE_POSS_DT                  /*FROM사용가능일시        */
+                    , TO_USE_POSS_DT                    /*TO사용가능일시        */
+                    , POINT_ACCUM_RATE                  /*포인트적립율        */
+                    , SBSC_POINT_SCORE                  /*가입포인트점수        */
+                    , SBSC_POINT_APPLY_STD_CD           /*가입포인트적용기준코드        */
+                    , ADVNCMT_POINT_SCORE               /*승급포인트점수        */
+                    , ADVNCMT_POINT_APPLY_STD_CD        /*승급포인트적용기준코드        */
+                    , DRNK_DC_RATE                      /*음료할인율        */
+                    , DAY_DRNK_PRV_CNT                  /*일음료제공수        */
+                    , DRNK_PRV_CNT                      /*음료제공수        */
+                    , MYCOM_MALL_FREE_DLV_YN            /*자사몰무료배송여부        */
+                    , DRNK_FREE_APPLY_STMP_CNT          /*음료무료적용스탬프수        */
+                    , FREE_SVC_EXTNSN_MONS_CNT          /*무료서비스연장개월수        */
+                    , CERAC_COUPN_PRV_MONS_CNT          /*세라케어쿠폰제공개월수        */
+                    , CRCK_COUPN_PRV_MONS_CNT           /*세라체크쿠폰제공개월수        */
+                    , GODS_RSTRTN_YN                    /*제품제한여부        */
+                    , STATUS_CD                         /*상태코드        */
+                    , CERTF_NO                          /*인증번호        */
+                    , CERTF_DT                          /*인증일시        */
+                    , AMDR_ID                           /*수정자ID        */
+                    , AMD_DT                            /*수정일시        */
+                    , REGR_ID                           /*등록자ID        */
+    </sql>
+    
+    <sql id="sqlConditions">
+        <where>
+                              STATUS_CD = 'Y'
+            <if test="itgCustNo != null and itgCustNo != ''">
+                          AND ITG_CUST_NO   =   #{itgCustNo}
+            </if>                
+            <if test="strtDt != null and strtDt != ''">
+                          AND REG_DT    >=  TO_DATE(#{strtDt},'YYYYMMDD')
+            </if>
+            <if test="endDt != null and endDt != ''">
+                          AND TO_DATE(#{endDt},'YYYYMMDD') + 1  >   REG_DT
+            </if>
+            <if test="cardTypeCd != null and cardTypeCd != ''">
+                          AND CARD_TYPE_CD  =   #{cardTypeCd}
+            </if>
+        </where>
+    </sql>
+
+
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.cst.dao.CusCardListDao.selectListCount */ COUNT(1)
+                  FROM (SELECT <include refid="sqlCols"/>
+                          FROM CRM_CARD_PBLS_HST)
+        <include refid="sqlConditions"/>
+    </select>
+    
+    
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.CusCardListVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+                SELECT /* com.ceragem.crm.cst.dao.CusCardListDao.selectList */ * FROM
+                    (SELECT <include refid="sqlCols"/>
+                       FROM CRM_CARD_PBLS_HST)
+        <include refid="sqlConditions"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    
+    
+    <select id="select" resultType="com.ceragem.crm.cst.model.CusCardListVo">
+                SELECT /* com.ceragem.crm.cst.dao.CusCardListDao.select */ * FROM
+                    (SELECT <include refid="sqlCols"/>
+                       FROM CRM_CARD_PBLS_HST)
+        <include refid="sqlPkConditions"/>
+    </select>
+
+</mapper>

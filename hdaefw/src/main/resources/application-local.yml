@@ -1,0 +1,110 @@
+# Spring Configure
+spring:
+  servlet:
+      multipart:
+        max-file-size: 10GB
+        max-request-size: 10GB
+
+  nas:
+    path:   c:/nas/crm/
+    url:    https://files.ceragem.com/crm/
+  jwt:
+    secret: 1qaz@WSX
+  datasource:
+    # Pool
+    hikari:
+      connection-timeout: 120000
+      maximum-pool-size: 5
+      log-maximum-pool-size: 2
+    # Inmemory DB
+    log-driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    log-url: jdbc:log4jdbc:oracle:thin:@172.23.1.91:8122:DCRMDB
+    log-username: crmown
+    log-password: crmown
+    #ENC(lrAuYaCIEFzsy9dbyqMYcw==)
+
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:oracle:thin:@172.23.1.91:8122:DCRMDB
+    username: crmown
+    password: crmown
+    #ENC(lrAuYaCIEFzsy9dbyqMYcw==)
+#    log-driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#    log-url: jdbc:log4jdbc:oracle:thin:@192.168.70.26:1521:XE
+#    log-username: CERAGEM_CRM
+#    logpassword: CERAGEM_CRM
+#
+#    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#    url: jdbc:log4jdbc:oracle:thin:@192.168.70.26:1521:XE
+#    username: CERAGEM_CRM
+#    password: CERAGEM_CRM
+
+  api:
+#    base-url: http://localhost:8082
+    base-url: https://dev-api.ceragem.com
+    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwidXNlckNkIjoiU1lTVEVNIiwic3lzdGVtQ2QiOiJDUk0iLCJleHAiOjE5NjUwODQzMjF9.xvMWFRhGe9Jk35rYxPdxRoQne7f7RKzKIpQA7xrfDUM      
+    url:
+      token-url: /api/v1.0/token/CRM
+      customer: /crm/v1.0/customer
+      customer-contact: /crm/v1.0/customer-contact
+      customer-bond: /crm/v1.0/customer-bond
+      customer-black: /crm/v1.0/customer-black
+      point: /crm/v1.0/point
+      ctc-hist: /ctc/v1.0/history
+      as-hist: /as/v1.0/history
+      customer-memship: /crm/v1.0/membership
+      sap: /sap/v1.0/pnt
+    bos-url: https://mapone.ceragem.com/crm
+  jade:
+    token-url: https://cerahr.ceragem.com:9950/restful/getToken
+    rest-url: https://cerahr.ceragem.com:9950/restful
+    ceragem: 2011040
+    ceragem-cns: 2011041
+    p1-param: REFwWALk0KnxM8S55r5wAA==
+    org-param: ZjH2yGNkSXC63TMeuSX5Hw==
+    hr-param: 438MVz40Ca2tE2C+CR1RDQ== 
+  sso:
+    mode : false
+    auth-url: https://ceragem.ncpworkplace.com/authn/oauthLogin
+    token-url: https://ceragem.ncpworkplace.com/authn/accessToken
+    profile-url: https://ceragem.ncpworkplace.com/authn/userProfile
+    logout-url: https://ceragem.ncpworkplace.com/authn/logoutProcess
+#    http://crm-test.ceragem.com:8081/logout/logout
+    callback-url: http://dev-crm.ceragem.com/login/oauth
+#    callback-url: /login/oauth
+    client-id: zEgB3stWau126Qf9SWHf
+    client-secret: He72CbdYrE
+  bi:
+    url : http://dev-bi.ceragem.com
+    server : GLCMAP01D
+  mcast:
+    host: 228.0.0.4
+    service-port: 45564
+    receiver-port: 5000
+  eon:
+    send:
+      url : http://dev-ums.ceragem.com/weom/servlet/servlet.WSOMZ000CR
+      user : crm_1    
+    barcode-url: http://dev-ums.ceragem.com/weom/app/mmsimg
+  batch:
+    host: ENC(fSiGKFwqZrw3OftT2biHyio8GKv6O1rF)
+    port: ENC(iOz8Eiefnv03j9gBfP4T9w==)
+    user: ENC(JexNKJUWQeJGcnAQdiRn/w==)
+    password: ENC(u9UzgWkFhnRd8Bczxk2t6o0oiClFDbJT)    
+    path: ENC(+56hj4tJQHhyvlRoQ5WpTSLzi81H7BQqe5ZHzuLuBMQEHG7GU3mXhaZ5Bn7OESXXScqOebp6DJU=)
+# Log
+logging:
+  #  file: logs/application.log
+  config: classpath:logback-local.xml
+  level:
+    com.ceragem: DEBUG
+    org.springframework.web: INFO
+    
+server:
+  port: 8081
+  servlet:    
+    session: 
+      timeout: 1800
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor

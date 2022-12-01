@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+       <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="R"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <rowSelection value="Y"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <editable value="N"/>
+        <setSort value="none"/>
+        <rowSelection value="Y"/>
+    </meta>
+    
+    <column name="쿠폰번호" field="mshipCoupnBasNo" type="char" maxLength="30" width="100" textAlignment="center" required="N" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="쿠폰이름" field="coupnBasNm" type="char" maxLength="100" width="150" textAlignment="left" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="사용시작" field="fromUseStdDay" type="char" maxLength="3" width="50" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="사용완료일" field="toUseStdDay" type="char" maxLength="3" width="50" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="N"/>  
+   	<column name="쿠폰타입" field="coupnTypeCd" type="char" maxLength="3" width="50" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/> 
+   
+   
+    
+    <!-- 
+    <column name="쿠폰구분1" field="coupnApplyDivCd1" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/>     
+    <column name="정산방법코드" field="admtMethCd" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="Y" defaultValue="" hidden="Y"/> 
+    -->
+</grid>

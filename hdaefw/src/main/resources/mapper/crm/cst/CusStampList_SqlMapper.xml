@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CusStampListDao">
+    <sql id="sqlPkConditions">
+                WHERE STMP_HST_SEQ      =       #{stmpHstSeq}
+    </sql>
+    
+    <sql id="sqlSelectCols">
+                      A.STMP_HST_SEQ                    /*스탬프이력일련번호        */
+                    ,CASE
+                        WHEN A.USE_TYPE_CD = '001' THEN A.USE_DT
+                        WHEN A.USE_TYPE_CD = '002' THEN A.ACCUM_DT
+                        ELSE A.REG_DT
+                        END AS DT                            /*발행구분:사용-사용일시, 적립-적립일시, ELSE 등록일시 */
+                    , A.MSHIP_STMP_BAS_NO                    /*멤버십스탬프기본번호        */
+                    , A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.MSHIP_GRADE_CD                    /*멤버십등급코드        */
+                    , A.STOR_NO                    /*매장번호        */
+                    , NVL( (SELECT STOR_NM FROM CRM_STOR_BAS WHERE STOR_NO = B.STOR_NO),'관리자지급' ) AS STOR_NM            /*매장명        */
+                    , B.STOR_CHL_CD     /* 매장채널명        */
+                    , A.ACCUM_DT        /*적립일시        */
+                    <!-- , TO_CHAR(A.ACCUM_DT,'YYYYMMDDHH24MISS')    ACCUM_DT                    /*적립일시        */ -->
+                    , TO_CHAR(A.USE_DT,'YYYYMMDDHH24MISS')    USE_DT                    /*사용일시        */
+                    , A.STMP_BAS_NM                    /*스탬프기본명        */
+                    , TO_CHAR(A.FROM_USE_POSS_DT,'YYYYMMDDHH24MISS')    FROM_USE_POSS_DT                    /*FROM사용가능일시        */
+                    , TO_CHAR(A.TO_USE_POSS_DT,'YYYYMMDDHH24MISS')    TO_USE_POSS_DT                    /*TO사용가능일시        */
+                    , A.BUY_GODS_NO                    /*구매제품번호        */
+                    , A.STMP_ACCUM_QNTY                    /*스탬프적립수량        */
+                    , A.ISSUE_CNT                    /*발급횟수        */
+                    , A.ORDR_QNTY                    /*주문수량        */
+                    , A.ORDR_AMT                    /*주문금액        */
+                    , A.PAY_AMT                    /*결제금액        */
+                    , A.PAY_CHL_CD                    /*결제채널코드        */
+                    , A.PBLS_STMP_NO                    /*발행스탬프번호        */
+                    , A.STATUS_CD                    /*상태코드        */
+                    , A.COUPN_NO                    /*쿠폰번호        */
+                    , A.POINT_SCORE                    /*포인트점수        */
+                    , A.CHIT_NO                    /*전표번호        */
+                    , A.ADMT_METH_CD                    /*정산방법코드        */
+                    , A.USE_TYPE_CD                    /*사용유형코드        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , A.REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS]*/
+    </sql>
+    <sql id="sqlConditions">
+        <where>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                      AND A.ITG_CUST_NO      =       #{itgCustNo}
+        </if>                
+        <if test="strtDt != null and strtDt != ''">
+                      AND A.DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.DT
+        </if>
+        <if test="useTypeCd != null and useTypeCd != ''">
+            <choose>
+                <when test="useTypeCd instanceof String">
+                    AND A.USE_TYPE_CD     =       #{useTypeCd}
+                </when>
+                <otherwise>
+                    AND A.USE_TYPE_CD     IN
+                    <foreach item="item" index="index" collection="useTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="stmpHstSeq != null and stmpHstSeq != ''">
+                  AND A.STMP_HST_SEQ    =       #{stmpHstSeq}
+        </if>
+        <if test="mshipStmpBasNo != null and mshipStmpBasNo != ''">
+                  AND A.MSHIP_STMP_BAS_NO=       #{mshipStmpBasNo}
+        </if>
+        <if test="mshipGradeCd != null and mshipGradeCd != ''">
+            <choose>
+                <when test="mshipGradeCd instanceof String">
+                    AND A.MSHIP_GRADE_CD  =       #{mshipGradeCd}
+                </when>
+                <otherwise>
+                    AND A.MSHIP_GRADE_CD  IN
+                    <foreach item="item" index="index" collection="mshipGradeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="storNo != null and storNo != ''">
+                  AND A.STOR_NO         =       #{storNo}
+        </if>
+        <if test="accumDt != null and accumDt != ''">
+                  AND A.ACCUM_DT        =       TO_DATE(#{accumDt},'YYYYMMDDHH24MISS')
+        </if>
+        <if test="useDt != null and useDt != ''">
+                  AND A.USE_DT          =       TO_DATE(#{useDt},'YYYYMMDDHH24MISS')
+        </if>
+        <if test="stmpBasNm != null and stmpBasNm != ''">
+                  AND A.STMP_BAS_NM     =       #{stmpBasNm}
+        </if>
+        <if test="fromUsePossDt != null and fromUsePossDt != ''">
+                  AND A.FROM_USE_POSS_DT=       TO_DATE(#{fromUsePossDt},'YYYYMMDDHH24MISS')
+        </if>
+        <if test="toUsePossDt != null and toUsePossDt != ''">
+                  AND A.TO_USE_POSS_DT  =       TO_DATE(#{toUsePossDt},'YYYYMMDDHH24MISS')
+        </if>
+        <if test="buyGodsNo != null and buyGodsNo != ''">
+                  AND A.BUY_GODS_NO     =       #{buyGodsNo}
+        </if>
+        <if test="stmpAccumQnty != null and stmpAccumQnty != ''">
+                  AND A.STMP_ACCUM_QNTY =       #{stmpAccumQnty}
+        </if>
+        <if test="issueCnt != null and issueCnt != ''">
+                  AND A.ISSUE_CNT       =       #{issueCnt}
+        </if>
+        <if test="ordrQnty != null and ordrQnty != ''">
+                  AND A.ORDR_QNTY       =       #{ordrQnty}
+        </if>
+        <if test="ordrAmt != null and ordrAmt != ''">
+                  AND A.ORDR_AMT        =       #{ordrAmt}
+        </if>
+        <if test="payAmt != null and payAmt != ''">
+                  AND A.PAY_AMT         =       #{payAmt}
+        </if>
+        <if test="payChlCd != null and payChlCd != ''">
+            <choose>
+                <when test="payChlCd instanceof String">
+                    AND A.PAY_CHL_CD      =       #{payChlCd}
+                </when>
+                <otherwise>
+                    AND A.PAY_CHL_CD      IN
+                    <foreach item="item" index="index" collection="payChlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="pblsStmpNo != null and pblsStmpNo != ''">
+                  AND A.PBLS_STMP_NO    =       #{pblsStmpNo}
+        </if>
+        <if test="statusCd != null and statusCd != ''">
+            <choose>
+                <when test="statusCd instanceof String">
+                    AND A.STATUS_CD       =       #{statusCd}
+                </when>
+                <otherwise>
+                    AND A.STATUS_CD       IN
+                    <foreach item="item" index="index" collection="statusCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="coupnNo != null and coupnNo != ''">
+                  AND A.COUPN_NO        =       #{coupnNo}
+        </if>
+        <if test="pointScore != null and pointScore != ''">
+                  AND A.POINT_SCORE     =       #{pointScore}
+        </if>
+        <if test="chitNo != null and chitNo != ''">
+                  AND A.CHIT_NO         =       #{chitNo}
+        </if>
+        <if test="admtMethCd != null and admtMethCd != ''">
+            <choose>
+                <when test="admtMethCd instanceof String">
+                    AND A.ADMT_METH_CD    =       #{admtMethCd}
+                </when>
+                <otherwise>
+                    AND A.ADMT_METH_CD    IN
+                    <foreach item="item" index="index" collection="admtMethCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="regChlCd != null and regChlCd != ''">
+            <choose>
+                <when test="regChlCd instanceof String">
+                    AND A.REG_CHL_CD      =       #{regChlCd}
+                </when>
+                <otherwise>
+                    AND A.REG_CHL_CD      IN
+                    <foreach item="item" index="index" collection="regChlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('stmpHstSeq')">
+                ORDER BY      STMP_HST_SEQ
+            </when>
+            <when test="colSortName.equals('mshipStmpBasNo')">
+                ORDER BY      MSHIP_STMP_BAS_NO
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('mshipGradeCd')">
+                ORDER BY      MSHIP_GRADE_CD
+            </when>
+            <when test="colSortName.equals('storNo')">
+                ORDER BY      STOR_NO
+            </when>
+            <when test="colSortName.equals('accumDt')">
+                ORDER BY      ACCUM_DT
+            </when>
+            <when test="colSortName.equals('useDt')">
+                ORDER BY      USE_DT
+            </when>
+            <when test="colSortName.equals('stmpBasNm')">
+                ORDER BY      STMP_BAS_NM
+            </when>
+            <when test="colSortName.equals('fromUsePossDt')">
+                ORDER BY      FROM_USE_POSS_DT
+            </when>
+            <when test="colSortName.equals('toUsePossDt')">
+                ORDER BY      TO_USE_POSS_DT
+            </when>
+            <when test="colSortName.equals('buyGodsNo')">
+                ORDER BY      BUY_GODS_NO
+            </when>
+            <when test="colSortName.equals('stmpAccumQnty')">
+                ORDER BY      STMP_ACCUM_QNTY
+            </when>
+            <when test="colSortName.equals('issueCnt')">
+                ORDER BY      ISSUE_CNT
+            </when>
+            <when test="colSortName.equals('ordrQnty')">
+                ORDER BY      ORDR_QNTY
+            </when>
+            <when test="colSortName.equals('ordrAmt')">
+                ORDER BY      ORDR_AMT
+            </when>
+            <when test="colSortName.equals('payAmt')">
+                ORDER BY      PAY_AMT
+            </when>
+            <when test="colSortName.equals('payChlCd')">
+                ORDER BY      PAY_CHL_CD
+            </when>
+            <when test="colSortName.equals('pblsStmpNo')">
+                ORDER BY      PBLS_STMP_NO
+            </when>
+            <when test="colSortName.equals('statusCd')">
+                ORDER BY      STATUS_CD
+            </when>
+            <when test="colSortName.equals('coupnNo')">
+                ORDER BY      COUPN_NO
+            </when>
+            <when test="colSortName.equals('pointScore')">
+                ORDER BY      POINT_SCORE
+            </when>
+            <when test="colSortName.equals('chitNo')">
+                ORDER BY      CHIT_NO
+            </when>
+            <when test="colSortName.equals('admtMethCd')">
+                ORDER BY      ADMT_METH_CD
+            </when>
+            <when test="colSortName.equals('useTypeCd')">
+                ORDER BY      USE_TYPE_CD
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <when test="colSortName.equals('regChlCd')">
+                ORDER BY      REG_CHL_CD
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int"> 
+                SELECT /* com.ceragem.crm.cst.dao.CusStampListDao.selectListCount */ COUNT(1) FROM
+                (SELECT <include refid="sqlSelectCols"/>
+                   FROM CRM_STMP_HST A, CRM_STOR_BAS B
+                  WHERE A.STOR_NO = B.STOR_NO(+)) A
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.CusStampListVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.cst.dao.CusStampListDao.selectList */ * FROM
+               (SELECT <include refid="sqlSelectCols"/>
+                  FROM CRM_STMP_HST A, CRM_STOR_BAS B
+                 WHERE A.STOR_NO = B.STOR_NO(+)) A
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.cst.model.CusStampListVo">
+               SELECT /* com.ceragem.crm.cst.dao.CusStampListDao.select */ * FROM
+               (SELECT <include refid="sqlSelectCols"/>
+                  FROM CRM_STMP_HST A, CRM_STOR_BAS B
+                 WHERE A.STOR_NO = B.STOR_NO(+)) A
+        <include refid="sqlPkConditions"/>
+    </select>
+    
+    
+    <select id="searchStmpListCount" resultType="int">
+        SELECT COUNT(1)
+             FROM CRM_MSHIP_STMP_BAS A JOIN CRM_STMP_HST B 
+                    ON A.MSHIP_STMP_BAS_NO = B.MSHIP_STMP_BAS_NO
+                JOIN CRM_CUST_BAS C
+                    ON B.ITG_CUST_NO = C.ITG_CUST_NO 
+            <if test="stmpBasCd != null and stmpBasCd != ''">
+                AND A.MSHIP_STMP_BAS_NO  = #{stmpBasCd}      
+            </if>
+            <if test="stmpBasNm != null and stmpBasNm != ''">
+                AND A.STMP_BAS_NM  LIKE  '%'||  #{stmpBasNm} ||'%'      
+            </if>
+            <if test="stmpEventCd != null and stmpEventCd != ''">
+                AND A.STMP_EVENT_CD    =       #{stmpEventCd}      
+            </if>
+            <!-- <if test="fromPblsStdDay != null and toPblsStdDay != '' ">
+                AND B.ACCUM_DT BETWEEN TO_DATE(#{fromPblsStdDay}, 'YYYY-MM-DD') AND TO_DATE(#{toPblsStdDay}, 'YYYY-MM-DD')
+            </if> -->
+            <if test="strtDt != null and strtDt != ''">
+                      AND B.ACCUM_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+            </if>
+            <if test="endDt != null and endDt != ''">
+                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > B.ACCUM_DT
+            </if>
+            <if test="useYn != null and useYn != ''">
+                AND A.USE_YN    =       #{useYn}
+            </if>
+            <if test="itgCustNo != null and itgCustNo != ''">
+                AND C.ITG_CUST_NO    =       #{itgCustNo}
+            </if>
+            <if test="accumChl != null and accumChl != ''">
+                AND A.ACCUM_CHL_TXN LIKE  '%'||  #{accumChl} ||'%' 
+            </if>
+            <if test="storNm != null and storNm != ''">
+                AND D.STOR_NM LIKE  '%'||  #{storNm} ||'%' 
+            </if>
+            <if test="custNm != null and custNm != ''">
+                AND C.CUST_NM LIKE  '%'||  #{custNm} ||'%' 
+            </if>
+    </select>
+    
+    <select id="searchStmpList" resultType="com.ceragem.crm.cst.model.CusStampListVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+        SELECT /*searchStmpList*/
+            A.MSHIP_STMP_BAS_NO
+            , A.STMP_BAS_NM
+            , A.STMP_TYPE_CD
+            , CASE
+                WHEN A.STMP_TYPE_CD = 0 THEN '결제'
+                WHEN A.STMP_TYPE_CD = 1 THEN '이벤트'
+            END AS STMP_TYPE_NM
+            , A.STMP_EVENT_CD
+            , A.FROM_USE_POSS_DT
+            , A.TO_USE_POSS_DT
+            , A.VALID_YN
+            , A.VALID_PERD
+            , A.STMP_MAX_YN
+            , A.STMP_MAX_CNT
+            , A.STMP_QNTY
+            , A.USE_YN
+            , A.MSHIP_GRADE_CD
+            , A.MSHP_GRADE_CD
+            , A.CPRT_CMP_NO
+            , A.COND_YN
+            , A.COND_AMT
+            , A.COUPN_ACCUM_DC_YN
+            , A.ACCUM_CNT
+            , A.ACCUM_CHL_TXN
+            , A.BNFIT_CD
+            , A.REGR_ID
+            , B.STMP_HST_SEQ
+            , B.ACCUM_DT
+            , B.USE_DT
+            , B.STMP_ACCUM_QNTY
+            , B.ISSUE_CNT
+            , B.PAY_CHL_CD
+            , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS WHERE TOP_COMN_CD = 'ST040' AND COMN_CD_LVL_NO = 2 AND COMN_CD = B.PAY_CHL_CD) AS CHL_NM
+            , B.COUPN_NO
+            , B.POINT_SCORE
+            , CASE
+                WHEN B.COUPN_NO IS NULL AND B.POINT_SCORE IS NULL THEN ''
+                WHEN B.COUPN_NO IS NOT NULL OR B.POINT_SCORE IS NOT NULL THEN '혜택지급'
+            END AS ACCUM_STATUS
+            , B.CHIT_NO
+            <!-- , (SELECT COUNT(*) FROM CRM_STMP_HST WHERE CHIT_NO = B.CHIT_NO ) AS CHIT_NO_CNT --> 
+            , (SELECT /*+ INDEX(CRM_STMP_HST CRM_STMP_HST_IX03) */ COUNT(*) FROM CRM_STMP_HST WHERE CHIT_NO = B.CHIT_NO ) AS CHIT_NO_CNT 
+            , B.ADMT_METH_CD
+            , B.USE_TYPE_CD
+            , C.ITG_CUST_NO
+            , C.CUST_NM
+            , B.STOR_NO
+            , NVL( (SELECT STOR_NM FROM CRM_STOR_BAS WHERE STOR_NO = B.STOR_NO),'관리자지급' ) AS STOR_NM
+             FROM CRM_MSHIP_STMP_BAS A JOIN CRM_STMP_HST B 
+                    ON A.MSHIP_STMP_BAS_NO = B.MSHIP_STMP_BAS_NO
+                JOIN CRM_CUST_BAS C
+                    ON B.ITG_CUST_NO = C.ITG_CUST_NO 
+            <if test="stmpBasCd != null and stmpBasCd != ''">
+                AND A.MSHIP_STMP_BAS_NO  = #{stmpBasCd}      
+            </if>
+            <if test="stmpBasNm != null and stmpBasNm != ''">
+                AND A.STMP_BAS_NM  LIKE  '%'||  #{stmpBasNm} ||'%'      
+            </if>
+            <if test="stmpEventCd != null and stmpEventCd != ''">
+                AND A.STMP_EVENT_CD    =       #{stmpEventCd}      
+            </if>
+            <!-- <if test="fromPblsStdDay != null and toPblsStdDay != '' ">
+                AND B.ACCUM_DT BETWEEN TO_DATE(#{fromPblsStdDay}, 'YYYY-MM-DD') AND TO_DATE(#{toPblsStdDay}, 'YYYY-MM-DD')
+            </if> -->
+            <if test="strtDt != null and strtDt != ''">
+                      AND B.ACCUM_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+            </if>
+            <if test="endDt != null and endDt != ''">
+                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > B.ACCUM_DT
+            </if>
+            <if test="useYn != null and useYn != ''">
+                AND A.USE_YN    =       #{useYn}
+            </if>
+            <if test="itgCustNo != null and itgCustNo != ''">
+                AND C.ITG_CUST_NO    =       #{itgCustNo}
+            </if>
+            <if test="accumChl != null and accumChl != ''">
+                AND A.ACCUM_CHL_TXN LIKE  '%'||  #{accumChl} ||'%' 
+            </if>
+            <if test="storNm != null and storNm != ''">
+                AND D.STOR_NM LIKE  '%'||  #{storNm} ||'%' 
+            </if>
+            <if test="custNm != null and custNm != ''">
+                AND C.CUST_NM LIKE  '%'||  #{custNm} ||'%' 
+            </if>
+            ORDER BY B.ACCUM_DT DESC ,  B.ISSUE_CNT DESC , C.ITG_CUST_NO , B.STMP_ACCUM_QNTY DESC
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+</mapper>

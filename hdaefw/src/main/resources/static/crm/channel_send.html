@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div id="wrapIframe">
+		
+	<div class="mGrid1 type2"> <!-- class="type2" => left width="263px" -->
+        <!-- left -->
+        <div class="gLeft">
+
+            <!-- 발송채널 관리 -->
+            <div class="mBox1">
+                <!-- title -->
+                <div class="gTitle1">
+                    <h3 class="mTitle1">발송채널 관리</h3>
+                </div>
+                <!-- //title -->
+                <!-- list -->
+                <div class="mDir1 form2 mCustomScrollbar"> <!-- class="form2" : checkbox만 있는 리스트 -->
+                    <ul>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="SMS" checked="checked">
+                                <span class="label">SMS</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="LMS">
+                                <span class="label">LMS</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="MMS">
+                                <span class="label">MMS</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="Push">
+                                <span class="label">Push</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="알림톡">
+                                <span class="label">알림톡</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="친구톡">
+                                <span class="label">친구톡</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="이메일">
+                                <span class="label">이메일</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <!-- //list -->
+            </div>
+            <!-- //발송채널 관리 -->
+            
+        </div>
+        <!-- //left -->
+		<!-- right -->
+		<div class="gRight">
+
+			<!-- sort -->
+			<div class="mSort2">
+				<ul>
+					<li class="w32per">
+						<div class="tit">발송 채널명</div>
+						<div class="txt">
+							<input type="text" class="it" title="발송 채널명">
+						</div>
+					</li>
+					<li class="w32per">
+						<div class="tit">사용여부</div>
+						<div class="txt">
+							<div class="mFlex2">
+								<span class="flex">
+                                    <select class="select" title="사용여부">
+                                        <option></option>
+                                    </select>
+                                </span>
+                                <span class="button">
+                                    <a href="#" class="mBtn1">검색</a>
+                                </span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //sort -->
+
+			<!-- box -->
+			<div class="mBox1 p10 h744"> <!-- class="h744" : height="744" -->
+
+                <!-- grid -->
+                <div class="mGrid2">
+                    <!-- left -->
+                    <div class="lt" style="width:30%;">
+                        
+                        <!-- view -->
+                        <div class="mView1">
+                            <!-- sort -->
+                            <div class="mSort2">
+                                <ul>
+                                    <li class="w100per">
+                                        <div class="tit w90">메세지 유형</div>
+                                        <div class="txt">
+                                            <div class="mFlex2">
+                                                <span class="flex w2">
+                                                    <select class="select" title="유형">
+                                                        <option>승급</option>
+                                                    </select>
+                                                </span>
+                                                <span class="flex">
+                                                    <input type="text" class="it" title="메세지 유형">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="w100per">
+                                        <div class="tit w90">발송 템플릿 명</div>
+                                        <div class="txt">
+                                            <input type="text" class="it" title="발송 템플릿 명"  value="SMS#1">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- //sort -->
+
+                            <!-- article -->
+                            <div class="article mCustomScrollbar">
+                                <div class="util">
+                                    <span class="ti">광고문자</span>
+                                    <span class="cn"><em>2000</em>/2000Byte</span>
+                                </div>
+                                <div class="txt">
+                                    (광고) ㈜세라젬 
+                                    <br><strong>홍길동</strong> 회원명님 안녕하세요.  
+
+                                    세라젬 회원에 가입하시면 <strong>30%할인쿠폰</strong>을 제공해 드립니다.
+
+                                    <ul class="list1">
+                                        <li>가입기간 : 2022.11.01~11.30</li>
+                                        <li>02-293-3939</li>
+                                        <li>무료거부 080-2398-3883</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- //article -->
+
+                            <div class="mButton1">
+                                <a href="#" class="mBtn1 w68 lWhite">이미지</a>
+                                <a href="#" class="mBtn1 w68 lWhite">특수문자</a>
+                                <a href="#" class="mBtn1 w68 lGray">다시쓰기</a>
+                                <a href="#" class="mBtn1 w68 lPrimary">저장</a>
+                            </div>
+                        </div>
+                        <!-- //view -->
+                    
+                    </div>
+                    <!-- //left -->
+                </div>
+                <!-- //grid -->
+				
+			</div>
+			<!-- //box -->
+
+		</div>
+		<!-- //right -->
+	</div>
+	
+</div>
+
+</body>
+</html>

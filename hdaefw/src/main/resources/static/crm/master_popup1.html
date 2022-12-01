@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1>엑셀 업로드</h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+    <!-- cont -->
+    <div class="cont">
+        
+        <!-- sort -->
+        <div class="mSort2">
+            <ul>
+                <li>
+                    <div class="tit w85">추출방법</div>
+                    <div class="txt">
+                        <select class="select w115" title="추출방법">
+                            <option>EXCEL</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- //sort -->
+
+        <!-- grid -->
+        <div class="mGrid2 type2">
+            <!-- left -->
+            <div class="lt">
+                <div class="gTitle1 mb10">
+                    <h3 class="mTitle1">검색고객</h3>
+                    <div class="gRt posT-5">
+                        <a href="#" class="mBtn1 lWhite">전체선택</a>
+                        <a href="#" class="mBtn1 lPrimary">엑셀업로드</a>
+                    </div>
+                </div>
+                <!-- list -->
+                <div class="list">
+                    <div class="mBoard1 mCustomScrollbar h400">
+                        <table>
+                            <caption>검색고객</caption>
+                            <colgroup>
+                                <col span="2" width="6%">
+                                <col span="3" width="*">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">전체선택</span>
+                                        </label>
+                                    </th>
+                                    <th scope="col">통합고객번호</th>
+                                    <th scope="col">이름</th>
+                                    <th scope="col">성별</th>
+                                    <th scope="col">연령</th>
+                                    <th scope="col">휴대전화번호</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- paging -->
+                    <div class="mPag1 mb0 plType1">
+                        <div class="mCount1">총 <strong>100,000</strong>건 / 선택 <strong>10</strong>건</div>
+                        <span title="처음 리스트" class="first">처음으로</span>
+                        <span title="이전 리스트" href="###" class="prev">이전</span>
+                        <!-- able 버튼
+                            <a title="처음 리스트" href="###" class="first">처음으로</a>
+                            <a title="이전 리스트" href="###" class="prev">이전</a>
+                        -->
+                        <a title="현재페이지" href="###" class="active">1</a>
+                        <a title="다음 리스트" href="###" class="next">다음</a>
+                        <a title="마지막 리스트" href="###" class="last">마지막으로</a>
+                        <!-- disabled 버튼
+                            <span title="다음 리스트" class="next">다음</span>
+                            <span title="마지막 리스트" class="last">마지막으로</span>
+                        -->
+                        <select class="select" title="갯수선택">
+                            <option>10</option>
+                            <option>20</option>
+                            <option>30</option>
+                        </select>
+                    </div>
+                    <!-- //paging -->
+                </div>
+                <!-- //list -->
+            </div>
+            <!-- //left -->
+            <!-- prev/next -->
+            <div class="mPn1">
+                <a href="#" class="prev">왼쪽으로 이동</a>
+                <a href="#" class="next">오른쪽으로 이동</a>
+            </div>
+            <!-- //prev/next -->
+            <!-- right -->
+            <div class="rt">
+                <div class="gTitle1 mb10">
+                    <h3 class="mTitle1">대상고객</h3>
+                    <div class="gRt posT-5">
+                        <a href="#" class="mBtn1 lWhite">전체선택</a>
+                        <a href="#" class="mBtn1 lGray">삭제</a>
+                    </div>
+                </div>
+                <!-- list -->
+                <div class="list">
+                    <div class="mBoard1 mCustomScrollbar h400">
+                        <table>
+                            <caption>검색고객</caption>
+                            <colgroup>
+                                <col span="2" width="6%">
+                                <col span="3" width="*">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">전체선택</span>
+                                        </label>
+                                    </th>
+                                    <th scope="col">통합고객번호</th>
+                                    <th scope="col">이름</th>
+                                    <th scope="col">성별</th>
+                                    <th scope="col">연령</th>
+                                    <th scope="col">휴대전화번호</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>
+                                        <label class="mCheckbox1 notext">
+                                            <input type="checkbox" name="" title="선택">
+                                            <span class="label">선택</span>
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- paging -->
+                    <div class="mPag1 mb0 plType1">
+                        <div class="mCount1">총 <strong>100,000</strong>건 / 선택 <strong>10</strong>건</div>
+                        <span title="처음 리스트" class="first">처음으로</span>
+                        <span title="이전 리스트" href="###" class="prev">이전</span>
+                        <!-- able 버튼
+                            <a title="처음 리스트" href="###" class="first">처음으로</a>
+                            <a title="이전 리스트" href="###" class="prev">이전</a>
+                        -->
+                        <a title="현재페이지" href="###" class="active">1</a>
+                        <a title="다음 리스트" href="###" class="next">다음</a>
+                        <a title="마지막 리스트" href="###" class="last">마지막으로</a>
+                        <!-- disabled 버튼
+                            <span title="다음 리스트" class="next">다음</span>
+                            <span title="마지막 리스트" class="last">마지막으로</span>
+                        -->
+                        <select class="select" title="갯수선택">
+                            <option>10</option>
+                            <option>20</option>
+                            <option>30</option>
+                        </select>
+                    </div>
+                    <!-- //paging -->
+                </div>
+                <!-- //list -->
+            </div>
+            <!-- //right -->
+        </div>
+        <!-- //grid -->
+        
+    </div>
+    <!-- //cont -->
+	
+</div>
+
+</body>
+</html>

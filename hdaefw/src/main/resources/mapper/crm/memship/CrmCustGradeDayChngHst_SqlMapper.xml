@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.memship.dao.CrmCustGradeDayChngHstDao">
+    <sql id="sqlPkConditions">
+                WHERE GRADE_CHNG_HST_SEQ=       #{gradeChngHstSeq}
+    </sql>
+    <sql id="sqlCols">
+                      GRADE_CHNG_HST_SEQ                    /*등급변경이력일련번호        */
+                    , ITG_CUST_NO                    /*통합고객번호        */
+                    , APPLY_STD_STA_YMD                    /*적용기준시작년월일        */
+                    , APPLY_STD_END_YMD                    /*적용기준종료년월일        */
+                    , MSHP_GRADE_CD                    /*회원등급코드        */
+                    , CHNG_PRE_MSHP_GRADE_CD                    /*변경전회원등급코드        */
+                    , MSHP_GRADE_TYPE_CD                    /*회원등급유형코드        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS , BOS : BOS]*/
+                    , MSHIP_ADVNCMT_SCORE                    /*승급점수        */
+    </sql>
+    
+    <sql id="sqlSelectCols">
+                      A.GRADE_CHNG_HST_SEQ                    /*등급변경이력일련번호        */
+                    , A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.APPLY_STD_STA_YMD                    /*적용기준시작년월일        */
+                    , A.APPLY_STD_END_YMD                    /*적용기준종료년월일        */
+                    , A.MSHP_GRADE_CD                    /*회원등급코드        */
+                    , A.CHNG_PRE_MSHP_GRADE_CD                    /*변경전회원등급코드        */
+                    , A.MSHP_GRADE_TYPE_CD                    /*회원등급유형코드        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , A.REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS , BOS : BOS]*/
+                    , A.MSHIP_ADVNCMT_SCORE                    /*승급점수        */
+                    
+                    
+                    , FN_DEC_DATA(B.CUST_NM, 'N') CUST_NM
+                    
+                    , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS B WHERE B.TOP_COMN_CD = 'MB010' and B.COMN_CD = A.MSHP_GRADE_TYPE_CD ) mshipGradeCdNm    /* 회원구분등급명        */
+                    , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS B WHERE B.TOP_COMN_CD = 'MB020' and B.COMN_CD = A.MSHP_GRADE_CD ) mshpGradeCdNm    /* 멤버십등급명        */
+                    , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS B WHERE B.TOP_COMN_CD = 'MB020' and B.COMN_CD = A.CHNG_PRE_MSHP_GRADE_CD ) chngPreMshpGradeCdNm    /* 멤버십등급명        */
+    </sql>
+    <sql id="sqlConditions">
+        <where>
+        <if test="gradeChngHstSeq != null and gradeChngHstSeq != ''">
+                  AND A.GRADE_CHNG_HST_SEQ=       #{gradeChngHstSeq}
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO     =       #{itgCustNo}
+        </if>
+        <if test="applyStdStaYmd != null and applyStdStaYmd != ''">
+                  AND A.APPLY_STD_STA_YMD=       #{applyStdStaYmd}
+        </if>
+        <if test="applyStdEndYmd != null and applyStdEndYmd != ''">
+                  AND A.APPLY_STD_END_YMD=       #{applyStdEndYmd}
+        </if>
+        <if test="mshpGradeCd != null and mshpGradeCd != ''">
+            <choose>
+                <when test="mshpGradeCd instanceof String">
+                    AND A.MSHP_GRADE_CD   =       #{mshpGradeCd}
+                </when>
+                <otherwise>
+                    AND A.MSHP_GRADE_CD   IN
+                    <foreach item="item" index="index" collection="mshpGradeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="chngPreMshpGradeCd != null and chngPreMshpGradeCd != ''">
+            <choose>
+                <when test="chngPreMshpGradeCd instanceof String">
+                    AND A.CHNG_PRE_MSHP_GRADE_CD=       #{chngPreMshpGradeCd}
+                </when>
+                <otherwise>
+                    AND A.CHNG_PRE_MSHP_GRADE_CDIN
+                    <foreach item="item" index="index" collection="chngPreMshpGradeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="mshpGradeTypeCd != null and mshpGradeTypeCd != ''">
+            <choose>
+                <when test="mshpGradeTypeCd instanceof String">
+                    AND A.MSHP_GRADE_TYPE_CD=       #{mshpGradeTypeCd}
+                </when>
+                <otherwise>
+                    AND A.MSHP_GRADE_TYPE_CDIN
+                    <foreach item="item" index="index" collection="mshpGradeTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="regChlCd != null and regChlCd != ''">
+            <choose>
+                <when test="regChlCd instanceof String">
+                    AND A.REG_CHL_CD      =       #{regChlCd}
+                </when>
+                <otherwise>
+                    AND A.REG_CHL_CD      IN
+                    <foreach item="item" index="index" collection="regChlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="mshipAdvncmtScore != null and mshipAdvncmtScore != ''">
+                  AND A.MSHIP_ADVNCMT_SCORE=       #{mshipAdvncmtScore}
+        </if>
+        
+        
+         <if test="custNm != null and custNm != ''">
+                  AND B.CUST_NM = #{custNm}
+        </if>
+        
+        <if test="pblsStaDt != null and pblsStaDt != ''  and ( pblsEndDt == null or pblsEndDt == '') " >
+                 <!--  AND  TO_CHAR(A.REG_DT, 'YYYYMMDD')  <![CDATA[>=]]>  #{pblsStaDt}  -->
+                  AND A.REG_DT <![CDATA[>=]]> TO_DATE( #{pblsStaDt} ,'YYYYMMDD')
+                  
+        </if>        
+    
+        
+       <if test="pblsStaDt != null and pblsStaDt != '' and pblsEndDt != null and pblsEndDt != ''" >
+                  <!-- AND ( TO_CHAR(A.REG_DT, 'YYYYMMDD')  <![CDATA[>=]]>  #{pblsStaDt} AND   TO_CHAR(A.REG_DT, 'YYYYMMDD')  <![CDATA[<=]]>  #{pblsEndDt}  ) -->
+                  AND ( A.REG_DT BETWEEN TO_DATE( #{pblsStaDt} ,'YYYYMMDD') AND  TO_DATE( #{pblsEndDt} ,'YYYYMMDD') + 0.99999 )
+        </if>
+        
+        </where>
+        
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('gradeChngHstSeq')">
+                ORDER BY      GRADE_CHNG_HST_SEQ
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('applyStdStaYmd')">
+                ORDER BY      APPLY_STD_STA_YMD
+            </when>
+            <when test="colSortName.equals('applyStdEndYmd')">
+                ORDER BY      APPLY_STD_END_YMD
+            </when>
+            <when test="colSortName.equals('mshpGradeCd')">
+                ORDER BY      MSHP_GRADE_CD
+            </when>
+            <when test="colSortName.equals('chngPreMshpGradeCd')">
+                ORDER BY      CHNG_PRE_MSHP_GRADE_CD
+            </when>
+            <when test="colSortName.equals('mshpGradeTypeCd')">
+                ORDER BY      MSHP_GRADE_TYPE_CD
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <when test="colSortName.equals('regChlCd')">
+                ORDER BY      REG_CHL_CD
+            </when>
+            <when test="colSortName.equals('mshipAdvncmtScore')">
+                ORDER BY      MSHIP_ADVNCMT_SCORE
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.memship.dao.CrmCustGradeDayChngHstDao.selectListCount */ COUNT(1)
+                 FROM CRM_CUST_GRADE_DAY_CHNG_HST A
+                 LEFT JOIN CRM_CUST_BAS B ON A.ITG_CUST_NO = B.ITG_CUST_NO
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.memship.model.CrmCustGradeDayChngHstVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.memship.dao.CrmCustGradeDayChngHstDao.selectList */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_GRADE_DAY_CHNG_HST A
+                 LEFT JOIN CRM_CUST_BAS B ON A.ITG_CUST_NO = B.ITG_CUST_NO
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.memship.model.CrmCustGradeDayChngHstVo">
+               SELECT /* com.ceragem.crm.memship.dao.CrmCustGradeDayChngHstDao.select */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_GRADE_DAY_CHNG_HST A
+                 LEFT JOIN CRM_CUST_BAS B ON A.ITG_CUST_NO = B.ITG_CUST_NO
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT /* com.ceragem.crm.memship.dao.CrmCustGradeDayChngHstDao.insert */ INTO CRM_CUST_GRADE_DAY_CHNG_HST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{gradeChngHstSeq}
+                     , #{itgCustNo}
+                     , #{applyStdStaYmd}
+                     , #{applyStdEndYmd}
+                     , #{mshpGradeCd}
+                     , #{chngPreMshpGradeCd}
+                     , #{mshpGradeTypeCd}
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                     , #{regChlCd}
+                     , #{mshipAdvncmtScore}
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.memship.dao.CrmCustGradeDayChngHstDao.update */ CRM_CUST_GRADE_DAY_CHNG_HST
+                  SET ITG_CUST_NO                             =         #{itgCustNo}
+                    , APPLY_STD_STA_YMD                       =         #{applyStdStaYmd}
+                    , APPLY_STD_END_YMD                       =         #{applyStdEndYmd}
+                    , MSHP_GRADE_CD                           =         #{mshpGradeCd}
+                    , CHNG_PRE_MSHP_GRADE_CD                  =         #{chngPreMshpGradeCd}
+                    , MSHP_GRADE_TYPE_CD                      =         #{mshpGradeTypeCd}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+                    , REG_CHL_CD                              =         #{regChlCd}
+                    , MSHIP_ADVNCMT_SCORE                     =         #{mshipAdvncmtScore}
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.memship.dao.CrmCustGradeDayChngHstDao.delete */
+                 FROM CRM_CUST_GRADE_DAY_CHNG_HST
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

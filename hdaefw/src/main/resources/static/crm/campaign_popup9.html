@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1>거래상세(개인정보)</h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+    <!-- cont -->
+    <div class="cont">
+
+        <div class="gTitle1 line">
+            <h3 class="mTitle1">고객정보</h3>
+        </div>
+        <!-- board -->
+        <div class="mBoard2"> 
+            <table>
+                <caption>고객정보</caption>
+                <colgroup>
+                    <col width="10%">
+                    <col width="15%">
+                    <col width="10%">
+                    <col width="15%">
+                    <col width="10%">
+                    <col width="15%">
+                    <col width="10%">
+                    <col width="*">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th class="left" scope="row">통합고객번호</th>
+                        <td>
+                            <input type="text" class="it" title="통합고객번호" value="40001614">
+                        </td>
+                        <th class="left" scope="row">이름</th>
+                        <td>
+                            <input type="text" class="it" title="이름" value="김**">
+                        </td>
+                        <th class="left" scope="row">휴대폰</th>
+                        <td>
+                            <input type="text" class="it" title="휴대폰" value="010-****-****">
+                        </td>
+                        <th class="left" scope="row">총 누계액</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it right" title="총 누계액" value="19,949,050">
+                                <span class="bar5">원</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- //board -->
+        
+        <div class="gTitle1 line">
+            <h3 class="mTitle1">상담내역</h3>
+        </div>
+        <!-- board -->
+        <div class="mBoard2"> 
+            <table>
+                <caption>상담내역</caption>
+                <colgroup>
+                    <col width="10%">
+                    <col width="23%">
+                    <col width="10%">
+                    <col width="23%">
+                    <col width="10%">
+                    <col width="*">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th class="left" scope="row">제품</th>
+                        <td>
+                            <div class="mFlex2">
+                                <span class="tab jsTab3">
+                                    <a href="#" class="active">일시불</a>
+                                    <a href="#">렌탈</a>
+                                </span>
+                                <span class="flex">
+                                    <input type="text" class="it" title="제품" value="Master V4">
+                                </span>
+                            </div>
+                        </td>
+                        <th class="left" scope="row">렌탈기간</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it" title="렌탈기간 시작일" value="2022-12-12">
+                                <span class="bar5">~</span>
+                                <input type="text" class="it" title="렌탈기간 마지막일" value="2022-12-12">
+                            </div>
+                        </td>
+                        <th class="left" scope="row">수납자</th>
+                        <td>
+                            <input type="text" class="it" title="수납자" value="(주)세라">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">수량</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it right" title="수량" value="1">
+                                <span class="bar5">개</span>
+                            </div>
+                        </td>
+                        <th class="left" scope="row">매입금액</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it right bold" title="매입금액" value="5,000,000">
+                                <span class="bar5">원</span>
+                            </div>
+                        </td>
+                        <th class="left" scope="row" rowspan="3">납부메모</th>
+                        <td rowspan="3">
+                            <textarea class="textarea" title="납부메모" rows="4"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">할인금액</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it right" title="매입금액" value="0">
+                                <span class="bar5">원</span>
+                            </div>
+                        </td>
+                        <th class="left" scope="row">납부방법</th>
+                        <td>
+                            <div class="mFlex2">
+                                <span class="tab jsTab3">
+                                    <a href="#" class="active">카드</a>
+                                    <a href="#">일시불</a>
+                                </span>
+                                <span class="flex">
+                                    <input type="text" class="it" title="납부방법" value="현대카드">
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">결제금액</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it right bold" title="매입금액" value="5,000,000">
+                                <span class="bar5">원</span>
+                            </div>
+                        </td>
+                        <th class="left" scope="row">납부계좌</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it" title="납부계좌명" value="비엔피파리바은행">
+                                <input type="text" class="it" title="납부계좌번호" value="034-464-000546">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">사용포인트</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it right crucial txtRed" title="사용포인트" value="147,502">
+                                <span class="bar5">원</span>
+                            </div>
+                        </td>
+                        <th class="left" scope="row">판매일자</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it" title="판매일자" value="2022-12-12">
+                                <input type="text" class="it" title="판매일자" value="17:10">
+                            </div>
+                        </td>
+                        <th class="left" scope="row">외상</th>
+                        <td class="left">
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="외상거리" checked="checked">
+                                <span class="label">외상거리</span>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">발생포인트</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it right crucial" title="사용포인트" value="2,000">
+                                <span class="bar5">원</span>
+                            </div>
+                        </td>
+                        <th class="left" scope="row">납부일자</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it" title="납부일자" value="2022-12-12">
+                                <input type="text" class="it" title="납부일자" value="17:10">
+                            </div>
+                        </td>
+                        <th class="left" scope="row">영수증</th>
+                        <td class="left">
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="전자영수증" checked="checked">
+                                <span class="label">전자영수증</span>
+                            </label>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="현금영수증">
+                                <span class="label">현금영수증</span>
+                            </label>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="세금계산서">
+                                <span class="label">세금계산서</span>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- //board -->
+
+    </div>
+    <!-- //cont -->
+	
+</div>
+
+</body>
+</html>

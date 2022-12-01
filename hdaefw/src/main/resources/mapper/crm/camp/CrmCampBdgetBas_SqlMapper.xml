@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.camp.dao.CrmCampBdgetBasDao">
+    <sql id="sqlPkConditions">
+                WHERE BDGET_BAS_NO      =       #{bdgetBasNo}
+    </sql>
+    <sql id="sqlCols">
+                      BDGET_BAS_NO                    /*예산기본번호        */
+                    , APPLY_YEAR                    /*적용년도        */
+                    , ORG_ID                    /*부서코드        */
+                    , BDGET_CNT                    /*예산수        */
+                    , STATUS_CD                    /*상태코드        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일자        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일자        */
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.BDGET_BAS_NO                    /*예산기본번호        */
+                    , A.APPLY_YEAR                    /*적용년도        */
+                    , A.ORG_ID                    /*부서코드        */
+                    , A.BDGET_CNT                    /*예산수        */
+                    , A.STATUS_CD                    /*상태코드        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일자        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일자        */
+                    , (SELECT ORG_NM  FROM CRM_ORG_BAS WHERE ORG_ID = A.ORG_ID ) ORG_ID_NM
+                    , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS B WHERE B.TOP_COMN_CD = 'CM080' and B.COMN_CD = A.STATUS_CD ) STATUS_CD_NM    /* 사용여부        */
+    </sql>
+    
+    
+    <sql id="sqlConditions">
+        <where>                
+                
+        <if test="orgNm != null and orgNm != ''">
+                  AND ORG_NM LIKE  '%'||  #{orgNm} || '%'
+        </if>
+        
+        
+        <if test="bdgetBasNo != null and bdgetBasNo != ''">
+                  AND A.BDGET_BAS_NO    =       #{bdgetBasNo}
+        </if>
+        <if test="applyYear != null and applyYear != ''">
+                  AND A.APPLY_YEAR      =       #{applyYear}
+        </if>
+        <if test="orgId != null and orgId != ''">
+                  AND A.ORG_ID          =       #{orgId}
+        </if>
+        <if test="bdgetCnt != null and bdgetCnt != ''">
+                  AND A.BDGET_CNT       =       #{bdgetCnt}
+        </if>
+        <if test="statusCd != null and statusCd != ''">
+            <choose>
+                <when test="statusCd instanceof String">
+                    AND A.STATUS_CD       =       #{statusCd}
+                </when>
+                <otherwise>
+                    AND A.STATUS_CD       IN
+                    <foreach item="item" index="index" collection="statusCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('bdgetBasNo')">
+                ORDER BY      BDGET_BAS_NO
+            </when>
+            <when test="colSortName.equals('applyYear')">
+                ORDER BY      APPLY_YEAR
+            </when>
+            <when test="colSortName.equals('orgId')">
+                ORDER BY      ORG_ID
+            </when>
+            <when test="colSortName.equals('bdgetCnt')">
+                ORDER BY      BDGET_CNT
+            </when>
+            <when test="colSortName.equals('statusCd')">
+                ORDER BY      STATUS_CD
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.camp.dao.CrmCampBdgetBasDao.selectListCount */ COUNT(1)
+                 FROM CRM_CAMP_BDGET_BAS A
+                 LEFT JOIN CRM_ORG_BAS B ON A.ORG_ID = B.ORG_ID
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.camp.model.CrmCampBdgetBasVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.camp.dao.CrmCampBdgetBasDao.selectList */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CAMP_BDGET_BAS A
+                 LEFT JOIN CRM_ORG_BAS B ON A.ORG_ID = B.ORG_ID
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.camp.model.CrmCampBdgetBasVo">
+               SELECT /* com.ceragem.crm.camp.dao.CrmCampBdgetBasDao.select */ <include refid="sqlSelectCols"/>
+                 FROM CRM_CAMP_BDGET_BAS A
+                 LEFT JOIN CRM_ORG_BAS B ON A.ORG_ID = B.ORG_ID
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT /* com.ceragem.crm.camp.dao.CrmCampBdgetBasDao.insert */ INTO CRM_CAMP_BDGET_BAS (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                        NVL(#{bdgetBasNo}, FN_CRM_AUTO_SEQ('CBB') )
+                     , #{applyYear}
+                     , #{orgId}
+                     , #{bdgetCnt}
+                     , #{statusCd}
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.camp.dao.CrmCampBdgetBasDao.update */ CRM_CAMP_BDGET_BAS
+                  SET APPLY_YEAR                              =         #{applyYear}
+                    , ORG_ID                                  =         #{orgId}
+                    , BDGET_CNT                               =         #{bdgetCnt}
+                    , STATUS_CD                               =         #{statusCd}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.camp.dao.CrmCampBdgetBasDao.delete */
+                 FROM CRM_CAMP_BDGET_BAS
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

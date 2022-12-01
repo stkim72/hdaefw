@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.mem.dao.PromotionMonitoringDao">
+    <sql id="sqlPkConditions">
+                WHERE MSHIP_PROM_BAS_NO =       #{mshipPromBasNo}
+    </sql>
+    <sql id="sqlCols">
+                      MSHIP_PROM_BAS_NO                    /*멤버십프로모션기본번호        */
+                    , PROM_STA_YMD                    /*프로모션시작년월일        */
+                    , PROM_TYPE_CD                    /*프로모션유형코드        */
+                    , PROM_END_YMD                    /*프로모션종료년월일        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , AMDR_ID                    /*수정자ID        */ 
+                    , PROM_BAS_CTNTS                    /*프로모션기본내용        */
+                    , AMD_DT                    /*수정일시        */
+                    , REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS , BOS : BOS , MEM : 멤버십 , CERA : 세라체크 , DNA : 세라DNA , IoT : IoT]*/
+                    , ADVM_SHOW_YN                    /*광고노출여부        */
+                    , USE_CHL_PLCY_CD                    /*사용채널정책코드        */
+                    , FROM_APPLY_SALE_AMT                    /*FROM적용매출금액        */
+                    , TO_APPLY_SALE_AMT                    /*TO적용매출금액        */
+                    , FROM_APPLY_SALE_COND_CD                    /*FROM적용매출조건코드        */
+                    , TO_APPLY_SALE_COND_CD                    /*TO적용매출조건코드        */
+                    , FROM_APPLY_PAY_AMT                    /*FROM적용결제금액        */
+                    , TO_APPLY_PAY_AMT                    /*TO적용결제금액        */
+                    , FROM_APPLY_PAY_COND_CD                    /*FROM적용결제조건코드        */
+                    , TO_APPLY_PAY_COND_CD                    /*TO적용결제조건코드        */
+                    , APPLY_MSHIP_GRADE_CD                    /*적용멤버십등급코드        */
+                    , DUP_USE_YN                    /*중복사용여부        */
+                    , APPLY_BNFIT_CD                    /*적용혜택코드        */
+                    , COUPN_APPLY_DIV_CD1                    /*쿠폰적용구분코드1        */
+                    , COUPN_APPLY_DIV_CD2                    /*쿠폰적용구분코드2        */
+                    , APPLY_DC_RATE                    /*적용할인율        */
+                    , APPLY_DC_AMT                    /*적용할인금액        */
+                    , POINT_ACCUM_RATE                    /*포인트적립율        */
+                    , STMP_PRV_CNT                    /*스탬프제공수        */
+                    , PRV_COUPN_BAS_NO                    /*제공쿠폰기본번호        */
+                    , STATUS_CD                    /*상태코드        */
+                    , PROM_BAS_NM                    /*프로모션기본명        */
+                    , APPLY_MSHP_GRADE_CTNTS                    /*적용회원등급내용        */
+                    , APPLY_MSHIP_GRADE_CD1                    /*적용멤버십등급코드1        */
+                    , CPRT_CMP_NO                    /*제휴회사번호        */
+                    , APPLY_POINT_SCORE                    /*적용포인트점수        */
+                    , '' AS DIRECT_REACTION
+                    , (SELECT COUNT(*) FROM CRM_CUST_BOS_CNTRT_HST WHERE PRMT_NO = MSHIP_PROM_BAS_NO) AS INDIRECT_REACTION
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.MSHIP_PROM_BAS_NO                    /*멤버십프로모션기본번호        */
+                    , A.PROM_STA_YMD                    /*프로모션시작년월일        */
+                    , A.PROM_TYPE_CD                    /*프로모션유형코드        */
+                    , A.PROM_END_YMD                    /*프로모션종료년월일        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , A.PROM_BAS_CTNTS                    /*프로모션기본내용        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS , BOS : BOS , MEM : 멤버십 , CERA : 세라체크 , DNA : 세라DNA , IoT : IoT]*/
+                    , A.ADVM_SHOW_YN                    /*광고노출여부        */
+                    , A.USE_CHL_PLCY_CD                    /*사용채널정책코드        */
+                    , A.FROM_APPLY_SALE_AMT                    /*FROM적용매출금액        */
+                    , A.TO_APPLY_SALE_AMT                    /*TO적용매출금액        */
+                    , A.FROM_APPLY_SALE_COND_CD                    /*FROM적용매출조건코드        */
+                    , A.TO_APPLY_SALE_COND_CD                    /*TO적용매출조건코드        */
+                    , A.FROM_APPLY_PAY_AMT                    /*FROM적용결제금액        */
+                    , A.TO_APPLY_PAY_AMT                    /*TO적용결제금액        */
+                    , A.FROM_APPLY_PAY_COND_CD                    /*FROM적용결제조건코드        */
+                    , A.TO_APPLY_PAY_COND_CD                    /*TO적용결제조건코드        */
+                    , A.APPLY_MSHIP_GRADE_CD                    /*적용멤버십등급코드        */
+                    , A.DUP_USE_YN                    /*중복사용여부        */
+                    , A.APPLY_BNFIT_CD                    /*적용혜택코드        */
+                    , A.COUPN_APPLY_DIV_CD1                    /*쿠폰적용구분코드1        */
+                    , A.COUPN_APPLY_DIV_CD2                    /*쿠폰적용구분코드2        */
+                    , A.APPLY_DC_RATE                    /*적용할인율        */
+                    , A.APPLY_DC_AMT                    /*적용할인금액        */
+                    , A.POINT_ACCUM_RATE                    /*포인트적립율        */
+                    , A.STMP_PRV_CNT                    /*스탬프제공수        */
+                    , A.PRV_COUPN_BAS_NO                    /*제공쿠폰기본번호        */
+                    , A.STATUS_CD                    /*상태코드        */
+                    , A.PROM_BAS_NM                    /*프로모션기본명        */
+                    , A.APPLY_MSHP_GRADE_CTNTS                    /*적용회원등급내용        */
+                    , A.APPLY_MSHIP_GRADE_CD1                    /*적용멤버십등급코드1        */
+                    , A.CPRT_CMP_NO                    /*제휴회사번호        */
+                    , A.APPLY_POINT_SCORE                    /*적용포인트점수        */
+                    , '' AS DIRECT_REACTION
+                   <!--  , (SELECT COUNT(*) FROM CRM_CUST_BOS_CNTRT_HST WHERE PRMT_NO = A.MSHIP_PROM_BAS_NO) AS INDIRECT_REACTION --> <!-- PROM_NO > INDEX  됨 -->
+    </sql>
+    <sql id="sqlConditions">
+        <where>
+	        <if test="mshipPromBasNo != null and mshipPromBasNo != ''">
+	                  AND A.MSHIP_PROM_BAS_NO=       #{mshipPromBasNo}
+	        </if>
+	        <if test="promStaYmd != null and promStaYmd != ''">
+	                  AND A.PROM_STA_YMD    =       #{promStaYmd}
+	        </if>
+	        <if test="promTypeCd != null and promTypeCd != ''">
+	            <choose>
+	                <when test="promTypeCd instanceof String">
+	                    AND A.PROM_TYPE_CD    =       #{promTypeCd}
+	                </when>
+	                <otherwise>
+	                    AND A.PROM_TYPE_CD    IN
+	                    <foreach item="item" index="index" collection="promTypeCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        
+	        <if test="searchPromTypeCd != null and searchPromTypeCd != ''">
+	            <choose>
+	                <when test="searchPromTypeCd instanceof String">
+	                    AND A.PROM_TYPE_CD    =       #{searchPromTypeCd}
+	                </when>
+	                <otherwise>
+	                    AND A.PROM_TYPE_CD    IN
+	                    <foreach item="item" index="index" collection="searchPromTypeCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        
+	        <if test="promEndYmd != null and promEndYmd != ''">
+	                  AND A.PROM_END_YMD    =       #{promEndYmd}
+	        </if>
+	        <if test="promBasCtnts != null and promBasCtnts != ''">
+	                  AND A.PROM_BAS_CTNTS  =       #{promBasCtnts}
+	        </if>
+	        <if test="regChlCd != null and regChlCd != ''">
+	            <choose>
+	                <when test="regChlCd instanceof String">
+	                    AND A.REG_CHL_CD      =       #{regChlCd}
+	                </when>
+	                <otherwise>
+	                    AND A.REG_CHL_CD      IN
+	                    <foreach item="item" index="index" collection="regChlCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        <if test="advmShowYn != null and advmShowYn != ''">
+	                  AND A.ADVM_SHOW_YN    =       #{advmShowYn}
+	        </if>
+	        <if test="useChlPlcyCd != null and useChlPlcyCd != ''">
+	            <choose>
+	                <when test="useChlPlcyCd instanceof String">
+	                    AND A.USE_CHL_PLCY_CD =       #{useChlPlcyCd}
+	                </when>
+	                <otherwise>
+	                    AND A.USE_CHL_PLCY_CD IN
+	                    <foreach item="item" index="index" collection="useChlPlcyCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        <if test="fromApplySaleAmt != null and fromApplySaleAmt != ''">
+	                  AND A.FROM_APPLY_SALE_AMT=       #{fromApplySaleAmt}
+	        </if>
+	        <if test="toApplySaleAmt != null and toApplySaleAmt != ''">
+	                  AND A.TO_APPLY_SALE_AMT=       #{toApplySaleAmt}
+	        </if>
+	        <if test="fromApplySaleCondCd != null and fromApplySaleCondCd != ''">
+	            <choose>
+	                <when test="fromApplySaleCondCd instanceof String">
+	                    AND A.FROM_APPLY_SALE_COND_CD=       #{fromApplySaleCondCd}
+	                </when>
+	                <otherwise>
+	                    AND A.FROM_APPLY_SALE_COND_CDIN
+	                    <foreach item="item" index="index" collection="fromApplySaleCondCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        <if test="toApplySaleCondCd != null and toApplySaleCondCd != ''">
+	            <choose>
+	                <when test="toApplySaleCondCd instanceof String">
+	                    AND A.TO_APPLY_SALE_COND_CD=       #{toApplySaleCondCd}
+	                </when>
+	                <otherwise>
+	                    AND A.TO_APPLY_SALE_COND_CDIN
+	                    <foreach item="item" index="index" collection="toApplySaleCondCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        <if test="fromApplyPayAmt != null and fromApplyPayAmt != ''">
+	                  AND A.FROM_APPLY_PAY_AMT=       #{fromApplyPayAmt}
+	        </if>
+	        <if test="toApplyPayAmt != null and toApplyPayAmt != ''">
+	                  AND A.TO_APPLY_PAY_AMT=       #{toApplyPayAmt}
+	        </if>
+	        <if test="fromApplyPayCondCd != null and fromApplyPayCondCd != ''">
+	            <choose>
+	                <when test="fromApplyPayCondCd instanceof String">
+	                    AND A.FROM_APPLY_PAY_COND_CD=       #{fromApplyPayCondCd}
+	                </when>
+	                <otherwise>
+	                    AND A.FROM_APPLY_PAY_COND_CDIN
+	                    <foreach item="item" index="index" collection="fromApplyPayCondCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        <if test="toApplyPayCondCd != null and toApplyPayCondCd != ''">
+	            <choose>
+	                <when test="toApplyPayCondCd instanceof String">
+	                    AND A.TO_APPLY_PAY_COND_CD=       #{toApplyPayCondCd}
+	                </when>
+	                <otherwise>
+	                    AND A.TO_APPLY_PAY_COND_CDIN
+	                    <foreach item="item" index="index" collection="toApplyPayCondCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        <if test="applyMshipGradeCd != null and applyMshipGradeCd != ''">
+	            <choose>
+	                <when test="applyMshipGradeCd instanceof String">
+	                    AND A.APPLY_MSHIP_GRADE_CD=       #{applyMshipGradeCd}
+	                </when>
+	                <otherwise>
+	                    AND A.APPLY_MSHIP_GRADE_CDIN
+	                    <foreach item="item" index="index" collection="applyMshipGradeCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        <if test="dupUseYn != null and dupUseYn != ''">
+	                  AND A.DUP_USE_YN      =       #{dupUseYn}
+	        </if>
+	        <if test="applyBnfitCd != null and applyBnfitCd != ''">
+	            <choose>
+	                <when test="applyBnfitCd instanceof String">
+	                    AND A.APPLY_BNFIT_CD  =       #{applyBnfitCd}
+	                </when>
+	                <otherwise>
+	                    AND A.APPLY_BNFIT_CD  IN
+	                    <foreach item="item" index="index" collection="applyBnfitCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        <if test="coupnApplyDivCd1 != null and coupnApplyDivCd1 != ''">
+	                  AND A.COUPN_APPLY_DIV_CD1=       #{coupnApplyDivCd1}
+	        </if>
+	        <if test="coupnApplyDivCd2 != null and coupnApplyDivCd2 != ''">
+	                  AND A.COUPN_APPLY_DIV_CD2=       #{coupnApplyDivCd2}
+	        </if>
+	        <if test="applyDcRate != null and applyDcRate != ''">
+	                  AND A.APPLY_DC_RATE   =       #{applyDcRate}
+	        </if>
+	        <if test="applyDcAmt != null and applyDcAmt != ''">
+	                  AND A.APPLY_DC_AMT    =       #{applyDcAmt}
+	        </if>
+	        <if test="pointAccumRate != null and pointAccumRate != ''">
+	                  AND A.POINT_ACCUM_RATE=       #{pointAccumRate}
+	        </if>
+	        <if test="stmpPrvCnt != null and stmpPrvCnt != ''">
+	                  AND A.STMP_PRV_CNT    =       #{stmpPrvCnt}
+	        </if>
+	        <if test="prvCoupnBasNo != null and prvCoupnBasNo != ''">
+	                  AND A.PRV_COUPN_BAS_NO=       #{prvCoupnBasNo}
+	        </if>
+	        <if test="statusCd != null and statusCd != ''">
+	            <choose>
+	                <when test="statusCd instanceof String">
+	                    AND A.STATUS_CD       =       #{statusCd}
+	                </when>
+	                <otherwise>
+	                    AND A.STATUS_CD       IN
+	                    <foreach item="item" index="index" collection="statusCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        <if test="promBasNm != null and promBasNm != ''">
+	                  AND A.PROM_BAS_NM     =       #{promBasNm}
+	        </if>
+	        
+	        <if test="searchStatusCd != null and searchStatusCd != ''">
+	            <choose>
+	                <when test="searchStatusCd instanceof String">
+	                    AND A.STATUS_CD       =       #{searchStatusCd}
+	                </when>
+	                <otherwise>
+	                    AND A.STATUS_CD       IN
+	                    <foreach item="item" index="index" collection="searchStatusCd" open="(" separator="," close=")">
+	                        #{item}
+	                    </foreach>
+	                </otherwise>
+	            </choose>
+	        </if>
+	        <if test="searchPromBasNm != null and searchPromBasNm != ''">
+	                  AND A.PROM_BAS_NM     =       #{searchPromBasNm}
+	        </if>
+	        
+	        <if test="applyMshpGradeCtnts != null and applyMshpGradeCtnts != ''">
+	                  AND A.APPLY_MSHP_GRADE_CTNTS=       #{applyMshpGradeCtnts}
+	        </if>
+	        <if test="applyMshipGradeCd1 != null and applyMshipGradeCd1 != ''">
+	                  AND A.APPLY_MSHIP_GRADE_CD1=       #{applyMshipGradeCd1}
+	        </if>
+	        <if test="cprtCmpNo != null and cprtCmpNo != ''">
+	                  AND A.CPRT_CMP_NO     =       #{cprtCmpNo}
+	        </if>
+	        <if test="applyPointScore != null and applyPointScore != ''">
+	                  AND A.APPLY_POINT_SCORE=       #{applyPointScore}
+	        </if>
+		</where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('mshipPromBasNo')">
+                ORDER BY      MSHIP_PROM_BAS_NO
+            </when>
+            <when test="colSortName.equals('promStaYmd')">
+                ORDER BY      PROM_STA_YMD
+            </when>
+            <when test="colSortName.equals('promTypeCd')">
+                ORDER BY      PROM_TYPE_CD
+            </when>
+            <when test="colSortName.equals('promEndYmd')">
+                ORDER BY      PROM_END_YMD
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('promBasCtnts')">
+                ORDER BY      PROM_BAS_CTNTS
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regChlCd')">
+                ORDER BY      REG_CHL_CD
+            </when>
+            <when test="colSortName.equals('advmShowYn')">
+                ORDER BY      ADVM_SHOW_YN
+            </when>
+            <when test="colSortName.equals('useChlPlcyCd')">
+                ORDER BY      USE_CHL_PLCY_CD
+            </when>
+            <when test="colSortName.equals('fromApplySaleAmt')">
+                ORDER BY      FROM_APPLY_SALE_AMT
+            </when>
+            <when test="colSortName.equals('toApplySaleAmt')">
+                ORDER BY      TO_APPLY_SALE_AMT
+            </when>
+            <when test="colSortName.equals('fromApplySaleCondCd')">
+                ORDER BY      FROM_APPLY_SALE_COND_CD
+            </when>
+            <when test="colSortName.equals('toApplySaleCondCd')">
+                ORDER BY      TO_APPLY_SALE_COND_CD
+            </when>
+            <when test="colSortName.equals('fromApplyPayAmt')">
+                ORDER BY      FROM_APPLY_PAY_AMT
+            </when>
+            <when test="colSortName.equals('toApplyPayAmt')">
+                ORDER BY      TO_APPLY_PAY_AMT
+            </when>
+            <when test="colSortName.equals('fromApplyPayCondCd')">
+                ORDER BY      FROM_APPLY_PAY_COND_CD
+            </when>
+            <when test="colSortName.equals('toApplyPayCondCd')">
+                ORDER BY      TO_APPLY_PAY_COND_CD
+            </when>
+            <when test="colSortName.equals('applyMshipGradeCd')">
+                ORDER BY      APPLY_MSHIP_GRADE_CD
+            </when>
+            <when test="colSortName.equals('dupUseYn')">
+                ORDER BY      DUP_USE_YN
+            </when>
+            <when test="colSortName.equals('applyBnfitCd')">
+                ORDER BY      APPLY_BNFIT_CD
+            </when>
+            <when test="colSortName.equals('coupnApplyDivCd1')">
+                ORDER BY      COUPN_APPLY_DIV_CD1
+            </when>
+            <when test="colSortName.equals('coupnApplyDivCd2')">
+                ORDER BY      COUPN_APPLY_DIV_CD2
+            </when>
+            <when test="colSortName.equals('applyDcRate')">
+                ORDER BY      APPLY_DC_RATE
+            </when>
+            <when test="colSortName.equals('applyDcAmt')">
+                ORDER BY      APPLY_DC_AMT
+            </when>
+            <when test="colSortName.equals('pointAccumRate')">
+                ORDER BY      POINT_ACCUM_RATE
+            </when>
+            <when test="colSortName.equals('stmpPrvCnt')">
+                ORDER BY      STMP_PRV_CNT
+            </when>
+            <when test="colSortName.equals('prvCoupnBasNo')">
+                ORDER BY      PRV_COUPN_BAS_NO
+            </when>
+            <when test="colSortName.equals('statusCd')">
+                ORDER BY      STATUS_CD
+            </when>
+            <when test="colSortName.equals('promBasNm')">
+                ORDER BY      PROM_BAS_NM
+            </when>
+            <when test="colSortName.equals('applyMshpGradeCtnts')">
+                ORDER BY      APPLY_MSHP_GRADE_CTNTS
+            </when>
+            <when test="colSortName.equals('applyMshipGradeCd1')">
+                ORDER BY      APPLY_MSHIP_GRADE_CD1
+            </when>
+            <when test="colSortName.equals('cprtCmpNo')">
+                ORDER BY      CPRT_CMP_NO
+            </when>
+            <when test="colSortName.equals('applyPointScore')">
+                ORDER BY      APPLY_POINT_SCORE
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.mem.dao.PromotionMonitoringDao.selectListCount */ COUNT(1)
+                 FROM CRM_MSHIP_PROM_BAS A
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.mem.model.PromotionMonitoringVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.mem.dao.PromotionMonitoringDao.selectList */ <include refid="sqlSelectCols"/>
+                 FROM CRM_MSHIP_PROM_BAS A
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.mem.model.PromotionMonitoringVo">
+               SELECT /* com.ceragem.crm.mem.dao.PromotionMonitoringDao.select */ <include refid="sqlSelectCols"/>
+                 FROM CRM_MSHIP_PROM_BAS A
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT /* com.ceragem.crm.mem.dao.PromotionMonitoringDao.insert */ INTO CRM_MSHIP_PROM_BAS (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{mshipPromBasNo}
+                     , #{promStaYmd}
+                     , #{promTypeCd}
+                     , #{promEndYmd}
+                     , #{regrId}
+                     , SYSDATE
+                     , #{amdrId}
+                     , #{promBasCtnts}
+                     , SYSDATE
+                     , #{regChlCd}
+                     , NVL(#{advmShowYn},'N')
+                     , #{useChlPlcyCd}
+                     , #{fromApplySaleAmt}
+                     , #{toApplySaleAmt}
+                     , #{fromApplySaleCondCd}
+                     , #{toApplySaleCondCd}
+                     , #{fromApplyPayAmt}
+                     , #{toApplyPayAmt}
+                     , #{fromApplyPayCondCd}
+                     , #{toApplyPayCondCd}
+                     , #{applyMshipGradeCd}
+                     , NVL(#{dupUseYn},'N')
+                     , #{applyBnfitCd}
+                     , #{coupnApplyDivCd1}
+                     , #{coupnApplyDivCd2}
+                     , #{applyDcRate}
+                     , #{applyDcAmt}
+                     , #{pointAccumRate}
+                     , #{stmpPrvCnt}
+                     , #{prvCoupnBasNo}
+                     , #{statusCd}
+                     , #{promBasNm}
+                     , #{applyMshpGradeCtnts}
+                     , #{applyMshipGradeCd1}
+                     , #{cprtCmpNo}
+                     , #{applyPointScore}
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.mem.dao.PromotionMonitoringDao.update */ CRM_MSHIP_PROM_BAS
+                  SET PROM_STA_YMD                            =         #{promStaYmd}
+                    , PROM_TYPE_CD                            =         #{promTypeCd}
+                    , PROM_END_YMD                            =         #{promEndYmd}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , PROM_BAS_CTNTS                          =         #{promBasCtnts}
+                    , AMD_DT                                  =         SYSDATE
+                    , REG_CHL_CD                              =         #{regChlCd}
+                    , ADVM_SHOW_YN                            =         NVL(#{advmShowYn},'N')
+                    , USE_CHL_PLCY_CD                         =         #{useChlPlcyCd}
+                    , FROM_APPLY_SALE_AMT                     =         #{fromApplySaleAmt}
+                    , TO_APPLY_SALE_AMT                       =         #{toApplySaleAmt}
+                    , FROM_APPLY_SALE_COND_CD                 =         #{fromApplySaleCondCd}
+                    , TO_APPLY_SALE_COND_CD                   =         #{toApplySaleCondCd}
+                    , FROM_APPLY_PAY_AMT                      =         #{fromApplyPayAmt}
+                    , TO_APPLY_PAY_AMT                        =         #{toApplyPayAmt}
+                    , FROM_APPLY_PAY_COND_CD                  =         #{fromApplyPayCondCd}
+                    , TO_APPLY_PAY_COND_CD                    =         #{toApplyPayCondCd}
+                    , APPLY_MSHIP_GRADE_CD                    =         #{applyMshipGradeCd}
+                    , DUP_USE_YN                              =         NVL(#{dupUseYn},'N')
+                    , APPLY_BNFIT_CD                          =         #{applyBnfitCd}
+                    , COUPN_APPLY_DIV_CD1                     =         #{coupnApplyDivCd1}
+                    , COUPN_APPLY_DIV_CD2                     =         #{coupnApplyDivCd2}
+                    , APPLY_DC_RATE                           =         #{applyDcRate}
+                    , APPLY_DC_AMT                            =         #{applyDcAmt}
+                    , POINT_ACCUM_RATE                        =         #{pointAccumRate}
+                    , STMP_PRV_CNT                            =         #{stmpPrvCnt}
+                    , PRV_COUPN_BAS_NO                        =         #{prvCoupnBasNo}
+                    , STATUS_CD                               =         #{statusCd}
+                    , PROM_BAS_NM                             =         #{promBasNm}
+                    , APPLY_MSHP_GRADE_CTNTS                  =         #{applyMshpGradeCtnts}
+                    , APPLY_MSHIP_GRADE_CD1                   =         #{applyMshipGradeCd1}
+                    , CPRT_CMP_NO                             =         #{cprtCmpNo}
+                    , APPLY_POINT_SCORE                       =         #{applyPointScore}
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.mem.dao.PromotionMonitoringDao.delete */
+                 FROM CRM_MSHIP_PROM_BAS
+        <include refid="sqlPkConditions"/>
+    </delete>
+    
+    <select id="getIndirectUserList" resultType="com.ceragem.crm.mem.model.PromotionMonitoringVo">
+               SELECT
+                      CNTR_NO                    /*계약번호        */
+                    , CUST_NO                    /*고객번호        */
+                    , CUST_NM                    /*고객명        */
+                    , ITG_CUST_NO                    /*계약자 통합고객번호        */
+                    , CUST_TY_CD                    /*고객유형코드        */
+                    , CUST_TY_CDNM                    /*고객유형명        */
+                    , CUST_TY_DTL_CD                    /*고객유형상세코드        */
+                    , CUST_TY_DTL_CDNM                    /*고객유형상세명        */
+                    , ORD_NO                    /*주문번호        */
+                    , ORD_NO_SN                    /*주문번호순번        */
+                    , ORD_DE                    /*주문일자        */
+                    , ORD_STS_CD                    /*주문상태코드        */
+                    , ORD_STS_CDNM                    /*주문상태명        */
+                    , ORD_CHN_CD                    /*주문채널코드        */
+                    , ORD_SE_CD                    /*주문구분코드        */
+                    , ORD_SE_CDNM                    /*주문구분명        */
+                    , ORD_CNCL_DE                    /*주문취소일자        */
+                    , ITEM_CD                    /*품목코드        */
+                    , ITEM_NM                    /*품목명        */
+                    , ITEM_GRP_CD                    /*품목그룹코드        */
+                    , ITEM_GRP_CDNM                    /*품목그룹명        */
+                    , ITEM_TY_CD                    /*품목유형코드        */
+                    , ITEM_TY_CDNM                    /*품목유형명        */
+                    , ITEM_TY_DTL_CD                    /*품목유형상세코드        */
+                    , ITEM_TY_DTL_CDNM                    /*품목유형상세명        */
+                    , SERIAL_NO                    /*시리얼번호        */
+                    , SALE_TY_CD                    /*판매유형코드        */
+                    , SALE_TY_CDNM                    /*판매유형명        */
+                    , SALE_SE_CD                    /*판매구분코드        */
+                    , SALE_SE_CDNM                    /*판매구분명        */
+                    , SALE_GRP_CD                    /*판매그룹코드        */
+                    , SALE_GRP_CDNM                    /*판매그룹명        */
+                    , CNTR_STS_CD                    /*계약상태코드        */
+                    , CNTR_STS_CDNM                    /*계약상태명        */
+                    , CNTR_STS_DTL_CD                    /*계약상태상세코드        */
+                    , CNTR_STS_DTL_CDNM                    /*계약상태상세명        */
+                    , CNTR_STS_DTL_RSN                    /*계약상태상세사유        */
+                    , SETL_STS_CD                    /*결제상태코드        */
+                    , SETL_STS_CDNM                    /*결제상태명        */
+                    , IST_STS_CD                    /*설치상태코드        */
+                    , IST_STS_CDNM                    /*설치상태명        */
+                    , CNTR_CNCL_YN                    /*계약취소여부        */
+                    , CNTR_CNCL_DE                    /*계약취소일자        */
+                    , CNTR_CNCL_RSN                    /*계약취소사유        */
+                    , HQ_SE_CD                    /*본부구분코드        */
+                    , SELLER                    /*판매인        */
+                    , SELLERNM                    /*판매인명        */
+                    , SALE_ORGZ                    /*판매조직        */
+                    , IST_DUE_ORGZ                    /*설치예정조직        */
+                    , IST_DUE_ENGR                    /*설치예정기사        */
+                    , IST_ORGZ                    /*설치조직        */
+                    , IST_ENGR                    /*설치기사        */
+                    , EQP_NO                    /*설비번호        */
+                    , WRH_CD                    /*창고코드        */
+                    , WRH_NM                    /*창고명        */
+                    , CNTC_SN                    /*컨택순번        */
+                    , CUST_CNTC_STS                    /*고객컨택상태        */
+                    , CUST_CNTC_DE                    /*고객컨택일자        */
+                    , IST_REQ_DE                    /*설치요청일자        */
+                    , IST_DE                    /*설치일자        */
+                    , IST_DCS_YN                    /*설치확정여부        */
+                    , IST_DCS_DE                    /*설치확정일자        */
+                    , CNTR_START_DE                    /*계약시작일자        */
+                    , CNTR_END_DUE_DE                    /*계약종료예정일자        */
+                    , CNTR_END_YN                    /*계약종료여부        */
+                    , CNTR_END_DE                    /*계약종료일자        */
+                    , SELNG_DCS_YN                    /*매출확정여부        */
+                    , SELNG_DCS_DE                    /*매출확정일자        */
+                    , CDT_SEL_YN                    /*신용조회여부        */
+                    , PRC_PLC_NO                    /*가격정책번호        */
+                    , AGR_PD_CD                    /*약정기간코드        */
+                    , AGR_PD_CDNM                    /*약정기간명        */
+                    , CNTR_PD_VAL                    /*계약기간값        */
+                    , SVC_PD_CD                    /*서비스기간코드        */
+                    , SVC_CYCLE                    /*점검주기        */
+                    , PREPAY_YN                    /*선납여부        */
+                    , PREPAY_AMT                    /*선납금액        */
+                    , PREPAY_CYCLE                    /*선납주기        */
+                    , PREPAY_DCRT                    /*선납할인율        */
+                    , REGFEE                    /*등록비        */
+                    , ISTCT                    /*설치비        */
+                    , DFEE                    /*해체비        */
+                    , BASS_RENT_AMT                    /*기본렌탈금액        */
+                    , RENT_AMT                    /*렌탈금액        */
+                    , BASS_SALE_AMT                    /*기본판매금액        */
+                    , SALES_AMT                    /*판매금액        */
+                    , SETL_AMT                    /*결제금액        */
+                    , ORD_AMT                    /*주문금액        */
+                    , ORD_VAT_EXCL_AMT                    /*주문부가세제외금액        */
+                    , ORD_VAT_AMT                    /*주문부가세금액        */
+                    , SELNG_AMT                    /*매출금액        */
+                    , SELNG_VAT_EXCL_AMT                    /*매출부가세제외금액        */
+                    , SELNG_VAT_AMT                    /*매출부가세금액        */
+                    , SELNG_NO                    /*매출번호        */
+                    , VAT_CD                    /*부가세코드        */
+                    , SALE_CHN_CD                    /*판매채널코드        */
+                    , SALE_CHN_CDNM                    /*판매채널명        */
+                    , PRMT_YN                    /*프로모션여부        */
+                    , PRMT_PLC_NO                    /*프로모션정책번호        */
+                    , PRMT_NO                    /*프로모션번호        */
+                    , PKG_YN                    /*패키지여부        */
+                    , PKG_PLC_NO                    /*패키지정책번호        */
+                    , PKG_NO                    /*패키지번호        */
+                    , GRP_YN                    /*단체여부        */
+                    , GRP_CD                    /*단체코드        */
+                    , GRP_NO                    /*단체번호        */
+                    , CTRTC_FILE_NO                    /*계약서파일번호        */
+                    , SIGN_FILE_NO                    /*서명파일번호        */
+                    , SVC_YN                    /*서비스여부        */
+                    , EXIST_CNTR_NO                    /*기존계약번호        */
+                    , RTGD_TY_CD                    /*반품유형코드        */
+                    , RTGD_REQ_DE                    /*반품요청일자        */
+                    , RTGD_DCS_YN                    /*반품접수확정여부        */
+                    , RTGD_END_DE                    /*반품완료일자        */
+                    , SPLT_PLC_NO                    /*약관정책번호        */
+                    , IST_DUE_DE                    /*설치예정일자        */
+                    , ADD_PRUF_FILE_NO1                    /*추가증빙파일번호1        */
+                    , ADD_PRUF_FILE_NO2                    /*추가증빙파일번호2        */
+                    , CDT_GRAD_CD                    /*신용등급코드        */
+                    , REG_USR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , UPD_USR_ID                    /*수정자ID        */
+                    , UPD_DT                    /*수정일시        */
+                    , POST_NO                    /*설치-우편번호        */
+                    , BASS_ADDR                    /*설치-기본주소        */
+                    , DTL_ADDR                    /*설치-상세주소        */
+                    , MOB_NO                    /*설치-모바일번호        */
+                    , TEL_NO                    /*설치-전화번호        */
+                    , PARTCLR_MATTER                    /*설치-특이사항        */
+                    , IST_CUST_NM                    /*설치-설치고객명        */
+                    , CARD_NO                    /*정기결제-카드번호        */
+                    , CDCMP_CD                    /*정기결제-카드사코드        */
+                    , OWNER_NM                    /*정기결제-소유주명        */
+                    , FSETL_MTH_CD                    /*정기결제-방법코드        */
+                    , FSETL_MTH_CDNM                    /*정기결제-방법명        */
+                    , FSETL_DE_CD                    /*정기결제일자코드        */
+                    , ACCT_AFILE_NO                    /*계좌신청동의파일번호        */
+                    , OTBN_STS_CD                    /*출고상태코드        */
+                    , OTBN_STS_CDNM                    /*출고상태명        */
+                    , RM                    /*비고        */
+                    , BASS_MBRSH_AMT                    /*기본멤버십금액        */
+                    , MBRSH_AMT                    /*멤버십금액        */
+                    , LMPS_FREE_END_DUE_DE                    /*일시불무상종료예정일        */
+                    , PKG_TRMN_YN                    /*패키지해지여부        */
+                    , DLV_TY_CD                    /*배송유형코드        */
+                    , DLV_TY_CDNM                    /*배송유형명        */
+                    , DLV_TY_DTL_CD                    /*배송유형상세코드        */
+                    , DLV_TY_DTL_CDNM                    /*배송유형상세명        */
+                    , AGR_PD_VAL                    /*약정기간값        */
+                    , CNTR_PD_SE_CD                    /*계약기간구분코드        */
+                    , CNTR_PD_SE_CDNM                    /*계약기간구분명        */
+                    , CNTR_END_AFTER_PROC_MTH_CD                    /*계약이후처리방법코드        */
+                    , CNTR_END_AFTER_PROC_MTH_CDNM                    /*계약종료이후처리방법        */
+                    , UATC_SE_CD                    /*중고구분코드        */
+                    , UATC_SE_CDNM                    /*중고구분명        */
+                    , UATC_GRAD_CD                    /*중고등급코드        */
+                    , UATC_GRAD_CDNM                    /*중고등급명        */
+                    , SHDE_CRE_YN                    /*스케줄생성여부        */
+                    , RENT_SE_CD                    /*렌탈구분코드        */
+                    , RENT_SE_CDNM                    /*렌탈구분명        */
+                    , EXPRN_DMD_DC_PD_CD                    /*홈체험청구할인기간코드        */
+                    , EXPRN_DMD_DC_PD_CDNM                    /*홈체험청구할인기간명        */
+                    , EXPRN_CNTR_NO                    /*홈체험계약번호        */
+                    , RCMDR                    /*추천인        */
+                    , RCMDRNM                    /*추천인명        */
+                    , ORGZ_CD                    /*추천인조직코드        */
+                    , ORGZ_NM                    /*추천인조직명        */
+                    , SELF_BSN_SE_CD                    /*본인영업구분코드        */
+                    , SELF_BSN_SE_CDNM                    /*본인영업구분명        */
+                    , PRSNT_DTLS                    /*사은품내역        */
+                    , FREE_SALE_TY                    /*무상판매유형        */
+                    , FREE_SALE_TYNM                    /*무상판매유형명        */
+                    , MNG_NO                    /*관리번호        */
+                    , CNTC_STS_CDNM                    /*컨택상태명        */
+                    , BASS_SALE_FEE                    /*기본판매요금        */
+                    , PRC_PLC_NM                    /*가격정책명        */
+                    , CNTR_QY                    /*계약수량        */
+                    , DCRT                    /*할인율        */
+                    , DC_AMT                    /*할인금액        */
+                    , ER_CNTR_NO                    /*이지렌탈계약번호        */
+                    , RPRSNTV_CNTR_YN                    /*대표번호여부        */
+                    , OR_TY_CD                    /*주문유형코드        */
+                    , OR_TY_CDNM                    /*주문유형        */
+                    , PRSNT_YN                    /*사은품여부        */
+                    , PRSNT_CNTR_NO                    /*원계약번호(사은품)        */
+                    , CERAM_ORD_NO                    /*건기식주문번호        */
+                    , PTAXBIL_YN                    /*선세금계산서발급여부        */
+                    , PTAXBIL_DE                    /*선세금계산서기준일자        */
+                    , PTAXBIL_CHRGR_SN                    /*선세금계산서담당자        */
+                    , CHRGR_EMAIL                    /*담당자이메일        */
+                    , CHRGR_CTTPC                    /*담당자연락처        */
+                    , CHRGR_DEPT_NM                    /*담당자부서명        */
+                    , RCMDR_MBRSH_ID                    /*추천고객멤버십아이디        */
+                    , RCMDR_MBRSH_NM                    /*추천고객멤버십이름        */
+                    , CFILE_NO                    /*인수서파일번호        */
+                    , INS_SER_NO                    /*조견표번호        */
+                    , BOND_CD                    /*채권분류코드        */
+                    , BOND_CDNM                    /*채권분류명        */
+                 FROM 
+                 	  CRM_CUST_BOS_CNTRT_HST
+     			WHERE
+     				  PRMT_NO = #{mshipPromBasNo}
+     		<if test="cntrStaDt != null and cntrStaDt != ''">
+	                  AND TO_DATE(ORD_DE,'YYYYMMDD') >= TO_DATE(#{cntrStaDt},'YYYYMMDD')
+	        </if>
+	        <if test="cntrEndDt != null and cntrEndDt != ''">
+	                  AND TO_DATE(#{cntrEndDt},'YYYYMMDD') + 1 > TO_DATE(ORD_DE,'YYYYMMDD')
+	        </if>
+	        <if test="custNm != null and custNm != ''">
+	                  AND CUST_NM     = #{custNm}
+	        </if>
+    </select>
+    <select id="getIndirectUserListCount" resultType="int">
+                SELECT COUNT(1)
+                 FROM CRM_CUST_BOS_CNTRT_HST
+        		WHERE PRMT_NO = #{mshipPromBasNo}
+    </select>
+    
+    <update id="updatePromotionStatus">
+               UPDATE /* com.ceragem.crm.mem.dao.PromotionListDao.updatePromotionStatus */ CRM_MSHIP_PROM_BAS
+                  SET 
+                     STATUS_CD = #{statusCd}
+        <include refid="sqlPkConditions"/>
+    </update>
+</mapper>

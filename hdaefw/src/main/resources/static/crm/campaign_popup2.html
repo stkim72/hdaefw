@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1></h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+	
+</div>
+
+<!-- layer -->
+<div id="jsLayer1" class="mLayer1">
+    <div class="title">
+        <h2>2차 캠페인 생성</h2>
+        <a href="#jsLayer1" class="close jsBtnClose1">팝업 닫기</a>
+    </div>
+    <!-- cont -->
+    <div class="cont mCustomScrollbar">
+        <div class="con">
+
+            <div class="gTitle1 line">
+                <h3 class="mTitle1">대상군 조건 설정</h3>
+            </div>
+            <!-- board -->
+            <div class="mBoard2"> 
+                <table>
+                    <caption>대상군 조건 설정</caption>
+                    <colgroup>
+                        <col width="15%">
+                        <col width="*">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th class="left" scope="row">직접반응</th>
+                            <td class="left">
+                                <select class="select w106" title="직접반응">
+                                    <option>참여</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="left" scope="row">2차 캠페인 기간</th>
+                            <td class="left">
+                                <select class="select w106" title="2차 캠페인 기간">
+                                    <option>1차 종료 후</option>
+                                </select>
+                                <input type="text" class="it right w35" title="일" value="30"> 일
+                                <input type="text" class="it date w75 ml15" title="2차 캠페인 시작일" value="2022-01-01">
+                                <span class="bar">~</span>
+                                <input type="text" class="it date w75" title="2차 캠페인 마지막일" value="2022-01-03">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="left" scope="row">매출발생 기간</th>
+                            <td class="left">
+                                <input type="text" class="it date w75" title="매출발생 시작일" value="2022-01-01">
+                                <span class="bar">~</span>
+                                <input type="text" class="it date w75" title="매출발생 마지막일" value="2022-01-03">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="left" scope="row">구매금액</th>
+                            <td class="left">
+                                <input type="text" class="it w95" title="매출발생 시작일">
+                                <span class="bar">~</span>
+                                <input type="text" class="it w95" title="매출발생 마지막일">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- //board -->
+
+            <!-- list -->
+            <div class="mList3">
+                <!-- left -->
+                <div class="lt">
+                    <div class="ti">1차</div>
+                    <div class="tx">
+                        <div>
+                            캠페인 <br>(1,500명)
+                        </div>
+                    </div>
+                </div>
+                <!-- //left -->
+                <!-- right -->
+                <div class="rt">
+                    <div class="ti">2차</div>
+                    <div class="tx">
+                        <div>
+                            캠페인 대상
+                        </div>
+                    </div>
+                </div>
+                <!-- //right -->
+            </div>
+            <!-- //list -->
+            
+        </div>
+    </div>
+    <!-- //cont -->
+    <div class="button">
+        <a href="#jsLayer1" class="jsBtnClose1"><strong>저장</strong></a>
+    </div>
+</div>
+<!-- //layer -->
+
+</body>
+</html>

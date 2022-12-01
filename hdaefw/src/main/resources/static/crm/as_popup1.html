@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1>AS 상세</h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+    <!-- cont -->
+    <div class="cont">
+        
+        <!-- grid -->
+        <div class="mGrid2">
+            <!-- left -->
+            <div class="lt">
+                <div class="gTitle1 line">
+                    <h3 class="mTitle1">고객정보</h3>
+                </div>
+                <!-- board -->
+                <div class="mBoard2"> 
+                    <table>
+                        <caption>고객정보</caption>
+                        <colgroup>
+                            <col width="15%">
+                            <col width="16%">
+                            <col width="13%">
+                            <col width="21%">
+                            <col width="13%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th class="left" scope="row">통합고객번호</th>
+                                <td colspan="3">
+                                    <input type="text" class="it" title="통합고객번호" value="40001614">
+                                </td>
+                                <th class="left" scope="row">이름</th>
+                                <td>
+                                    <input type="text" class="it" title="이름" value="김**">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="left" scope="row">포인트</th>
+                                <td>
+                                    <input type="text" class="it right" title="포인트" value="147,502">
+                                </td>
+                                <th class="left" scope="row">휴대폰</th>
+                                <td>
+                                    <input type="text" class="it" title="휴대폰" value="010-****-****">
+                                </td>
+                                <th class="left" scope="row">고객 알림</th>
+                                <td class="left">
+                                    <label class="mCheckbox1">
+                                        <input type="checkbox" title="상담 등록 알림" checked="checked">
+                                        <span class="label">상담 등록 알림</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="left" scope="row">AS상담</th>
+                                <td class="left">
+                                    <input type="text" class="it right w50" title="AS상담" value="3"> 건
+                                </td>
+                                <th class="left" scope="row">AS상담중</th>
+                                <td class="left">
+                                    <input type="text" class="it right w50" title="AS상담중" value="2"> 건
+                                </td>
+                                <th class="left" scope="row">AS취소</th>
+                                <td class="left">
+                                    <input type="text" class="it right w50" title="AS취소" value="1"> 건
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+                
+                <div class="gTitle1 line mt18">
+                    <h3 class="mTitle1">비용</h3>
+                </div>
+                <!-- board -->
+                <div class="mBoard2"> 
+                    <table>
+                        <caption>비용</caption>
+                        <colgroup>
+                            <col width="15%">
+                            <col width="40%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th class="left" scope="row">총발생비용</th>
+                                <td class="left br0">
+                                    <input type="text" class="it bold right w185" value="447,502​"> 원
+                                    <div class="mList2">
+                                        <ul>
+                                            <li>
+                                                <span class="t">출장비</span>
+                                                <span class="c">
+                                                    <input type="text" class="it right" title="출장비" value="147,502​"> 원
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="t">서비스비용</span>
+                                                <span class="c">
+                                                    <input type="text" class="it right" title="서비스비용" value="147,502​"> 원
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="t">설치비</span>
+                                                <span class="c">
+                                                    <input type="text" class="it right" title="설치비" value="147,502​"> 원
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td class="bl0">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+                
+                <div class="gTitle1 line mt18">
+                    <h3 class="mTitle1">AS처리내역</h3>
+                </div>
+                <!-- board -->
+                <div class="mBoard2"> 
+                    <table>
+                        <caption>AS처리내역</caption>
+                        <colgroup>
+                            <col width="15%">
+                            <col width="*">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="22%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th class="left" scope="row">AS담당자</th>
+                                <td>
+                                    <input type="text" class="it" title="AS담당자" value="김기사">
+                                </td>
+                                <th class="left" scope="row">휴대폰</th>
+                                <td colspan="2">
+                                    <input type="text" class="it" title="휴대폰" value="010-****-****">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="left" scope="row">완료일시</th>
+                                <td class="left" colspan="2">
+                                    <input type="text" class="it date w70" title="완료일시" value="2022-01-01">
+                                    <input type="text" class="it w35 ml7" title="시" value="12"> 시
+                                    <input type="text" class="it w35 ml7" title="분" value="00"> 분
+                                </td>
+                                <th class="left" scope="row">소요시간</th>
+                                <td>
+                                    <input type="text" class="it" title="소요시간" value="10분">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="left" scope="row">AS내용</th>
+                                <td colspan="4">
+                                    <textarea class="textarea" title="AS내용" rows="9"></textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+            </div>
+            <!-- //left -->
+            <!-- right -->
+            <div class="rt">
+                <div class="gTitle1 line">
+                    <h3 class="mTitle1">AS 접수내역</h3>
+                    <div class="gRt">
+                        <a href="#" class="mBtn1 lPrimary">확인</a>
+                    </div>
+                </div>
+                <!-- board -->
+                <div class="mBoard2"> 
+                    <table>
+                        <caption>AS 접수내역</caption>
+                        <colgroup>
+                            <col width="15%">
+                            <col width="18.3%">
+                            <col width="15%">
+                            <col width="18.3%">
+                            <col width="15%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th class="left" scope="row">접수일련번호</th>
+                                <td colspan="3">
+                                    <input type="text" class="it" title="접수일련번호" value="40001614">
+                                </td>
+                                <th class="left" scope="row">접수자</th>
+                                <td>
+                                    <input type="text" class="it" title="접수자" value="안**">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="left" scope="row">접수상태</th>
+                                <td>
+                                    <select class="select" title="접수상태">
+                                        <option>접수</option>
+                                    </select>
+                                </td>
+                                <th class="left" scope="row">AS구분</th>
+                                <td>
+                                    <select class="select" title="AS구분">
+                                        <option>수리</option>
+                                    </select>
+                                </td>
+                                <th class="left" scope="row">AS방법</th>
+                                <td>
+                                    <select class="select" title="AS방법">
+                                        <option>방문</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="left" scope="row">주소 1</th>
+                                <td colspan="5">
+                                    <div class="mFlex2">
+                                        <div class="mFind1">
+                                            <input type="text" class="it" title="우편번호" value="14568">
+                                            <a href="#" class="iFind">검색</a>
+                                        </div>
+                                        <input type="text" class="it" title="주소" value="서울시 서울구 서울동">
+                                        <input type="text" class="it" title="상세주소" value="서울 아파트 104 2003호">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="left" scope="row">주소 2</th>
+                                <td colspan="5">
+                                    <div class="mFlex2">
+                                        <div class="mFind1">
+                                            <input type="text" class="it" title="우편번호" value="14568">
+                                            <a href="#" class="iFind">검색</a>
+                                        </div>
+                                        <input type="text" class="it" title="주소" value="서울시 서울구 서울동">
+                                        <input type="text" class="it" title="상세주소" value="서울 아파트 104 2003호">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="left" scope="row">방문일시</th>
+                                <td class="left" colspan="5">
+                                    <input type="text" class="it date w70" title="완료일시" value="2022-01-01">
+                                    <select class="select wAuto ml5" title="시">
+                                        <option>12</option>
+                                    </select>
+                                    시
+                                    <select class="select wAuto ml5" title="분">
+                                        <option>00</option>
+                                    </select>
+                                    분
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="left" scope="row">상담내용</th>
+                                <td colspan="5">
+                                    <textarea class="textarea" title="상담내용" rows="12"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="left" scope="row" rowspan="2">첨부사진</th>
+                                <td class="left" colspan="5">
+                                    <div class="mFile1">
+                                        <div class="file">
+                                            <input type="file" title="첨부파일">
+                                            <a href="#" class="mBtn1 lWhite">불러오기</a>
+                                        </div>
+                                        <span class="txt">
+                                            첨부파일
+                                            <span class="txtRed"><strong>0</strong>개</span>
+                                            <span class="ts">0 KB</span>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left" colspan="5">
+                                    <div class="mAttach1">
+                                        <ul>
+                                            <li><span>photo1.jpg (100 KB) <a href="#" class="delete">삭제</a></span></li>
+                                            <li><span>photo123.jpg (100 KB) <a href="#" class="delete">삭제</a></span></li>
+                                            <li><span>photo1.jpg (100 KB) <a href="#" class="delete">삭제</a></span></li>
+                                            <li><span>photo123.jpg (100 KB) <a href="#" class="delete">삭제</a></span></li>
+                                            <li><span>photo1.jpg (100 KB) <a href="#" class="delete">삭제</a></span></li>
+                                            <li><span>photo123.jpg (100 KB) <a href="#" class="delete">삭제</a></span></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+            </div>
+            <!-- //right -->
+        </div>
+        <!-- //grid -->
+        
+    </div>
+    <!-- //cont -->
+	
+</div>
+
+</body>
+</html>

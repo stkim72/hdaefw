@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+        <showCheckbox  value="Y"/>
+        <showStateBar value="N"/>
+    </meta>
+    <column name="채널코드" field="applyChlCd" type="char" maxLength="3" width="80" textAlignment="center" required="Y" Pk="N" readOnly="N" defaultValue="" hidden="N"/>   
+    <column name="채널명" field="applyChlCdNm" type="char" maxLength="3" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/> 
+    <column name="등록일시" field="regDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="적용혜택코드" field="applyBnfitCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="정책기본번호" field="mshipPlcyBasNo" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="쿠폰기본번호" field="mshipCoupnBasNo" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="카드기본번호" field="mshipCardBasNo" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="프로모션기본번호" field="mshipPromBasNo" type="char" maxLength="30" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="적용구분코드" field="applyDivCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="채널코드" field="amdrId" type="char" maxLength="20" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="수정일시" field="amdDt" type="date" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="등록자ID" field="regrId" type="char" maxLength="20" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="채널코드" field="regChlCd" type="combo" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" codeId="S000" hidden="Y"/>
+</grid>

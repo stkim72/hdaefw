@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+    <column name="계약번호" field="cntrNo" type="char" maxLength="12" width="80" textAlignment="center" required="Y" Pk="Y" readOnly="Y" defaultValue="" hidden="N"/>
+    <column name="계약구분" field="saleSeCd" type="combo" maxLength="10" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" codeId="SD100" hidden="N"/>
+    <column name="계약제품군" field="itemTyDtlCdnm" type="char" maxLength="10" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="계약제품명" field="itemNm" type="char" maxLength="100" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="판매조직명" field="saleGrpCdnm" type="char" maxLength="1000" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="계약시작일" field="cntrStartDe" type="date" maxLength="8" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="확정설치일" field="istDcsDe" type="date" maxLength="8" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+</grid>

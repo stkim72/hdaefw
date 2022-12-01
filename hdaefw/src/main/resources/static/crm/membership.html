@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div id="wrapIframe">
+	
+    <div class="mGrid1 type3"> <!-- class="type3" => left:610px -->
+        <!-- left -->
+        <div class="gLeft">
+
+            <!-- 고객정보 -->
+            <div class="mBox1">
+                <!-- title -->
+                <div class="gTitle1">
+                    <h3 class="mTitle1">고객등급별 정책 목록</h3>
+                    <div class="gRt posT-5">
+                        <a href="#" class="mBtn1 lWhite">복사</a>
+                        <a href="#" class="mBtn1 lPrimary">신규등록</a>
+                    </div>
+                </div>
+                <!-- //title -->
+                <!-- sort -->
+                <div class="mSort2 mini"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                    <ul>
+                        <li class="wAuto">
+                            <div class="tit">회원등급</div>
+                            <div class="txt">
+                                <select class="select" title="회원등급">
+                                    <option>골드</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="wAuto">
+                            <div class="tit">사용여부</div>
+                            <div class="txt">
+                                <select class="select" title="사용여부">
+                                    <option>사용</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="wAuto">
+                            <div class="tit">적용연도</div>
+                            <div class="txt">
+                                <select class="select" title="적용연도">
+                                    <option>2022년</option>
+                                </select>
+                            </div>
+                            <span class="button">
+                                <a href="#" class="mBtn1">검색</a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- //sort -->
+                <!-- list -->
+                <div class="mBoard1 mCustomScrollbar h711"> <!-- class="h711" : height="711px"-->
+                    <table>
+                        <caption>고객등급별 정책 목록</caption>
+                        <colgroup>
+                            <col span="2" width="35">
+                            <col span="7" width="*">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col">선택</th>
+                                <th scope="col">정책코드</th>
+                                <th scope="col">적용기준일</th>
+                                <th scope="col">회원등급</th>
+                                <th scope="col">내용</th>
+                                <th scope="col">상태</th>
+                                <th scope="col">등록자</th>
+                                <th scope="col">등록일자</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택" checked="checked">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택" checked="checked">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>18</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>19</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                            <tr>
+                                <td>20</td>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="선택">
+                                        <span class="label">선택</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                                <td>2022년</td>
+                                <td>브론즈</td>
+                                <td class="left">VIP 회원 포인트 적용 기준</td>
+                                <td>사용</td>
+                                <td>홍길동</td>
+                                <td>2022-12-12</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //list -->
+				<!-- paging -->
+				<div class="mPag1 mb0">
+					<div class="mCount1">총 <strong>5</strong>건</div>
+					<span title="처음 리스트" class="first">처음으로</span>
+					<span title="이전 리스트" href="###" class="prev">이전</span>
+					<!-- able 버튼
+						<a title="처음 리스트" href="###" class="first">처음으로</a>
+						<a title="이전 리스트" href="###" class="prev">이전</a>
+					-->
+					<a title="현재페이지" href="###" class="active">1</a>
+					<a title="2 페이지" href="###">2</a>
+					<a title="3 페이지" href="###">3</a>
+					<a title="4 페이지" href="###">4</a>
+					<a title="5 페이지" href="###">5</a>
+					<a title="6 페이지" href="###">6</a>
+					<a title="다음 리스트" href="###" class="next">다음</a>
+					<a title="마지막 리스트" href="###" class="last">마지막으로</a>
+					<!-- disabled 버튼
+						<span title="다음 리스트" class="next">다음</span>
+						<span title="마지막 리스트" class="last">마지막으로</span>
+					-->
+					<select class="select" title="갯수선택">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+					</select>
+				</div>
+				<!-- //paging -->
+                <button class="btnClose">고객정보 닫기</button>
+                <button class="btnWide">고객정보 크게보기</button> 
+            </div>
+            <!-- //고객정보 -->
+            
+        </div>
+        <!-- //left -->
+        <!-- right -->
+        <div class="gRight">
+
+            <!-- sort -->
+            <div class="mSort2 medium"> <!-- class="medium" => 상하좌우 여백 좁은 사이즈-->
+                <ul>
+                    <li class="wAuto">
+                        <div class="tit">정책코드</div>
+                        <div class="txt">
+                            <input type="text" class="it" title="정책코드" value="VIP0001">
+                        </div>
+                    </li>
+                    <li class="wAuto">
+                        <div class="tit">회원등급</div>
+                        <div class="txt">
+                            <select class="select" title="회원등급">
+                                <option>일반고객</option>
+                                <option>화이트</option>
+                                <option>브론즈</option>
+                                <option>실버</option>
+                                <option>골드</option>
+                                <option>VIP</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="wAuto">
+                        <div class="tit">사용여부</div>
+                        <div class="txt">
+                            <select class="select" title="회원등급">
+                                <option>사용</option>
+                                <option>미사용</option>
+                            </select>
+                        </div>
+                    </li>
+                </ul>
+                <div class="button posRt"> <!-- 우측 정렬 : class="posRt" -->
+                    <a href="#" class="mBtn1 lGray">정책 API 반영</a>
+                </div>
+            </div>
+            <!-- //sort -->
+            
+            <!-- box -->
+            <div class="mBox1">
+                <div class="gTitle1 line">
+                    <h3 class="mTitle1">기본정보</h3>
+                    <div class="gRt">
+                        <a href="#" class="mBtn1 lGray">수정</a>
+                        <a href="#" class="mBtn1 lPrimary">등록</a>
+                    </div>
+                </div>
+                <!-- board -->
+                <div class="mBoard2">
+                    <table>
+                        <caption>기본정보</caption>
+                        <colgroup>
+                            <col width="9%">
+                            <col width="16%">
+                            <col width="9%">
+                            <col width="13%">
+                            <col width="9%">
+                            <col width="13%">
+                            <col width="9%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="left">정책코드</th>
+                                <td>
+                                    <input type="text" class="it" title="정책코드">
+                                </td>
+                                <th scope="row" class="left">사용여부</th>
+                                <td>
+                                    <select class="select" title="사용여부">
+                                        <option>사용</option>
+                                    </select>
+                                </td>
+                                <th scope="row" class="left">회원등급</th>
+                                <td>
+                                    <select class="select" title="회원등급">
+                                        <option>VIP</option>
+                                    </select>
+                                </td>
+                                <th scope="row" class="left">적용기간</th>
+                                <td>
+                                    <div class="mDate1">
+                                        <input type="text" class="it date" title="기간 시작일" value="2022-01-01">
+                                        <span class="bar">~</span>
+                                        <input type="text" class="it date" title="기간 마지막일" value="2022-01-03">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+                
+                <div class="gTitle1 line mt13">
+                    <h3 class="mTitle1">등급 산정 정책</h3>
+                </div>
+                <!-- board -->
+                <div class="mBoard2">
+                    <table>
+                        <caption>등급 산정 정책</caption>
+                        <colgroup>
+                            <col width="8%">
+                            <col width="24%">
+                            <col width="8%">
+                            <col width="33%">
+                            <col width="8%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="left">산정일</th>
+                                <td class="left">
+                                    <select class="select wAuto" title="산정일">
+                                        <option>기준일</option>
+                                    </select>
+                                    <input type="text" class="it date wAuto" title="날짜" value="2022-01-01">
+                                    <input type="text" class="it center w35" title="개월수" value="12"> 개월
+                                </td>
+                                <th scope="row" class="left">매출액</th>
+                                <td class="left">
+                                    <input type="text" class="it wAuto" title="매출액 최소금액"> 원
+                                    <select class="select wAuto" title="이상">
+                                        <option>이상</option>
+                                    </select>
+                                    ~
+                                    <input type="text" class="it wAuto" title="매출액 최대금액"> 원
+                                    <select class="select wAuto" title="미만">
+                                        <option>미만</option>
+                                    </select>
+                                </td>
+                                <th scope="row" class="left">하락기준</th>
+                                <td class="left">
+                                    <select class="select wAuto" title="하락기준">
+                                        <option>미사용</option>
+                                    </select>
+                                    <input type="text" class="it wAuto" title="등급"> 등급
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+                
+                <div class="gTitle1 line mt13">
+                    <h3 class="mTitle1">포인트 적립 정책</h3>
+                </div>
+                <!-- board -->
+                <div class="mBoard2">
+                    <table>
+                        <caption>포인트 적립 정책</caption>
+                        <colgroup>
+                            <col width="8%">
+                            <col width="*">
+                            <col width="8%">
+                            <col width="*">
+                            <col width="8%">
+                            <col width="*">
+                            <col width="8%">
+                            <col width="*">
+                            <col width="8%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="left">적입포인트</th>
+                                <td class="left">
+                                    <input type="text" class="it center w40" title="적입포인트"> %
+                                </td>
+                                <th scope="row" class="left">가입 포인트</th>
+                                <td class="left">
+                                    <input type="text" class="it right wAuto" title="가입 포인트" value="5,000"> Point
+                                    <select class="select wAuto ml5" title="즉시">
+                                        <option>즉시</option>
+                                    </select>
+                                </td>
+                                <th scope="row" class="left">승급 포인트</th>
+                                <td class="left">
+                                    <input type="text" class="it right w50" title="승급 포인트" value="5,000"> Point
+                                    <select class="select wAuto ml5" title="즉시">
+                                        <option>즉시</option>
+                                    </select>
+                                </td>
+                                <th scope="row" class="left">적립한도</th>
+                                <td class="left">
+                                    <input type="text" class="it right w50" title="적립한도" value="4,000"> Point/1일
+                                </td>
+                                <th scope="row" class="left">사용한도</th>
+                                <td class="left">
+                                    <input type="text" class="it right w50" title="사용한도" value="4,000"> Point/1일
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+                
+                <div class="gTitle1 line mt13">
+                    <h3 class="mTitle1">음료 혜택 정책</h3>
+                </div>
+                <!-- board -->
+                <div class="mBoard2">
+                    <table>
+                        <caption>음료 혜택 정책</caption>
+                        <colgroup>
+                            <col width="8%">
+                            <col width="11%">
+                            <col width="8%">
+                            <col width="11%">
+                            <col width="8%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="left">상시할인</th>
+                                <td class="left">
+                                    <input type="text" class="it center wAuto" title="상시할인"> %
+                                </td>
+                                <th scope="row" class="left">제공횟수/1일</th>
+                                <td class="left">
+                                    <input type="text" class="it right wAuto" title="제공횟수/1일"> 회
+                                </td>
+                                <th scope="row" class="left">적용잔수</th>
+                                <td class="left">
+                                    <input type="text" class="it right wAuto" title="적용잔수"> 잔
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+                
+                <div class="gTitle1 line mt13">
+                    <h3 class="mTitle1">무료 서비스</h3>
+                </div>
+                <!-- board -->
+                <div class="mBoard2">
+                    <table>
+                        <caption>무료 서비스</caption>
+                        <colgroup>
+                            <col width="11%">
+                            <col width="5%">
+                            <col width="11%">
+                            <col width="*">
+                            <col width="11%">
+                            <col width="9%">
+                            <col width="11%">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="left">자사몰 무료배송</th>
+                                <td>
+                                    <label class="mCheckbox1 notext">
+                                        <input type="checkbox" title="자사몰 무료배송" checked="checked">
+                                        <span class="label">자사몰 무료배송</span>
+                                    </label>
+                                </td>
+                                <th scope="row" class="left">무상서비스 연장</th>
+                                <td class="left">
+                                    <input type="text" class="it right w35" title="무상서비스 연장" value="12"> 개월
+                                    ( 승급시 1회 : 모든 구매 상품)
+                                </td>
+                                <th scope="row" class="left">음료 무료 스탬프</th>
+                                <td class="left">
+                                    <input type="text" class="it right w35" title="음료 무료 스탬프" value="10"> 장
+                                </td>
+                                <th scope="row" class="left">세라케어 &amp; 체크</th>
+                                <td class="left">
+                                    <input type="text" class="it right w35" title="세라케어 &amp; 체크" value="12"> 개월
+                                    ( 3개월 단위 1회 제공 )
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+            </div>
+            <!-- //box -->
+
+            <!-- tab -->
+            <div class="mTab1 jsTab2">
+                <ul>
+                    <li class="active"><a href="#jsTabCont1_1">제품할인정책</a></li>
+                    <li><a href="#jsTabCont1_2">쿠폰제공정책</a></li>
+                </ul>
+            </div>
+            <!-- box:제품할인정책 -->
+            <div id="jsTabCont1_1" class="mBox1 p10 tabCont">
+                <!-- sort -->
+                <div class="mSort2 mini"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                    <ul>
+                        <li class="wAuto ml20">
+                            <div class="tit">구분</div>
+                            <div class="txt">
+                                <select class="select" title="구분">
+                                    <option>자사</option>
+                                    <option>타사</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="wAuto ml35">
+                            <div class="tit">제품군</div>
+                            <div class="txt">
+                                <input type="text" class="it" title="제품군" placeholder="제품 검색">
+                            </div>
+                            <span class="button">
+                                <a href="#" class="mBtn1">검색</a>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="button posRt"> <!-- 우측 정렬 : class="posRt" -->
+                        <a href="#" class="mBtn1 lWhite">추가</a>
+                    </div>
+                </div>
+                <!-- //sort -->
+                <!-- board -->
+                <div class="mBoard1 mCustomScrollbar h267">
+                    <table>
+                        <caption>제품할인정책</caption>
+                        <colgroup>
+                            <col width="5%">
+                            <col span="4" width="*">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col">구분</th>
+                                <th scope="col">제품군</th>
+                                <th scope="col">할인율 ( % )</th>
+                                <th scope="col">등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <select class="select wAuto" title="구분">
+                                        <option>자사</option>
+                                        <option>타사</option>
+                                    </select>
+                                </td>
+                                <td>V4 Master</td>
+                                <td>10</td>
+                                <td>2021-01-01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+				<!-- paging -->
+				<div class="mPag1 mb0">
+					<div class="mCount1">총 <strong>5</strong>건</div>
+					<span title="처음 리스트" class="first">처음으로</span>
+					<span title="이전 리스트" href="###" class="prev">이전</span>
+					<!-- able 버튼
+						<a title="처음 리스트" href="###" class="first">처음으로</a>
+						<a title="이전 리스트" href="###" class="prev">이전</a>
+					-->
+					<a title="현재페이지" href="###" class="active">1</a>
+					<a title="2 페이지" href="###">2</a>
+					<a title="3 페이지" href="###">3</a>
+					<a title="4 페이지" href="###">4</a>
+					<a title="5 페이지" href="###">5</a>
+					<a title="6 페이지" href="###">6</a>
+					<a title="다음 리스트" href="###" class="next">다음</a>
+					<a title="마지막 리스트" href="###" class="last">마지막으로</a>
+					<!-- disabled 버튼
+						<span title="다음 리스트" class="next">다음</span>
+						<span title="마지막 리스트" class="last">마지막으로</span>
+					-->
+					<select class="select" title="갯수선택">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+					</select>
+				</div>
+				<!-- //paging -->
+            </div>
+            <!-- //box:제품할인정책 -->
+            <!-- box:쿠폰제공정책 -->
+            <div id="jsTabCont1_2" class="mBox1 p10 tabCont hidden">
+                <!-- sort -->
+                <div class="mSort2 mini"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->
+                    <ul>
+                        <li class="wAuto ml20">
+                            <div class="tit">쿠폰유형</div>
+                            <div class="txt">
+                                <select class="select" title="쿠폰유형">
+                                    <option>음료50%</option>
+                                    <option>체험</option>
+                                    <option>액세서리10%</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="wAuto ml35">
+                            <div class="tit">쿠폰마스터명</div>
+                            <div class="txt">
+                                <input type="text" class="it" title="쿠폰마스터명" placeholder="쿠폰마스터 검색">
+                            </div>
+                            <span class="button">
+                                <a href="#" class="mBtn1">검색</a>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="button posRt"> <!-- 우측 정렬 : class="posRt" -->
+                        <a href="#" class="mBtn1 lWhite">추가</a>
+                    </div>
+                </div>
+                <!-- //sort -->
+                <!-- board -->
+                <div class="mBoard1 mCustomScrollbar h267">
+                    <table>
+                        <caption>쿠폰제공정책</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">쿠폰마스터 코드</th>
+                                <th scope="col">쿠폰마스터 이름</th>
+                                <th scope="col">제공 시점</th>
+                                <th scope="col">적용상품</th>
+                                <th scope="col">상품군</th>
+                                <th scope="col">혜택 조건</th>
+                                <th scope="col">제공 매수(장)</th>
+                                <th scope="col">적용 기준</th>
+                                <th scope="col">등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>EX001001</td>
+                                <td>체험쿠폰</td>
+                                <td>구매</td>
+                                <td>M010</td>
+                                <td>음료</td>
+                                <td>1잔</td>
+                                <td>1</td>
+                                <td>즉시</td>
+                                <td>2021-01-01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //board -->
+				<!-- paging -->
+				<div class="mPag1 mb0">
+					<div class="mCount1">총 <strong>5</strong>건</div>
+					<span title="처음 리스트" class="first">처음으로</span>
+					<span title="이전 리스트" href="###" class="prev">이전</span>
+					<!-- able 버튼
+						<a title="처음 리스트" href="###" class="first">처음으로</a>
+						<a title="이전 리스트" href="###" class="prev">이전</a>
+					-->
+					<a title="현재페이지" href="###" class="active">1</a>
+					<a title="2 페이지" href="###">2</a>
+					<a title="3 페이지" href="###">3</a>
+					<a title="4 페이지" href="###">4</a>
+					<a title="5 페이지" href="###">5</a>
+					<a title="6 페이지" href="###">6</a>
+					<a title="다음 리스트" href="###" class="next">다음</a>
+					<a title="마지막 리스트" href="###" class="last">마지막으로</a>
+					<!-- disabled 버튼
+						<span title="다음 리스트" class="next">다음</span>
+						<span title="마지막 리스트" class="last">마지막으로</span>
+					-->
+					<select class="select" title="갯수선택">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+					</select>
+				</div>
+				<!-- //paging -->
+            </div>
+            <!-- //box:쿠폰제공정책 -->
+
+        </div>
+        <!-- //right -->
+    </div>
+	
+</div>
+
+</body>
+</html>

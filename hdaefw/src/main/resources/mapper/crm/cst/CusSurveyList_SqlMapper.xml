@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CusSurveyListDao">
+    <sql id="sqlPkConditions">
+                WHERE QSTNR_HST_SEQ     =       #{qstnrHstSeq}
+    </sql>
+    <sql id="sqlCols">
+                      QSTNR_HST_SEQ                    /*설문이력일련번호        */
+                    , ITG_CUST_NO                    /*통합고객번호        */
+                    , DSP_CTNT_TYPE_CD                    /*발송콘텐츠유형코드        */
+                    , MPHON_NO                    /*이동전화번호        */
+                    , EMAIL_ADDR                    /*이메일주소        */
+                    , QSTNR_DIV_CD                    /*설문구분코드        */
+                    , CUST_SDEG_SCORE                    /*고객만족도점수        */
+                    , ANSWR_DT                    /*응답일시        */
+                    , DSP_CHL_CD                    /*발송채널코드        */
+                    , PROM_NO                    /*프로모션번호        */
+                    , CAMP_NO                    /*캠페인번호        */
+                    , STOR_NO                    /*매장번호        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS]*/
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.QSTNR_HST_SEQ                    /*설문이력일련번호        */
+                    , A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.DSP_CTNT_TYPE_CD AS DSP_CTNT_TYPE_NM                    /*발송콘텐츠유형        */
+                    , A.DSP_CTNT_TYPE_CD                    /*발송콘텐츠유형코드        */
+                    , A.MPHON_NO                    /*이동전화번호        */
+                    , A.EMAIL_ADDR                    /*이메일주소        */
+                    , A.QSTNR_DIV_CD AS QSTNR_DIV_NM                    /*설문구분        */
+                    , A.QSTNR_DIV_CD                    /*설문구분코드        */
+                    , A.CUST_SDEG_SCORE                    /*고객만족도점수        */
+                    , TO_CHAR(A.ANSWR_DT,'YYYYMMDDHH24MISS')    ANSWR_DT                    /*응답일시        */
+                    , A.DSP_CHL_CD AS DSP_CHL_NM                    /*발송채널        */
+                    , A.DSP_CHL_CD                    /*발송채널코드        */
+                    , A.PROM_NO                    /*프로모션번호        */
+                    , A.CAMP_NO                    /*캠페인번호        */
+                    , A.STOR_NO                    /*매장번호        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , A.REG_CHL_CD                    /*등록채널코드        공통코드 : S000        [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS]*/
+    </sql>
+    <sql id="sqlConditions">
+        <where>
+        <if test="qstnrHstSeq != null and qstnrHstSeq != ''">
+                  AND A.QSTNR_HST_SEQ   =       #{qstnrHstSeq}
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO     =       #{itgCustNo}
+        </if>
+        <if test="strtDt != null and strtDt != ''">
+                  AND A.REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                  AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.REG_DT
+        </if>
+        <if test="dspCtntTypeCd != null and dspCtntTypeCd != ''">
+            <choose>
+                <when test="dspCtntTypeCd instanceof String">
+                    AND A.DSP_CTNT_TYPE_CD=       #{dspCtntTypeCd}
+                </when>
+                <otherwise>
+                    AND A.DSP_CTNT_TYPE_CDIN
+                    <foreach item="item" index="index" collection="dspCtntTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="mphonNo != null and mphonNo != ''">
+                  AND A.MPHON_NO        =       #{mphonNo}
+        </if>
+        <if test="emailAddr != null and emailAddr != ''">
+                  AND A.EMAIL_ADDR      =       #{emailAddr}
+        </if>
+        <if test="qstnrDivCd != null and qstnrDivCd != ''">
+            <choose>
+                <when test="qstnrDivCd instanceof String">
+                    AND A.QSTNR_DIV_CD    =       #{qstnrDivCd}
+                </when>
+                <otherwise>
+                    AND A.QSTNR_DIV_CD    IN
+                    <foreach item="item" index="index" collection="qstnrDivCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="custSdegScore != null and custSdegScore != ''">
+                  AND A.CUST_SDEG_SCORE =       #{custSdegScore}
+        </if>
+        <if test="answrDt != null and answrDt != ''">
+                  AND A.ANSWR_DT        =       TO_DATE(#{answrDt},'YYYYMMDDHH24MISS')
+        </if>
+        <if test="dspChlCd != null and dspChlCd != ''">
+            <choose>
+                <when test="dspChlCd instanceof String">
+                    AND A.DSP_CHL_CD      =       #{dspChlCd}
+                </when>
+                <otherwise>
+                    AND A.DSP_CHL_CD      IN
+                    <foreach item="item" index="index" collection="dspChlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="promNo != null and promNo != ''">
+                  AND A.PROM_NO         =       #{promNo}
+        </if>
+        <if test="campNo != null and campNo != ''">
+                  AND A.CAMP_NO         =       #{campNo}
+        </if>
+        <if test="storNo != null and storNo != ''">
+                  AND A.STOR_NO         =       #{storNo}
+        </if>
+        <if test="regChlCd != null and regChlCd != ''">
+            <choose>
+                <when test="regChlCd instanceof String">
+                    AND A.REG_CHL_CD      =       #{regChlCd}
+                </when>
+                <otherwise>
+                    AND A.REG_CHL_CD      IN
+                    <foreach item="item" index="index" collection="regChlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('qstnrHstSeq')">
+                ORDER BY      QSTNR_HST_SEQ
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('dspCtntTypeCd')">
+                ORDER BY      DSP_CTNT_TYPE_CD
+            </when>
+            <when test="colSortName.equals('mphonNo')">
+                ORDER BY      MPHON_NO
+            </when>
+            <when test="colSortName.equals('emailAddr')">
+                ORDER BY      EMAIL_ADDR
+            </when>
+            <when test="colSortName.equals('qstnrDivCd')">
+                ORDER BY      QSTNR_DIV_CD
+            </when>
+            <when test="colSortName.equals('custSdegScore')">
+                ORDER BY      CUST_SDEG_SCORE
+            </when>
+            <when test="colSortName.equals('answrDt')">
+                ORDER BY      ANSWR_DT
+            </when>
+            <when test="colSortName.equals('dspChlCd')">
+                ORDER BY      DSP_CHL_CD
+            </when>
+            <when test="colSortName.equals('promNo')">
+                ORDER BY      PROM_NO
+            </when>
+            <when test="colSortName.equals('campNo')">
+                ORDER BY      CAMP_NO
+            </when>
+            <when test="colSortName.equals('storNo')">
+                ORDER BY      STOR_NO
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <when test="colSortName.equals('regChlCd')">
+                ORDER BY      REG_CHL_CD
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT /* com.ceragem.crm.cst.dao.CusSurveyListDao.selectListCount */ COUNT(1)
+                 FROM CRM_QSTNR_HST A
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.CusSurveyListVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.ceragem.crm.cst.dao.CusSurveyListDao.selectList */ <include refid="sqlSelectCols"/>
+                 FROM CRM_QSTNR_HST A
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.cst.model.CusSurveyListVo">
+               SELECT /* com.ceragem.crm.cst.dao.CusSurveyListDao.select */ <include refid="sqlSelectCols"/>
+                 FROM CRM_QSTNR_HST A
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT /* com.ceragem.crm.cst.dao.CusSurveyListDao.insert */ INTO CRM_QSTNR_HST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{qstnrHstSeq}
+                     , #{itgCustNo}
+                     , #{dspCtntTypeCd}
+                     , #{mphonNo}
+                     , #{emailAddr}
+                     , #{qstnrDivCd}
+                     , #{custSdegScore}
+                     , TO_DATE(#{answrDt},'YYYYMMDDHH24MISS')
+                     , #{dspChlCd}
+                     , #{promNo}
+                     , #{campNo}
+                     , #{storNo}
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                     , #{regChlCd}
+                 )
+    </insert>
+    <update id="update">
+               UPDATE /* com.ceragem.crm.cst.dao.CusSurveyListDao.update */ CRM_QSTNR_HST
+                  SET ITG_CUST_NO                             =         #{itgCustNo}
+                    , DSP_CTNT_TYPE_CD                        =         #{dspCtntTypeCd}
+                    , MPHON_NO                                =         #{mphonNo}
+                    , EMAIL_ADDR                              =         #{emailAddr}
+                    , QSTNR_DIV_CD                            =         #{qstnrDivCd}
+                    , CUST_SDEG_SCORE                         =         #{custSdegScore}
+                    , ANSWR_DT                                =         TO_DATE(#{answrDt},'YYYYMMDDHH24MISS')
+                    , DSP_CHL_CD                              =         #{dspChlCd}
+                    , PROM_NO                                 =         #{promNo}
+                    , CAMP_NO                                 =         #{campNo}
+                    , STOR_NO                                 =         #{storNo}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+                    , REG_CHL_CD                              =         #{regChlCd}
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE /* com.ceragem.crm.cst.dao.CusSurveyListDao.delete */ FROM CRM_QSTNR_HST
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

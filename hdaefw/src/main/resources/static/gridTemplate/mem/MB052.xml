@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="Y"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+    <column name="쿠폰일련번호" field="coupnPblsBasNo" type="char" maxLength="60" width="60" textAlignment="center" required="N" hidden="N"/>
+    <column name="사용및적립일시" field="dt" type="char" maxLength="30" width="50" textAlignment="center" required="N" hidden="N"/>
+	<column name="통합고객번호" field="itgCustNo" type="char" maxLength="30" width="50" textAlignment="center" required="N" hidden="N"/>
+	<column name="회원명" field="custNm" type="char" masking="name" maxLength="30" width="50" textAlignment="center" required="N" hidden="N"/>
+	<column name="사용구분" field="useDivNm" type="combo" maxLength="50" width="50" textAlignment="center" required="N" codeId="MB140" hidden="N"/>
+	<!-- <column name="사용구분코드" field="useDivCd" type="char" maxLength="3" width="50" textAlignment="center" required="N" hidden="N"/> -->
+	<column name="쿠폰구분" field="coupnKndNm" type="combo" maxLength="50" width="50" textAlignment="center" required="N" codeId="MB130" hidden="N"/>
+	<!-- <column name="쿠폰구분코드" field="coupnKndCd" type="char" maxLength="3" width="50" textAlignment="center" required="N" hidden="N"/> -->
+	<column name="쿠폰명" field="coupnBasNm" type="char" maxLength="100" width="50" textAlignment="center" required="N" hidden="N"/>
+	
+	<!-- <column name="내역" field="buyGodsCd" type="combo" maxLength="200" width="100" textAlignment="center" required="N" codeId="" hidden="N"/>
+	<column name="발생사유" field="pblsWhyCtnts" type="char" maxLength="1000" width="100" textAlignment="center" required="N" hidden="N"/> -->
+	
+	<column name="사용및발생매장" field="storNm" type="char" maxLength="30" width="50" textAlignment="center" required="N" hidden="N"/>
+	<!-- <column name="사용및발생매장" field="storNo" type="char" maxLength="30" width="50" textAlignment="center" required="N" hidden="N"/> -->
+	<column name="채널" field="regChlCd" type="combo" maxLength="50" width="50" textAlignment="center" required="N" codeId="ST040" hidden="N"/>
+	<!-- <column name="채널코드" field="regChlCd" type="char" maxLength="3" width="50" textAlignment="center" required="N" hidden="N"/> -->
+</grid>

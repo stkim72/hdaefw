@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.cst.dao.CrmCustBosCntrtTxnHCDao">
+    <sql id="sqlPkConditions">
+                WHERE CNTRT_NO          =       #{cntrtNo}
+    </sql>
+    <sql id="sqlCols">
+                      CNTRT_NO                    /*계약번호        */
+                    , ITG_CUST_NO                    /*통합고객번호        */
+                    , BOS_CUST_NO                    /*BOS고객번호        */
+                    , ORDR_NO                    /*주문번호        */
+                    , ORDR_NO_QUE                    /*주문번호순서        */
+                    , ORDR_STATUS_CD                    /*주문상태코드        */
+                    , GODS_NO                    /*제품번호        */
+                    , GODS_NM                    /*제품명        */
+                    , GODS_GRP_CD                    /*제품그룹코드        */
+                    , GODS_TYPE_CD                    /*제품유형코드        */
+                    , GODS_DTL_TYPE_CD                    /*제품상세유형코드        */
+                    , SERIAL_NO                    /*시리얼번호        */
+                    , SALES_TYPE_CD                    /*판매유형코드        */
+                    , SALES_DIV_CD                    /*판매구분코드        */
+                    , SALES_GRP_CD                    /*판매그룹코드        */
+                    , CNTRT_STATUS_CD                    /*계약상태코드        */
+                    , CNTRT_STATUS_DTL_CD                    /*계약상태상세코드        */
+                    , ORDR_DATE                    /*주문일자        */
+                    , ORDR_CANCEL_DATE                    /*주문취소일자        */
+                    , CNTRT_CANCEL_YN                    /*계약취소여부        */
+                    , CNTRT_CANCEL_DATE                    /*계약취소일자        */
+                    , CNTRT_CANCEL_WHY_CTNTS                    /*계약취소사유내용        */
+                    , HQ_DIV_CD                    /*본부구분코드        */
+                    , SALES_ORG_CD                    /*판매조직코드        */
+                    , SALES_ORG_NM                    /*판매조직명        */
+                    , H_RANK_ORG_CD                    /*상위조직코드        */
+                    , H_RANK_ORG_NM                    /*상위조직명        */
+                    , SALES_EMP_NO                    /*판매사원번호        */
+                    , SALES_EMP_NM                    /*판매사원명        */
+                    , INSTLL_DATE                    /*설치일자        */
+                    , CONFRM_INSTLL_DATE                    /*확정설치일자        */
+                    , CNTRT_STA_DATE                    /*계약시작일자        */
+                    , CNTRT_END_EXPT_DATE                    /*계약종료예정일자        */
+                    , CNTRT_END_YN                    /*계약종료여부        */
+                    , CNTRT_END_DATE                    /*계약종료일자        */
+                    , SALE_CONFRM_YN                    /*매출확정여부        */
+                    , SALE_CONFRM_DATE                    /*매출확정일자        */
+                    , REG_EXPNS                    /*등록비용        */
+                    , INSTLL_EXPNS                    /*설치비용        */
+                    , DISJT_EXPNS                    /*해체비용        */
+                    , BAS_RENT_AMT                    /*기본렌탈금액        */
+                    , RENT_AMT                    /*렌탈금액        */
+                    , BAS_SALES_AMT                    /*기본판매금액        */
+                    , SALES_AMT                    /*판매금액        */
+                    , PAY_AMT                    /*결제금액        */
+                    , ORDR_AMT                    /*주문금액        */
+                    , ORDR_VAT_EXCPT_AMT                    /*주문부가세제외금액        */
+                    , ORDR_VAT_AMT                    /*주문부가세금액        */
+                    , SALE_AMT                    /*매출금액        */
+                    , SALE_VAT_EXCPT_AMT                    /*매출부가세제외금액        */
+                    , SALE_VAT_AMT                    /*매출부가세금액        */
+                    , SALE_NO                    /*매출번호        */
+                    , VAT_CD                    /*부가세코드        */
+                    , SALES_CHL_CD                    /*판매채널코드        */
+                    , RGOOD_TYPE_CD                    /*반품유형코드        */
+                    , RGOOD_CONFRM_YN                    /*반품확정여부        */
+                    , RGOOD_DATE                    /*반품일자        */
+                    , RENT_DIV_CD                    /*렌탈구분코드        */
+                    , HOME_EXPRN_CNTRT_NO                    /*홈체험계약번호        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.CNTRT_NO                    /*계약번호        */
+                    , A.ITG_CUST_NO                    /*통합고객번호        */
+                    , A.BOS_CUST_NO                    /*BOS고객번호        */
+                    , A.ORDR_NO                    /*주문번호        */
+                    , A.ORDR_NO_QUE                    /*주문번호순서        */
+                    , A.ORDR_STATUS_CD                    /*주문상태코드        */
+                    , A.GODS_NO                    /*제품번호        */
+                    , A.GODS_NM                    /*제품명        */
+                    , A.GODS_GRP_CD                    /*제품그룹코드        */
+                    , A.GODS_TYPE_CD                    /*제품유형코드        */
+                    , A.GODS_DTL_TYPE_CD                    /*제품상세유형코드        */
+                    , A.SERIAL_NO                    /*시리얼번호        */
+                    , A.SALES_TYPE_CD                    /*판매유형코드        */
+                    , A.SALES_DIV_CD                    /*판매구분코드        */
+                    , A.SALES_GRP_CD                    /*판매그룹코드        */
+                    , A.CNTRT_STATUS_CD                    /*계약상태코드        */
+                    , A.CNTRT_STATUS_DTL_CD                    /*계약상태상세코드        */
+                    , A.ORDR_DATE                    /*주문일자        */
+                    , A.ORDR_CANCEL_DATE                    /*주문취소일자        */
+                    , A.CNTRT_CANCEL_YN                    /*계약취소여부        */
+                    , A.CNTRT_CANCEL_DATE                    /*계약취소일자        */
+                    , A.CNTRT_CANCEL_WHY_CTNTS                    /*계약취소사유내용        */
+                    , A.HQ_DIV_CD                    /*본부구분코드        */
+                    , A.SALES_ORG_CD                    /*판매조직코드        */
+                    , A.SALES_ORG_NM                    /*판매조직명        */
+                    , A.H_RANK_ORG_CD                    /*상위조직코드        */
+                    , A.H_RANK_ORG_NM                    /*상위조직명        */
+                    , A.SALES_EMP_NO                    /*판매사원번호        */
+                    , A.SALES_EMP_NM                    /*판매사원명        */
+                    , A.INSTLL_DATE                    /*설치일자        */
+                    , A.CONFRM_INSTLL_DATE                    /*확정설치일자        */
+                    , A.CNTRT_STA_DATE                    /*계약시작일자        */
+                    , A.CNTRT_END_EXPT_DATE                    /*계약종료예정일자        */
+                    , A.CNTRT_END_YN                    /*계약종료여부        */
+                    , A.CNTRT_END_DATE                    /*계약종료일자        */
+                    , A.SALE_CONFRM_YN                    /*매출확정여부        */
+                    , A.SALE_CONFRM_DATE                    /*매출확정일자        */
+                    , A.REG_EXPNS                    /*등록비용        */
+                    , A.INSTLL_EXPNS                    /*설치비용        */
+                    , A.DISJT_EXPNS                    /*해체비용        */
+                    , A.BAS_RENT_AMT                    /*기본렌탈금액        */
+                    , A.RENT_AMT                    /*렌탈금액        */
+                    , A.BAS_SALES_AMT                    /*기본판매금액        */
+                    , A.SALES_AMT                    /*판매금액        */
+                    , A.PAY_AMT                    /*결제금액        */
+                    , A.ORDR_AMT                    /*주문금액        */
+                    , A.ORDR_VAT_EXCPT_AMT                    /*주문부가세제외금액        */
+                    , A.ORDR_VAT_AMT                    /*주문부가세금액        */
+                    , A.SALE_AMT                    /*매출금액        */
+                    , A.SALE_VAT_EXCPT_AMT                    /*매출부가세제외금액        */
+                    , A.SALE_VAT_AMT                    /*매출부가세금액        */
+                    , A.SALE_NO                    /*매출번호        */
+                    , A.VAT_CD                    /*부가세코드        */
+                    , A.SALES_CHL_CD                    /*판매채널코드        */
+                    , A.RGOOD_TYPE_CD                    /*반품유형코드        */
+                    , A.RGOOD_CONFRM_YN                    /*반품확정여부        */
+                    , A.RGOOD_DATE                    /*반품일자        */
+                    , A.RENT_DIV_CD                    /*렌탈구분코드        */
+                    , A.HOME_EXPRN_CNTRT_NO                    /*홈체험계약번호        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+    </sql>
+    <sql id="sqlConditions">
+                WHERE A.HOME_EXPRN_CNTRT_NO IS NOT NULL
+        <if test="cntrtNo != null and cntrtNo != ''">
+                  AND A.CNTRT_NO        =       #{cntrtNo}
+        </if>
+        <if test="itgCustNo != null and itgCustNo != ''">
+                  AND A.ITG_CUST_NO     =       #{itgCustNo}
+        </if>
+        
+        <if test="strtDt != null and strtDt != ''">
+                      AND TO_DATE(A.CNTRT_STA_DATE,'YYYYMMDD')      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+        </if>
+        <if test="endDt != null and endDt != ''">
+                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > TO_DATE(A.CNTRT_END_DATE,'YYYYMMDD')
+        </if>          
+        
+        <if test="bosCustNo != null and bosCustNo != ''">
+                  AND A.BOS_CUST_NO     =       #{bosCustNo}
+        </if>
+        <if test="ordrNo != null and ordrNo != ''">
+                  AND A.ORDR_NO         =       #{ordrNo}
+        </if>
+        <if test="ordrNoQue != null and ordrNoQue != ''">
+                  AND A.ORDR_NO_QUE     =       #{ordrNoQue}
+        </if>
+        <if test="ordrStatusCd != null and ordrStatusCd != ''">
+            <choose>
+                <when test="ordrStatusCd instanceof String">
+                    AND A.ORDR_STATUS_CD  =       #{ordrStatusCd}
+                </when>
+                <otherwise>
+                    AND A.ORDR_STATUS_CD  IN
+                    <foreach item="item" index="index" collection="ordrStatusCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="godsNo != null and godsNo != ''">
+                  AND A.GODS_NO         =       #{godsNo}
+        </if>
+        <if test="godsNm != null and godsNm != ''">
+                  AND A.GODS_NM         =       #{godsNm}
+        </if>
+        <if test="godsGrpCd != null and godsGrpCd != ''">
+            <choose>
+                <when test="godsGrpCd instanceof String">
+                    AND A.GODS_GRP_CD     =       #{godsGrpCd}
+                </when>
+                <otherwise>
+                    AND A.GODS_GRP_CD     IN
+                    <foreach item="item" index="index" collection="godsGrpCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="godsTypeCd != null and godsTypeCd != ''">
+            <choose>
+                <when test="godsTypeCd instanceof String">
+                    AND A.GODS_TYPE_CD    =       #{godsTypeCd}
+                </when>
+                <otherwise>
+                    AND A.GODS_TYPE_CD    IN
+                    <foreach item="item" index="index" collection="godsTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="godsDtlTypeCd != null and godsDtlTypeCd != ''">
+            <choose>
+                <when test="godsDtlTypeCd instanceof String">
+                    AND A.GODS_DTL_TYPE_CD=       #{godsDtlTypeCd}
+                </when>
+                <otherwise>
+                    AND A.GODS_DTL_TYPE_CDIN
+                    <foreach item="item" index="index" collection="godsDtlTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="serialNo != null and serialNo != ''">
+                  AND A.SERIAL_NO       =       #{serialNo}
+        </if>
+        <if test="salesTypeCd != null and salesTypeCd != ''">
+            <choose>
+                <when test="salesTypeCd instanceof String">
+                    AND A.SALES_TYPE_CD   =       #{salesTypeCd}
+                </when>
+                <otherwise>
+                    AND A.SALES_TYPE_CD   IN
+                    <foreach item="item" index="index" collection="salesTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="salesDivCd != null and salesDivCd != ''">
+            <choose>
+                <when test="salesDivCd instanceof String">
+                    AND A.SALES_DIV_CD    =       #{salesDivCd}
+                </when>
+                <otherwise>
+                    AND A.SALES_DIV_CD    IN
+                    <foreach item="item" index="index" collection="salesDivCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="salesGrpCd != null and salesGrpCd != ''">
+            <choose>
+                <when test="salesGrpCd instanceof String">
+                    AND A.SALES_GRP_CD    =       #{salesGrpCd}
+                </when>
+                <otherwise>
+                    AND A.SALES_GRP_CD    IN
+                    <foreach item="item" index="index" collection="salesGrpCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="cntrtStatusCd != null and cntrtStatusCd != ''">
+            <choose>
+                <when test="cntrtStatusCd instanceof String">
+                    AND A.CNTRT_STATUS_CD =       #{cntrtStatusCd}
+                </when>
+                <otherwise>
+                    AND A.CNTRT_STATUS_CD IN
+                    <foreach item="item" index="index" collection="cntrtStatusCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="cntrtStatusDtlCd != null and cntrtStatusDtlCd != ''">
+            <choose>
+                <when test="cntrtStatusDtlCd instanceof String">
+                    AND A.CNTRT_STATUS_DTL_CD=       #{cntrtStatusDtlCd}
+                </when>
+                <otherwise>
+                    AND A.CNTRT_STATUS_DTL_CDIN
+                    <foreach item="item" index="index" collection="cntrtStatusDtlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="ordrDate != null and ordrDate != ''">
+                  AND A.ORDR_DATE       =       #{ordrDate}
+        </if>
+        <if test="ordrCancelDate != null and ordrCancelDate != ''">
+                  AND A.ORDR_CANCEL_DATE=       #{ordrCancelDate}
+        </if>
+        <if test="cntrtCancelYn != null and cntrtCancelYn != ''">
+                  AND A.CNTRT_CANCEL_YN =       #{cntrtCancelYn}
+        </if>
+        <if test="cntrtCancelDate != null and cntrtCancelDate != ''">
+                  AND A.CNTRT_CANCEL_DATE=       #{cntrtCancelDate}
+        </if>
+        <if test="cntrtCancelWhyCtnts != null and cntrtCancelWhyCtnts != ''">
+                  AND A.CNTRT_CANCEL_WHY_CTNTS=       #{cntrtCancelWhyCtnts}
+        </if>
+        <if test="hqDivCd != null and hqDivCd != ''">
+            <choose>
+                <when test="hqDivCd instanceof String">
+                    AND A.HQ_DIV_CD       =       #{hqDivCd}
+                </when>
+                <otherwise>
+                    AND A.HQ_DIV_CD       IN
+                    <foreach item="item" index="index" collection="hqDivCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="salesOrgCd != null and salesOrgCd != ''">
+            <choose>
+                <when test="salesOrgCd instanceof String">
+                    AND A.SALES_ORG_CD    =       #{salesOrgCd}
+                </when>
+                <otherwise>
+                    AND A.SALES_ORG_CD    IN
+                    <foreach item="item" index="index" collection="salesOrgCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="salesOrgNm != null and salesOrgNm != ''">
+                  AND A.SALES_ORG_NM    =       #{salesOrgNm}
+        </if>
+        <if test="hRankOrgCd != null and hRankOrgCd != ''">
+            <choose>
+                <when test="hRankOrgCd instanceof String">
+                    AND A.H_RANK_ORG_CD   =       #{hRankOrgCd}
+                </when>
+                <otherwise>
+                    AND A.H_RANK_ORG_CD   IN
+                    <foreach item="item" index="index" collection="hRankOrgCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="hRankOrgNm != null and hRankOrgNm != ''">
+                  AND A.H_RANK_ORG_NM   =       #{hRankOrgNm}
+        </if>
+        <if test="salesEmpNo != null and salesEmpNo != ''">
+                  AND A.SALES_EMP_NO    =       #{salesEmpNo}
+        </if>
+        <if test="salesEmpNm != null and salesEmpNm != ''">
+                  AND A.SALES_EMP_NM    =       #{salesEmpNm}
+        </if>
+        <if test="instllDate != null and instllDate != ''">
+                  AND A.INSTLL_DATE     =       #{instllDate}
+        </if>
+        <if test="confrmInstllDate != null and confrmInstllDate != ''">
+                  AND A.CONFRM_INSTLL_DATE=       #{confrmInstllDate}
+        </if>
+        <if test="cntrtStaDate != null and cntrtStaDate != ''">
+                  AND A.CNTRT_STA_DATE  =       #{cntrtStaDate}
+        </if>
+        <if test="cntrtEndExptDate != null and cntrtEndExptDate != ''">
+                  AND A.CNTRT_END_EXPT_DATE=       #{cntrtEndExptDate}
+        </if>
+        <if test="cntrtEndYn != null and cntrtEndYn != ''">
+                  AND A.CNTRT_END_YN    =       #{cntrtEndYn}
+        </if>
+        <if test="cntrtEndDate != null and cntrtEndDate != ''">
+                  AND A.CNTRT_END_DATE  =       #{cntrtEndDate}
+        </if>
+        <if test="saleConfrmYn != null and saleConfrmYn != ''">
+                  AND A.SALE_CONFRM_YN  =       #{saleConfrmYn}
+        </if>
+        <if test="saleConfrmDate != null and saleConfrmDate != ''">
+                  AND A.SALE_CONFRM_DATE=       #{saleConfrmDate}
+        </if>
+        <if test="regExpns != null and regExpns != ''">
+                  AND A.REG_EXPNS       =       #{regExpns}
+        </if>
+        <if test="instllExpns != null and instllExpns != ''">
+                  AND A.INSTLL_EXPNS    =       #{instllExpns}
+        </if>
+        <if test="disjtExpns != null and disjtExpns != ''">
+                  AND A.DISJT_EXPNS     =       #{disjtExpns}
+        </if>
+        <if test="basRentAmt != null and basRentAmt != ''">
+                  AND A.BAS_RENT_AMT    =       #{basRentAmt}
+        </if>
+        <if test="rentAmt != null and rentAmt != ''">
+                  AND A.RENT_AMT        =       #{rentAmt}
+        </if>
+        <if test="basSalesAmt != null and basSalesAmt != ''">
+                  AND A.BAS_SALES_AMT   =       #{basSalesAmt}
+        </if>
+        <if test="salesAmt != null and salesAmt != ''">
+                  AND A.SALES_AMT       =       #{salesAmt}
+        </if>
+        <if test="payAmt != null and payAmt != ''">
+                  AND A.PAY_AMT         =       #{payAmt}
+        </if>
+        <if test="ordrAmt != null and ordrAmt != ''">
+                  AND A.ORDR_AMT        =       #{ordrAmt}
+        </if>
+        <if test="ordrVatExcptAmt != null and ordrVatExcptAmt != ''">
+                  AND A.ORDR_VAT_EXCPT_AMT=       #{ordrVatExcptAmt}
+        </if>
+        <if test="ordrVatAmt != null and ordrVatAmt != ''">
+                  AND A.ORDR_VAT_AMT    =       #{ordrVatAmt}
+        </if>
+        <if test="saleAmt != null and saleAmt != ''">
+                  AND A.SALE_AMT        =       #{saleAmt}
+        </if>
+        <if test="saleVatExcptAmt != null and saleVatExcptAmt != ''">
+                  AND A.SALE_VAT_EXCPT_AMT=       #{saleVatExcptAmt}
+        </if>
+        <if test="saleVatAmt != null and saleVatAmt != ''">
+                  AND A.SALE_VAT_AMT    =       #{saleVatAmt}
+        </if>
+        <if test="saleNo != null and saleNo != ''">
+                  AND A.SALE_NO         =       #{saleNo}
+        </if>
+        <if test="vatCd != null and vatCd != ''">
+            <choose>
+                <when test="vatCd instanceof String">
+                    AND A.VAT_CD          =       #{vatCd}
+                </when>
+                <otherwise>
+                    AND A.VAT_CD          IN
+                    <foreach item="item" index="index" collection="vatCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="salesChlCd != null and salesChlCd != ''">
+            <choose>
+                <when test="salesChlCd instanceof String">
+                    AND A.SALES_CHL_CD    =       #{salesChlCd}
+                </when>
+                <otherwise>
+                    AND A.SALES_CHL_CD    IN
+                    <foreach item="item" index="index" collection="salesChlCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="rgoodTypeCd != null and rgoodTypeCd != ''">
+            <choose>
+                <when test="rgoodTypeCd instanceof String">
+                    AND A.RGOOD_TYPE_CD   =       #{rgoodTypeCd}
+                </when>
+                <otherwise>
+                    AND A.RGOOD_TYPE_CD   IN
+                    <foreach item="item" index="index" collection="rgoodTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="rgoodConfrmYn != null and rgoodConfrmYn != ''">
+                  AND A.RGOOD_CONFRM_YN =       #{rgoodConfrmYn}
+        </if>
+        <if test="rgoodDate != null and rgoodDate != ''">
+                  AND A.RGOOD_DATE      =       #{rgoodDate}
+        </if>
+        <if test="rentDivCd != null and rentDivCd != ''">
+            <choose>
+                <when test="rentDivCd instanceof String">
+                    AND A.RENT_DIV_CD     =       #{rentDivCd}
+                </when>
+                <otherwise>
+                    AND A.RENT_DIV_CD     IN
+                    <foreach item="item" index="index" collection="rentDivCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="homeExprnCntrtNo != null and homeExprnCntrtNo != ''">
+                  AND A.HOME_EXPRN_CNTRT_NO=       #{homeExprnCntrtNo}
+        </if>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('cntrtNo')">
+                ORDER BY      CNTRT_NO
+            </when>
+            <when test="colSortName.equals('itgCustNo')">
+                ORDER BY      ITG_CUST_NO
+            </when>
+            <when test="colSortName.equals('bosCustNo')">
+                ORDER BY      BOS_CUST_NO
+            </when>
+            <when test="colSortName.equals('ordrNo')">
+                ORDER BY      ORDR_NO
+            </when>
+            <when test="colSortName.equals('ordrNoQue')">
+                ORDER BY      ORDR_NO_QUE
+            </when>
+            <when test="colSortName.equals('ordrStatusCd')">
+                ORDER BY      ORDR_STATUS_CD
+            </when>
+            <when test="colSortName.equals('godsNo')">
+                ORDER BY      GODS_NO
+            </when>
+            <when test="colSortName.equals('godsNm')">
+                ORDER BY      GODS_NM
+            </when>
+            <when test="colSortName.equals('godsGrpCd')">
+                ORDER BY      GODS_GRP_CD
+            </when>
+            <when test="colSortName.equals('godsTypeCd')">
+                ORDER BY      GODS_TYPE_CD
+            </when>
+            <when test="colSortName.equals('godsDtlTypeCd')">
+                ORDER BY      GODS_DTL_TYPE_CD
+            </when>
+            <when test="colSortName.equals('serialNo')">
+                ORDER BY      SERIAL_NO
+            </when>
+            <when test="colSortName.equals('salesTypeCd')">
+                ORDER BY      SALES_TYPE_CD
+            </when>
+            <when test="colSortName.equals('salesDivCd')">
+                ORDER BY      SALES_DIV_CD
+            </when>
+            <when test="colSortName.equals('salesGrpCd')">
+                ORDER BY      SALES_GRP_CD
+            </when>
+            <when test="colSortName.equals('cntrtStatusCd')">
+                ORDER BY      CNTRT_STATUS_CD
+            </when>
+            <when test="colSortName.equals('cntrtStatusDtlCd')">
+                ORDER BY      CNTRT_STATUS_DTL_CD
+            </when>
+            <when test="colSortName.equals('ordrDate')">
+                ORDER BY      ORDR_DATE
+            </when>
+            <when test="colSortName.equals('ordrCancelDate')">
+                ORDER BY      ORDR_CANCEL_DATE
+            </when>
+            <when test="colSortName.equals('cntrtCancelYn')">
+                ORDER BY      CNTRT_CANCEL_YN
+            </when>
+            <when test="colSortName.equals('cntrtCancelDate')">
+                ORDER BY      CNTRT_CANCEL_DATE
+            </when>
+            <when test="colSortName.equals('cntrtCancelWhyCtnts')">
+                ORDER BY      CNTRT_CANCEL_WHY_CTNTS
+            </when>
+            <when test="colSortName.equals('hqDivCd')">
+                ORDER BY      HQ_DIV_CD
+            </when>
+            <when test="colSortName.equals('salesOrgCd')">
+                ORDER BY      SALES_ORG_CD
+            </when>
+            <when test="colSortName.equals('salesOrgNm')">
+                ORDER BY      SALES_ORG_NM
+            </when>
+            <when test="colSortName.equals('hRankOrgCd')">
+                ORDER BY      H_RANK_ORG_CD
+            </when>
+            <when test="colSortName.equals('hRankOrgNm')">
+                ORDER BY      H_RANK_ORG_NM
+            </when>
+            <when test="colSortName.equals('salesEmpNo')">
+                ORDER BY      SALES_EMP_NO
+            </when>
+            <when test="colSortName.equals('salesEmpNm')">
+                ORDER BY      SALES_EMP_NM
+            </when>
+            <when test="colSortName.equals('instllDate')">
+                ORDER BY      INSTLL_DATE
+            </when>
+            <when test="colSortName.equals('confrmInstllDate')">
+                ORDER BY      CONFRM_INSTLL_DATE
+            </when>
+            <when test="colSortName.equals('cntrtStaDate')">
+                ORDER BY      CNTRT_STA_DATE
+            </when>
+            <when test="colSortName.equals('cntrtEndExptDate')">
+                ORDER BY      CNTRT_END_EXPT_DATE
+            </when>
+            <when test="colSortName.equals('cntrtEndYn')">
+                ORDER BY      CNTRT_END_YN
+            </when>
+            <when test="colSortName.equals('cntrtEndDate')">
+                ORDER BY      CNTRT_END_DATE
+            </when>
+            <when test="colSortName.equals('saleConfrmYn')">
+                ORDER BY      SALE_CONFRM_YN
+            </when>
+            <when test="colSortName.equals('saleConfrmDate')">
+                ORDER BY      SALE_CONFRM_DATE
+            </when>
+            <when test="colSortName.equals('regExpns')">
+                ORDER BY      REG_EXPNS
+            </when>
+            <when test="colSortName.equals('instllExpns')">
+                ORDER BY      INSTLL_EXPNS
+            </when>
+            <when test="colSortName.equals('disjtExpns')">
+                ORDER BY      DISJT_EXPNS
+            </when>
+            <when test="colSortName.equals('basRentAmt')">
+                ORDER BY      BAS_RENT_AMT
+            </when>
+            <when test="colSortName.equals('rentAmt')">
+                ORDER BY      RENT_AMT
+            </when>
+            <when test="colSortName.equals('basSalesAmt')">
+                ORDER BY      BAS_SALES_AMT
+            </when>
+            <when test="colSortName.equals('salesAmt')">
+                ORDER BY      SALES_AMT
+            </when>
+            <when test="colSortName.equals('payAmt')">
+                ORDER BY      PAY_AMT
+            </when>
+            <when test="colSortName.equals('ordrAmt')">
+                ORDER BY      ORDR_AMT
+            </when>
+            <when test="colSortName.equals('ordrVatExcptAmt')">
+                ORDER BY      ORDR_VAT_EXCPT_AMT
+            </when>
+            <when test="colSortName.equals('ordrVatAmt')">
+                ORDER BY      ORDR_VAT_AMT
+            </when>
+            <when test="colSortName.equals('saleAmt')">
+                ORDER BY      SALE_AMT
+            </when>
+            <when test="colSortName.equals('saleVatExcptAmt')">
+                ORDER BY      SALE_VAT_EXCPT_AMT
+            </when>
+            <when test="colSortName.equals('saleVatAmt')">
+                ORDER BY      SALE_VAT_AMT
+            </when>
+            <when test="colSortName.equals('saleNo')">
+                ORDER BY      SALE_NO
+            </when>
+            <when test="colSortName.equals('vatCd')">
+                ORDER BY      VAT_CD
+            </when>
+            <when test="colSortName.equals('salesChlCd')">
+                ORDER BY      SALES_CHL_CD
+            </when>
+            <when test="colSortName.equals('rgoodTypeCd')">
+                ORDER BY      RGOOD_TYPE_CD
+            </when>
+            <when test="colSortName.equals('rgoodConfrmYn')">
+                ORDER BY      RGOOD_CONFRM_YN
+            </when>
+            <when test="colSortName.equals('rgoodDate')">
+                ORDER BY      RGOOD_DATE
+            </when>
+            <when test="colSortName.equals('rentDivCd')">
+                ORDER BY      RENT_DIV_CD
+            </when>
+            <when test="colSortName.equals('homeExprnCntrtNo')">
+                ORDER BY      HOME_EXPRN_CNTRT_NO
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT COUNT(1)
+                 FROM CRM_CUST_BOS_CNTRT_HST A
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.cst.model.CrmCustBosCntrtTxnHCVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*selectList*/<include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_BOS_CNTRT_HST A
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.cst.model.CrmCustBosCntrtTxnHCVo">
+               SELECT /*select*/<include refid="sqlSelectCols"/>
+                 FROM CRM_CUST_BOS_CNTRT_HST A
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT INTO CRM_CUST_BOS_CNTRT_HST (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{cntrtNo}
+                     , #{itgCustNo}
+                     , #{bosCustNo}
+                     , #{ordrNo}
+                     , #{ordrNoQue}
+                     , #{ordrStatusCd}
+                     , #{godsNo}
+                     , #{godsNm}
+                     , #{godsGrpCd}
+                     , #{godsTypeCd}
+                     , #{godsDtlTypeCd}
+                     , #{serialNo}
+                     , #{salesTypeCd}
+                     , #{salesDivCd}
+                     , #{salesGrpCd}
+                     , #{cntrtStatusCd}
+                     , #{cntrtStatusDtlCd}
+                     , #{ordrDate}
+                     , #{ordrCancelDate}
+                     , NVL(#{cntrtCancelYn},'N')
+                     , #{cntrtCancelDate}
+                     , #{cntrtCancelWhyCtnts}
+                     , #{hqDivCd}
+                     , #{salesOrgCd}
+                     , #{salesOrgNm}
+                     , #{hRankOrgCd}
+                     , #{hRankOrgNm}
+                     , #{salesEmpNo}
+                     , #{salesEmpNm}
+                     , #{instllDate}
+                     , #{confrmInstllDate}
+                     , #{cntrtStaDate}
+                     , #{cntrtEndExptDate}
+                     , NVL(#{cntrtEndYn},'N')
+                     , #{cntrtEndDate}
+                     , NVL(#{saleConfrmYn},'N')
+                     , #{saleConfrmDate}
+                     , #{regExpns}
+                     , #{instllExpns}
+                     , #{disjtExpns}
+                     , #{basRentAmt}
+                     , #{rentAmt}
+                     , #{basSalesAmt}
+                     , #{salesAmt}
+                     , #{payAmt}
+                     , #{ordrAmt}
+                     , #{ordrVatExcptAmt}
+                     , #{ordrVatAmt}
+                     , #{saleAmt}
+                     , #{saleVatExcptAmt}
+                     , #{saleVatAmt}
+                     , #{saleNo}
+                     , #{vatCd}
+                     , #{salesChlCd}
+                     , #{rgoodTypeCd}
+                     , NVL(#{rgoodConfrmYn},'N')
+                     , #{rgoodDate}
+                     , #{rentDivCd}
+                     , #{homeExprnCntrtNo}
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                 )
+    </insert>
+    <update id="update">
+               UPDATE CRM_CUST_BOS_CNTRT_HST
+                  SET ITG_CUST_NO                             =         #{itgCustNo}
+                    , BOS_CUST_NO                             =         #{bosCustNo}
+                    , ORDR_NO                                 =         #{ordrNo}
+                    , ORDR_NO_QUE                             =         #{ordrNoQue}
+                    , ORDR_STATUS_CD                          =         #{ordrStatusCd}
+                    , GODS_NO                                 =         #{godsNo}
+                    , GODS_NM                                 =         #{godsNm}
+                    , GODS_GRP_CD                             =         #{godsGrpCd}
+                    , GODS_TYPE_CD                            =         #{godsTypeCd}
+                    , GODS_DTL_TYPE_CD                        =         #{godsDtlTypeCd}
+                    , SERIAL_NO                               =         #{serialNo}
+                    , SALES_TYPE_CD                           =         #{salesTypeCd}
+                    , SALES_DIV_CD                            =         #{salesDivCd}
+                    , SALES_GRP_CD                            =         #{salesGrpCd}
+                    , CNTRT_STATUS_CD                         =         #{cntrtStatusCd}
+                    , CNTRT_STATUS_DTL_CD                     =         #{cntrtStatusDtlCd}
+                    , ORDR_DATE                               =         #{ordrDate}
+                    , ORDR_CANCEL_DATE                        =         #{ordrCancelDate}
+                    , CNTRT_CANCEL_YN                         =         NVL(#{cntrtCancelYn},'N')
+                    , CNTRT_CANCEL_DATE                       =         #{cntrtCancelDate}
+                    , CNTRT_CANCEL_WHY_CTNTS                  =         #{cntrtCancelWhyCtnts}
+                    , HQ_DIV_CD                               =         #{hqDivCd}
+                    , SALES_ORG_CD                            =         #{salesOrgCd}
+                    , SALES_ORG_NM                            =         #{salesOrgNm}
+                    , H_RANK_ORG_CD                           =         #{hRankOrgCd}
+                    , H_RANK_ORG_NM                           =         #{hRankOrgNm}
+                    , SALES_EMP_NO                            =         #{salesEmpNo}
+                    , SALES_EMP_NM                            =         #{salesEmpNm}
+                    , INSTLL_DATE                             =         #{instllDate}
+                    , CONFRM_INSTLL_DATE                      =         #{confrmInstllDate}
+                    , CNTRT_STA_DATE                          =         #{cntrtStaDate}
+                    , CNTRT_END_EXPT_DATE                     =         #{cntrtEndExptDate}
+                    , CNTRT_END_YN                            =         NVL(#{cntrtEndYn},'N')
+                    , CNTRT_END_DATE                          =         #{cntrtEndDate}
+                    , SALE_CONFRM_YN                          =         NVL(#{saleConfrmYn},'N')
+                    , SALE_CONFRM_DATE                        =         #{saleConfrmDate}
+                    , REG_EXPNS                               =         #{regExpns}
+                    , INSTLL_EXPNS                            =         #{instllExpns}
+                    , DISJT_EXPNS                             =         #{disjtExpns}
+                    , BAS_RENT_AMT                            =         #{basRentAmt}
+                    , RENT_AMT                                =         #{rentAmt}
+                    , BAS_SALES_AMT                           =         #{basSalesAmt}
+                    , SALES_AMT                               =         #{salesAmt}
+                    , PAY_AMT                                 =         #{payAmt}
+                    , ORDR_AMT                                =         #{ordrAmt}
+                    , ORDR_VAT_EXCPT_AMT                      =         #{ordrVatExcptAmt}
+                    , ORDR_VAT_AMT                            =         #{ordrVatAmt}
+                    , SALE_AMT                                =         #{saleAmt}
+                    , SALE_VAT_EXCPT_AMT                      =         #{saleVatExcptAmt}
+                    , SALE_VAT_AMT                            =         #{saleVatAmt}
+                    , SALE_NO                                 =         #{saleNo}
+                    , VAT_CD                                  =         #{vatCd}
+                    , SALES_CHL_CD                            =         #{salesChlCd}
+                    , RGOOD_TYPE_CD                           =         #{rgoodTypeCd}
+                    , RGOOD_CONFRM_YN                         =         NVL(#{rgoodConfrmYn},'N')
+                    , RGOOD_DATE                              =         #{rgoodDate}
+                    , RENT_DIV_CD                             =         #{rentDivCd}
+                    , HOME_EXPRN_CNTRT_NO                     =         #{homeExprnCntrtNo}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE FROM CRM_CUST_BOS_CNTRT_HST
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.memship.dao.CrmMshipApplyGodsRelDao">
+    <sql id="sqlPkConditions">
+                WHERE GODS_REL_BAS_NO   =       #{godsRelBasNo}
+    </sql>
+    <sql id="sqlCols">
+                      APPLY_BNFIT_CD                    /*혜택코드        */
+                    , APPLY_DIV_CD                    /*적용구분코드        */
+                    , MSHIP_CARD_BAS_NO                    /*카드기본번호        */
+                    , MSHIP_COUPN_BAS_NO                    /*쿠폰기본번호        */
+                    , MSHIP_PROM_BAS_NO                    /*프로모션기본번호        */
+                    , MSHIP_PLCY_BAS_NO                    /*정책기본번호        */
+                    , GODS_NO                    /*제품번호        */
+                    , DC_RATE                    /*할인율        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , GODS_REL_BAS_NO                    /*제품관계기본번호        */
+                    , MSHIP_STMP_BAS_NO                    /*스템프기본번호        */
+                    , MIN_BUY_AMT                    /*최소구매금액       */
+                    , ITEM_ACCUM_CNT                    /*스탬프 수량        */
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.APPLY_BNFIT_CD                    /*혜택코드        */
+                    , A.APPLY_DIV_CD                    /*적용구분코드        */
+                    , A.MSHIP_CARD_BAS_NO                    /*카드기본번호        */
+                    , A.MSHIP_COUPN_BAS_NO                    /*쿠폰기본번호        */
+                    , A.MSHIP_PROM_BAS_NO                    /*프로모션기본번호        */
+                    , A.MSHIP_PLCY_BAS_NO                    /*정책기본번호        */
+                    , A.GODS_NO                    /*제품번호        */
+                    , A.DC_RATE                    /*할인율        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , A.GODS_REL_BAS_NO                    /*제품관계기본번호        */
+                    , B.GODS_NM    /* 제품명        */
+                    , SUBSTR(B.GODS_CLASS_CD,1,3)  GODS_TYPE_CD /* 제품군 */
+                    , (SELECT DISTINCT GODS_LCLSS_CD_NM FROM CRM_GODS_CLASS_BAS C WHERE  C.GODS_LCLSS_CD = SUBSTR(B.GODS_CLASS_CD,1,3) ) GODS_TYPE_CD_NM    /* 제품군명        */
+                    , A.MSHIP_STMP_BAS_NO                    /*스템프기본번호        */
+                    , A.MIN_BUY_AMT                    /*최소구매금액       */
+                    , A.ITEM_ACCUM_CNT                    /*스탬프 수량        */
+    </sql>
+    <sql id="sqlConditions">
+                <where>
+        <if test="applyBnfitCd != null and applyBnfitCd != ''">
+            <choose>
+                <when test="applyBnfitCd instanceof String">
+                    AND A.APPLY_BNFIT_CD  =       #{applyBnfitCd}
+                </when>
+                <otherwise>
+                    AND A.APPLY_BNFIT_CD  IN
+                    <foreach item="item" index="index" collection="applyBnfitCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="applyDivCd != null and applyDivCd != ''">
+            <choose>
+                <when test="applyDivCd instanceof String">
+                    AND A.APPLY_DIV_CD    =       #{applyDivCd}
+                </when>
+                <otherwise>
+                    AND A.APPLY_DIV_CD    IN
+                    <foreach item="item" index="index" collection="applyDivCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="mshipCardBasNo != null and mshipCardBasNo != ''">
+                  AND A.MSHIP_CARD_BAS_NO=       #{mshipCardBasNo}
+        </if>
+        <if test="mshipCoupnBasNo != null and mshipCoupnBasNo != ''">
+                  AND A.MSHIP_COUPN_BAS_NO=       #{mshipCoupnBasNo}
+        </if>
+        <if test="mshipPromBasNo != null and mshipPromBasNo != ''">
+                  AND A.MSHIP_PROM_BAS_NO=       #{mshipPromBasNo}
+        </if>
+        <if test="mshipPlcyBasNo != null and mshipPlcyBasNo != ''">
+                  AND A.MSHIP_PLCY_BAS_NO=       #{mshipPlcyBasNo}
+        </if>
+        <if test="mshipStmpBasNo != null and mshipStmpBasNo != ''">
+                  AND A.MSHIP_STMP_BAS_NO=       #{mshipStmpBasNo}
+        </if>
+        
+        
+        <if test="godsNo != null and godsNo != ''">
+                  AND A.GODS_NO         =       #{godsNo}
+        </if>
+        
+          <if test="godsNm != null and godsNm != ''">
+                  AND B.GODS_NM     LIKE  '%'||     #{godsNm}  ||'%'
+        </if>
+        
+        
+        
+        
+        <if test="godsTypeCd != null and godsTypeCd != ''">
+            <choose>
+                <when test="godsTypeCd instanceof String">
+                    AND SUBSTR(B.GODS_CLASS_CD,1,3)     =       #{godsTypeCd}
+                </when>
+                <otherwise>
+                    AND SUBSTR(B.GODS_CLASS_CD,1,3)     IN
+                    <foreach item="item" index="index" collection="godsTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="dcRate != null and dcRate != ''">
+                  AND A.DC_RATE         =       #{dcRate}
+        </if>
+       
+        <if test="godsRelBasNo != null and godsRelBasNo != ''">
+                  AND A.GODS_REL_BAS_NO =       #{godsRelBasNo}
+        </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('applyBnfitCd')">
+                ORDER BY      APPLY_BNFIT_CD
+            </when>
+            <when test="colSortName.equals('applyDivCd')">
+                ORDER BY      APPLY_DIV_CD
+            </when>
+            <when test="colSortName.equals('mshipCardBasNo')">
+                ORDER BY      MSHIP_CARD_BAS_NO
+            </when>
+            <when test="colSortName.equals('mshipCoupnBasNo')">
+                ORDER BY      MSHIP_COUPN_BAS_NO
+            </when>
+            <when test="colSortName.equals('mshipPromBasNo')">
+                ORDER BY      MSHIP_PROM_BAS_NO
+            </when>
+            <when test="colSortName.equals('mshipPlcyBasNo')">
+                ORDER BY      MSHIP_PLCY_BAS_NO
+            </when>
+            <when test="colSortName.equals('godsNo')">
+                ORDER BY      GODS_NO
+            </when>
+            <when test="colSortName.equals('godsTypeCd')">
+                ORDER BY     SUBSTR(B.GODS_CLASS_CD,1,3)
+            </when>
+            <when test="colSortName.equals('dcRate')">
+                ORDER BY      DC_RATE
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+           
+            <when test="colSortName.equals('godsRelBasNo')">
+                ORDER BY      GODS_REL_BAS_NO
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    
+
+
+    <sql id="sqlConditions3">  
+    	
+      
+	        <if test="godsNm != null and godsNm != ''">
+	                  AND GODS_NM     LIKE  '%'||  #{godsNm}  ||'%'
+	        </if>
+	        
+	        <if test="godsTypeCd != null and godsTypeCd != ''">
+	                  AND SUBSTR(GODS_CLASS_CD,1,3)      =       #{godsTypeCd}
+	        </if>
+	        
+	         AND GODS_CLASS_CD IS NOT NULL AND GODS_TYPE_CD_NM IS NOT NULL
+   	 </sql>  
+    
+    
+       <sql id="sqlConditions_Base"> 
+	      	<if test="mshipCoupnBasNo != null and mshipCoupnBasNo != ''">
+	                 AND GODS_NO NOT IN  (SELECT GODS_NO FROM CRM_MSHIP_APPLY_GODS_REL WHERE  MSHIP_COUPN_BAS_NO =  #{mshipCoupnBasNo} )
+	        </if>
+			                
+	         <if test="mshipCardBasNo != null and mshipCardBasNo != ''">
+	                 AND GODS_NO NOT IN  (SELECT GODS_NO FROM CRM_MSHIP_APPLY_GODS_REL WHERE   MSHIP_CARD_BAS_NO =  #{mshipCardBasNo} )
+	        </if>  
+	        
+	         <if test="mshipPromBasNo != null and mshipPromBasNo != ''">
+	                 AND GODS_NO NOT IN  (SELECT GODS_NO FROM CRM_MSHIP_APPLY_GODS_REL WHERE   MSHIP_PROM_BAS_NO =  #{mshipPromBasNo} )
+	        </if>
+	        
+	        <if test="mshipStmpBasNo != null and mshipStmpBasNo != ''">
+	                 AND GODS_NO NOT IN  (SELECT GODS_NO FROM CRM_MSHIP_APPLY_GODS_REL WHERE   MSHIP_STMP_BAS_NO =  #{mshipStmpBasNo} )
+	        </if>  
+	    </sql>
+    
+     
+      <select id="selectAllGodList" resultType="com.ceragem.crm.memship.model.CrmMshipApplyGodsRelVo">
+		      SELECT A.*  /* crmMshipApplyGodsRel.selectAllGodList */
+				  FROM ( SELECT ROWNUM AS ROW_INDEX
+				              , A.*
+				           FROM (
+
+				               SELECT  
+				                      A.GODS_NO                    /*제품번호        */
+				                    , A.GODS_NM                    /*제품명        */
+				                    , A.AMDR_ID                    /*수정자ID        */
+				                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+				                    , A.REGR_ID                    /*등록자ID        */
+				                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+				                   
+				                    , SUBSTR(A.GODS_CLASS_CD,1,3) GODS_TYPE_CD					/* 제품군 코드        */
+				                  
+				                     , (SELECT DISTINCT GODS_LCLSS_CD_NM FROM CRM_GODS_CLASS_BAS B WHERE  B.GODS_LCLSS_CD = SUBSTR(A.GODS_CLASS_CD,1,3) ) GODS_TYPE_CD_NM    /* 제품군명        */	
+				                    , GODS_CLASS_CD     /*제품관계기본번호        */			
+				                 FROM  CRM_GODS_BAS  A
+				                    WHERE USE_YN = 'Y'
+				                	ORDER BY SUBSTR(A.GODS_CLASS_CD,1,3) ASC
+
+				                  ) A ) A
+				  <trim prefix="WHERE" prefixOverrides="AND |OR ">
+					  <include refid="sqlConditions3"/>
+					  <include refid="sqlConditions_Base"/>
+			        </trim>               
+				  
+		 
+		    
+    </select>
+    
+      <select id="selectAllGodListForCpn" resultType="EzMap">
+		      SELECT A.*  /* crmMshipApplyGodsRel.selectAllGodListForCpn */
+				  FROM ( SELECT ROWNUM AS ROW_INDEX
+				              , A.*
+				           FROM (
+
+				               SELECT  
+				                      A.GODS_NO                    /*제품번호        */
+				                    , A.GODS_NM                    /*제품명        */
+				                    , A.AMDR_ID                    /*수정자ID        */
+				                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+				                    , A.REGR_ID                    /*등록자ID        */
+				                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+				                    , SUBSTR(A.GODS_CLASS_CD,1,3) GODS_TYPE_CD1					/* 제품군 코드        */
+				                    , (SELECT DISTINCT GODS_LCLSS_CD_NM FROM CRM_GODS_CLASS_BAS B WHERE  B.GODS_LCLSS_CD =  SUBSTR(A.GODS_CLASS_CD,1,3) ) GODS_TYPE_NM1    /* 제품군명        */	
+				                    , SUBSTR(A.GODS_CLASS_CD,1,6) GODS_TYPE_CD2					/* 제품군 코드        */
+				                    , (SELECT DISTINCT GODS_LCLSS_CD_NM FROM CRM_GODS_CLASS_BAS B WHERE  B.GODS_LCLSS_CD =  SUBSTR(A.GODS_CLASS_CD,1,6) ) GODS_TYPE_NM2    /* 제품군명        */	
+				                    , SUBSTR(A.GODS_CLASS_CD,1,10) GODS_TYPE_CD3					/* 제품군 코드        */
+				                    , (SELECT DISTINCT GODS_LCLSS_CD_NM FROM CRM_GODS_CLASS_BAS B WHERE  B.GODS_LCLSS_CD = SUBSTR(A.GODS_CLASS_CD,1,10) ) GODS_TYPE_NM3    /* 제품군명        */	
+				                    , GODS_CLASS_CD     /*제품관계기본번호        */			
+				                 FROM  CRM_GODS_BAS  A
+				                 	WHERE USE_YN = 'Y'
+				                	ORDER BY SUBSTR(A.GODS_CLASS_CD,1,10) ASC
+
+				                  ) A ) A
+				  <trim prefix="WHERE" prefixOverrides="AND |OR ">                
+					  <include refid="sqlConditions3"/>
+					  <include refid="sqlConditions_Base"/>
+				  </trim>
+				  
+		 
+		    
+    </select>
+    
+    
+        
+       <sql id="sqlConditions2">    
+            <where>
+            
+             AND GODS_CLASS_CD IS NOT NULL AND GODS_TYPE_CD_NM IS NOT NULL
+ 
+	        <if test="godsNm2 != null and godsNm2 != ''">
+	                  AND GODS_NM     LIKE  '%'||  #{godsNm2}  ||'%'
+	        </if>
+	        
+	        <if test="godsTypeCd2 != null and godsTypeCd2 != ''">
+	                  AND SUBSTR(GODS_CLASS_CD,1,3)      =       #{godsTypeCd2}
+	        </if>
+        
+          	<if test="mshipCoupnBasNo != null and mshipCoupnBasNo != ''">
+	                 AND  MSHIP_COUPN_BAS_NO =  #{mshipCoupnBasNo} 
+	        </if>
+			                
+	         <if test="mshipCardBasNo != null and mshipCardBasNo != ''">
+	                 AND  MSHIP_CARD_BAS_NO =  #{mshipCardBasNo}
+	        </if>  
+	        
+	         <if test="mshipPromBasNo != null and mshipPromBasNo != ''">
+	                 AND MSHIP_PROM_BAS_NO =  #{mshipPromBasNo} 
+	        </if>
+	        
+	        <if test="mshipStmpBasNo != null and mshipStmpBasNo != ''">
+	                 AND MSHIP_STMP_BAS_NO =  #{mshipStmpBasNo} 
+	        </if> 
+        </where>
+   	 </sql>  
+    
+
+      <select id="selectGodList" resultType="com.ceragem.crm.memship.model.CrmMshipApplyGodsRelVo">
+      
+		     SELECT T.*  /* crmMshipApplyGodsRel.selectGodList */
+				  FROM ( SELECT ROWNUM AS ROW_INDEX
+				              , A.*
+				           FROM (
+				
+				               SELECT  
+				                      B.GODS_NO                    /*제품번호        */
+				                    , B.GODS_NM                    /*제품명        */
+				                    , B.AMDR_ID                    /*수정자ID        */
+				                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+				                    , A.REGR_ID                    /*등록자ID        */
+				                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+				                  				
+				                    , SUBSTR(B.GODS_CLASS_CD,1,3) GODS_TYPE_CD	/* 제품군 코드        */
+				                    , A.MSHIP_COUPN_BAS_NO
+				                    , (SELECT DISTINCT GODS_LCLSS_CD_NM FROM CRM_GODS_CLASS_BAS C WHERE  C.GODS_LCLSS_CD =  SUBSTR(B.GODS_CLASS_CD,1,3) ) GODS_TYPE_CD_NM    /* 제품군명        */	
+				                    , A.GODS_REL_BAS_NO                    /*제품관계기본번호        */	
+				                    , MSHIP_PROM_BAS_NO
+				                    , MSHIP_CARD_BAS_NO	
+				                    , MSHIP_STMP_BAS_NO
+				                    , GODS_CLASS_CD 		
+				                 FROM CRM_MSHIP_APPLY_GODS_REL A 
+				                 	LEFT JOIN CRM_GODS_BAS B  ON  A.GODS_NO = B.GODS_NO 
+				                 	WHERE B.USE_YN = 'Y'
+				                	ORDER BY SUBSTR(B.GODS_CLASS_CD,1,3) ASC
+				
+				                  ) A ) T
+				                    
+				  
+				 <include refid="sqlConditions2"/>
+		 
+		    
+    </select>
+    
+    
+    
+    <select id="selectListCount" resultType="int">
+                SELECT COUNT(1)
+                 FROM CRM_MSHIP_APPLY_GODS_REL A
+                 LEFT JOIN CRM_GODS_BAS B ON A.GODS_NO = B.GODS_NO
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.memship.model.CrmMshipApplyGodsRelVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT <include refid="sqlSelectCols"/>
+                 FROM CRM_MSHIP_APPLY_GODS_REL A
+                 LEFT JOIN CRM_GODS_BAS B ON A.GODS_NO = B.GODS_NO
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.memship.model.CrmMshipApplyGodsRelVo">
+               SELECT <include refid="sqlSelectCols"/>
+                 FROM CRM_MSHIP_APPLY_GODS_REL A
+                 LEFT JOIN CRM_GODS_BAS B ON A.GODS_NO = B.GODS_NO
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT INTO CRM_MSHIP_APPLY_GODS_REL (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       #{applyBnfitCd}
+                     , #{applyDivCd}
+                     , #{mshipCardBasNo}
+                     , #{mshipCoupnBasNo}
+                     , #{mshipPromBasNo}
+                     , #{mshipPlcyBasNo}
+                     , #{godsNo}
+                     , #{dcRate}
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                     , NVL(#{godsRelBasNo}, FN_CRM_AUTO_SEQ('MRB') ) 
+                     , #{mshipStmpBasNo}
+                     , #{minBuyAmt}
+                     , #{itemAccumCnt}
+                 )
+    </insert>
+    <update id="update">
+               UPDATE CRM_MSHIP_APPLY_GODS_REL
+                  SET APPLY_BNFIT_CD                          =         #{applyBnfitCd}
+                    , APPLY_DIV_CD                            =         #{applyDivCd}
+                    , MSHIP_CARD_BAS_NO                       =         #{mshipCardBasNo}
+                    , MSHIP_COUPN_BAS_NO                      =         #{mshipCoupnBasNo}
+                    , MSHIP_PROM_BAS_NO                       =         #{mshipPromBasNo}
+                    , MSHIP_PLCY_BAS_NO                       =         #{mshipPlcyBasNo}
+                    , MSHIP_STMP_BAS_NO                       =         #{mshipStmpBasNo}
+                    , GODS_NO                                 =         #{godsNo}
+                    , DC_RATE                                 =         #{dcRate}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+                    , MIN_BUY_AMT                             =         #{minBuyAmt}
+                    , ITEM_ACCUM_CNT                          =         #{itemAccumCnt}
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE FROM CRM_MSHIP_APPLY_GODS_REL
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

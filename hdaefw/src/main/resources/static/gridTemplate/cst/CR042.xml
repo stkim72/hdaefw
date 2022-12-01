@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="Y"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+    
+    <column name="사용및적립일시" field="dt" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="통합고객번호" field="itgCustNo" type="char" maxLength="30" width="100" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="발행구분" field="pblsDivNm" type="combo" maxLength="30" width="80" textAlignment="center" required="N"  codeId="EV100" hidden="N"/>
+    <column name="사용유형" field="useTypeNm" type="combo" maxLength="30" width="40" textAlignment="center" required="N"  codeId="PO010" hidden="N"/>
+    <column name="사용유형코드" field="useTypeCd" type="char" maxLength="3" width="80" textAlignment="left" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="내역" field="txn" type="char" maxLength="1000" width="150" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="Y"/>
+    <column name="포인트증감" field="pointScore" type="number" maxLength="30" width="50" textAlignment="center" required="N" hidden="N"/>
+    <column name="잔여포인트" field="remainPointScore" type="number" maxLength="30" width="50" textAlignment="center" required="N" hidden="N"/>
+    <!-- <column name="소멸예정" field="extncDt" type="char" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/> -->
+    <column name="유효기간만료일" field="validPerdEndYmd" type="date" maxLength="30" width="80" textAlignment="center" required="N" hidden="N"/>
+    <column name="사용및발생매장" field="storNm" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
+    <column name="발급자" field="regrId" type="char" maxLength="30" width="50" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/><!-- 22.11.8 발급자 추가 -->
+    <column name="채널" field="storChlCd" type="combo" maxLength="50" width="50" textAlignment="center" required="N" codeId="ST040" hidden="N"/>
+    
+</grid>
+

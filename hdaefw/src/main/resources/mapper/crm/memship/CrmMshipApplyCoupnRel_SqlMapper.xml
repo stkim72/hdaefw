@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.memship.dao.CrmMshipApplyCoupnRelDao">
+    <sql id="sqlPkConditions">
+                WHERE GRADE_COUPN_BAS_NO=       #{gradeCoupnBasNo}
+    </sql>
+    <sql id="sqlCols">
+                      GRADE_COUPN_BAS_NO                    /*등급쿠폰기본번호        */
+                      , MSHIP_PLCY_BAS_NO
+                    , COUPN_TYPE_CD                    /*쿠폰리스트코드        */
+                    , MSHIP_COUPN_BAS_NO                    /*멤버십쿠폰기본번호        */
+                    , PRV_QNTY                    /*제공수량        */
+                    , CYCLE_CD                    /*주기코드        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+    </sql>
+    <sql id="sqlSelectCols">
+                      A.GRADE_COUPN_BAS_NO                    /*등급쿠폰기본번호        */
+                     , A.MSHIP_PLCY_BAS_NO
+                    , A.COUPN_TYPE_CD                    /*쿠폰리스트코드        */
+                    , A.MSHIP_COUPN_BAS_NO                    /*멤버십쿠폰기본번호        */
+                    , A.PRV_QNTY                    /*제공수량        */
+                    , A.CYCLE_CD                    /*주기코드        */
+                    , A.AMDR_ID                    /*수정자ID        */
+                    , TO_CHAR(A.AMD_DT,'YYYY.MM.DD')    AMD_DT                    /*수정일시        */
+                    , A.REGR_ID                    /*등록자ID        */
+                    , TO_CHAR(A.REG_DT,'YYYY.MM.DD')    REG_DT                    /*등록일시        */
+                    , USE_STD_DAY_COND_CD
+                    , B.COUPN_BAS_NM
+                    ,  TO_CHAR(TO_DATE( B.FROM_PBLS_STD_DAY, 'YYYYMMDD'),'YYYY.MM.DD') FROM_PBLS_STD_DAY
+                    ,  TO_CHAR(TO_DATE(B.TO_PBLS_STD_DAY, 'YYYYMMDD'),'YYYY.MM.DD') TO_PBLS_STD_DAY
+                    ,  TO_CHAR(TO_DATE(B.FROM_USE_STD_DAY, 'YYYYMMDD'),'YYYY.MM.DD') FROM_USE_STD_DAY
+                    ,  TO_CHAR(TO_DATE(B.TO_USE_STD_DAY, 'YYYYMMDD'),'YYYY.MM.DD') TO_USE_STD_DAY
+                    , B.COUPN_USE_POSS_DAY
+                    , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS B WHERE B.TOP_COMN_CD = 'MB080' and B.COMN_CD = A.COUPN_TYPE_CD ) coupnTypeCdNm    /* 쿠폰리스트명        */
+                    , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS B WHERE B.TOP_COMN_CD = 'MB130' and B.COMN_CD = B.COUPN_KND_CD ) coupnKndCdNm    /*  쿠폰종류 - 정률       */
+                    , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS B WHERE B.TOP_COMN_CD = 'CM050' and B.COMN_CD = A.CYCLE_CD ) cycleCdNm    /*  발행 주기명       */
+                 
+    </sql>
+    <sql id="sqlConditions">
+                <where>
+        <if test="gradeCoupnBasNo != null and gradeCoupnBasNo != ''">
+                  AND A.GRADE_COUPN_BAS_NO=       #{gradeCoupnBasNo}
+        </if>
+        <if test="coupnTypeCd != null and coupnTypeCd != ''">
+            <choose>
+                <when test="coupnTypeCd instanceof String">
+                    AND A.COUPN_TYPE_CD   =       #{coupnTypeCd}
+                </when>
+                <otherwise>
+                    AND A.COUPN_TYPE_CD   IN
+                    <foreach item="item" index="index" collection="coupnTypeCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="mshipCoupnBasNo != null and mshipCoupnBasNo != ''">
+                  AND A.MSHIP_COUPN_BAS_NO=       #{mshipCoupnBasNo}
+        </if>
+        
+        <if test="mshipPlcyBasNo != null and mshipPlcyBasNo != ''">
+                  AND A.MSHIP_PLCY_BAS_NO=       #{mshipPlcyBasNo}
+        </if>
+        
+        
+        
+        <if test="prvQnty != null and prvQnty != ''">
+                  AND A.PRV_QNTY        =       #{prvQnty}
+        </if>
+        <if test="cycleCd != null and cycleCd != ''">
+            <choose>
+                <when test="cycleCd instanceof String">
+                    AND A.CYCLE_CD        =       #{cycleCd}
+                </when>
+                <otherwise>
+                    AND A.CYCLE_CD        IN
+                    <foreach item="item" index="index" collection="cycleCd" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
+        </where>
+    </sql>
+    <sql id="sqlOrderBy">
+        <choose>
+            <when test="colSortName ==null or colSortName == ''">
+                ORDER BY      REG_DT DESC
+            </when>
+            <when test="colSortName.equals('gradeCoupnBasNo')">
+                ORDER BY      GRADE_COUPN_BAS_NO
+            </when>
+            <when test="colSortName.equals('coupnTypeCd')">
+                ORDER BY      COUPN_TYPE_CD
+            </when>
+            <when test="colSortName.equals('mshipCoupnBasNo')">
+                ORDER BY      MSHIP_COUPN_BAS_NO
+            </when>
+            <when test="colSortName.equals('prvQnty')">
+                ORDER BY      PRV_QNTY
+            </when>
+            <when test="colSortName.equals('cycleCd')">
+                ORDER BY      CYCLE_CD
+            </when>
+            <when test="colSortName.equals('amdrId')">
+                ORDER BY      AMDR_ID
+            </when>
+            <when test="colSortName.equals('amdDt')">
+                ORDER BY      AMD_DT
+            </when>
+            <when test="colSortName.equals('regrId')">
+                ORDER BY      REGR_ID
+            </when>
+            <when test="colSortName.equals('regDt')">
+                ORDER BY      REG_DT
+            </when>
+            <otherwise>
+                ORDER BY      REG_DT
+            </otherwise>
+        </choose>
+        <if test="colSortName !=null and colSortDir !='' and colSortDir !=null and colSortDir !='' and colSortDir.equals('desc')">
+            DESC
+        </if>
+    </sql>
+    <select id="selectListCount" resultType="int">
+                SELECT COUNT(1)
+                 FROM CRM_MSHIP_APPLY_COUPN_REL A
+        <include refid="sqlConditions"/>
+    </select>
+    <select id="selectList" resultType="com.ceragem.crm.memship.model.CrmMshipApplyCoupnRelVo">
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT <include refid="sqlSelectCols"/>
+                 FROM CRM_MSHIP_APPLY_COUPN_REL A
+                 LEFT JOIN CRM_MSHIP_COUPN_BAS B ON A.MSHIP_COUPN_BAS_NO = B.MSHIP_COUPN_BAS_NO
+        <include refid="sqlConditions"/>
+        <include refid="sqlOrderBy"/>
+        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+    </select>
+    <select id="select" resultType="com.ceragem.crm.memship.model.CrmMshipApplyCoupnRelVo">
+               SELECT <include refid="sqlSelectCols"/>
+                 FROM CRM_MSHIP_APPLY_COUPN_REL A
+                 LEFT JOIN CRM_MSHIP_COUPN_BAS B ON A.MSHIP_COUPN_BAS_NO = B.MSHIP_COUPN_BAS_NO
+        <include refid="sqlPkConditions"/>
+    </select>
+    <insert id="insert">
+                INSERT INTO CRM_MSHIP_APPLY_COUPN_REL (
+        <include refid="sqlCols"/>
+                 ) VALUES (
+                       NVL(#{gradeCoupnBasNo}, FN_CRM_AUTO_SEQ('GCB') )
+                     , #{mshipPlcyBasNo}
+                     , #{coupnTypeCd}
+                     , #{mshipCoupnBasNo}
+                     , #{prvQnty}
+                     , #{cycleCd}
+                     , #{amdrId}
+                     , SYSDATE
+                     , #{regrId}
+                     , SYSDATE
+                 )
+    </insert>
+    <update id="update">
+               UPDATE CRM_MSHIP_APPLY_COUPN_REL
+                  SET COUPN_TYPE_CD                           =         #{coupnTypeCd}
+                    , MSHIP_PLCY_BAS_NO                      =         #{mshipPlcyBasNo}
+                    , MSHIP_COUPN_BAS_NO                      =         #{mshipCoupnBasNo}
+                    , PRV_QNTY                                =         #{prvQnty}
+                    , CYCLE_CD                                =         #{cycleCd}
+                    , AMDR_ID                                 =         #{amdrId}
+                    , AMD_DT                                  =         SYSDATE
+        <include refid="sqlPkConditions"/>
+    </update>
+    <delete id="delete">
+               DELETE FROM CRM_MSHIP_APPLY_COUPN_REL
+        <include refid="sqlPkConditions"/>
+    </delete>
+</mapper>

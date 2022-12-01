@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<grid>
+    <meta>
+        <deletable value="N"/>
+        <rollbackable value="N"/>
+        <appendable value="N"/>
+        <readOnly value="Y"/>
+        <showCheckbox value="N"/>
+        <showNumber value="Y"/>
+        <showStateBar value="N"/>
+        <showHeaderSum value="N"/>
+        <showFooter value="N"/>
+        <insertable value="N"/>
+        <editable value="Y"/>
+        <rowSelection value="N"/>
+        <autoColumnWidth value="Y"/>
+        <columnMove value="N"/>
+        <setSort value="none"/>
+    </meta>
+    <column name="생성 캠페인번호" field="cpId" type="char" textAlignment="center" required="Y" hidden="Y"/>
+    <column name="발송 캠페인번호" field="orgCpId" type="char" width="60" textAlignment="center" required="Y" hidden="N"/>
+    <column name="발송 순번" field="sndSeq" type="char" width="40" textAlignment="center" required="Y" hidden="Y"/>
+    <column name="발송 유형" field="sndType" type="combo" width="40" codeId="SD010" textAlignment="center" required="N" hidden="N"/>
+    <column name="통합고객번호" field="itgCustNo" type="char" width="70" textAlignment="center" required="N" hidden="N"/>
+    <column name="고객명" field="custNm" type="char" masking="name" textAlignment="center" required="N" hidden="N"/>
+    <column name="발송주소" field="sndAddr" width="70" type="html" textAlignment="center" required="N" hidden="N" htmlCallback="printSendAddr"/>
+    <column name="성공여부" field="sndResult" width="30" type="combo" codeId="S050" textAlignment="center" required="N" hidden="N"/>
+    <column name="발송일" field="sndDate" width="40" type="date" textAlignment="center" required="N" hidden="N"/>
+</grid>

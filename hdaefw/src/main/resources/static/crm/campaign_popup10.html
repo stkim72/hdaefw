@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1>상담상세(개인정보)</h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+    <!-- cont -->
+    <div class="cont">
+
+        <div class="gTitle1 line">
+            <h3 class="mTitle1">고객정보</h3>
+        </div>
+        <!-- board -->
+        <div class="mBoard2"> 
+            <table>
+                <caption>고객정보</caption>
+                <colgroup>
+                    <col width="10%">
+                    <col width="15%">
+                    <col width="10%">
+                    <col width="15%">
+                    <col width="10%">
+                    <col width="*">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th class="left" scope="row">통합고객번호</th>
+                        <td>
+                            <input type="text" class="it" title="통합고객번호" value="40001614">
+                        </td>
+                        <th class="left" scope="row">이름</th>
+                        <td>
+                            <input type="text" class="it" title="이름" value="김**">
+                        </td>
+                        <th class="left" scope="row">휴대폰</th>
+                        <td>
+                            <input type="text" class="it" title="휴대폰" value="010-****-****">
+                        </td>
+                        <th class="left" scope="row">고객알림</th>
+                        <td class="left">
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="상담 등록 알림" checked="checked">
+                                <span class="label">상담 등록 알림</span>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">총상담</th>
+                        <td class="left">
+                            <input type="text" class="it right w50" title="총상담" value="3">
+                            건
+                        </td>
+                        <th class="left" scope="row">상담중</th>
+                        <td class="left">
+                            <input type="text" class="it right w50" title="상담중" value="2">
+                            건
+                        </td>
+                        <th class="left" scope="row">취소</th>
+                        <td class="left" colspan="3">
+                            <input type="text" class="it right w50" title="취소" value="3">
+                            건
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- //board -->
+        
+        <div class="gTitle1 line">
+            <h3 class="mTitle1">상담내역</h3>
+        </div>
+        <!-- board -->
+        <div class="mBoard2"> 
+            <table>
+                <caption>상담내역</caption>
+                <colgroup>
+                    <col width="10%">
+                    <col width="23%">
+                    <col width="10%">
+                    <col width="23%">
+                    <col width="10%">
+                    <col width="*">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th class="left" scope="row">접수일련번호</th>
+                        <td>
+                            <input type="text" class="it" title="제품" value="1123126">
+                        </td>
+                        <th class="left va-top" scope="row" rowspan="9">상담내용</th>
+                        <td rowspan="9">
+                            <textarea class="textarea" title="상담내용" rows="14"></textarea>
+                        </td>
+                        <th class="left va-top" scope="row" rowspan="9">조치사항</th>
+                        <td rowspan="9">
+                            <textarea class="textarea" title="조치사항" rows="14"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">상담유형</th>
+                        <td>
+                            <input type="text" class="it" title="상담유형" value="IB/OB">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">제품명</th>
+                        <td>
+                            <input type="text" class="it" title="제품명" value="M2/V4/V6">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">제품코드</th>
+                        <td>
+                            <input type="text" class="it" title="제품코드" value="CRGM201024">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">사용포인트</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it right crucial txtRed" title="사용포인트" value="147,502">
+                                <span class="bar5">원</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">발생포인트</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it right crucial" title="사용포인트" value="2,000">
+                                <span class="bar5">원</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">접수상태</th>
+                        <td>
+                            <input type="text" class="it" title="접수상태" value="접수">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">상담구분</th>
+                        <td>
+                            <input type="text" class="it" title="상담구분" value="고객불만">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">상담방법</th>
+                        <td>
+                            <input type="text" class="it" title="상담방법" value="전화">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">담당자</th>
+                        <td>
+                            <input type="text" class="it" title="담당자" value="안**">
+                        </td>
+                        <th class="left va-top" scope="row" rowspan="4">첨부사진</th>
+                        <td class="left" colspan="3">
+                            <div class="mFile1">
+                                <div class="file">
+                                    <input type="file" title="첨부파일">
+                                    <a href="#" class="mBtn1 lWhite">불러오기</a>
+                                </div>
+                                <span class="txt">
+                                    첨부파일
+                                    <span class="txtRed"><strong>0</strong>개</span>
+                                    <span class="ts">0 KB</span>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">상담일시</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it" title="판매일자" value="2022-12-12">
+                                <input type="text" class="it center w80" title="판매일자" value="17:10">
+                            </div>
+                        </td>
+                        <td class="left" colspan="3" rowspan="3">
+                            <div class="mAttach1 h70">
+                                <ul>
+                                    <li><span>photo1.jpg (100 KB) <a href="#" class="delete">삭제</a></span></li>
+                                    <li><span>photo123.jpg (100 KB) <a href="#" class="delete">삭제</a></span></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">완료일시</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it" title="판매일자" value="2022-12-12">
+                                <input type="text" class="it center w80" title="판매일자" value="17:10">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">소요시간</th>
+                        <td>
+                            <div class="mFlex2">
+                                <input type="text" class="it right" title="소요시간" value="60">
+                                <span class="bar5">분</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">옵션</th>
+                        <td class="left">
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="중요" checked="checked">
+                                <span class="label">중요</span>
+                            </label>
+                        </td>
+                        <th class="left" scope="row">다음상담</th>
+                        <td class="left" colspan="3">
+                            <input type="text" class="it w80 center" title="일자" value="2022-12-12">
+                            <input type="text" class="it w50 center" title="시간" value="17:10">
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="예정" checked="checked">
+                                <span class="label">예정</span>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- //board -->
+
+    </div>
+    <!-- //cont -->
+	
+</div>
+
+</body>
+</html>

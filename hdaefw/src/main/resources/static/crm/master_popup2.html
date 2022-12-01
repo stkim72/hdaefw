@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1>대상고객 선정 SQL 설정</h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+    <!-- cont -->
+    <div class="cont">
+
+        <!-- sort -->
+        <div class="mSort2 medium"> <!-- class="medium" => 상하좌우 여백 좁은 사이즈-->
+            <ul>
+                <li class="wAuto">
+                    <div class="tit">추출방법</div>
+                    <div class="txt">
+                        <select class="select w115" title="추출방법">
+                            <option>SQL</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="wAuto">
+                    <div class="tit">추출적용</div>
+                    <div class="txt">
+                        <select class="select w115" title="추출적용">
+                            <option>즉시/실행시</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+            <div class="button posRt"> <!-- 우측 정렬 : class="posRt" -->
+                <a href="#" class="mBtn1 lWhite">SQL검증</a>
+                <a href="#" class="mBtn1 lPrimary">SQL저장</a>
+            </div>
+        </div>
+        <!-- //sort -->
+        
+        <!-- box -->
+        <div class="mBox1 plr15 h320"> <!-- class="plr15" => padding-left, padding-right : 15px-->
+            SELECT  
+            <br>CUST_ID 
+            <br>, CUST_NM  
+            <br>, CUST_SEX 
+            <br>, CUST_AGE 
+            <br>…………. 
+            <br>WHERE 1=1 
+            <br>AND CUST_AGE BETWEEN 20 AND 30 
+        </div>
+        <!-- //box -->
+
+        <div class="mInfo1">
+            현재 선택하신 조건에 해당하는 고객은 <span class="count">100</span> 명 입니다.
+        </div>
+
+        <div class="mButton1 center">
+            <a href="#" class="mBtn1 round m2">대상고객 선정</a>
+        </div>
+        
+    </div>
+    <!-- //cont -->
+	
+</div>
+
+</body>
+</html>

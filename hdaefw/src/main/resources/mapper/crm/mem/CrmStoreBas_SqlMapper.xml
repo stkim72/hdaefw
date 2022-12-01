@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceragem.crm.mem.dao.CrmStoreBasDao">
+	<sql id="sqlStoreBasList">
+		SELECT 
+			STOR_NO,
+			STOR_NM,
+			DAMO.DECRYPT_VAR_B64('AES_256', TEL_NO, '') AS TEL_NO,
+			STOR_STATUS_CD,
+			DISTRCT_CD,
+			REG_DT
+		FROM CRM_STOR_BAS
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="storNo != null and storNo != ''">
+				AND STOR_NO = #{storNo}
+			</if>
+			<if test="storNm != null and storNm != ''">
+				AND STOR_NM LIKE '%' || #{storNm} || '%'
+			</if>
+			<if test="storDivCd != null and storDivCd != ''">
+				AND STOR_DIV_CD = #{storDivCd}
+			</if>
+			<if test="storStatusCd != null and storStatusCd != ''">
+				AND STOR_STATUS_CD = #{storStatusCd}
+			</if>
+			<if test="storChlCd != null and storChlCd != ''">
+				<choose>
+					<when test="storChlCd instanceof String">
+						AND STOR_CHL_CD = #{storChlCd}
+					</when>
+					<otherwise>
+						AND STOR_CHL_CD IN
+						<foreach item="item" index="index" collection="storChlCd" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</otherwise>
+				</choose>
+			</if>
+			<if test="distrctCd != null and distrctCd != ''">
+				<choose>
+					<when test="distrctCd instanceof String">
+						AND DISTRCT_CD = #{distrctCd}
+					</when>
+					<otherwise>
+						AND DISTRCT_CD IN
+						<foreach item="item" index="index" collection="distrctCd" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</otherwise>
+				</choose>
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 매장 기본정보 관련 -->
+	<select id="selectStoreBasListCount" resultType="int">
+		SELECT /* com.ceragem.crm.mem.dao.CrmStoreBasDao.selectStoreBasListCount */ 
+			COUNT(1)
+		FROM(
+			<include refid="sqlStoreBasList"/>
+		) sTB
+	</select>
+
+	<select id="selectStoreBasList" resultType="com.ceragem.crm.mem.model.CrmStoreBasVo">
+		/* com.ceragem.crm.mem.dao.CrmStoreBasDao.selectStoreBasList */
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+			SELECT 
+				STOR_NO,
+				STOR_NM,
+				TEL_NO,
+				STOR_STATUS_CD,
+				DISTRCT_CD,
+				DISTRCT_CD AS DISTRCT_NM,
+				REG_DT,
+				NVL(MEMBER_CNT, 0) AS MEMBER_CNT
+			FROM(
+				<include refid="sqlStoreBasList"/>
+			) sTB
+			LEFT JOIN(
+				SELECT 
+					RCMD_STOR_NO, COUNT(1) AS MEMBER_CNT
+				FROM CRM_CUST_BAS
+				GROUP BY RCMD_STOR_NO
+			) cTB
+			ON(sTB.STOR_NO = cTB.RCMD_STOR_NO)
+			ORDER BY STOR_NO DESC
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+	</select>
+	
+	<select id="selectStoreBasSearchList" resultType="com.ceragem.crm.mem.model.CrmStoreBasVo">
+		/* com.ceragem.crm.mem.dao.CrmStoreBasDao.selectStoreBasSearchList */
+		SELECT 
+			STOR_NO,
+			STOR_NM,
+			TEL_NO,
+			STOR_STATUS_CD,
+			DISTRCT_CD,
+			DISTRCT_CD AS DISTRCT_NM,
+			REG_DT,
+			NVL(MEMBER_CNT, 0) AS MEMBER_CNT
+		FROM(
+			<include refid="sqlStoreBasList"/>
+		) sTB
+		LEFT JOIN(
+			SELECT 
+				RCMD_STOR_NO, COUNT(RCMD_STOR_NO) AS MEMBER_CNT
+			FROM CRM_CUST_BAS
+			GROUP BY RCMD_STOR_NO
+		) cTB
+		ON(sTB.STOR_NO = cTB.RCMD_STOR_NO)
+		ORDER BY STOR_NO DESC
+	</select>
+	
+	<select id="selectStoreBasInfo" resultType="com.ceragem.crm.mem.model.CrmStoreBasVo">
+		/* com.ceragem.crm.mem.dao.CrmStoreBasDao.selectStoreBasInfo */
+		SELECT  
+			  STOR_NO																/*매장번호*/
+			, STOR_NM																/*매장명*/
+			, TO_CHAR(REG_DT,'YYYY-MM-DD') AS REG_DT								/*등록일시*/
+			, STOR_STATUS_CD														/*상태코드*/
+			, DAMO.DECRYPT_VAR_B64('AES_256', TEL_NO, '') AS TEL_NO					/*전화번호*/
+			, CASE
+				WHEN STA_HOUR IS NULL OR END_HOUR IS NULL THEN ''
+				ELSE(
+					SUBSTR(STA_HOUR,0,2) ||':'|| SUBSTR(STA_HOUR, 3,2)
+					||' ~ '|| 
+					SUBSTR(END_HOUR,0,2) ||':'|| SUBSTR(END_HOUR, 3,2)
+				) 
+			  END AS USE_HOUR														/*영업시간*/
+			, ZIP_CD																/*우편번호*/
+			, ADDR_1_CTNTS															/*주소1내용*/
+			, DAMO.DECRYPT_VAR_B64('AES_256', ADDR_2_CTNTS, '') AS ADDR_2_CTNTS		/*주소2내용*/
+			, MEMO_CTNTS															/*메모*/
+			, LATI																	/*위도*/
+			, LONGI																	/*경도*/
+			, STOR_CHL_CD															/*브랜드코드*/
+			, STOR_TYPE_CD															/*채널코드*/
+			, STOR_DIV_CD															/*운영코드*/
+			, POS_STOR_NO															/*POS매장번호*/
+			, DISTRCT_CD															/*지역코드*/
+			, REG_CHL_CD															/*등록채널코드*/
+		FROM CRM_STOR_BAS
+		WHERE STOR_NO = #{storNo}
+	</select>
+	<!-- 매장 기본정보 관련 -->
+	
+	<!-- 매장 회원정보 관련 -->
+	<sql id="sqlStoreCustList">
+		SELECT
+			ITG_CUST_NO, MSHIP_LOGIN_ID, CUST_NM, GNDR_CD, BIRTHDAY, MPHON_NO, MPHON_NO_MASKING, REMAIN_POINT_SCORE,
+			totalTB.GODS_NO, GODS_NM, ORD_DATE, totalTB.REG_DT
+		FROM(
+			SELECT
+				rnkTB.*
+			FROM(
+				SELECT
+					custTB.ITG_CUST_NO, custTB.MSHIP_LOGIN_ID, 
+					custTB.CUST_NM, custTB.GNDR_CD, custTB.BIRTHDAY, 
+					custTB.MPHON_NO, NVL2(custTB.MPHON_BK_DGT_NO, '010-****-'|| custTB.MPHON_BK_DGT_NO, '') AS MPHON_NO_MASKING,
+					(
+						TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY')) - 
+						TO_NUMBER(SUBSTRB(custTB.BIRTHDAY, 0, 4))
+					) AS AGE,
+					NVL(REMAIN_POINT_SCORE, 0) AS REMAIN_POINT_SCORE,
+					BASE_ITEM_CD AS GODS_NO, ORD_DE AS ORD_DATE, custTB.REG_DT,
+					RANK() OVER (PARTITION BY buyTB.ITG_CUST_NO ORDER BY CNTR_NO DESC) AS RNK
+				FROM CRM_CUST_BAS custTB
+				LEFT JOIN CRM_CUST_BOS_CNTRT_HST buyTB
+				ON(custTB.ITG_CUST_NO = buyTB.ITG_CUST_NO AND ORD_STS_CD = '30')
+				WHERE RCMD_STOR_NO = #{storNo}
+				<if test="custNm != null and custNm != ''">
+					AND custTB.CUST_NM LIKE '%' || #{custNm} || '%'
+				</if>
+				<if test="gndrCd != null and gndrCd != ''">
+					AND custTB.GNDR_CD = #{gndrCd}
+				</if>
+				<if test="itgCustNo != null and itgCustNo != ''">
+					AND custTB.ITG_CUST_NO = #{itgCustNo}
+				</if>
+				<if test="mphonNo != null and mphonNo != ''">
+					AND custTB.MPHON_NO = DAMO.ENCRYPT_VAR_B64('AES_256', #{mphonNo}, '')
+				</if>
+			) rnkTB
+			WHERE RNK = 1
+			<if test="ageStt != null and ageStt != ''">
+				AND AGE <![CDATA[>=]]> TO_NUMBER(#{ageStt})
+			</if>
+			<if test="ageEnd != null and ageEnd != ''">
+				AND AGE <![CDATA[<]]> TO_NUMBER(#{ageEnd})+10
+			</if>
+		) totalTB
+		LEFT JOIN CRM_GODS_BAS godsTB
+		ON(totalTB.GODS_NO = godsTB.GODS_NO)
+	</sql>
+	
+	<select id="selectStoreCustList" resultType="com.ceragem.crm.mem.model.CrmStoreCustVo">
+		/* com.ceragem.crm.mem.dao.CrmStoreBasDao.selectStoreCustList */
+		<include refid="sqlStoreCustList"/>
+		ORDER BY ITG_CUST_NO DESC
+	</select>
+	
+	<select id="selectStoreCustPagingListCount" resultType="int">
+		SELECT /* com.ceragem.crm.cst.dao.CrmCustGrpBasDao.selectStoreCustPagingListCount */ 
+			COUNT(1)
+		FROM(
+			<include refid="sqlStoreCustList"/>
+		)
+	</select>
+	
+	<select id="selectStoreCustPagingList" resultType="com.ceragem.crm.mem.model.CrmStoreCustVo">
+		/* com.ceragem.crm.mem.dao.CrmStoreBasDao.selectStoreCustPagingList */
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+		<include refid="sqlStoreCustList"/>
+		ORDER BY ITG_CUST_NO DESC
+		<include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+	</select>
+	
+	<update id="updateStoreAllCustMove">
+		/* com.ceragem.crm.mem.dao.CrmStoreBasDao.updateStoreAllCustMove */
+		UPDATE CRM_CUST_BAS
+		SET RCMD_STOR_NO = #{storNo}
+		WHERE RCMD_STOR_NO IS NOT NULL
+		AND RCMD_STOR_NO = #{currStorNo}
+	</update>
+	
+	<update id="updateStoreCustMove">
+		/* com.ceragem.crm.mem.dao.CrmStoreBasDao.updateStoreCustMove */
+		UPDATE CRM_CUST_BAS
+		SET RCMD_STOR_NO = #{storNo}
+		WHERE ITG_CUST_NO IN 
+		<if test="custList != null and custList != ''">
+			<foreach item="item" index="index" collection="custList" open="(" separator="," close=")">
+				#{item.itgCustNo}
+			</foreach>
+		</if>
+	</update>
+	<!-- 매장 회원정보 관련 -->
+</mapper>

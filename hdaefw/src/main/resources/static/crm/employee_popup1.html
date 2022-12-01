@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1>직원등록(매장용)</h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+    <!-- cont -->
+    <div class="cont">
+
+        <!-- sort -->
+        <div class="mSort2 medium"> <!-- class="medium" => 상하좌우 여백 좁은 사이즈-->
+            <ul>
+                <li class="wAuto">
+                    <div class="tit">매장코드</div>
+                    <div class="txt">
+                        <input type="text" class="it" title="매장코드" value="123456">
+                    </div>
+                </li>
+                <li class="wAuto">
+                    <div class="tit">매장명</div>
+                    <div class="txt">
+                        <input type="text" class="it w120" title="매장명">
+                        <span class="button">
+                            <a href="#" class="mBtn1">검색</a>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+            <div class="button posRt"> <!-- 우측 정렬 : class="posRt" -->
+                <a href="#" class="mBtn1 lGray">매장회원이관</a>
+            </div>
+        </div>
+        <!-- //sort -->
+        
+        <div class="gTitle1 line">
+            <h3 class="mTitle1">계정정보</h3>
+            <div class="gRt">
+                <a href="#" class="mBtn1 lGray">수정</a>
+                <a href="#" class="mBtn1 lPrimary">등록</a>
+            </div>
+        </div>
+        <!-- board -->
+        <div class="mBoard2"> 
+            <table>
+                <caption>계정정보</caption>
+                <colgroup>
+                    <col width="9%">
+                    <col width="12%">
+                    <col width="9%">
+                    <col width="12%">
+                    <col width="9%">
+                    <col width="24%">
+                    <col width="9%">
+                    <col width="*">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th class="left" scope="row">권한</th>
+                        <td>
+                            <select class="select" title="권한">
+                                <option>선택</option>
+                            </select>
+                        </td>
+                        <th class="left" scope="row">사용유무</th>
+                        <td>
+                            <select class="select" title="사용유무">
+                                <option>선택</option>
+                            </select>
+                        </td>
+                        <th class="left" scope="row">아이디</th>
+                        <td>
+                            <div class="mFlex2">
+                                <span class="flex">
+                                    <input type="text" class="it" title="휴대전화" value="010-555-5555">
+                                </span>
+                                <a href="#" class="mBtn1 m lWhite">중복체크</a>
+                            </div>
+                        </td>
+                        <th class="left" scope="row">패스워드</th>
+                        <td>
+                            <input type="password" class="it" title="패스워드">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- //board -->
+        
+        <div class="gTitle1 line">
+            <h3 class="mTitle1">기본정보</h3>
+        </div>
+        <!-- board -->
+        <div class="mBoard2"> 
+            <table>
+                <caption>기본정보</caption>
+                <colgroup>
+                    <col width="11%">
+                    <col width="12%">
+                    <col width="9%">
+                    <col width="10%">
+                    <col width="8%">
+                    <col width="7%">
+                    <col width="9%">
+                    <col width="10%">
+                    <col width="9%">
+                    <col width="*">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th class="left" scope="row"><span class="iMust">통합고객번호</span></th>
+                        <td>
+                            <input type="text" class="it must" title="통합고객번호">
+                        </td>
+                        <th class="left" scope="row">이름</th>
+                        <td>
+                            <div class="mFind1">
+                                <input type="text" class="it" title="이름" value="홍길동">
+                                <a href="#" class="iFind">검색</a>
+                            </div>
+                        </td>
+                        <th class="left" scope="row">성별</th>
+                        <td>
+                            <input type="text" class="it" title="성별" value="남">
+                        </td>
+                        <th class="left" scope="row">생년월일</th>
+                        <td>
+                            <input type="text" class="it" title="생년월일">
+                        </td>
+                        <th class="left" scope="row">휴대전화</th>
+                        <td>
+                            <input type="text" class="it" title="휴대전화" value="010-5555-5555">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left" scope="row">이메일</th>
+                        <td colspan="9">
+                            <input type="text" class="it" title="이메일" value="adcdef_1234@ceragem.co.kr">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- //board -->
+        
+        <div class="gTitle1 line">
+            <h3 class="mTitle1">주소</h3>
+        </div>
+        <!-- board -->
+        <div class="mBoard2"> 
+            <table>
+                <caption>주소</caption>
+                <colgroup>
+                    <col width="11%">
+                    <col width="*">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th class="left" scope="row">주소</th>
+                        <td>
+                            <div class="mFlex2">
+                                <div class="mFind1">
+                                    <input type="text" class="it" title="우편번호" value="14568">
+                                    <a href="#" class="iFind">검색</a>
+                                </div>
+                                <input type="text" class="it" title="주소">
+                                <input type="text" class="it" title="상세주소">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- //board -->
+
+    </div>
+    <!-- //cont -->
+	
+</div>
+
+</body>
+</html>

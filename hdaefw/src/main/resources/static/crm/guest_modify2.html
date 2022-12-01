@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div class="mPopup1">
+    
+    <!-- header -->
+    <div class="title">
+        <h1>고객정보 수정 ( <span class="ico2">법인정보</span> )</h1>
+        <a href="javascript:window.close();" class="close">팝업 닫기</a>
+    </div>
+    <!-- //header -->
+
+    <!-- cont -->
+    <div class="cont">
+
+		<div class="gTitle1 line">
+			<h3 class="mTitle1">기본정보</h3>
+			<div class="gRt">
+				<a href="#" class="mBtn1 gray">수정</a>
+				<a href="#" class="mBtn1 gray">삭제</a>
+				<a href="#" class="mBtn1 gray">탈회</a>
+				<a href="#" class="mBtn1 primary">등록</a>
+			</div>
+		</div>
+		<!-- board -->
+		<div class="mBoard2">
+			<table>
+				<caption>기본정보</caption>
+				<colgroup>
+					<col width="11%">
+					<col width="12%">
+					<col width="7%">
+					<col width="*">
+					<col width="7%">
+					<col width="*">
+					<col width="8%">
+					<col width="10%">
+					<col width="7%">
+					<col width="10%">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row" class="left"><span class="iMust">통합고객번호</span></th>
+						<td>
+							<input type="text" class="it must" title="통합고객번호" value="IND000000000XXXX">
+						</td>
+						<th scope="row" class="left">법인명</th>
+						<td>
+							<input type="text" class="it" title="법인명" value="(주)세라젬*">
+						</td>
+						<th scope="row" class="left">사업자번호</th>
+						<td>
+							<input type="text" class="it" title="사업자번호">
+						</td>
+						<th scope="row" class="left">법인번호</th>
+						<td>
+							<input type="text" class="it" title="법인번호">
+						</td>
+						<th scope="row" class="left">대표자</th>
+						<td>
+							<input type="text" class="it" title="대표자">
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">일반전화</th>
+						<td>
+							<input type="text" class="it" title="일반전화" value="555-5555">
+						</td>
+						<th scope="row" class="left">휴대전화</th>
+						<td>
+							<div class="mFlex2">
+								<span class="flex">
+									<input type="text" class="it" title="휴대전화" value="010-555-5555">
+								</span>
+								<a href="#" class="mBtn1 m lWhite">중복체크</a>
+							</div>
+						</td>
+						<th scope="row" class="left">이메일</th>
+						<td colspan="5">
+							<div class="mFlex2">
+								<span class="flex">
+									<input type="text" class="it" title="이메일" value="crm_12004@ceragem.com">
+								</span>
+								<span class="flex">
+									<select class="select" title="메일사 선택">
+										<option>직접입력</option>
+									</select>
+								</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">고객상태</th>
+						<td>
+							<select class="select crucial" title="고객상태">
+								<option>휴면/정상탈회</option>
+							</select>
+						</td>
+						<th scope="row" class="left">고객유형</th>
+						<td>
+							<select class="select crucial" title="고객유형">
+								<option>가망고객</option>
+							</select>
+						</td>
+						<th scope="row" class="left">고객구분</th>
+						<td>
+							<select class="select crucial" title="고객구분">
+								<option>개인</option>
+							</select>
+						</td>
+						<th scope="row" class="left">상태변경</th>
+						<td>
+							<input type="text" class="it" title="상태변경" value="2022-01-01">
+						</td>
+						<th scope="row" class="left">정보변경</th>
+						<td>
+							<input type="text" class="it" title="정보변경" value="2022-01-01">
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">담당자</th>
+						<td>
+							<input type="text" class="it" title="담당자" value="김**">
+						</td>
+						<th scope="row" class="left">휴대전화</th>
+						<td colspan="2">
+							<div class="mFlex2"> 
+								<select class="select wAuto" title="통신사">
+									<option>통신사</option>
+								</select>
+								<span class="flex">
+									<input type="text" class="it" title="휴대전화" value="010-5555-5555">
+								</span>
+								<a href="#" class="mBtn1 m lWhite">중복체크</a>
+							</div>
+						</td>
+						<th scope="row" class="left">이메일</th>
+						<td colspan="4">
+							<div class="mFlex2">
+								<span class="flex">
+									<input type="text" class="it" title="이메일" value="">
+								</span>
+								<span class="flex">
+									<select class="select" title="메일사 선택">
+										<option>직접입력</option>
+									</select>
+								</span>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- //board -->
+
+		<div class="gTitle1 line mt18">
+			<h3 class="mTitle1">선택정보</h3>
+		</div>
+		<!-- board -->
+		<div class="mBoard2">
+			<table>
+				<caption>선택정보</caption>
+				<colgroup>
+					<col width="9%">
+					<col width="12%">
+					<col width="8%">
+					<col width="12%">
+					<col width="7%">
+					<col width="12%">
+					<col width="7%">
+					<col width="*">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row" class="left">주소</th>
+						<td colspan="7">
+							<div class="mFlex2">
+								<div class="mFind1">
+									<input type="text" class="it" title="우편번호" value="00082">
+									<a href="#" class="iFind">검색</a>
+								</div>
+								<input type="text" class="it" title="주소" value="">
+								<input type="text" class="it" title="상세주소" placeholder="상세주소를 입력해 주세요.">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">추천인 고객번호</th>
+						<td>
+							<input type="text" class="it" title="추천인 고객번호" value="S13546651322">
+						</td>
+						<th scope="row" class="left">추천인 임직원</th>
+						<td>
+							<input type="text" class="it" title="추천인 임직원" value="임직원">
+						</td>
+						<th scope="row" class="left">가입매장</th>
+						<td>
+							<div class="mFind1">
+								<input type="text" class="it" title="가입매장" value="00082">
+								<a href="#" class="iFind">검색</a>
+							</div>
+						</td>
+						<th scope="row" class="left">매장명</th>
+						<td>
+							<input type="text" class="it" title="매장명" value="현대백화점 서울역점">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- //board -->
+
+		<div class="gTitle1 line mt18">
+			<h3 class="mTitle1">정보 활용동의</h3>
+			<div class="gRt pos1">
+				<label class="mCheckbox1">
+					<input type="checkbox" title="전체 수신거부">
+					<span class="label">전체 수신거부</span>
+				</label>
+			</div>
+		</div>
+		<!-- board -->
+		<div class="mBoard2">
+			<table>
+				<caption>정보 활용동의</caption>
+				<colgroup>
+					<col width="9%">
+					<col width="4%">
+					<col width="5%">
+					<col width="8%">
+					<col width="4%">
+					<col width="6%">
+					<col width="6%">
+					<col width="8%">
+					<col width="9%">
+					<col width="4%">
+					<col width="5%">
+					<col width="8%">
+					<col width="4%">
+					<col width="6%">
+					<col width="6%">
+					<col width="8%">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row" class="left">SMS 수신동의</th>
+						<td>
+							<select class="select" title="SMS 수신동의">
+								<option>Y</option>
+								<option>N</option>
+							</select>
+						</td>
+						<th scope="row" class="bgWhite">동의일</th>
+						<td>
+							<input type="text" class="it center" title="동의일" value="2021-02-03">
+						</td>
+						<th scope="row" class="bgWhite">채널</th>
+						<td>
+							<input type="text" class="it must center" title="채널" value="멤버쉽앱">
+						</td>
+						<th scope="row" class="bgWhite">유효기간</th>
+						<td>
+							<input type="text" class="it center" title="유효기간" value="2021-02-03">
+						</td>
+						<th scope="row" class="left">알림톡 수신동의</th>
+						<td>
+							<select class="select" title="알림톡 수신동의">
+								<option>Y</option>
+								<option>N</option>
+							</select>
+						</td>
+						<th scope="row" class="bgWhite">동의일</th>
+						<td>
+							<input type="text" class="it center" title="동의일" value="2021-02-03">
+						</td>
+						<th scope="row" class="bgWhite">채널</th>
+						<td>
+							<input type="text" class="it must center" title="채널" value="멤버쉽앱">
+						</td>
+						<th scope="row" class="bgWhite">유효기간</th>
+						<td>
+							<input type="text" class="it center" title="유효기간" value="2021-02-03">
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">이메일 수신동의</th>
+						<td>
+							<select class="select" title="이메일 수신동의">
+								<option>Y</option>
+								<option>N</option>
+							</select>
+						</td>
+						<th scope="row" class="bgWhite">동의일</th>
+						<td>
+							<input type="text" class="it center" title="동의일" value="2021-02-03">
+						</td>
+						<th scope="row" class="bgWhite">채널</th>
+						<td>
+							<input type="text" class="it must center" title="채널" value="커뮤니티">
+						</td>
+						<th scope="row" class="bgWhite">유효기간</th>
+						<td>
+							<input type="text" class="it center" title="유효기간" value="2021-02-03">
+						</td>
+						<th scope="row" class="left">PUSH 수신동의</th>
+						<td>
+							<select class="select" title="PUSH 수신동의">
+								<option>Y</option>
+								<option>N</option>
+							</select>
+						</td>
+						<th scope="row" class="bgWhite">동의일</th>
+						<td>
+							<input type="text" class="it center" title="동의일" value="2021-02-03">
+						</td>
+						<th scope="row" class="bgWhite">채널</th>
+						<td>
+							<input type="text" class="it must center" title="채널" value="커뮤니티">
+						</td>
+						<th scope="row" class="bgWhite">유효기간</th>
+						<td>
+							<input type="text" class="it center" title="유효기간" value="2021-02-03">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- //board -->
+
+		<div class="gTitle1 line mt18">
+			<h3 class="mTitle1">멤버십정보</h3>
+		</div> 
+		<!-- board -->
+		<div class="mBoard2">
+			<table>
+				<caption>멤버십정보</caption>
+				<colgroup>
+					<col width="9%">
+					<col width="18%">
+					<col width="9%">
+					<col width="18%">
+					<col width="9%">
+					<col width="*">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row" class="left"><span class="iMust">멤버십 ID</span></th>
+						<td>
+							<div class="mFlex2">
+								<span class="flex">
+									<input type="text" class="it must" title="멤버십 ID" value="a1313131313">
+								</span>
+								<a href="#" class="mBtn1 m lWhite">중복체크</a>
+							</div>
+						</td>
+						<th scope="row" class="left"><span class="iMust">멤버십 패스워드</span></th>
+						<td>
+							<input type="password" class="it must" title="멤버십 패스워드" value="12345678">
+						</td>
+						<th scope="row" class="left">멤버십 가입일자</th>
+						<td class="left">
+							<input type="text" class="it date w75" title="멤버십 가입일자" value="2021-02-03">
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">회원등급</th>
+						<td>
+							<select class="select crucial" title="회원등급">
+								<option>임직원</option>
+							</select>
+						</td>
+						<th scope="row" class="left">등급변경</th>
+						<td>
+							<input type="text" class="it" title="등급변경" value="2021-02-03">
+						</td>
+						<th scope="row" class="left">멤버십 채널</th>
+						<td>
+							<input type="text" class="it" title="멤버십 채널" value="멤버십앱/커뮤니티/매장">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- //board -->
+
+    </div>
+    <!-- //cont -->
+	
+</div>
+
+</body>
+</html>

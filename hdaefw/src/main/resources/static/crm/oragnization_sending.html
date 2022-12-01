@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CERAGEM</title>
+<link rel="shortcut icon" href="images/favicon.ico">
+<!-- library -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- //library -->
+<!-- customer -->
+<link rel="stylesheet" href="css/ui.css">
+<script type="text/javascript" src="js/ui.js"></script>
+<!-- //customer -->
+</head>
+
+<body>
+
+<div id="wrapIframe">
+		
+	<div class="mGrid1 type2"> <!-- class="type2" => left width="263px" -->
+        <!-- left -->
+        <div class="gLeft">
+
+            <!-- 메세지발송(개인) -->
+            <div class="mBox1">
+                <!-- title -->
+                <div class="gTitle1">
+                    <h3 class="mTitle1">메세지 발송(개인)</h3>
+                </div>
+                <!-- //title -->
+                <!-- list -->
+                <div class="mDir1 form2 mCustomScrollbar"> <!-- class="form2" : checkbox만 있는 리스트 -->
+                    <ul>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="SMS" checked="checked">
+                                <span class="label">SMS</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="LMS">
+                                <span class="label">LMS</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="MMS">
+                                <span class="label">MMS</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="Push">
+                                <span class="label">Push</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="알림톡">
+                                <span class="label">알림톡</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="친구톡">
+                                <span class="label">친구톡</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="mCheckbox1">
+                                <input type="checkbox" title="이메일">
+                                <span class="label">이메일</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <!-- //list -->
+            </div>
+            <!-- //메세지발송(개인) -->
+            
+        </div>
+        <!-- //left -->
+		<!-- right -->
+		<div class="gRight">
+
+			<!-- sort -->
+			<div class="gRadio2">
+                <label class="mRadio1 type3">
+                    <input type="radio" name="radio1" title="SMS 100명" checked="checked">
+                    <span class="label">SMS 100명</span>
+                </label>
+                <label class="mRadio1 type3">
+                    <input type="radio" name="radio1" title="이메일 500명">
+                    <span class="label">이메일 500명</span>
+                </label>
+                <label class="mRadio1 type3">
+                    <input type="radio" name="radio1" title="PUSH 1000명">
+                    <span class="label">PUSH 1000명</span>
+                </label>
+                <label class="mRadio1 type3">
+                    <input type="radio" name="radio1" title="알림톡 200명">
+                    <span class="label">알림톡 200명</span>
+                </label>
+                <label class="mRadio1 type3">
+                    <input type="radio" name="radio1" title="불가 500명">
+                    <span class="label">불가 500명</span>
+                </label>
+            </div>
+			<!-- //sort -->
+
+			<!-- box -->
+			<div class="mBox1 p24"> <!-- class="h856" : height="726" -->
+
+                <div class="gTitle1">
+                    <h3 class="mTitle1">메세지 발송(개인) 목록</h3>
+					<div class="gRt">
+						<a href="#" class="mBtn1 gray">복사</a>
+						<a href="#" class="mBtn1 primary">신규등록</a>
+					</div>
+				</div>
+				<!-- board -->
+				<div class="mBoard1 mCustomScrollbar h676 pType1"> 
+                    <!--
+                        class="hSortRow3"   => 상단 검색이 3줄 일 경우
+                        class="pType1"      => td height="30px"
+                    -->
+					<table>
+						<caption>메세지 발송(개인) 목록</caption>
+						<colgroup>
+							<col span="2" width="3%">
+							<col width="18%">
+							<col width="*">
+							<col span="3" width="17%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">NO</th>
+								<th scope="col">선택</th>
+								<th scope="col">구분</th>
+								<th scope="col">발송 템플릿명</th>
+								<th scope="col">상태</th>
+								<th scope="col">등록자</th>
+								<th scope="col">등록일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>
+									<label class="mCheckbox1 notext">
+										<input type="checkbox" title="선택">
+										<span class="label">선택</span>
+									</label>
+								</td>
+								<td>SMS</td>
+								<td class="left">가입인사</td>
+								<td>사용</td>
+								<td>이세라</td>
+								<td>2022-02-04</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- //board -->
+				<!-- paging -->
+				<div class="mPag1">
+					<div class="mCount1">총 <strong>100,000</strong>건 / 선택 <strong>10</strong>건</div>
+
+					<span title="처음 리스트" class="first">처음으로</span>
+					<span title="이전 리스트" href="###" class="prev">이전</span>
+					<!-- able 버튼
+						<a title="처음 리스트" href="###" class="first">처음으로</a>
+						<a title="이전 리스트" href="###" class="prev">이전</a>
+					-->
+					<a title="현재페이지" href="###" class="active">1</a>
+					<a title="2 페이지" href="###">2</a>
+					<a title="3 페이지" href="###">3</a>
+					<a title="4 페이지" href="###">4</a>
+					<a title="5 페이지" href="###">5</a>
+					<a title="6 페이지" href="###">6</a>
+					<a title="다음 리스트" href="###" class="next">다음</a>
+					<a title="마지막 리스트" href="###" class="last">마지막으로</a>
+					<!-- disabled 버튼
+						<span title="다음 리스트" class="next">다음</span>
+						<span title="마지막 리스트" class="last">마지막으로</span>
+					-->
+					<select class="select" title="갯수선택">
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+					</select>
+				</div>
+				<!-- //paging -->
+
+			</div>
+			<!-- //box -->
+
+		</div>
+		<!-- //right -->
+	</div>
+	
+</div>
+
+</body>
+</html>
