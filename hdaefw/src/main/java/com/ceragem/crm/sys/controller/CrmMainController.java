@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,17 +36,7 @@ public class CrmMainController {
 	@Autowired
 	CrmUserWdgtService widgetServcie;
 
-	@Value("${spring.bi.url}")
-	String biUrl;
-	
-	@Value("${spring.bi.server}")
-	String biServer;
-	
-	@Value("${spring.eon.send.url}")
-	String eonUrl;
-	
-	@Value("${spring.eon.send.user}")
-	String eonUser;
+
 
 	
 //	@Autowired
@@ -56,10 +45,7 @@ public class CrmMainController {
 	public String init(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam Map<String, Object> param, ModelMap map) throws Exception {
 //		return "intro";		
-		map.addAttribute("biUrl",biUrl);
-		map.addAttribute("biServer",biServer);
-		map.addAttribute("eonUrl",eonUrl);
-		map.addAttribute("eonUser",eonUser);
+		
 		map.addAttribute("wdgtList", menuService.getWdgtList(param));
 		return "main";
 
@@ -69,21 +55,11 @@ public class CrmMainController {
 	public String main(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam Map<String, Object> param, ModelMap map) throws Exception {
 //		param.put("userCd", SessionUtil.getLoginUserCd());
-		map.addAttribute("biUrl",biUrl);
-		map.addAttribute("biServer",biServer);
-		map.addAttribute("eonUrl",eonUrl);
-		map.addAttribute("eonUser",eonUser);
 		map.addAttribute("wdgtList", menuService.getWdgtList(param));
 
 		return "main";
 	}
 
-	@GetMapping(value = { "singleView" })
-	public String singleView(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam Map<String, Object> param, ModelMap map) throws Exception {
-
-		return Utilities.getProperty("tiles.crm") + "main/index";
-	}
 
 	@GetMapping(value = { "widget" })
 	public String widget( ModelMap map) throws Exception {
@@ -96,16 +72,7 @@ public class CrmMainController {
 		return "crm/blankBody/main/widget";
 	}
 	
-	@GetMapping(value = { "widget/data" })
-	public @ResponseBody Object  widgetData() throws Exception {
-
-		return widgetServcie.getData();
-	}
-	@GetMapping(value = { "widget/refresh" })
-	public @ResponseBody Object  refreshData() throws Exception {
-
-		return widgetServcie.refreshData();
-	}
+	
 	@PostMapping(value = { "addWdgt" })
 	public @ResponseBody Object addWdgt(@RequestBody CrmUserWdgtVo vo) throws Exception {
 		return menuService.insertWdgt(vo);

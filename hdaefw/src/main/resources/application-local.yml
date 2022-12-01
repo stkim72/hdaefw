@@ -16,17 +16,17 @@ spring:
       connection-timeout: 120000
       maximum-pool-size: 5
       log-maximum-pool-size: 2
-    # Inmemory DB
+    # Inmemory DBjdbc:mariadb://100.100.100.7:3306/dbname
     log-driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    log-url: jdbc:log4jdbc:oracle:thin:@172.23.1.91:8122:DCRMDB
-    log-username: crmown
-    log-password: crmown
+    log-url: jdbc:log4jdbc:mariadb://127.0.0.1:3306/wigo
+    log-username: wigo
+    log-password: 12341234
     #ENC(lrAuYaCIEFzsy9dbyqMYcw==)
 
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:oracle:thin:@172.23.1.91:8122:DCRMDB
-    username: crmown
-    password: crmown
+    url: jdbc:log4jdbc:mariadb://127.0.0.1:3306/wigo
+    username: wigo
+    password: 12341234
     #ENC(lrAuYaCIEFzsy9dbyqMYcw==)
 #    log-driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 #    log-url: jdbc:log4jdbc:oracle:thin:@192.168.70.26:1521:XE

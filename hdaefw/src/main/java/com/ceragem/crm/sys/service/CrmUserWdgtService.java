@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.ceragem.crm.common.model.EzMap;
@@ -30,8 +29,6 @@ public class CrmUserWdgtService extends AbstractCrmService {
 	@Autowired
 	CrmComnCdService comnCdService;
 
-	private String lastDate;
-	private EzMap lastData;
 
 	private List<String> s180List = null;
 	private Map<String, Object> s180Map = null;
@@ -39,33 +36,11 @@ public class CrmUserWdgtService extends AbstractCrmService {
 
 	@PostConstruct
 	public void initMainData() throws Exception {
-		asyncService.initMainData();
+//		asyncService.initMainData();
 	}
 
 	public void initLastData() throws Exception {
-		if (Utilities.getDateString().equals(lastDate))
-			return;
-		EzMap data = new EzMap();
-		EzMap custCountInfo = dao.selectCustCountInfo();
-		EzMap custCountWeek = dao.selectCustCountWeek();
-		EzMap custType = dao.selectCustType();
-		List<EzMap> custTypeList = dao.selectCustTypeList();
-		List<EzMap> couponList = dao.selectCouponList();
-		List<EzMap> memberRegList = dao.selectMembershipRegList();
-		List<EzMap> custRegList = dao.selectCustRegList();
-		List<EzMap> ordList = dao.selectOrdList();
-
-		data.put("custCountInfo", custCountInfo);
-		data.put("custCountWeek", custCountWeek);
-		data.put("custType", custType);
-		data.put("custTypeList", custTypeList);
-		data.put("couponList", couponList);
-		data.put("memberRegList", memberRegList);
-		data.put("custRegList", custRegList);
-		data.put("ordList", ordList);
-		lastData = data;
-		lastDate = Utilities.getDateString();
-
+		
 		refreshS180();
 
 	}
@@ -77,19 +52,16 @@ public class CrmUserWdgtService extends AbstractCrmService {
 
 	public EzMap getData() throws Exception {
 		initLastData();
-		return new EzMap(lastData);
+		return new EzMap();
 	}
 
-	@Scheduled(cron = "0 0 * * * *")
+//	@Scheduled(cron = "0 0 * * * *")
 	public EzMap refreshData() throws Exception {
-		lastDate = null;
-		lastData = null;
 		return getData();
 	}
 
 	public void refreshS180() throws Exception {
 
-		dao.insertUserCard();
 
 		EzMap codeSo = new EzMap();
 		codeSo.setString("codeCd", Constants._FILE_WHITE_LIST);

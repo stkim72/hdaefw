@@ -22,7 +22,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class TomcatMcastConfig implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
 
 	static final String SESSION_CLUSTER_DOMAIN = "crm-cluster";
