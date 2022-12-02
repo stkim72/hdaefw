@@ -36,7 +36,7 @@ import com.wigo.cmm.sys.service.CrmAddressService;
 
 @Controller
 @RequestMapping(value = { "address","{menuCd}/address" })
-public class CrmAddressController {
+public class AddressController {
 	@Autowired
 	CrmAddressService service;
 

@@ -34,7 +34,7 @@ import com.wigo.cmm.sys.service.CrmUserService;
 
 @Controller
 @RequestMapping(value = {"myInfo","{menuCd}/myInfo"})
-public class CrmMyInfoController {
+public class MyInfoController {
 	@Autowired
 	CrmUserService userService;
 	

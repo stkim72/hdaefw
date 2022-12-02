@@ -45,7 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping(value = { "file", "{menuCd}/file" })
-public class CrmFileController {
+public class FileController {
 	@Autowired
 	CrmFileService service;
 

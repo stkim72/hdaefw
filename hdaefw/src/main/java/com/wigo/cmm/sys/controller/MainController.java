@@ -26,7 +26,7 @@ import com.wigo.cmm.sys.service.CrmUserWdgtService;
 
 @Controller
 @RequestMapping(value = { "" })
-public class CrmMainController {
+public class MainController {
 	@Autowired
 	CrmMenuService menuService;
 	

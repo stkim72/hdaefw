@@ -15,20 +15,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmGrpEmpHstVo;
-import com.wigo.cmm.sys.service.CrmGrpEmpHstService;
+import com.wigo.cmm.sys.model.CrmOrgBaseVo;
+import com.wigo.cmm.sys.service.CrmOrgBaseService;
 
 @Controller
-@RequestMapping(value = { "grpEmpHst", "{menuCd}/grpEmpHst" })
-public class CrmGrpEmpHstController{
+@RequestMapping(value = { "organization", "{menuCd}/organization" })
+public class OrgBaseController{
 
 @Autowired
-CrmGrpEmpHstService service;
+CrmOrgBaseService service;
 
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
     model.addAllAttributes(param);
-    return Utilities.getProperty("tiles.crm") + "sys/grpEmpHstList";
+    return Utilities.getProperty("tiles.crm") + "sys/orgList";
+}
+
+@GetMapping(value = { "popup" })
+public String popup(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
+    model.addAllAttributes(param);
+    return Utilities.getProperty("tiles.crm.blank") + "sys/orgPopup";
 }
 
 @PostMapping(value = { "getList" })
@@ -39,22 +45,29 @@ public @ResponseBody Object getList(@RequestBody EzMap param) throws Exception {
     return Utilities.getGridData(list,page);
 }
 
+@PostMapping(value = { "getTreeList" })
+public @ResponseBody Object getTreeList(@RequestBody EzMap param) throws Exception {
+	return service.getTreeList(param);
+}
+
+
+
 @GetMapping(value = { "get" })
 public @ResponseBody Object get(@RequestParam Map<String, Object> rparam) throws Exception {
     EzMap param = new EzMap(rparam);
     return service.get(param);
 }
 @PostMapping(value = {"save" })
-public @ResponseBody Object save(@RequestBody CrmGrpEmpHstVo vo) throws Exception {
+public @ResponseBody Object save(@RequestBody CrmOrgBaseVo vo) throws Exception {
     return service.save(vo);
 }
 
 @PostMapping(value = { "saveList" })
-public @ResponseBody Object saveList(@RequestBody List<CrmGrpEmpHstVo> list) throws Exception {
+public @ResponseBody Object saveList(@RequestBody List<CrmOrgBaseVo> list) throws Exception {
     return service.saveList(list);
 }
 @PostMapping(value = { "deleteList" })
-public @ResponseBody Object deleteList(@RequestBody List<CrmGrpEmpHstVo> list) throws Exception {
+public @ResponseBody Object deleteList(@RequestBody List<CrmOrgBaseVo> list) throws Exception {
     return service.deleteList(list);
 }
 }

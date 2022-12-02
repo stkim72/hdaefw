@@ -43,7 +43,7 @@ import com.wigo.cmm.sys.service.CrmGrpUserRelService;
 
 @Controller
 @RequestMapping(value = { "group", "{menuCd}/group" })
-public class CrmGroupController {
+public class GroupController {
 	@Autowired
 	CrmGrpBaseService groupService;
 

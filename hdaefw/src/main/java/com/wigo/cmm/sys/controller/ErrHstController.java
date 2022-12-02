@@ -15,27 +15,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmEmpBaseVo;
-import com.wigo.cmm.sys.service.CrmEmpBaseService;
+import com.wigo.cmm.sys.model.CrmErrHstVo;
+import com.wigo.cmm.sys.service.CrmErrHstService;
 
 @Controller
-@RequestMapping(value = { "employ", "{menuCd}/employ" })
-public class CrmEmpBaseController{
+@RequestMapping(value = { "errorHst", "{menuCd}/errorHst" })
+public class ErrHstController{
 
 @Autowired
-CrmEmpBaseService service;
+CrmErrHstService service;
 
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
     model.addAllAttributes(param);
-    return Utilities.getProperty("tiles.crm") + "sys/empList";
-}
-
-
-@GetMapping(value = { "popup" })
-public String popup(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
-    model.addAllAttributes(param);
-    return Utilities.getProperty("tiles.crm.blank") + "sys/empPop";
+    return Utilities.getProperty("tiles.crm") + "sys/errorHstList";
 }
 
 @PostMapping(value = { "getList" })
@@ -45,7 +38,6 @@ public @ResponseBody Object getList(@RequestBody EzMap param) throws Exception {
     page.setTotalRecordCount(service.getListCount(param));
     return Utilities.getGridData(list,page);
 }
- 
 
 @GetMapping(value = { "get" })
 public @ResponseBody Object get(@RequestParam Map<String, Object> rparam) throws Exception {
@@ -53,16 +45,16 @@ public @ResponseBody Object get(@RequestParam Map<String, Object> rparam) throws
     return service.get(param);
 }
 @PostMapping(value = {"save" })
-public @ResponseBody Object save(@RequestBody CrmEmpBaseVo vo) throws Exception {
+public @ResponseBody Object save(@RequestBody CrmErrHstVo vo) throws Exception {
     return service.save(vo);
 }
 
 @PostMapping(value = { "saveList" })
-public @ResponseBody Object saveList(@RequestBody List<CrmEmpBaseVo> list) throws Exception {
+public @ResponseBody Object saveList(@RequestBody List<CrmErrHstVo> list) throws Exception {
     return service.saveList(list);
 }
 @PostMapping(value = { "deleteList" })
-public @ResponseBody Object deleteList(@RequestBody List<CrmEmpBaseVo> list) throws Exception {
+public @ResponseBody Object deleteList(@RequestBody List<CrmErrHstVo> list) throws Exception {
     return service.deleteList(list);
 }
 }

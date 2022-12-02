@@ -35,7 +35,7 @@ import com.wigo.cmm.sys.service.CrmUserLoginHstService;
 
 @Controller
 @RequestMapping(value = {"userLoginHist"})
-public class CrmUserLoginHstController {
+public class UserLoginHstController {
 	@Autowired
 	CrmUserLoginHstService service;
 

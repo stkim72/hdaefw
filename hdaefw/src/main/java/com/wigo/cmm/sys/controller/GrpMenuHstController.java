@@ -19,8 +19,8 @@ import com.wigo.cmm.sys.model.CrmGrpMenuHstVo;
 import com.wigo.cmm.sys.service.CrmGrpMenuHstService;
 
 @Controller
-@RequestMapping(value = { "authChgLog", "{menuCd}/authChgLog" })
-public class CrmGrpChgHstController{
+@RequestMapping(value = { "grpMenuHst", "{menuCd}/grpMenuHst" })
+public class GrpMenuHstController{
 
 @Autowired
 CrmGrpMenuHstService service;
@@ -28,7 +28,7 @@ CrmGrpMenuHstService service;
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
     model.addAllAttributes(param);
-    return Utilities.getProperty("tiles.crm") + "sys/authChgLogList";
+    return Utilities.getProperty("tiles.crm") + "sys/grpMenuHstList";
 }
 
 @PostMapping(value = { "getList" })

@@ -43,7 +43,7 @@ import com.wigo.cmm.sys.service.CrmLoginService;
 @Controller
 @ControllerAdvice
 @RequestMapping(value = { "/error" })
-public class CrmErrorController implements ErrorController {
+public class ErrController implements ErrorController {
 //	private Logger logger = LoggerFactory.getLogger(EzErrorController.class);
 	private static final String ERROR_PATH = "/error";
 	@Autowired

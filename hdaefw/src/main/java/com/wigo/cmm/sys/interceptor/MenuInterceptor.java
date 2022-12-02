@@ -23,7 +23,7 @@ import com.wigo.cmm.common.util.HandlerUtils;
 import com.wigo.cmm.common.util.NasUtil;
 import com.wigo.cmm.common.util.SessionUtil;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.controller.CrmMainController;
+import com.wigo.cmm.sys.controller.MainController;
 import com.wigo.cmm.sys.model.CrmMenuBaseVo;
 import com.wigo.cmm.sys.model.CrmMenuVo;
 import com.wigo.cmm.sys.service.CrmMenuService;
@@ -185,7 +185,7 @@ public class MenuInterceptor implements HandlerInterceptor {
 				return true;
 			request.setAttribute("httpServletResponse", response);
 
-			if (HandlerUtils.isInstance(handler, CrmMainController.class) && (!SessionUtil.isAjaxRequest()
+			if (HandlerUtils.isInstance(handler, MainController.class) && (!SessionUtil.isAjaxRequest()
 					&& (request.getRequestURI().equals("/") || request.getRequestURI().equals("")))) {
 				SessionUtil.setUserMenuMap(null);
 				SessionUtil.setUserMenuList(null);

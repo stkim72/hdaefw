@@ -37,7 +37,7 @@ import com.wigo.cmm.sys.service.CrmChngHstService;
 
 @Controller
 @RequestMapping(value = {"chngHst"})
-public class CrmChngHstController {
+public class ChngHstController {
 	@Autowired
 	CrmChngHstService service;
 

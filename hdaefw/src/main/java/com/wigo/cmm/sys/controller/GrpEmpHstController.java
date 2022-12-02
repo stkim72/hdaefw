@@ -15,20 +15,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmGrpOrgHstVo;
-import com.wigo.cmm.sys.service.CrmGrpOrgHstService;
+import com.wigo.cmm.sys.model.CrmGrpEmpHstVo;
+import com.wigo.cmm.sys.service.CrmGrpEmpHstService;
 
 @Controller
-@RequestMapping(value = { "grpOrgHst", "{menuCd}/grpOrgHst" })
-public class CrmGrpOrgHstController{
+@RequestMapping(value = { "grpEmpHst", "{menuCd}/grpEmpHst" })
+public class GrpEmpHstController{
 
 @Autowired
-CrmGrpOrgHstService service;
+CrmGrpEmpHstService service;
 
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
     model.addAllAttributes(param);
-    return Utilities.getProperty("tiles.crm") + "sys/grpOrgHstList";
+    return Utilities.getProperty("tiles.crm") + "sys/grpEmpHstList";
 }
 
 @PostMapping(value = { "getList" })
@@ -45,16 +45,16 @@ public @ResponseBody Object get(@RequestParam Map<String, Object> rparam) throws
     return service.get(param);
 }
 @PostMapping(value = {"save" })
-public @ResponseBody Object save(@RequestBody CrmGrpOrgHstVo vo) throws Exception {
+public @ResponseBody Object save(@RequestBody CrmGrpEmpHstVo vo) throws Exception {
     return service.save(vo);
 }
 
 @PostMapping(value = { "saveList" })
-public @ResponseBody Object saveList(@RequestBody List<CrmGrpOrgHstVo> list) throws Exception {
+public @ResponseBody Object saveList(@RequestBody List<CrmGrpEmpHstVo> list) throws Exception {
     return service.saveList(list);
 }
 @PostMapping(value = { "deleteList" })
-public @ResponseBody Object deleteList(@RequestBody List<CrmGrpOrgHstVo> list) throws Exception {
+public @ResponseBody Object deleteList(@RequestBody List<CrmGrpEmpHstVo> list) throws Exception {
     return service.deleteList(list);
 }
 }

@@ -23,7 +23,7 @@ import com.wigo.cmm.sys.service.CrmNtcartBasService;
 
 @Controller
 @RequestMapping(value = { "notice", "{menuCd}/notice" })
-public class CrmNtcartBasController {
+public class NtcartBasController {
 
 	@Autowired
 	CrmNtcartBasService service;

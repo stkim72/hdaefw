@@ -34,7 +34,7 @@ import com.wigo.cmm.sys.service.CrmComnCdService;
 
 @Controller
 @RequestMapping( value = { "commCode", "{menuCd}/commCode" } )
-public class CrmComnCdController {
+public class ComnCdController {
 	@Autowired
 	CrmComnCdService service;
 

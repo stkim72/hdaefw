@@ -17,7 +17,7 @@ import com.wigo.cmm.common.util.Constants;
 import com.wigo.cmm.common.util.HandlerUtils;
 import com.wigo.cmm.common.util.SessionUtil;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.controller.CrmMainController;
+import com.wigo.cmm.sys.controller.MainController;
 import com.wigo.cmm.sys.model.CrmLoginUserVo;
 import com.wigo.cmm.sys.service.CrmLoginService;
 
@@ -96,7 +96,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 			if (Utilities.isEmpty(user.getGrpCds())) {
 				response.sendError(Constants._ERROR_HAS_NO_RIGHT, "권한이 없습니다.");
 			}
-			if (HandlerUtils.isInstance(handler, CrmMainController.class))
+			if (HandlerUtils.isInstance(handler, MainController.class))
 				return true;
 
 			String menuCd = (String) request.getAttribute("currentMenuCd");

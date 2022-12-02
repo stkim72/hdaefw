@@ -18,7 +18,7 @@ import com.wigo.cmm.sys.service.CrmGenGridService;
 
 @Controller
 @RequestMapping(value = { "genGrid","{menuCd}/genGrid" })
-public class CrmGenGridController {
+public class GenGridController {
 	@Autowired
 	CrmGenGridService service;
 	

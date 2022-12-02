@@ -21,7 +21,7 @@ import com.wigo.cmm.sys.service.CrmLoginService;
 
 @Controller
 @RequestMapping(value = { "login", "logout" })
-public class CrmLoginController {
+public class LoginController {
 
 	@Autowired
 	CrmLoginService service;
