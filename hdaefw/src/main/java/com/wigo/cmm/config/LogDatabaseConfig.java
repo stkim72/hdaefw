@@ -13,7 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.wigo.cmm.sys.mapper.CrmLogMapper;
+import com.wigo.cmm.sys.mapper.CmmLogMapper;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -33,7 +33,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @MapperScan(basePackages = {
-		"com.wigo.cmm" }, value = "최상위 패키지 경로", annotationClass = CrmLogMapper.class, sqlSessionFactoryRef = "logSqlSessionFactory")
+		"com.wigo.cmm" }, value = "최상위 패키지 경로", annotationClass = CmmLogMapper.class, sqlSessionFactoryRef = "logSqlSessionFactory")
 public class LogDatabaseConfig {
 	@Autowired
 	ApplicationContext applicationContext;
@@ -75,7 +75,7 @@ public class LogDatabaseConfig {
 		hikariConfig.setIdleTimeout(120000);
 		hikariConfig.setMaxLifetime(600000);
 		hikariConfig.setValidationTimeout(120000);
-		hikariConfig.setPoolName("ceragem-log-pool");
+		hikariConfig.setPoolName("log-pool");
 		return new HikariDataSource(hikariConfig);
 	}
 
@@ -87,7 +87,7 @@ public class LogDatabaseConfig {
 				.setConfigLocation(applicationContext.getResource("classpath:/config/mybatis/mybatis-config-base.xml"));
 		sqlSessionFactoryBean
 				.setMapperLocations(applicationContext.getResources("classpath:/mapper/**/*_SqlMapper.xml"));
-		sqlSessionFactoryBean.setTypeAliasesPackage("com.ceragem.**.model,com.ceragem.**.entity");
+		sqlSessionFactoryBean.setTypeAliasesPackage("com.wigo.**.model,com.wigo.**.entity");
 		return sqlSessionFactoryBean.getObject();
 	}
 

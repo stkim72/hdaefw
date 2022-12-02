@@ -1,8 +1,8 @@
 package com.wigo.cmm.sys.dao;
 
-import com.wigo.cmm.sys.mapper.CrmLogMapper;
+import com.wigo.cmm.sys.mapper.CmmLogMapper;
 
-@CrmLogMapper
+@CmmLogMapper
 public interface ChngHstDao extends ICmmDao {
 
 }

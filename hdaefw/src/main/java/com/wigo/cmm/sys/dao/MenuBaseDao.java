@@ -3,10 +3,10 @@ package com.wigo.cmm.sys.dao;
 import java.util.List;
 
 import com.wigo.cmm.common.model.EzMap;
-import com.wigo.cmm.sys.mapper.CrmMapper;
+import com.wigo.cmm.sys.mapper.CmmMapper;
 import com.wigo.cmm.sys.model.CrmMenuVo;
 
-@CrmMapper
+@CmmMapper
 public interface MenuBaseDao extends ICmmDao {
 
 	CrmMenuVo selectMaxInfo(Object so) throws Exception;

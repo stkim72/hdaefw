@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import com.wigo.cmm.common.log.LogDaoAspect;
-import com.wigo.cmm.sys.mapper.CrmMapper;
+import com.wigo.cmm.sys.mapper.CmmMapper;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -33,10 +33,10 @@ import com.zaxxer.hikari.HikariDataSource;
  * @Company : Copyright ⓒ wigo.ai. All Right Reserved
  */
 @Primary
-@Configuration("crmDatabaseConfig")
+@Configuration("cmmDatabaseConfig")
 @MapperScan(basePackages = {
-		"com.wigo.cmm" }, value = "최상위 패키지 경로", annotationClass = CrmMapper.class, sqlSessionFactoryRef = "crmSqlSessionFactory")
-public class CrmDatabaseConfig {
+		"com.wigo.cmm" }, value = "최상위 패키지 경로", annotationClass = CmmMapper.class, sqlSessionFactoryRef = "cmmSqlSessionFactory")
+public class CmmDatabaseConfig {
 	@Autowired
 	ApplicationContext applicationContext;
 
@@ -59,7 +59,7 @@ public class CrmDatabaseConfig {
 	int poolSize;
 
 	@Primary
-	@Bean(name = "crmDataSource")
+	@Bean(name = "cmmDataSource")
 	DataSource dataSource() {
 		if (poolSize <= 0)
 			poolSize = 100;
@@ -76,14 +76,14 @@ public class CrmDatabaseConfig {
 		hikariConfig.setIdleTimeout(120000);
 		hikariConfig.setMaxLifetime(600000);
 		hikariConfig.setValidationTimeout(120000);
-		hikariConfig.setPoolName("cragem-crm-pool");
+		hikariConfig.setPoolName("cmm-pool");
 		
 		return new HikariDataSource(hikariConfig);
 	}
 
 	@Primary
-	@Bean(name = "crmSqlSessionFactory")
-	SqlSessionFactory sqlSessionFactory(@Qualifier("crmDataSource") DataSource dataSource,
+	@Bean(name = "cmmSqlSessionFactory")
+	SqlSessionFactory sqlSessionFactory(@Qualifier("cmmDataSource") DataSource dataSource,
 			@Qualifier("logDaoAspect") LogDaoAspect interceptor) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
@@ -91,13 +91,13 @@ public class CrmDatabaseConfig {
 				.setConfigLocation(applicationContext.getResource("classpath:/config/mybatis/mybatis-config-base.xml"));
 		sqlSessionFactoryBean
 				.setMapperLocations(applicationContext.getResources("classpath:/mapper/**/*_SqlMapper.xml"));
-		sqlSessionFactoryBean.setTypeAliasesPackage("com.ceragem.**.model,com.ceragem.**.entity");
+		sqlSessionFactoryBean.setTypeAliasesPackage("com.wigo.**.model,com.wigo.**.entity");
 		sqlSessionFactoryBean.setPlugins(interceptor);
 		return sqlSessionFactoryBean.getObject();
 	}
 
 	@Primary
-	@Bean(name = "crmSqlSessionFactory")
+	@Bean(name = "cmmSqlSessionFactory")
 	SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}

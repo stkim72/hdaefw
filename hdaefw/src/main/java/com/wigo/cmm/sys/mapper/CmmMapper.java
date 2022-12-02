@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface CrmMapper {
+public @interface CmmMapper {
 	String value() default "";
 
 }

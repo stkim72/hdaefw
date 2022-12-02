@@ -3,12 +3,12 @@ package com.wigo.cmm.sys.dao;
 import java.util.List;
 
 import com.wigo.cmm.common.model.EzMap;
-import com.wigo.cmm.sys.mapper.CrmMapper;
+import com.wigo.cmm.sys.mapper.CmmMapper;
 import com.wigo.cmm.sys.model.CrmGrpBaseVo;
 import com.wigo.cmm.sys.model.CrmGrpMenuRelVo;
 import com.wigo.cmm.sys.model.CrmGrpUserRelVo;
 
-@CrmMapper
+@CmmMapper
 public interface GrpBaseDao extends ICmmDao {
 
 	List<CrmGrpUserRelVo> selectGroupUserList(Object param) throws Exception;

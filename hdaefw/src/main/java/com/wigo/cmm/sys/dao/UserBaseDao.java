@@ -2,11 +2,11 @@ package com.wigo.cmm.sys.dao;
 
 import java.util.List;
 
-import com.wigo.cmm.sys.mapper.CrmMapper;
+import com.wigo.cmm.sys.mapper.CmmMapper;
 import com.wigo.cmm.sys.model.CrmGrpBaseVo;
 import com.wigo.cmm.sys.model.CrmLoginUserVo;
 
-@CrmMapper
+@CmmMapper
 public interface UserBaseDao extends ICmmDao {
 
 	CrmLoginUserVo selectUser(Object param) throws Exception;

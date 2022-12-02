@@ -3,9 +3,9 @@ package com.wigo.cmm.sys.dao;
 import java.util.List;
 
 import com.wigo.cmm.common.model.EzMap;
-import com.wigo.cmm.sys.mapper.CrmMapper;
+import com.wigo.cmm.sys.mapper.CmmMapper;
 
-@CrmMapper
+@CmmMapper
 public interface UserWdgtDao extends ICmmDao {
 
 	int deleteMenuCd(Object param) throws Exception;
