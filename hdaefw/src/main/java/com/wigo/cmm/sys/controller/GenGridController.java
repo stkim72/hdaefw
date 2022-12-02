@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.service.CrmGenGridService;
+import com.wigo.cmm.sys.service.GenGridService;
 
 @Controller
 @RequestMapping(value = { "genGrid","{menuCd}/genGrid" })
 public class GenGridController {
 	@Autowired
-	CrmGenGridService service;
+	GenGridService service;
 	
 	@GetMapping(value = { "" })
 	public  Object index(@RequestParam Map<String, Object> param, ModelMap model) throws Exception{

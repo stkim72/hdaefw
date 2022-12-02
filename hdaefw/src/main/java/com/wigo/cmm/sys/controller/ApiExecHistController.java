@@ -18,7 +18,7 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.ApiExecHstVo;
-import com.wigo.cmm.sys.service.CrmApiHistService;
+import com.wigo.cmm.sys.service.ApiHistService;
 
 /**
  * 
@@ -39,7 +39,7 @@ import com.wigo.cmm.sys.service.CrmApiHistService;
 @RequestMapping(value = { "apiHist","{menuCd}/apiHist"})
 public class ApiExecHistController {
 	@Autowired
-	CrmApiHistService service;
+	ApiHistService service;
 
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

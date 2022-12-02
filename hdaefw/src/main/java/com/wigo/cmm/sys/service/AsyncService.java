@@ -25,11 +25,11 @@ public class AsyncService {
 
 	@Lazy
 	@Autowired
-	CrmUserWdgtService wdgtService;
+	UserWdgtService wdgtService;
 
 	@Lazy
 	@Autowired
-	CrmFileService fileService;
+	FileService fileService;
 
 	@Async
 	public void executeBatch(String jobName) throws Exception {

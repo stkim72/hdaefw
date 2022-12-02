@@ -24,8 +24,8 @@ import com.wigo.cmm.common.model.EzLoginAjaxException;
 import com.wigo.cmm.common.model.EzLoginException;
 import com.wigo.cmm.common.util.Constants;
 import com.wigo.cmm.common.util.SessionUtil;
-import com.wigo.cmm.sys.service.CrmErrHstService;
-import com.wigo.cmm.sys.service.CrmLoginService;
+import com.wigo.cmm.sys.service.ErrHstService;
+import com.wigo.cmm.sys.service.LoginService;
 
 /**
  * <pre>
@@ -47,10 +47,10 @@ public class ErrController implements ErrorController {
 //	private Logger logger = LoggerFactory.getLogger(EzErrorController.class);
 	private static final String ERROR_PATH = "/error";
 	@Autowired
-	CrmLoginService loginService;
+	LoginService loginService;
 
 	@Autowired
-	CrmErrHstService hstService;
+	ErrHstService hstService;
 
 //	@Override
 	public String getErrorPath() {

@@ -16,14 +16,14 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.OrgBaseVo;
-import com.wigo.cmm.sys.service.CrmOrgBaseService;
+import com.wigo.cmm.sys.service.OrgBaseService;
 
 @Controller
 @RequestMapping(value = { "organization", "{menuCd}/organization" })
 public class OrgBaseController{
 
 @Autowired
-CrmOrgBaseService service;
+OrgBaseService service;
 
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

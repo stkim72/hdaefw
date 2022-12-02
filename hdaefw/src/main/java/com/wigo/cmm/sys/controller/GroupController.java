@@ -21,11 +21,11 @@ import com.wigo.cmm.sys.model.GrpEmpRelVo;
 import com.wigo.cmm.sys.model.GrpMenuRelVo;
 import com.wigo.cmm.sys.model.GrpOrgRelVo;
 import com.wigo.cmm.sys.model.GrpUserRelVo;
-import com.wigo.cmm.sys.service.CrmGrpBaseService;
-import com.wigo.cmm.sys.service.CrmGrpEmpRelService;
-import com.wigo.cmm.sys.service.CrmGrpMenuRelService;
-import com.wigo.cmm.sys.service.CrmGrpOrgRelService;
-import com.wigo.cmm.sys.service.CrmGrpUserRelService;
+import com.wigo.cmm.sys.service.GrpBaseService;
+import com.wigo.cmm.sys.service.GrpEmpRelService;
+import com.wigo.cmm.sys.service.GrpMenuRelService;
+import com.wigo.cmm.sys.service.GrpOrgRelService;
+import com.wigo.cmm.sys.service.GrpUserRelService;
 
 /**
  * 
@@ -45,19 +45,19 @@ import com.wigo.cmm.sys.service.CrmGrpUserRelService;
 @RequestMapping(value = { "group", "{menuCd}/group" })
 public class GroupController {
 	@Autowired
-	CrmGrpBaseService groupService;
+	GrpBaseService groupService;
 
 	@Autowired
-	CrmGrpUserRelService groupUserService;
+	GrpUserRelService groupUserService;
 
 	@Autowired
-	CrmGrpMenuRelService groupMenuService;
+	GrpMenuRelService groupMenuService;
 	
 	@Autowired
-	CrmGrpOrgRelService groupOrgService;
+	GrpOrgRelService groupOrgService;
 	
 	@Autowired
-	CrmGrpEmpRelService groupEmpService;
+	GrpEmpRelService groupEmpService;
 
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

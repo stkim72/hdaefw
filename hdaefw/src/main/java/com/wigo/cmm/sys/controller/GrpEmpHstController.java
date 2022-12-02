@@ -16,14 +16,14 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.GrpEmpHstVo;
-import com.wigo.cmm.sys.service.CrmGrpEmpHstService;
+import com.wigo.cmm.sys.service.GrpEmpHstService;
 
 @Controller
 @RequestMapping(value = { "grpEmpHst", "{menuCd}/grpEmpHst" })
 public class GrpEmpHstController{
 
 @Autowired
-CrmGrpEmpHstService service;
+GrpEmpHstService service;
 
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

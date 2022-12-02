@@ -12,7 +12,7 @@ import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.GrpMenuRelVo;
 
 @Service
-public class CrmGrpMenuRelService extends AbstractCmmService {
+public class GrpMenuRelService extends AbstractCmmService {
 	@Autowired
 	GrpMenuRelDao dao;
 	

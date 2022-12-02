@@ -17,7 +17,7 @@ import com.wigo.cmm.sys.model.GrpMenuRelVo;
 import com.wigo.cmm.sys.model.GrpUserRelVo;
 
 @Service
-public class CrmGrpBaseService extends AbstractCmmService {
+public class GrpBaseService extends AbstractCmmService {
 	@Autowired
 	GrpBaseDao dao;
 	@Autowired

@@ -16,14 +16,14 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.ErrHstVo;
-import com.wigo.cmm.sys.service.CrmErrHstService;
+import com.wigo.cmm.sys.service.ErrHstService;
 
 @Controller
 @RequestMapping(value = { "errorHst", "{menuCd}/errorHst" })
 public class ErrHstController{
 
 @Autowired
-CrmErrHstService service;
+ErrHstService service;
 
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

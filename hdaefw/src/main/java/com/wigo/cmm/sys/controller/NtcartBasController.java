@@ -19,14 +19,14 @@ import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Constants;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.NtcartBasVo;
-import com.wigo.cmm.sys.service.CrmNtcartBasService;
+import com.wigo.cmm.sys.service.NtcartBasService;
 
 @Controller
 @RequestMapping(value = { "notice", "{menuCd}/notice" })
 public class NtcartBasController {
 
 	@Autowired
-	CrmNtcartBasService service;
+	NtcartBasService service;
 
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

@@ -19,7 +19,7 @@ import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.ApiExecHstVo;
 import com.wigo.cmm.sys.model.ApiInfoBaseVo;
-import com.wigo.cmm.sys.service.CrmApiManageService;
+import com.wigo.cmm.sys.service.ApiManageService;
 
 /**
  * 
@@ -40,7 +40,7 @@ import com.wigo.cmm.sys.service.CrmApiManageService;
 @RequestMapping(value = { "apiManage" })
 public class ApiManageController {
 	@Autowired
-	CrmApiManageService service;
+	ApiManageService service;
 
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

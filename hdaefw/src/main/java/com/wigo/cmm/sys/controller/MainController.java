@@ -20,21 +20,21 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.NtcartBasVo;
 import com.wigo.cmm.sys.model.UserWdgtVo;
-import com.wigo.cmm.sys.service.CrmMenuService;
-import com.wigo.cmm.sys.service.CrmNtcartBasService;
-import com.wigo.cmm.sys.service.CrmUserWdgtService;
+import com.wigo.cmm.sys.service.MenuService;
+import com.wigo.cmm.sys.service.NtcartBasService;
+import com.wigo.cmm.sys.service.UserWdgtService;
 
 @Controller
 @RequestMapping(value = { "" })
 public class MainController {
 	@Autowired
-	CrmMenuService menuService;
+	MenuService menuService;
 	
 	@Autowired
-	CrmNtcartBasService noticeService;
+	NtcartBasService noticeService;
 	
 	@Autowired
-	CrmUserWdgtService widgetServcie;
+	UserWdgtService widgetServcie;
 
 
 

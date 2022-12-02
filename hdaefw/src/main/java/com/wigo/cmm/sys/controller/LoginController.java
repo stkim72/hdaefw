@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wigo.cmm.sys.model.LoginUserVo;
-import com.wigo.cmm.sys.service.CrmLoginService;
+import com.wigo.cmm.sys.service.LoginService;
 
 @Controller
 @RequestMapping(value = { "login", "logout" })
 public class LoginController {
 
 	@Autowired
-	CrmLoginService service;
+	LoginService service;
 	@Value("${spring.sso.logout-url}")
 	String logoutUrl;
 

@@ -9,7 +9,7 @@ import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.dao.OrgBaseDao;
 
 @Service
-public class CrmOrgBaseService extends AbstractCmmService {
+public class OrgBaseService extends AbstractCmmService {
 	@Autowired
 	OrgBaseDao dao;
 

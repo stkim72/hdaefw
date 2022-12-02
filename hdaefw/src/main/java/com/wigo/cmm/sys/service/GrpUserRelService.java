@@ -11,7 +11,7 @@ import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.GrpUserRelVo;
 
 @Service
-public class CrmGrpUserRelService extends AbstractCmmService {
+public class GrpUserRelService extends AbstractCmmService {
 	@Autowired
 	GrpUserRelDao dao;
 

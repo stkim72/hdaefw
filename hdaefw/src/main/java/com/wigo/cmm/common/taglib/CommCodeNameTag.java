@@ -5,7 +5,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.service.CrmComnCdService;
+import com.wigo.cmm.sys.service.ComnCdService;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class CommCodeNameTag extends TagSupport {
     private String codeCd;
     private String codeType;
     
-	CrmComnCdService codeService = Utilities.getBean(CrmComnCdService.class);
+	ComnCdService codeService = Utilities.getBean(ComnCdService.class);
 	
 	public String getUpCodeCd() {
 		return upCodeCd;

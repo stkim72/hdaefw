@@ -26,8 +26,8 @@ import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.controller.MainController;
 import com.wigo.cmm.sys.model.MenuBaseVo;
 import com.wigo.cmm.sys.model.MenuVo;
-import com.wigo.cmm.sys.service.CrmMenuService;
-import com.wigo.cmm.sys.service.CrmUserWdgtService;
+import com.wigo.cmm.sys.service.MenuService;
+import com.wigo.cmm.sys.service.UserWdgtService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,7 +51,7 @@ public class MenuInterceptor implements HandlerInterceptor {
 //	private Logger logger = LoggerFactory.getLogger(MenuInterceptor.class);
 
 	@Autowired
-	CrmMenuService menuService;
+	MenuService menuService;
 
 	@Resource(name = "propertiesService")
 	EzPropertyServiceImpl propertiesService;
@@ -59,7 +59,7 @@ public class MenuInterceptor implements HandlerInterceptor {
 	NasUtil s3Util;
 
 	@Autowired
-	CrmUserWdgtService mainService;
+	UserWdgtService mainService;
 
 	private String setMenuCd(HttpServletRequest request) throws Exception {
 

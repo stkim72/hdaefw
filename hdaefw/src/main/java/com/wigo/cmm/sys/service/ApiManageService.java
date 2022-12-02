@@ -9,7 +9,7 @@ import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.ApiInfoBaseVo;
 
 @Service
-public class CrmApiManageService extends AbstractCmmService {
+public class ApiManageService extends AbstractCmmService {
 	@Autowired
 	ApiInfoBaseDao dao;
 

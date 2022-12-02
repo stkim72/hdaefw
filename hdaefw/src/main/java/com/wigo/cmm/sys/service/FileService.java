@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class CrmFileService extends AbstractCmmService {
+public class FileService extends AbstractCmmService {
 	@Autowired
 	FileBaseDao dao;
 
@@ -35,7 +35,7 @@ public class CrmFileService extends AbstractCmmService {
 	String nasUrl;
 
 	@Autowired
-	CrmUserWdgtService mainService;
+	UserWdgtService mainService;
 
 	@Override
 	public ICmmDao getDao() {

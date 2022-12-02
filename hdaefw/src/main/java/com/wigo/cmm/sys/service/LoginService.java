@@ -25,11 +25,11 @@ import com.wigo.cmm.sys.model.GrpBaseVo;
 import com.wigo.cmm.sys.model.LoginUserVo;
 
 @Service("loginService")
-public class CrmLoginService extends AbstractCmmService {
+public class LoginService extends AbstractCmmService {
 	@Autowired
 	UserBaseDao dao;
 	@Autowired
-	CrmLoginService service;
+	LoginService service;
 	@Value("${spring.sso.auth-url}")
 	String authUrl;
 

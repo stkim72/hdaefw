@@ -14,7 +14,7 @@ import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.ComnCdBaseVo;
 
 @Service
-public class CrmComnCdService extends AbstractCmmService {
+public class ComnCdService extends AbstractCmmService {
 	@Autowired
 	ComnCdBaseDao dao;
 

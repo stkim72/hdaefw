@@ -18,7 +18,7 @@ import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.ComnCdBaseVo;
 
 @Service
-public class CrmUserWdgtService extends AbstractCmmService {
+public class UserWdgtService extends AbstractCmmService {
 
 	@Autowired
 	UserWdgtDao dao;
@@ -27,7 +27,7 @@ public class CrmUserWdgtService extends AbstractCmmService {
 	AsyncService asyncService;
 
 	@Autowired
-	CrmComnCdService comnCdService;
+	ComnCdService comnCdService;
 
 
 	private List<String> s180List = null;

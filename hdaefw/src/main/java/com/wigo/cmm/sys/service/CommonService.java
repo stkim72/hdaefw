@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.wigo.cmm.sys.dao.CommonDao;
 
 @Service("commonService")
-public class CrmCommonService {
+public class CommonService {
 	@Autowired
 	CommonDao commonDao;
 

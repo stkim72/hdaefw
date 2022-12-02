@@ -25,7 +25,7 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.FileVo;
-import com.wigo.cmm.sys.service.CrmFileService;
+import com.wigo.cmm.sys.service.FileService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,7 +47,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value = { "file", "{menuCd}/file" })
 public class FileController {
 	@Autowired
-	CrmFileService service;
+	FileService service;
 
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

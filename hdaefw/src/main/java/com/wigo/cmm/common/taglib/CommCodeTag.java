@@ -9,7 +9,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.ComnCdBaseVo;
-import com.wigo.cmm.sys.service.CrmComnCdService;
+import com.wigo.cmm.sys.service.ComnCdService;
 
 /**
  * 
@@ -63,7 +63,7 @@ public class CommCodeTag extends TagSupport {
 	private String refCd7;
 	private String refCd8;
 	private String refCd9;
-	CrmComnCdService codeService = Utilities.getBean(CrmComnCdService.class);
+	ComnCdService codeService = Utilities.getBean(ComnCdService.class);
 
 	public String getCodeCd() {
 		return codeCd;

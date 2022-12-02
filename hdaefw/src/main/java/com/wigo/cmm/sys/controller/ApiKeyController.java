@@ -18,7 +18,7 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.ComnCdBaseVo;
-import com.wigo.cmm.sys.service.CrmComnCdService;
+import com.wigo.cmm.sys.service.ComnCdService;
 
 /**
  * 
@@ -39,7 +39,7 @@ import com.wigo.cmm.sys.service.CrmComnCdService;
 @RequestMapping(value = { "apikey" })
 public class ApiKeyController {
 	@Autowired
-	CrmComnCdService service;
+	ComnCdService service;
 
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

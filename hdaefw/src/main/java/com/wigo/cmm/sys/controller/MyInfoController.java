@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.UserBaseVo;
-import com.wigo.cmm.sys.service.CrmUserService;
+import com.wigo.cmm.sys.service.UserService;
 
 /**
  * 
@@ -36,7 +36,7 @@ import com.wigo.cmm.sys.service.CrmUserService;
 @RequestMapping(value = {"myInfo","{menuCd}/myInfo"})
 public class MyInfoController {
 	@Autowired
-	CrmUserService userService;
+	UserService userService;
 	
 	/* 내정보관리 메인 연결 */
 	@GetMapping(value = { "", "index" })

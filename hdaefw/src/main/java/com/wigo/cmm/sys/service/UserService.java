@@ -11,7 +11,7 @@ import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.UserBaseVo;
 
 @Service
-public class CrmUserService extends AbstractCmmService {
+public class UserService extends AbstractCmmService {
 	@Autowired
 	UserBaseDao dao;
 

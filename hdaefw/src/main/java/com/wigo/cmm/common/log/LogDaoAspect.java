@@ -20,7 +20,7 @@ import com.wigo.cmm.common.util.SessionUtil;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.LoginUserVo;
 import com.wigo.cmm.sys.model.MenuBaseVo;
-import com.wigo.cmm.sys.service.CrmChngHstService;
+import com.wigo.cmm.sys.service.ChngHstService;
 
 /**
  * <pre>
@@ -43,7 +43,7 @@ import com.wigo.cmm.sys.service.CrmChngHstService;
 public class LogDaoAspect implements Interceptor {
 
 	@Autowired
-	CrmChngHstService service;
+	ChngHstService service;
 	static boolean logMode = true;
 	static boolean sqlMode = false;
 

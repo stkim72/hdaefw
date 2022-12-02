@@ -17,7 +17,7 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.MenuVo;
-import com.wigo.cmm.sys.service.CrmMenuService;
+import com.wigo.cmm.sys.service.MenuService;
 
 /**
  * 
@@ -38,7 +38,7 @@ import com.wigo.cmm.sys.service.CrmMenuService;
 @RequestMapping(value = { "menu", "{menuCd}/menu" })
 public class MenuController {
 	@Autowired
-	CrmMenuService service;
+	MenuService service;
 
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

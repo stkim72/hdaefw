@@ -17,7 +17,7 @@ import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.model.address.EzAddressSo;
 import com.wigo.cmm.common.model.address.EzAdressResultVo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.service.CrmAddressService;
+import com.wigo.cmm.sys.service.AddressService;
 
 /**
  * 
@@ -38,7 +38,7 @@ import com.wigo.cmm.sys.service.CrmAddressService;
 @RequestMapping(value = { "address","{menuCd}/address" })
 public class AddressController {
 	@Autowired
-	CrmAddressService service;
+	AddressService service;
 
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

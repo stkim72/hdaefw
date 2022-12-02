@@ -19,7 +19,7 @@ import com.wigo.cmm.common.util.SessionUtil;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.controller.MainController;
 import com.wigo.cmm.sys.model.LoginUserVo;
-import com.wigo.cmm.sys.service.CrmLoginService;
+import com.wigo.cmm.sys.service.LoginService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,7 +43,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthInterceptor implements HandlerInterceptor {
 
 	@Autowired
-	CrmLoginService loginService;
+	LoginService loginService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

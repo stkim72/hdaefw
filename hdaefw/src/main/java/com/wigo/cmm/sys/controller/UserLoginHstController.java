@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.service.CrmUserLoginHstService;
+import com.wigo.cmm.sys.service.UserLoginHstService;
 
 /**
  * 
@@ -37,7 +37,7 @@ import com.wigo.cmm.sys.service.CrmUserLoginHstService;
 @RequestMapping(value = {"userLoginHist"})
 public class UserLoginHstController {
 	@Autowired
-	CrmUserLoginHstService service;
+	UserLoginHstService service;
 
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

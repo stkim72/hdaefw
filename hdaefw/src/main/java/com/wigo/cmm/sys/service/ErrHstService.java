@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class CrmErrHstService extends AbstractCmmService {
+public class ErrHstService extends AbstractCmmService {
 	@Autowired
 	ErrHstDao dao;
 

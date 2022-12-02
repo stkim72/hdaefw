@@ -9,7 +9,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.FileBaseVo;
-import com.wigo.cmm.sys.service.CrmFileService;
+import com.wigo.cmm.sys.service.FileService;
 
 /**
  * 
@@ -39,7 +39,7 @@ public class FileInfoTag extends TagSupport {
 	private String acceptExts = "";
 	private boolean viewMode = false;
 	private String fileCategory = "attachment";
-	CrmFileService service = Utilities.getBean(CrmFileService.class);
+	FileService service = Utilities.getBean(FileService.class);
 
 	@Override
 	public int doStartTag() throws JspException {

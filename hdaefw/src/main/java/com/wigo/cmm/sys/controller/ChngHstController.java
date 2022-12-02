@@ -18,7 +18,7 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.ChngHstVo;
-import com.wigo.cmm.sys.service.CrmChngHstService;
+import com.wigo.cmm.sys.service.ChngHstService;
 
 /**
  * 
@@ -39,7 +39,7 @@ import com.wigo.cmm.sys.service.CrmChngHstService;
 @RequestMapping(value = {"chngHst"})
 public class ChngHstController {
 	@Autowired
-	CrmChngHstService service;
+	ChngHstService service;
 
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

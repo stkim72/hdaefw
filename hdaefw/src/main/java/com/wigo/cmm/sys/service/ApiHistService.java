@@ -3,18 +3,18 @@ package com.wigo.cmm.sys.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wigo.cmm.sys.dao.UserLoginHstDao;
+import com.wigo.cmm.sys.dao.ApiExecHstDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
 
 @Service
-public class CrmUserLoginHstService extends AbstractCmmService {
+public class ApiHistService extends AbstractCmmService {
 	@Autowired
-	UserLoginHstDao dao;
+	ApiExecHstDao dao;
 
 	@Override
 	public ICmmDao getDao() {
 		return dao;
 	}
-	
+
 	
 }

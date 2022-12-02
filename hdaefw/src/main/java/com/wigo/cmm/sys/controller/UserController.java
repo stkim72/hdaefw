@@ -17,7 +17,7 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.UserBaseVo;
-import com.wigo.cmm.sys.service.CrmUserService;
+import com.wigo.cmm.sys.service.UserService;
 
 /**
  * 
@@ -38,7 +38,7 @@ import com.wigo.cmm.sys.service.CrmUserService;
 @RequestMapping(value = {"user","{menuCd}/user"})
 public class UserController {
 	@Autowired
-	CrmUserService userService;
+	UserService userService;
 
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {

@@ -5,7 +5,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.service.CrmMenuService;
+import com.wigo.cmm.sys.service.MenuService;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class MenuNameTag extends TagSupport {
 	private static final long serialVersionUID = 6129581713388769101L;
     private String menuCd;
     
-    CrmMenuService service = Utilities.getBean("menuService");
+    MenuService service = Utilities.getBean("menuService");
 	
 	@Override
     public int doStartTag() throws JspException {

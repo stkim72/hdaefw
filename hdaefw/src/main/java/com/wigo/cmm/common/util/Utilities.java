@@ -80,7 +80,7 @@ import com.wigo.cmm.common.model.ITreeVo;
 import com.wigo.cmm.common.util.security.KisaSeed256;
 import com.wigo.cmm.sys.model.LoginUserVo;
 import com.wigo.cmm.sys.model.MenuBaseVo;
-import com.wigo.cmm.sys.service.CrmCommonService;
+import com.wigo.cmm.sys.service.CommonService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -128,10 +128,10 @@ public class Utilities {
 	private static final String _SALT_KEY = "$5$AvoubMud";
 
 	
-	private static CrmCommonService commonService;
+	private static CommonService commonService;
 	private static SqlSessionFactory sessionFactory;
 	@Autowired
-	CrmCommonService commService;
+	CommonService commService;
 
 	@Resource(name = "crmSqlSessionFactory")
 	SqlSessionFactory sFactory;

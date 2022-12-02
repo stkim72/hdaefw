@@ -20,7 +20,7 @@ import com.wigo.cmm.sys.model.MenuVo;
 import com.wigo.cmm.sys.model.UserWdgtVo;
 
 @Service("menuService")
-public class CrmMenuService extends AbstractCmmService {
+public class MenuService extends AbstractCmmService {
 	@Autowired
 	MenuBaseDao dao;
 
