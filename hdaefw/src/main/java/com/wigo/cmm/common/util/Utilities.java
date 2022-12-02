@@ -133,7 +133,7 @@ public class Utilities {
 	@Autowired
 	CommonService commService;
 
-	@Resource(name = "crmSqlSessionFactory")
+	@Resource(name = "cmmSqlSessionFactory")
 	SqlSessionFactory sFactory;
 
 	

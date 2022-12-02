@@ -65,7 +65,7 @@
         <if test="endYmd != null and endYmd != ''">
                       AND END_YMD           =       #{endYmd}
         </if>
-                      AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN STA_YMD AND END_YMD
+                      AND DATE_FORMAT(SYSDATE,'%Y%m%d') BETWEEN STA_YMD AND END_YMD
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
@@ -73,7 +73,7 @@
                  FROM TB_SYS_ORG_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.JadeOrgVo">
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.OrgBaseVo">
         <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
                SELECT /*com.wigo.cmm.sys.dao.OrgBaseDao.selectList*/ <include refid="sqlCols"/>
                  FROM TB_SYS_ORG_BAS
@@ -84,7 +84,7 @@
                    , ORG_ODRG
         <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.JadeOrgVo">
+    <select id="select" resultType="com.wigo.cmm.sys.model.OrgBaseVo">
                SELECT /*com.wigo.cmm.sys.dao.OrgBaseDao.select*/ <include refid="sqlCols"/>
                  FROM TB_SYS_ORG_BAS
         <include refid="sqlPkConditions"/>

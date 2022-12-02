@@ -62,10 +62,10 @@
         
         
          <if test="strtDt != null and strtDt != ''">
-                      AND A.CHNG_CALL_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+                      AND A.CHNG_CALL_DT      >=       STR_TO_DATE(#{strtDt},'%Y%m%d')
         </if>
         <if test="endDt != null and endDt != ''">
-                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.CHNG_CALL_DT
+                      AND STR_TO_DATE(#{endDt},'%Y%m%d') + 1 > A.CHNG_CALL_DT
         </if>
         <if test="loginIdLike != null and loginIdLike != ''">
                       AND C.LOGIN_ID         LIKE   '%' ||  #{loginIdLike} ||'%'
@@ -161,7 +161,7 @@
                      , #{chngRsltTxn}
                      , #{chngParamTxn}
                      , #{chngCallTxn}
-                     , TO_DATE(#{chngCallDt},'YYYYMMDDHH24MISS')
+                     , STR_TO_DATE(#{chngCallDt},'%Y%m%d%H%i%s')
                      , #{chngExecMsec}
                      , #{chngCallIpAddr}
                      , #{regrId}

@@ -24,13 +24,13 @@
                     , A.SYS_CD                    /*시스템코드        */
                     , A.WRK_ID                    /*작업ID        */
                     , A.BATCH_RSLT_CD                    /*배치결과코드        */
-                    , TO_CHAR(A.BATCH_CALL_DT,'YYYYMMDDHH24MISS')    BATCH_CALL_DT                    /*배치호출일시        */
+                    , DATE_FORMAT(A.BATCH_CALL_DT,'%Y%m%d%H%i%s')    BATCH_CALL_DT                    /*배치호출일시        */
                     , A.BATCH_EXEC_MSEC                    /*배치실행밀리초        */
                     , A.ERR_MSG_TXN                    /*오류메시지내역        */
                     , A.REGR_ID                    /*등록자ID        */
-                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , DATE_FORMAT(A.REG_DT,'%Y%m%d%H%i%s')    REG_DT                    /*등록일시        */
                     , A.AMDR_ID                    /*수정자ID        */
-                    , TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS')    AMD_DT                    /*수정일시        */
+                    , DATE_FORMAT(A.AMD_DT,'%Y%m%d%H%i%s')    AMD_DT                    /*수정일시        */
     </sql>
     <sql id="sqlConditions">
         <where>
@@ -90,7 +90,7 @@
             </choose>
         </if>
         <if test="batchCallDt != null and batchCallDt != ''">
-                  AND A.BATCH_CALL_DT   =       TO_DATE(#{batchCallDt},'YYYYMMDDHH24MISS')
+                  AND A.BATCH_CALL_DT   =       STR_TO_DATE(#{batchCallDt},'%Y%m%d%H%i%s')
         </if>
         <if test="batchExecMsec != null and batchExecMsec != ''">
                   AND A.BATCH_EXEC_MSEC =       #{batchExecMsec}
@@ -102,10 +102,10 @@
                   AND WRK_ID LIKE  '%' || #{jobIdLike}  || '%'
         </if>
         <if test="strtDt != null and strtDt != ''">
-                      AND A.BATCH_CALL_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+                      AND A.BATCH_CALL_DT      >=       STR_TO_DATE(#{strtDt},'%Y%m%d')
         </if>
         <if test="endDt != null and endDt != ''">
-                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.BATCH_CALL_DT
+                      AND STR_TO_DATE(#{endDt},'%Y%m%d') + 1 > A.BATCH_CALL_DT
         </if>
         <if test="batchRsltCdLike != null and batchRsltCdLike != ''">
                       AND A.BATCH_RSLT_CD      LIKE       '%' || #{batchRsltCdLike}  || '%'
@@ -198,7 +198,7 @@
                      , #{sysCd}
                      , #{wrkId}
                      , #{batchRsltCd}
-                     , TO_DATE(#{batchCallDt},'YYYYMMDDHH24MISS')
+                     , STR_TO_DATE(#{batchCallDt},'%Y%m%d%H%i%s')
                      , #{batchExecMsec}
                      , #{errMsgTxn}
                      , #{regrId}
@@ -213,7 +213,7 @@
                     , SYS_CD                                  =         #{sysCd}
                     , WRK_ID                                  =         #{wrkId}
                     , BATCH_RSLT_CD                           =         #{batchRsltCd}
-                    , BATCH_CALL_DT                           =         TO_DATE(#{batchCallDt},'YYYYMMDDHH24MISS')
+                    , BATCH_CALL_DT                           =         STR_TO_DATE(#{batchCallDt},'%Y%m%d%H%i%s')
                     , BATCH_EXEC_MSEC                         =         #{batchExecMsec}
                     , ERR_MSG_TXN                             =         #{errMsgTxn}
                     , AMDR_ID                                 =         #{amdrId}

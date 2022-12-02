@@ -49,10 +49,10 @@
                       AND A.DEL_YN            =       #{delYn}
         </if>
         <if test="strtDt != null and strtDt != ''">
-                      AND A.REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+                      AND A.REG_DT      >=       STR_TO_DATE(#{strtDt},'%Y%m%d')
         </if>
         <if test="endDt != null and endDt != ''">
-                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.REG_DT
+                      AND STR_TO_DATE(#{endDt},'%Y%m%d') + 1 > A.REG_DT
         </if>
         <if test="empId != null and empId != ''">
                       AND A.AMDR_ID LIKE  #{empId} || '%'

@@ -127,7 +127,7 @@
                  FROM TB_SYS_EMP_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.JadeHrVo">
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.EmpBaseVo">
         <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
                SELECT /*com.wigo.cmm.sys.dao.EmpBaseDao.selectList*/ <include refid="sqlCols"/>
                     , MPHON_NO MPHON_NO_ENC_VAL
@@ -145,7 +145,7 @@
                        , EMP_NM
         <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.JadeHrVo">
+    <select id="select" resultType="com.wigo.cmm.sys.model.EmpBaseVo">
                SELECT  /*com.wigo.cmm.sys.dao.EmpBaseDao.select*/<include refid="sqlCols"/>
                     , MPHON_NO MPHON_NO_ENC_VAL
                  FROM TB_SYS_EMP_BAS

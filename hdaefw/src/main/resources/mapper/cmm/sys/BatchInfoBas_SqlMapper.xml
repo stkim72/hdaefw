@@ -22,13 +22,13 @@
                     , A.SYS_CD                    /*시스템코드        */
                     , A.BATCH_NM                    /*배치명        */
                     , A.WRK_ID                    /*작업ID        */
-                    , TO_CHAR(A.LAST_EXEC_DT,'YYYYMMDDHH24MISS')    LAST_EXEC_DT                    /*최종실행일시        */
+                    , DATE_FORMAT(A.LAST_EXEC_DT,'%Y%m%d%H%i%s')    LAST_EXEC_DT                    /*최종실행일시        */
                     , A.LAST_SUCC_YN                    /*최종성공여부        */
                     , A.USE_YN                    /*사용여부        */
                     , A.REGR_ID                    /*등록자ID        */
-                    , TO_CHAR(A.REG_DT,'YYYYMMDDHH24MISS')    REG_DT                    /*등록일시        */
+                    , DATE_FORMAT(A.REG_DT,'%Y%m%d%H%i%s')    REG_DT                    /*등록일시        */
                     , A.AMDR_ID                    /*수정자ID        */
-                    , DECODE(A.LAST_SUCC_YN, NULL,NULL,TO_CHAR(A.AMD_DT,'YYYYMMDDHH24MISS'))    AMD_DT                    /*수정일시        */
+                    , DECODE(A.LAST_SUCC_YN, NULL,NULL,DATE_FORMAT(A.AMD_DT,'%Y%m%d%H%i%s'))    AMD_DT                    /*수정일시        */
     </sql>
     <sql id="sqlConditions">
     <where>
@@ -65,7 +65,7 @@
                   AND A.WRK_ID          =       #{wrkId}
         </if>
         <if test="lastExecDt != null and lastExecDt != ''">
-                  AND A.LAST_EXEC_DT    =       TO_DATE(#{lastExecDt},'YYYYMMDDHH24MISS')
+                  AND A.LAST_EXEC_DT    =       STR_TO_DATE(#{lastExecDt},'%Y%m%d%H%i%s')
         </if>
         <if test="lastSuccYn != null and lastSuccYn != ''">
                   AND A.LAST_SUCC_YN    =       #{lastSuccYn}
@@ -159,7 +159,7 @@
                      , #{sysCd}
                      , #{batchNm}
                      , #{wrkId}
-                     , TO_DATE(#{lastExecDt},'YYYYMMDDHH24MISS')
+                     , STR_TO_DATE(#{lastExecDt},'%Y%m%d%H%i%s')
                      , NULL
                      , IFNULL(#{useYn},'N')
                      , #{regrId}

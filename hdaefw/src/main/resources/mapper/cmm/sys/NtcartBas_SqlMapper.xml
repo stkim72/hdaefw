@@ -107,7 +107,7 @@
                       AND NTCART_PWD        =       #{ntcartPwd}
         </if>
         <if test="dashboard != null and dashboard != ''">
-                      AND TRIM(SYSDATE) BETWEEN  IFNULL(POST_STA_DT,TO_DATE('19000101','YYYYMMDD')) AND IFNULL(POST_END_DT,TO_DATE('99991231','YYYYMMDD'))
+                      AND TRIM(SYSDATE) BETWEEN  IFNULL(POST_STA_DT,STR_TO_DATE('19000101','%Y%m%d')) AND IFNULL(POST_END_DT,STR_TO_DATE('99991231','%Y%m%d'))
         </if>
         
         </where>
@@ -130,10 +130,10 @@
                     , NOTE_STATUS_CD                    /*공지상태코드        */
                     , POST_STATUS_CD                    /*게시상태코드        */
                     , IFNULL(NOTE_YN,'N') NOTE_YN                    /*공지여부        */
-                    , /*TO_CHAR(POST_STA_DT,'YYYYMMDD')*/       POST_STA_DT             /*게시시작일시        */
-                    , /*TO_CHAR(POST_END_DT,'YYYYMMDD')*/       POST_END_DT              /*게시종료일시        */
-                    , /*TO_CHAR(NOTE_STA_DT,'YYYYMMDD')*/       NOTE_STA_DT              /*공지시작일시        */
-                    , /*TO_CHAR(NOTE_END_DT,'YYYYMMDD')*/       NOTE_END_DT              /*공지종료일시        */
+                    , /*DATE_FORMAT(POST_STA_DT,'%Y%m%d')*/       POST_STA_DT             /*게시시작일시        */
+                    , /*DATE_FORMAT(POST_END_DT,'%Y%m%d')*/       POST_END_DT              /*게시종료일시        */
+                    , /*DATE_FORMAT(NOTE_STA_DT,'%Y%m%d')*/       NOTE_STA_DT              /*공지시작일시        */
+                    , /*DATE_FORMAT(NOTE_END_DT,'%Y%m%d')*/       NOTE_END_DT              /*공지종료일시        */
                     , FILE_ID                    /*파일코드        */
                     , NTCART_PWD                    /*게시물비밀번호        */
                     , REGR_ID                    /*등록자ID        */
@@ -143,9 +143,9 @@
                     , (SELECT COUNT(1) FROM TB_SYS_FILE_BAS WHERE FILE_ID = IFNULL(A.FILE_ID,A.NTCART_ID) ) FILE_CNT
                  FROM TB_SYS_NTCART_BAS A
         <include refid="sqlConditions"/>
-               ORDER BY CASE WHEN TRIM(SYSDATE) BETWEEN  IFNULL(POST_STA_DT,TO_DATE('19000101','YYYYMMDD')) AND IFNULL(POST_END_DT,TO_DATE('99991231','YYYYMMDD')) THEN IFNULL(NOTE_YN,'N') ELSE  'A' END DESC
-                     , IFNULL(POST_END_DT,TO_DATE('99991231','YYYYMMDD')) DESC
-                     , IFNULL(POST_STA_DT,TO_DATE('19000101','YYYYMMDD')) 
+               ORDER BY CASE WHEN TRIM(SYSDATE) BETWEEN  IFNULL(POST_STA_DT,STR_TO_DATE('19000101','%Y%m%d')) AND IFNULL(POST_END_DT,STR_TO_DATE('99991231','%Y%m%d')) THEN IFNULL(NOTE_YN,'N') ELSE  'A' END DESC
+                     , IFNULL(POST_END_DT,STR_TO_DATE('99991231','%Y%m%d')) DESC
+                     , IFNULL(POST_STA_DT,STR_TO_DATE('19000101','%Y%m%d')) 
                      , REG_DT DESC
         <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
@@ -160,10 +160,10 @@
                     , NOTE_STATUS_CD                    /*공지상태코드        */
                     , POST_STATUS_CD                    /*게시상태코드        */
                     , IFNULL(NOTE_YN,'N') NOTE_YN                    /*공지여부        */
-                    , TO_CHAR(POST_STA_DT,'YYYYMMDD') POST_STA_DT                    /*게시시작일시        */
-                    , TO_CHAR(POST_END_DT,'YYYYMMDD') POST_END_DT                    /*게시종료일시        */
-                    , TO_CHAR(NOTE_STA_DT,'YYYYMMDD') NOTE_STA_DT                    /*공지시작일시        */
-                    , TO_CHAR(NOTE_END_DT,'YYYYMMDD') NOTE_END_DT                    /*공지종료일시        */
+                    , DATE_FORMAT(POST_STA_DT,'%Y%m%d') POST_STA_DT                    /*게시시작일시        */
+                    , DATE_FORMAT(POST_END_DT,'%Y%m%d') POST_END_DT                    /*게시종료일시        */
+                    , DATE_FORMAT(NOTE_STA_DT,'%Y%m%d') NOTE_STA_DT                    /*공지시작일시        */
+                    , DATE_FORMAT(NOTE_END_DT,'%Y%m%d') NOTE_END_DT                    /*공지종료일시        */
                     , FILE_ID                    /*파일코드        */
                     , NTCART_PWD                    /*게시물비밀번호        */
                     , REGR_ID                    /*등록자ID        */
@@ -187,10 +187,10 @@
                      , #{noteStatusCd}
                      , #{postStatusCd}
                      , IFNULL(#{noteYn},'N')
-                     , DECODE(#{postStaDt},NULL,NULL,TO_DATE(SUBSTR(#{postStaDt} || '000000',1,14) ,'YYYYMMDDHH24MISS'))
-                     , DECODE(#{postEndDt},NULL,NULL,TO_DATE(SUBSTR(#{postEndDt} || '235959',1,14) ,'YYYYMMDDHH24MISS'))
-                     , DECODE(#{noteStaDt},NULL,NULL,TO_DATE(SUBSTR(#{noteStaDt} || '000000',1,14) ,'YYYYMMDDHH24MISS'))
-                     , DECODE(#{noteEndDt},NULL,NULL,TO_DATE(SUBSTR(#{noteEndDt} || '235959',1,14) ,'YYYYMMDDHH24MISS'))
+                     , DECODE(#{postStaDt},NULL,NULL,STR_TO_DATE(SUBSTR(#{postStaDt} || '000000',1,14) ,'%Y%m%d%H%i%s'))
+                     , DECODE(#{postEndDt},NULL,NULL,STR_TO_DATE(SUBSTR(#{postEndDt} || '235959',1,14) ,'%Y%m%d%H%i%s'))
+                     , DECODE(#{noteStaDt},NULL,NULL,STR_TO_DATE(SUBSTR(#{noteStaDt} || '000000',1,14) ,'%Y%m%d%H%i%s'))
+                     , DECODE(#{noteEndDt},NULL,NULL,STR_TO_DATE(SUBSTR(#{noteEndDt} || '235959',1,14) ,'%Y%m%d%H%i%s'))
                      , IFNULL(#{fileId},#{ntcartId})
                      , #{ntcartPwd}
                      , #{regrId}
@@ -210,10 +210,10 @@
                     , NOTE_STATUS_CD      =         #{noteStatusCd}
                     , POST_STATUS_CD      =         #{postStatusCd}
                     , NOTE_YN             =         #{noteYn}
-                    , POST_STA_DT         =         DECODE(#{postStaDt} ,NULL ,NULL, TO_DATE(SUBSTR(#{postStaDt} || '000000',1,14) ,'YYYYMMDDHH24MISS'))
-                    , POST_END_DT         =         DECODE(#{postEndDt} ,NULL ,NULL, TO_DATE(SUBSTR(#{postEndDt} || '235959',1,14) ,'YYYYMMDDHH24MISS'))
-                    , NOTE_STA_DT         =         DECODE(#{noteStaDt} ,NULL ,NULL, TO_DATE(SUBSTR(#{noteStaDt} || '000000',1,14) ,'YYYYMMDDHH24MISS'))
-                    , NOTE_END_DT         =         DECODE(#{noteEndDt} ,NULL ,NULL, TO_DATE(SUBSTR(#{noteEndDt} || '235959',1,14) ,'YYYYMMDDHH24MISS'))
+                    , POST_STA_DT         =         DECODE(#{postStaDt} ,NULL ,NULL, STR_TO_DATE(SUBSTR(#{postStaDt} || '000000',1,14) ,'%Y%m%d%H%i%s'))
+                    , POST_END_DT         =         DECODE(#{postEndDt} ,NULL ,NULL, STR_TO_DATE(SUBSTR(#{postEndDt} || '235959',1,14) ,'%Y%m%d%H%i%s'))
+                    , NOTE_STA_DT         =         DECODE(#{noteStaDt} ,NULL ,NULL, STR_TO_DATE(SUBSTR(#{noteStaDt} || '000000',1,14) ,'%Y%m%d%H%i%s'))
+                    , NOTE_END_DT         =         DECODE(#{noteEndDt} ,NULL ,NULL, STR_TO_DATE(SUBSTR(#{noteEndDt} || '235959',1,14) ,'%Y%m%d%H%i%s'))
 <!--                     , FILE_ID             =         #{fileId} -->
                     , NTCART_PWD          =         #{ntcartPwd}
                     , AMDR_ID             =         #{amdrId}

@@ -65,7 +65,7 @@
     <select id="selectList" resultType="com.wigo.cmm.sys.model.FileVo">
         <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
                SELECT /*com.wigo.cmm.sys.dao.FileBaseDao.selectList*/ <include refid="sqlCols"/>
-                    , TO_CHAR(REG_DT, 'YYYYMMDDHH24MISS') UPL_DT
+                    , DATE_FORMAT(REG_DT, '%Y%m%d%H%i%s') UPL_DT
                  FROM TB_SYS_FILE_BAS
         <include refid="sqlConditions"/>
                ORDER BY <if test="fileId != null and fileId != ''">
@@ -75,7 +75,7 @@
     </select>
     <select id="select" resultType="com.wigo.cmm.sys.model.FileVo">
                SELECT /*com.wigo.cmm.sys.dao.FileBaseDao.select*/<include refid="sqlCols"/>
-                    , TO_CHAR(REG_DT, 'YYYYMMDDHH24MISS') UPL_DT
+                    , DATE_FORMAT(REG_DT, '%Y%m%d%H%i%s') UPL_DT
                  FROM TB_SYS_FILE_BAS
         <include refid="sqlPkConditions"/>
     </select>
@@ -83,7 +83,7 @@
         <selectKey order="BEFORE" keyProperty="fileOdrg" resultType="int">
             SELECT IFNULL(DECODE(#{fileOdrg},0,NULL,#{fileOdrg}),IFNULL(MAX(FILE_ODRG),0) + 1 )
               FROM TB_SYS_FILE_BAS
-             WHERE FILE_ID = TO_CHAR(#{fileId}) 
+             WHERE FILE_ID = DATE_FORMAT(#{fileId}) 
         </selectKey>
         
                 INSERT /*com.wigo.cmm.sys.dao.FileBaseDao.insert*/ INTO TB_SYS_FILE_BAS (
@@ -118,7 +118,7 @@
     <delete id="delete">
                DELETE /*com.wigo.cmm.sys.dao.FileBaseDao.delete*/ 
                  FROM TB_SYS_FILE_BAS
-                WHERE FILE_ID            =       TO_CHAR(#{fileId})
+                WHERE FILE_ID            =       DATE_FORMAT(#{fileId})
                 <if test="fileOdrg != null and fileOdrg != ''">
                   AND FILE_ODRG           =       #{fileOdrg} 
                 </if>
@@ -126,6 +126,6 @@
     <select id="selectMaxfileOdrg" resultType="int">
         SELECT /*com.wigo.cmm.sys.dao.FileBaseDao.selectMaxfileOdrg*/ IFNULL(DECODE(#{fileOdrg},0,NULL,#{fileOdrg}),IFNULL(MAX(FILE_ODRG),0) + 1 )
               FROM TB_SYS_FILE_BAS
-             WHERE FILE_ID = TO_CHAR(#{fileId})
+             WHERE FILE_ID = DATE_FORMAT(#{fileId})
     </select>
 </mapper>

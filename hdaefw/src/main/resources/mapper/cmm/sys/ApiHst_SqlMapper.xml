@@ -120,10 +120,10 @@
         </if>
         
         <if test="strtDt != null and strtDt != ''">
-                      AND A.API_CALL_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+                      AND A.API_CALL_DT      >=       STR_TO_DATE(#{strtDt},'%Y%m%d')
         </if>
         <if test="endDt != null and endDt != ''">
-                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.API_CALL_DT
+                      AND STR_TO_DATE(#{endDt},'%Y%m%d') + 1 > A.API_CALL_DT
         </if>
         </where>
     </sql>
@@ -174,8 +174,8 @@
                      , #{apiRsltMsgTxn}
                      , #{apiParamTxn}
                      , #{apiRsltTxn}
-                     , DECODE(#{apiCallDt},NULL,SYSDATE,TO_DATE(#{apiCallDt},'YYYYMMDDHH24MISS'))
-                     , DECODE(#{apiCallDt},NULL,0, (SYSDATE - TO_DATE(#{apiCallDt},'YYYYMMDDHH24MISS')) * 86400 )
+                     , DECODE(#{apiCallDt},NULL,SYSDATE,STR_TO_DATE(#{apiCallDt},'%Y%m%d%H%i%s'))
+                     , DECODE(#{apiCallDt},NULL,0, (SYSDATE - STR_TO_DATE(#{apiCallDt},'%Y%m%d%H%i%s')) * 86400 )
                      , #{apiCallIpAddr}
                      , #{regrId}
                      , SYSDATE

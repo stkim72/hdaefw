@@ -38,10 +38,10 @@
                       AND A.LOGIN_IP_ADDR     =       #{loginIpAddr}
         </if>
         <if test="strtDt != null and strtDt != ''">
-                      AND A.LOGIN_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+                      AND A.LOGIN_DT      >=       STR_TO_DATE(#{strtDt},'%Y%m%d')
         </if>
         <if test="endDt != null and endDt != ''">
-                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.LOGIN_DT
+                      AND STR_TO_DATE(#{endDt},'%Y%m%d') + 1 > A.LOGIN_DT
         </if>
         <if test="loginIdLike != null and loginIdLike != ''">
                       AND B.LOGIN_ID         LIKE   '%' ||  #{loginIdLike} ||'%'

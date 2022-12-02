@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wigo.cmm.sys.dao.GrpMenuHstDao">
+<mapper namespace="com.wigo.cmm.sys.dao.GrpEmpHstDao">
     <sql id="sqlPkConditions">
-                WHERE GRP_MENU_HST_ID   =       #{grpMenuHstId}
+                WHERE GRP_EMP_HST_ID    =       #{grpEmpHstId}
     </sql>
     <sql id="sqlCols">
-                      GRP_MENU_HST_ID                    /*그룹메뉴이력코드        */
+                      GRP_EMP_HST_ID                    /*그룹사원이력코드        */
                     , GRP_ID                    /*그룹코드        */
-                    , MENU_ID                    /*메뉴코드        */
+                    , EMP_ID                    /*사원ID        */
                     , DEL_YN                    /*삭제여부        */
                     , REGR_ID                    /*등록자ID        */
                     , REG_DT                    /*등록일시        */
@@ -15,15 +15,15 @@
                     , AMD_DT                    /*수정일시        */
     </sql>
     <sql id="sqlConditions">
-        <where>
-        <if test="grpMenuHstId != null and grpMenuHstId != ''">
+    <where>
+        <if test="grpEmpHstId != null and grpEmpHstId != ''">
             <choose>
-                <when test="grpMenuHstId instanceof String">
-                              AND A.RP_MENU_HST_CD   =       #{grpMenuHstId}
+                <when test="grpEmpHstId instanceof String">
+                              AND A.GRP_EMP_HST_ID    =       #{grpEmpHstId}
                 </when>
                 <otherwise>
-                    AND A.GRP_MENU_HST_ID   IN
-                    <foreach item="item" index="index" collection="grpMenuHstId" open="(" separator="," close=")">
+                    AND A.GRP_EMP_HST_ID    IN
+                    <foreach item="item" index="index" collection="grpEmpHstId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
@@ -42,78 +42,67 @@
                 </otherwise>
             </choose>
         </if>
-        <if test="menuId != null and menuId != ''">
-            <choose>
-                <when test="menuId instanceof String">
-                              AND A.MENU_ID           =       #{menuId}
-                </when>
-                <otherwise>
-                    AND A.MENU_ID           IN
-                    <foreach item="item" index="index" collection="menuId" open="(" separator="," close=")">
-                        #{item}
-                    </foreach>
-                </otherwise>
-            </choose>
+        <if test="empId != null and empId != ''">
+                      AND A.EMP_ID            =       #{empId}
         </if>
         <if test="delYn != null and delYn != ''">
                       AND A.DEL_YN            =       #{delYn}
         </if>
         <if test="strtDt != null and strtDt != ''">
-                      AND A.REG_DT      >=       TO_DATE(#{strtDt},'YYYYMMDD')
+                      AND A.REG_DT      >=       STR_TO_DATE(#{strtDt},'%Y%m%d')
         </if>
         <if test="endDt != null and endDt != ''">
-                      AND TO_DATE(#{endDt},'YYYYMMDD') + 1 > A.REG_DT
+                      AND STR_TO_DATE(#{endDt},'%Y%m%d') + 1 > A.REG_DT
         </if>
         <if test="empId != null and empId != ''">
                       AND A.AMDR_ID LIKE  #{empId} || '%'
         </if>
-        <if test="menuNmLike != null and menuNmLike != ''">
-                      AND C.MENU_NM LIKE '%' || #{menuNmLike} || '%'
+        <if test="empNmLike != null and empNmLike != ''">
+                      AND C.EMP_NM LIKE '%' || #{empNmLike} || '%'
         </if>
-        </where>
+       </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.wigo.cmm.sys.dao.GrpMenuHstDao.selectListCount*/ COUNT(1)
-                 FROM TB_SYS_GRP_MENU_HST A
+                SELECT /*com.wigo.cmm.sys.dao.GrpEmpHstDao.selectListCount*/ COUNT(1)
+                 FROM TB_SYS_GRP_EMP_HST A
                 INNER JOIN TB_SYS_GRP_BAS B ON A.GRP_ID = B.GRP_ID
-                INNER JOIN TB_SYS_MENU_BAS C ON A.MENU_ID = C.MENU_ID
+                INNER JOIN TB_SYS_EMP_BAS C ON A.EMP_ID = C.EMP_ID
+                INNER JOIN TB_SYS_ORG_BAS D ON C.ORG_ID = D.ORG_ID
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.GrpMenuHstVo">
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.GrpEmpHstVo">
         <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
-               SELECT /*com.wigo.cmm.sys.dao.GrpMenuHstDao.selectList*/ A.GRP_MENU_HST_ID                    /*그룹메뉴이력코드        */
+               SELECT /*com.wigo.cmm.sys.dao.GrpEmpHstDao.selectList*/ A.GRP_EMP_HST_ID                    /*그룹사원이력코드        */
                     , A.GRP_ID                    /*그룹코드        */
-                    , A.MENU_ID                    /*메뉴코드        */
+                    , A.EMP_ID                    /*사원ID        */
                     , A.DEL_YN                    /*삭제여부        */
                     , A.REGR_ID                    /*등록자ID        */
                     , A.REG_DT                    /*등록일시        */
                     , A.AMDR_ID                    /*수정자ID        */
                     , A.AMD_DT                    /*수정일시        */
                     , B.GRP_NM
-                    , C.MENU_NM
-                    , ( SELECT LISTAGG(MENU_NM, '>') WITHIN GROUP(ORDER BY MENU_LVL_NO)
-                          FROM TB_SYS_MENU_BAS
-                         START WITH MENU_ID = A.MENU_ID 
-                       CONNECT BY PRIOR PRNTS_MENU_ID = MENU_ID ) MENU_PATH
-                 FROM TB_SYS_GRP_MENU_HST A
+                    , C.EMP_NM
+                    , D.ORG_NM
+                 FROM TB_SYS_GRP_EMP_HST A
                 INNER JOIN TB_SYS_GRP_BAS B ON A.GRP_ID = B.GRP_ID
-                INNER JOIN TB_SYS_MENU_BAS C ON A.MENU_ID = C.MENU_ID
+                INNER JOIN TB_SYS_EMP_BAS C ON A.EMP_ID = C.EMP_ID
+                INNER JOIN TB_SYS_ORG_BAS D ON C.ORG_ID = D.ORG_ID
         <include refid="sqlConditions"/>
-               ORDER BY A.REG_DT DESC
+               ORDER BY REG_DT DESC
         <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.GrpMenuHstVo">
-               SELECT /*com.wigo.cmm.sys.dao.GrpMenuHstDao.select*/ <include refid="sqlCols"/>
-                 FROM TB_SYS_GRP_MENU_HST
+    <select id="select" resultType="com.wigo.cmm.sys.model.GrpEmpHstVo">
+               SELECT /*com.wigo.cmm.sys.dao.GrpEmpHstDao.select*/ <include refid="sqlCols"/>
+                 FROM TB_SYS_GRP_EMP_HST
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.wigo.cmm.sys.dao.GrpMenuHstDao.insert*/ INTO TB_SYS_GRP_MENU_HST (
+                INSERT /*com.wigo.cmm.sys.dao.GrpEmpHstDao.insert*/ INTO TB_SYS_GRP_EMP_HST (
         <include refid="sqlCols"/>
                  ) VALUES (
-                       FN_CRM_AUTO_SEQ('GMH')
+                       FN_CRM_AUTO_SEQ('GEH')
                      , #{grpId}
-                     , #{menuId}
+                     , #{empId}
                      , 'N'
                      , #{regrId}
                      , SYSDATE
@@ -122,12 +111,12 @@
                  )
     </insert>
     <insert id="insertDelete">
-                INSERT /*com.wigo.cmm.sys.dao.GrpMenuHstDao.insertDelete*/ INTO TB_SYS_GRP_MENU_HST (
+                INSERT /*com.wigo.cmm.sys.dao.GrpEmpHstDao.insertDelete*/ INTO TB_SYS_GRP_EMP_HST (
         <include refid="sqlCols"/>
                  ) VALUES (
-                       FN_CRM_AUTO_SEQ('GMH')
+                       FN_CRM_AUTO_SEQ('GEH')
                      , #{grpId}
-                     , #{menuId}
+                     , #{empId}
                      , 'Y'
                      , #{regrId}
                      , SYSDATE
@@ -136,17 +125,17 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.wigo.cmm.sys.dao.GrpMenuHstDao.update*/ TB_SYS_GRP_MENU_HST
+               UPDATE /*com.wigo.cmm.sys.dao.GrpEmpHstDao.update*/ TB_SYS_GRP_EMP_HST
                   SET GRP_ID              =         #{grpId}
-                    , MENU_ID             =         #{menuId}
+                    , EMP_ID              =         #{empId}
                     , DEL_YN              =         #{delYn}
                     , AMDR_ID             =         #{amdrId}
                     , AMD_DT              =         SYSDATE
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.wigo.cmm.sys.dao.GrpMenuHstDao.delete*/  
-                 FROM TB_SYS_GRP_MENU_HST
+               DELETE /*com.wigo.cmm.sys.dao.GrpEmpHstDao.delete*/ 
+                 FROM TB_SYS_GRP_EMP_HST
         <include refid="sqlPkConditions"/>
     </delete>
 </mapper>
