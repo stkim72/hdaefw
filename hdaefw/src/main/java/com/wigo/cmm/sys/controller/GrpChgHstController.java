@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmGrpMenuHstVo;
+import com.wigo.cmm.sys.model.GrpMenuHstVo;
 import com.wigo.cmm.sys.service.CrmGrpMenuHstService;
 
 @Controller
@@ -45,16 +45,16 @@ public @ResponseBody Object get(@RequestParam Map<String, Object> rparam) throws
     return service.get(param);
 }
 @PostMapping(value = {"save" })
-public @ResponseBody Object save(@RequestBody CrmGrpMenuHstVo vo) throws Exception {
+public @ResponseBody Object save(@RequestBody GrpMenuHstVo vo) throws Exception {
     return service.save(vo);
 }
 
 @PostMapping(value = { "saveList" })
-public @ResponseBody Object saveList(@RequestBody List<CrmGrpMenuHstVo> list) throws Exception {
+public @ResponseBody Object saveList(@RequestBody List<GrpMenuHstVo> list) throws Exception {
     return service.saveList(list);
 }
 @PostMapping(value = { "deleteList" })
-public @ResponseBody Object deleteList(@RequestBody List<CrmGrpMenuHstVo> list) throws Exception {
+public @ResponseBody Object deleteList(@RequestBody List<GrpMenuHstVo> list) throws Exception {
     return service.deleteList(list);
 }
 }

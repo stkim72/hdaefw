@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmOrgBaseVo;
+import com.wigo.cmm.sys.model.OrgBaseVo;
 import com.wigo.cmm.sys.service.CrmOrgBaseService;
 
 @Controller
@@ -58,16 +58,16 @@ public @ResponseBody Object get(@RequestParam Map<String, Object> rparam) throws
     return service.get(param);
 }
 @PostMapping(value = {"save" })
-public @ResponseBody Object save(@RequestBody CrmOrgBaseVo vo) throws Exception {
+public @ResponseBody Object save(@RequestBody OrgBaseVo vo) throws Exception {
     return service.save(vo);
 }
 
 @PostMapping(value = { "saveList" })
-public @ResponseBody Object saveList(@RequestBody List<CrmOrgBaseVo> list) throws Exception {
+public @ResponseBody Object saveList(@RequestBody List<OrgBaseVo> list) throws Exception {
     return service.saveList(list);
 }
 @PostMapping(value = { "deleteList" })
-public @ResponseBody Object deleteList(@RequestBody List<CrmOrgBaseVo> list) throws Exception {
+public @ResponseBody Object deleteList(@RequestBody List<OrgBaseVo> list) throws Exception {
     return service.deleteList(list);
 }
 }

@@ -16,7 +16,7 @@ import com.wigo.cmm.sys.dao.ICmmDao;
  * @Company    Copyright ⓒ wigo.ai. All Right Reserved
  */
 @Service
-public class BatchExecHstService extends AbstractCrmService {
+public class BatchExecHstService extends AbstractCmmService {
    @Autowired
    BatchExecHstDao dao;
 

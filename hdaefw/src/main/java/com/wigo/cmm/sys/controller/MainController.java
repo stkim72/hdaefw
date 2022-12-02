@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmNtcartBasVo;
-import com.wigo.cmm.sys.model.CrmUserWdgtVo;
+import com.wigo.cmm.sys.model.NtcartBasVo;
+import com.wigo.cmm.sys.model.UserWdgtVo;
 import com.wigo.cmm.sys.service.CrmMenuService;
 import com.wigo.cmm.sys.service.CrmNtcartBasService;
 import com.wigo.cmm.sys.service.CrmUserWdgtService;
@@ -66,7 +66,7 @@ public class MainController {
 		EzMap so = new EzMap();
 		so.setString("dashboard", "Y");
 		so.setInt("recordCountPerPage", "7");
-		List<CrmNtcartBasVo> noticeList = noticeService.getList(so);
+		List<NtcartBasVo> noticeList = noticeService.getList(so);
 		map.addAttribute("noticeList",noticeList);
 		map.addAttribute("widgetData",widgetServcie.getData());
 		return "crm/blankBody/main/widget";
@@ -74,12 +74,12 @@ public class MainController {
 	
 	
 	@PostMapping(value = { "addWdgt" })
-	public @ResponseBody Object addWdgt(@RequestBody CrmUserWdgtVo vo) throws Exception {
+	public @ResponseBody Object addWdgt(@RequestBody UserWdgtVo vo) throws Exception {
 		return menuService.insertWdgt(vo);
 	}
 
 	@PostMapping(value = { "removeWdgt" })
-	public @ResponseBody Object removeWdgt(@RequestBody CrmUserWdgtVo vo) throws Exception {
+	public @ResponseBody Object removeWdgt(@RequestBody UserWdgtVo vo) throws Exception {
 		return menuService.deleteWdgt(vo);
 	}
 

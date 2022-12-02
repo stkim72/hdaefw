@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.dao.ApiInfoBaseDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmApiInfoBaseVo;
+import com.wigo.cmm.sys.model.ApiInfoBaseVo;
 
 @Service
-public class CrmApiManageService extends AbstractCrmService {
+public class CrmApiManageService extends AbstractCmmService {
 	@Autowired
 	ApiInfoBaseDao dao;
 
@@ -20,8 +20,8 @@ public class CrmApiManageService extends AbstractCrmService {
 
 	@Override
 	public int update(Object param) throws Exception {
-		if(param instanceof CrmApiInfoBaseVo) {
-			CrmApiInfoBaseVo vo = (CrmApiInfoBaseVo) param;
+		if(param instanceof ApiInfoBaseVo) {
+			ApiInfoBaseVo vo = (ApiInfoBaseVo) param;
 			String url = vo.getApiUrl();
 			if(Utilities.isNotEmpty(url) && !url.startsWith("/"))
 				vo.setApiUrl("/"+url);
@@ -30,8 +30,8 @@ public class CrmApiManageService extends AbstractCrmService {
 	}
 	@Override
 	public int insert(Object param) throws Exception {
-		if(param instanceof CrmApiInfoBaseVo) {
-			CrmApiInfoBaseVo vo = (CrmApiInfoBaseVo) param;
+		if(param instanceof ApiInfoBaseVo) {
+			ApiInfoBaseVo vo = (ApiInfoBaseVo) param;
 			String url = vo.getApiUrl();
 			if(Utilities.isNotEmpty(url) && !url.startsWith("/"))
 				vo.setApiUrl("/"+url);

@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmFileVo;
+import com.wigo.cmm.sys.model.FileVo;
 import com.wigo.cmm.sys.service.CrmFileService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -73,23 +73,23 @@ public class FileController {
 	}
 
 	@PostMapping(value = { "uploadFile" })
-	public @ResponseBody Object uploadFile(@RequestParam("uploadFile") MultipartFile uploadfile, CrmFileVo param)
+	public @ResponseBody Object uploadFile(@RequestParam("uploadFile") MultipartFile uploadfile, FileVo param)
 			throws Exception {
 		return service.uploadFile(uploadfile, param);
 	}
 
 	@PostMapping(value = { "downloadFile" })
-	public @ResponseBody void downloadFile(@RequestBody CrmFileVo fileInfo) throws Exception {
+	public @ResponseBody void downloadFile(@RequestBody FileVo fileInfo) throws Exception {
 		service.downloadFile(fileInfo);
 	}
 
 	@PostMapping(value = { "getFileInfo" })
-	public @ResponseBody Object getFileInfo(@RequestBody CrmFileVo fileInfo) throws Exception {
+	public @ResponseBody Object getFileInfo(@RequestBody FileVo fileInfo) throws Exception {
 		return service.get(fileInfo);
 	}
 
 	@GetMapping(value = { "download" })
-	public @ResponseBody void download(CrmFileVo fileInfo) throws Exception {
+	public @ResponseBody void download(FileVo fileInfo) throws Exception {
 		service.downloadFile(fileInfo);
 	}
 
@@ -102,34 +102,34 @@ public class FileController {
 	}
 
 	@PostMapping(value = { "addFileInfo" })
-	public @ResponseBody Object addFileInfo(@RequestBody CrmFileVo param) throws Exception {
+	public @ResponseBody Object addFileInfo(@RequestBody FileVo param) throws Exception {
 		param.setStat("c");
 		return service.save(param);
 	}
 
 	@PostMapping(value = { "editFileInfo" })
-	public @ResponseBody Object editFileInfo(@RequestBody CrmFileVo param) throws Exception {
+	public @ResponseBody Object editFileInfo(@RequestBody FileVo param) throws Exception {
 		param.setStat("u");
 		return service.save(param);
 	}
 
 	@PostMapping(value = { "removeFileList" })
-	public @ResponseBody Object removeFileInfoList(@RequestBody List<CrmFileVo> param) throws Exception {
+	public @ResponseBody Object removeFileInfoList(@RequestBody List<FileVo> param) throws Exception {
 		return service.deleteList(param);
 	}
 
 	@PostMapping(value = { "removeFileInfo" })
-	public @ResponseBody Object removeFileInfo(@RequestBody CrmFileVo param) throws Exception {
+	public @ResponseBody Object removeFileInfo(@RequestBody FileVo param) throws Exception {
 		return service.delete(param);
 	}
 
 	@PostMapping(value = { "saveFileInfo" })
-	public @ResponseBody Object saveFileInfo(@RequestBody CrmFileVo param) throws Exception {
+	public @ResponseBody Object saveFileInfo(@RequestBody FileVo param) throws Exception {
 		return service.save(param);
 	}
 
 	@PostMapping(value = { "save" })
-	public @ResponseBody Object save(@RequestBody List<CrmFileVo> param) throws Exception {
+	public @ResponseBody Object save(@RequestBody List<FileVo> param) throws Exception {
 		return service.saveList(param);
 	}
 

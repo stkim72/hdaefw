@@ -12,12 +12,12 @@ import com.wigo.cmm.sys.dao.GrpMenuRelDao;
 import com.wigo.cmm.sys.dao.GrpOrgRelDao;
 import com.wigo.cmm.sys.dao.GrpUserRelDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmGrpBaseVo;
-import com.wigo.cmm.sys.model.CrmGrpMenuRelVo;
-import com.wigo.cmm.sys.model.CrmGrpUserRelVo;
+import com.wigo.cmm.sys.model.GrpBaseVo;
+import com.wigo.cmm.sys.model.GrpMenuRelVo;
+import com.wigo.cmm.sys.model.GrpUserRelVo;
 
 @Service
-public class CrmGrpBaseService extends AbstractCrmService {
+public class CrmGrpBaseService extends AbstractCmmService {
 	@Autowired
 	GrpBaseDao dao;
 	@Autowired
@@ -34,7 +34,7 @@ public class CrmGrpBaseService extends AbstractCrmService {
 		return dao;
 	}
 
-	public List<CrmGrpUserRelVo> getGroupUserList(Object param) throws Exception {
+	public List<GrpUserRelVo> getGroupUserList(Object param) throws Exception {
 		return dao.selectGroupUserList(param);
 	}
 
@@ -42,7 +42,7 @@ public class CrmGrpBaseService extends AbstractCrmService {
 		return dao.selectGroupUserListCount(param);
 	}
 
-	public List<CrmGrpMenuRelVo> getGroupMenuList(Object param) throws Exception {
+	public List<GrpMenuRelVo> getGroupMenuList(Object param) throws Exception {
 		return dao.selectGroupMenuList(param);
 	}
 
@@ -50,7 +50,7 @@ public class CrmGrpBaseService extends AbstractCrmService {
 		return dao.selectGroupMenuListCount(param);
 	}
 
-	public List<CrmGrpBaseVo> getGroupCheckList(EzMap param) throws Exception {
+	public List<GrpBaseVo> getGroupCheckList(EzMap param) throws Exception {
 		return dao.selectGroupCheckList(param);
 	}
 
@@ -63,7 +63,7 @@ public class CrmGrpBaseService extends AbstractCrmService {
 		return super.delete(param);
 	}
 
-	public List<CrmGrpMenuRelVo> getGroupOrgList(EzMap param) {
+	public List<GrpMenuRelVo> getGroupOrgList(EzMap param) {
 		return grpOrgDao.selectList(param);
 	}
 
@@ -71,7 +71,7 @@ public class CrmGrpBaseService extends AbstractCrmService {
 		return grpOrgDao.selectListCount(param);
 	}
 
-	public List<CrmGrpMenuRelVo> getGroupEmpList(EzMap param) {
+	public List<GrpMenuRelVo> getGroupEmpList(EzMap param) {
 		return grpEmpDao.selectList(param);
 	}
 

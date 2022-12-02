@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.wigo.cmm.sys.model.ICrmFile;
+import com.wigo.cmm.sys.model.ICmmFile;
 
 /**
  * 
@@ -42,7 +42,7 @@ public class AsyncService {
 	}
 
 	@Async
-	public void deleteFileCd(ICrmFile crmFile) throws Exception {
+	public void deleteFileCd(ICmmFile crmFile) throws Exception {
 		fileService.deleteFileCd(crmFile);
 	}
 }

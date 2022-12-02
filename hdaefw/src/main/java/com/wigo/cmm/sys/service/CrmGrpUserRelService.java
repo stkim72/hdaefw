@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.sys.dao.GrpUserRelDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmGrpUserRelVo;
+import com.wigo.cmm.sys.model.GrpUserRelVo;
 
 @Service
-public class CrmGrpUserRelService extends AbstractCrmService {
+public class CrmGrpUserRelService extends AbstractCmmService {
 	@Autowired
 	GrpUserRelDao dao;
 
@@ -20,13 +20,13 @@ public class CrmGrpUserRelService extends AbstractCrmService {
 		return dao;
 	}
 
-	public Object saveUserGroup(String userCd, List<CrmGrpUserRelVo> list) throws Exception {
+	public Object saveUserGroup(String userCd, List<GrpUserRelVo> list) throws Exception {
 		EzMap param = new EzMap();
 		param.setString("userCd", userCd);
 		dao.deleteUserCd(param);
 		return insertList(list);
 	}
-	public Object saveGroupUser(String grpCd, List<CrmGrpUserRelVo> list) throws Exception{
+	public Object saveGroupUser(String grpCd, List<GrpUserRelVo> list) throws Exception{
 		EzMap param = new EzMap();
 		param.setString("grpCd", grpCd);
 		dao.deleteGrpCd(param);

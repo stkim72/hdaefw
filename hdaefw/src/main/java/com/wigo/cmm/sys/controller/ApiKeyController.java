@@ -17,7 +17,7 @@ import com.wigo.cmm.common.jwt.JwtUtility;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmComnCdBaseVo;
+import com.wigo.cmm.sys.model.ComnCdBaseVo;
 import com.wigo.cmm.sys.service.CrmComnCdService;
 
 /**
@@ -56,7 +56,7 @@ public class ApiKeyController {
 		return Utilities.getGridData(list,page);
 	}
 	@PostMapping(value = { "getApikey" })
-	public @ResponseBody Object getApikey(@RequestBody CrmComnCdBaseVo param) throws Exception {
+	public @ResponseBody Object getApikey(@RequestBody ComnCdBaseVo param) throws Exception {
 		String token = JwtUtility.createToken("SYSTEM", param.getComnCd());
 		EzMap ret = new EzMap();
 		ret.setString("token", token);
@@ -69,16 +69,16 @@ public class ApiKeyController {
 		return service.get(param);
 	}
 	@PostMapping(value = { "save" })
-	public @ResponseBody Object save(@RequestBody CrmComnCdBaseVo vo) throws Exception {
+	public @ResponseBody Object save(@RequestBody ComnCdBaseVo vo) throws Exception {
 		return service.save(vo);
 	}	
 	
 	@PostMapping(value = { "saveList" })
-	public @ResponseBody Object saveList(@RequestBody List<CrmComnCdBaseVo> list) throws Exception {
+	public @ResponseBody Object saveList(@RequestBody List<ComnCdBaseVo> list) throws Exception {
 		return service.saveList(list);
 	}	
 	@PostMapping(value = { "deleteList" })
-	public @ResponseBody Object deleteList(@RequestBody List<CrmComnCdBaseVo> list) throws Exception {
+	public @ResponseBody Object deleteList(@RequestBody List<ComnCdBaseVo> list) throws Exception {
 		return service.deleteList(list);
 	}
 	

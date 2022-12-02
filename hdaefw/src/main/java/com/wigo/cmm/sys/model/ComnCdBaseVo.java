@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmComnCdBaseVo extends BaseVo {
+public class ComnCdBaseVo extends BaseVo {
 	/**
 	 * 
 	 */

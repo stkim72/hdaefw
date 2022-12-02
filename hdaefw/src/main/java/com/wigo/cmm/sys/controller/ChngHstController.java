@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmChngHstVo;
+import com.wigo.cmm.sys.model.ChngHstVo;
 import com.wigo.cmm.sys.service.CrmChngHstService;
 
 /**
@@ -48,8 +48,8 @@ public class ChngHstController {
 	}
 	
 	@GetMapping(value = { "detail/{hstCd}" })
-	public String detail(CrmChngHstVo vo,@PathVariable("hstCd") String hstCd , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
-		vo.setChngHstCd(hstCd);
+	public String detail(ChngHstVo vo,@PathVariable("hstId") String hstId , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
+		vo.setChngHstId(hstId);
 		model.addAttribute("hist", service.get(vo));
 		model.addAllAttributes(param);
 		return Utilities.getProperty("tiles.crm.blank") + "sys/changeHistDetail";

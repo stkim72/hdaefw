@@ -5,14 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmChngHstVo;
+import com.wigo.cmm.sys.model.ChngHstVo;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ChangeLogVo extends CrmChngHstVo {
+public class ChangeLogVo extends ChngHstVo {
 
 	/**
 	 * 

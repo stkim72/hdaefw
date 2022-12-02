@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmApiInfoBaseVo extends BaseVo {
+public class ApiInfoBaseVo extends BaseVo {
     /**
 	 * 
 	 */
@@ -15,7 +15,7 @@ public class CrmApiInfoBaseVo extends BaseVo {
 	/**
     * <p>API코드</p> 
     */
-    private String apiCd;
+    private String apiId;
     /**
     * <p>시스템코드</p> 
     */

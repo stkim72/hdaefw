@@ -10,7 +10,7 @@ import com.wigo.cmm.sys.dao.GenGridDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
 
 @Service
-public class CrmGenGridService extends AbstractCrmService {
+public class CrmGenGridService extends AbstractCmmService {
 	@Autowired
 	GenGridDao dao;
 

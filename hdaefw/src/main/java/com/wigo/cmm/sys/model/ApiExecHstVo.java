@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmApiExecHstVo extends CrmApiInfoBaseVo{
+public class ApiExecHstVo extends ApiInfoBaseVo{
     /**
 	 * 
 	 */
@@ -13,11 +13,11 @@ public class CrmApiExecHstVo extends CrmApiInfoBaseVo{
 	/**
     * <p>API이력코드</p> 
     */
-    private String apiHstCd;
+    private String apiHstId;
     /**
     * <p>API코드</p> 
     */
-    private String apiCd;
+    private String apiId;
     /**
     * <p>API호출URL</p> 
     */

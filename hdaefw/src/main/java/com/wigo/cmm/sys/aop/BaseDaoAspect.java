@@ -15,7 +15,7 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.SessionUtil;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmLoginUserVo;
+import com.wigo.cmm.sys.model.LoginUserVo;
 
 /**
  * <pre>
@@ -49,7 +49,7 @@ public class BaseDaoAspect {
 				}
 			}
 			if(Utilities.isEmpty(userCd) || "SYSTEM".equals(userCd)) {
-				CrmLoginUserVo user = SessionUtil.getLoginUser();
+				LoginUserVo user = SessionUtil.getLoginUser();
 //				userCd = user==null? null : user.getLoginId();
 				userCd = user==null? null : user.getUserCd();
 				if (Utilities.isEmpty(userCd)) {

@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmMenuBaseVo extends AbstractTreeVo {
+public class MenuBaseVo extends AbstractTreeVo {
     /**
 	 * 
 	 */
@@ -21,7 +21,7 @@ public class CrmMenuBaseVo extends AbstractTreeVo {
 	 * 메뉴코드
 	 * </p>
 	 */
-	private String menuCd;
+	private String menuId;
 	/**
 	 * <p>
 	 * 메뉴명
@@ -39,13 +39,13 @@ public class CrmMenuBaseVo extends AbstractTreeVo {
 	 * 최상위메뉴코드
 	 * </p>
 	 */
-	private String topMenuCd;
+	private String topMenuId;
 	/**
 	 * <p>
 	 * 부모메뉴코드
 	 * </p>
 	 */
-	private String prntsMenuCd;
+	private String prntsMenuId;
 	/**
 	 * <p>
 	 * 메뉴레벨번호
@@ -112,16 +112,16 @@ public class CrmMenuBaseVo extends AbstractTreeVo {
 	 * </p>
 	 */
 	private String useYn;
-	public CrmMenuBaseVo() {
+	public MenuBaseVo() {
 
 	}
 
-	public CrmMenuBaseVo(Map<String, Object> param) {
+	public MenuBaseVo(Map<String, Object> param) {
 		super(param);
 	}
 	@Override
 	public String getId() {
-		return getMenuCd();
+		return getMenuId();
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class CrmMenuBaseVo extends AbstractTreeVo {
 
 	@Override
 	public String getParentId() {
-		return getPrntsMenuCd();
+		return getPrntsMenuId();
 	}
 	@Override
 	public int getLevel() {

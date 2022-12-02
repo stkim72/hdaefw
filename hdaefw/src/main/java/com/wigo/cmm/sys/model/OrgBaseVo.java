@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmOrgBaseVo extends AbstractTreeVo {
+public class OrgBaseVo extends AbstractTreeVo {
     /**
     *
     */

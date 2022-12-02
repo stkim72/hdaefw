@@ -27,11 +27,11 @@ public class BatchExecHstVo extends BaseVo {
 	/**
 	 * 배치이력코드
 	 */
-	private String batchHstCd;
+	private String batchHstId;
 	/**
 	 * 배치코드
 	 */
-	private String batchCd;
+	private String batchId;
 	/**
 	 * 시스템코드 공통코드 : S000 [CRM : CRM , CTC : 상담 , AS : AS , SAP : SAP , POS : POS]
 	 */

@@ -7,7 +7,7 @@ import com.wigo.cmm.sys.dao.GrpEmpHstDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
 
 @Service
-public class CrmGrpEmpHstService extends AbstractCrmService {
+public class CrmGrpEmpHstService extends AbstractCmmService {
    @Autowired
    GrpEmpHstDao dao;
 

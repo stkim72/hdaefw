@@ -7,7 +7,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmMenuVo;
+import com.wigo.cmm.sys.model.MenuVo;
 
 /**
  * 
@@ -54,7 +54,7 @@ public class BtnGroupTag extends TagSupport {
 	public int doStartTag() throws JspException {
 
 		ServletRequest req = pageContext.getRequest();
-		CrmMenuVo menu = (CrmMenuVo) req.getAttribute("currentMenu");
+		MenuVo menu = (MenuVo) req.getAttribute("currentMenu");
 		if (menu != null) {
 			StringBuffer html = new StringBuffer();
 			String gridIdHtml = "";

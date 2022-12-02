@@ -70,8 +70,8 @@ public @ResponseBody Object getList(@RequestBody EzMap param) throws Exception {
     return Utilities.getGridData(list,page);
 }
 @GetMapping(value = { "detail/{batchHstCd}" })
-public String detail(BatchExecHstVo vo,@PathVariable("batchHstCd") String batchHstCd , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
-	vo.setBatchHstCd(batchHstCd);
+public String detail(BatchExecHstVo vo,@PathVariable("batchHstCd") String batchHstId , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
+	vo.setBatchHstId(batchHstId);
 	model.addAttribute("hist", service.get(vo));
 	model.addAllAttributes(param);
 	return Utilities.getProperty("tiles.crm.blank") + "sys/batchHistDetail";

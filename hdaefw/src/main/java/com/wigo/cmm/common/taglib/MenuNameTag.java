@@ -36,7 +36,7 @@ public class MenuNameTag extends TagSupport {
     public int doStartTag() throws JspException {
     	
     	EzMap param = new EzMap();
-    	param.put("menuCd",getMenuCd());
+    	param.put("menuCd",getMenuId());
     	try {
     		EzMap menu  = service.get(param);
     		if(menu!=null)
@@ -46,7 +46,7 @@ public class MenuNameTag extends TagSupport {
 		}
     	return SKIP_BODY;
     }
-	public String getMenuCd() {
+	public String getMenuId() {
 		return menuCd;
 	}
 	public void setMenuCd(String menuCd) {

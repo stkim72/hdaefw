@@ -9,10 +9,10 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.sys.dao.GrpMenuHstDao;
 import com.wigo.cmm.sys.dao.GrpMenuRelDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmGrpMenuRelVo;
+import com.wigo.cmm.sys.model.GrpMenuRelVo;
 
 @Service
-public class CrmGrpMenuRelService extends AbstractCrmService {
+public class CrmGrpMenuRelService extends AbstractCmmService {
 	@Autowired
 	GrpMenuRelDao dao;
 	
@@ -32,13 +32,13 @@ public class CrmGrpMenuRelService extends AbstractCrmService {
 		hstDao.insertDelete(param);
 		return super.delete(param);
 	}
-	public Object saveMenuGroup(String menuCd, List<CrmGrpMenuRelVo> list) throws Exception {
+	public Object saveMenuGroup(String menuCd, List<GrpMenuRelVo> list) throws Exception {
 		EzMap param = new EzMap();
 		param.setString("menuCd", menuCd);
 		dao.deleteMenuCd(param);
 		return insertList(list);
 	}
-	public Object saveGroupMenu(String grpCd, List<CrmGrpMenuRelVo> list) throws Exception {
+	public Object saveGroupMenu(String grpCd, List<GrpMenuRelVo> list) throws Exception {
 		EzMap param = new EzMap();
 		param.setString("grpCd", grpCd);
 		dao.deleteGrpCd(param);

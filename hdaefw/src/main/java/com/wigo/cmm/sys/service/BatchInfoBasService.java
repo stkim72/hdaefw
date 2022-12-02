@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-public class BatchInfoBasService extends AbstractCrmService {
+public class BatchInfoBasService extends AbstractCmmService {
 
 	@Value("${spring.batch.host}")
 	String host;

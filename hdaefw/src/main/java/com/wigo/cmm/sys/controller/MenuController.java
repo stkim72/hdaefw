@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmMenuVo;
+import com.wigo.cmm.sys.model.MenuVo;
 import com.wigo.cmm.sys.service.CrmMenuService;
 
 /**
@@ -49,7 +49,7 @@ public class MenuController {
 	@GetMapping(value = { "add" })
 	public String add(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		//model.addAllAttributes(param);
-		CrmMenuVo menu = service.getNewMenu(new CrmMenuVo(param));
+		MenuVo menu = service.getNewMenu(new MenuVo(param));
 		model.addAllAttributes(Utilities.beanToMap(menu));
 		return Utilities.getProperty("tiles.crm.blank") + "sys/menuAdd";
 	}
@@ -59,7 +59,7 @@ public class MenuController {
 //	public @ResponseBody Object getList(@RequestParam Map<String, Object> rparam) throws Exception {
 
 		EzPaginationInfo page = param.getPaginationInfo();
-		List<CrmMenuVo> list = service.getList(param);
+		List<MenuVo> list = service.getList(param);
 		page.setTotalRecordCount(service.getListCount(param));
 		return Utilities.getGridData(list, page);
 	}
@@ -70,40 +70,40 @@ public class MenuController {
 
 	
 	@PostMapping(value = { "addMenu" })
-	public @ResponseBody Object addMenu(@RequestBody CrmMenuVo param) throws Exception {
+	public @ResponseBody Object addMenu(@RequestBody MenuVo param) throws Exception {
 		return service.save(param);
 		
 	}
 
 	@PostMapping(value = { "update" })
-	public @ResponseBody Object editMenu(@RequestBody CrmMenuVo param) throws Exception {
+	public @ResponseBody Object editMenu(@RequestBody MenuVo param) throws Exception {
 		return service.update(param);
 	}
 
 	@PostMapping(value = { "deleteList" })
-	public @ResponseBody Object removeMenuList(@RequestBody List<CrmMenuVo> param) throws Exception {
+	public @ResponseBody Object removeMenuList(@RequestBody List<MenuVo> param) throws Exception {
 		return service.deleteList(param);
 	}
 
 	@PostMapping(value = { "delete" })
-	public @ResponseBody Object removeMenu(@RequestBody CrmMenuVo param) throws Exception {
+	public @ResponseBody Object removeMenu(@RequestBody MenuVo param) throws Exception {
 		return service.delete(param);
 	}
 	@PostMapping(value = { "saveList" })
-	public @ResponseBody Object save(@RequestBody List<CrmMenuVo> list) throws Exception {
+	public @ResponseBody Object save(@RequestBody List<MenuVo> list) throws Exception {
 		return service.saveList(list);
 	}
 	@PostMapping(value = { "save" })
-	public @ResponseBody Object saveMenu(@RequestBody CrmMenuVo param) throws Exception {
+	public @ResponseBody Object saveMenu(@RequestBody MenuVo param) throws Exception {
 		return service.save(param);
 	}
 	@PostMapping(value = { "saveOrgd" })
-	public @ResponseBody Object saveMenuSeq(@RequestBody CrmMenuVo param) throws Exception {
+	public @ResponseBody Object saveMenuSeq(@RequestBody MenuVo param) throws Exception {
 		return service.saveSeq(param);
 	}
 	
 	@PostMapping(value = { "savemenuOdrgList" })
-	public @ResponseBody Object saveMenuSeq(@RequestBody List<CrmMenuVo> list) throws Exception {
+	public @ResponseBody Object saveMenuSeq(@RequestBody List<MenuVo> list) throws Exception {
 		return service.saveSeq(list);
 	}
 

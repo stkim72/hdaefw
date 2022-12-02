@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmApiExecHstVo;
+import com.wigo.cmm.sys.model.ApiExecHstVo;
 import com.wigo.cmm.sys.service.CrmApiHistService;
 
 /**
@@ -47,8 +47,8 @@ public class ApiExecHistController {
 		return Utilities.getProperty("tiles.crm") + "sys/apiHistList";
 	}
 	@GetMapping(value = { "detail/{apiHstCd}" })
-	public String detail(CrmApiExecHstVo vo,@PathVariable("apiHstCd") String apiHstCd , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
-		vo.setApiHstCd(apiHstCd);
+	public String detail(ApiExecHstVo vo,@PathVariable("apiHstCd") String apiHstId , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
+		vo.setApiHstId(apiHstId);
 		model.addAttribute("hist", service.get(vo));
 		model.addAllAttributes(param);
 		return Utilities.getProperty("tiles.crm.blank") + "sys/apiHistDetail";
@@ -69,16 +69,16 @@ public class ApiExecHistController {
 		return service.get(param);
 	}
 	@PostMapping(value = { "save" })
-	public @ResponseBody Object save(@RequestBody CrmApiExecHstVo vo) throws Exception {
+	public @ResponseBody Object save(@RequestBody ApiExecHstVo vo) throws Exception {
 		return service.save(vo);
 	}	
 	
 	@PostMapping(value = { "saveList" })
-	public @ResponseBody Object saveList(@RequestBody List<CrmApiExecHstVo> list) throws Exception {
+	public @ResponseBody Object saveList(@RequestBody List<ApiExecHstVo> list) throws Exception {
 		return service.saveList(list);
 	}	
 	@PostMapping(value = { "deleteList" })
-	public @ResponseBody Object deleteList(@RequestBody List<CrmApiExecHstVo> list) throws Exception {
+	public @ResponseBody Object deleteList(@RequestBody List<ApiExecHstVo> list) throws Exception {
 		return service.deleteList(list);
 	}
 	

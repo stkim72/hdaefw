@@ -11,10 +11,10 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.dao.ComnCdBaseDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmComnCdBaseVo;
+import com.wigo.cmm.sys.model.ComnCdBaseVo;
 
 @Service
-public class CrmComnCdService extends AbstractCrmService {
+public class CrmComnCdService extends AbstractCmmService {
 	@Autowired
 	ComnCdBaseDao dao;
 
@@ -25,13 +25,13 @@ public class CrmComnCdService extends AbstractCrmService {
 
 	@Override
 	public int delete(Object param) throws Exception {
-		if (param instanceof CrmComnCdBaseVo) {
+		if (param instanceof ComnCdBaseVo) {
 			dao.deleteChildren(param);
 		}
 		return super.delete(param);
 	}
 
-	public List<CrmComnCdBaseVo> getComboCode(Object param) throws Exception {
+	public List<ComnCdBaseVo> getComboCode(Object param) throws Exception {
 		return dao.selectCodeCombo(param);
 	}
 
@@ -40,10 +40,10 @@ public class CrmComnCdService extends AbstractCrmService {
 		if (Utilities.isEmpty(codeCd))
 			return "";
 		param.setString("codeName", "Y");
-		List<CrmComnCdBaseVo> codeList = dao.selectCodeCombo(param);
+		List<ComnCdBaseVo> codeList = dao.selectCodeCombo(param);
 
 		for (int i = 0; codeList != null && i < codeList.size(); i++) {
-			CrmComnCdBaseVo vo = codeList.get(i);
+			ComnCdBaseVo vo = codeList.get(i);
 			if (codeCd.equals(vo.getComnCd()))
 				return vo.getComnCdNm();
 		}

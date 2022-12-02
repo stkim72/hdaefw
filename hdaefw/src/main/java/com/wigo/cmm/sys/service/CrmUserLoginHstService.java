@@ -7,7 +7,7 @@ import com.wigo.cmm.sys.dao.UserLoginHstDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
 
 @Service
-public class CrmUserLoginHstService extends AbstractCrmService {
+public class CrmUserLoginHstService extends AbstractCmmService {
 	@Autowired
 	UserLoginHstDao dao;
 

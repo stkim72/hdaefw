@@ -7,7 +7,7 @@ import com.wigo.cmm.sys.dao.NtcartBasDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
 
 @Service
-public class CrmNtcartBasService extends AbstractCrmService {
+public class CrmNtcartBasService extends AbstractCmmService {
    @Autowired
    NtcartBasDao dao;
 

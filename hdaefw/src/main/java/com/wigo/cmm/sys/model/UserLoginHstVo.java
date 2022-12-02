@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmUserLoginHstVo extends CrmLoginUserVo {
+public class UserLoginHstVo extends LoginUserVo {
     /**
 	 * 
 	 */

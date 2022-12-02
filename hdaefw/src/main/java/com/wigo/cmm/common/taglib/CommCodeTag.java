@@ -8,7 +8,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmComnCdBaseVo;
+import com.wigo.cmm.sys.model.ComnCdBaseVo;
 import com.wigo.cmm.sys.service.CrmComnCdService;
 
 /**
@@ -320,7 +320,7 @@ public class CommCodeTag extends TagSupport {
 		}
 
 		try {
-			List<CrmComnCdBaseVo> list = codeService.getComboCode(param);
+			List<ComnCdBaseVo> list = codeService.getComboCode(param);
 			if (Utilities.isNotEmpty(prefixValue) || Utilities.isNotEmpty(prefixLabel)) {
 				prefixValue = Utilities.nullCheck(prefixValue);
 				prefixLabel = Utilities.nullCheck(prefixLabel);
@@ -334,7 +334,7 @@ public class CommCodeTag extends TagSupport {
 
 			}
 			for (int i = 0; i < list.size(); i++) {
-				CrmComnCdBaseVo code = list.get(i);
+				ComnCdBaseVo code = list.get(i);
 				String selected = "";
 				if (selectedList.contains(code.getComnCd())) {
 //				if (code.getComnCd().equals(selectedValue)) {

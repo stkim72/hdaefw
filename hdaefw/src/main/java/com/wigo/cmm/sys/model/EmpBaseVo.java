@@ -1,13 +1,11 @@
 package com.wigo.cmm.sys.model;
 
-import com.wigo.cmm.common.model.BaseVo;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmEmpBaseVo extends BaseVo {
+public class EmpBaseVo extends UserBaseVo {
     /**
     *
     */
@@ -27,7 +25,7 @@ private static final long serialVersionUID = 1L;
     /**
     * <p>회사코드</p> 
     */
-    private String cmpCd;
+    private String cmpId;
     /**
     * <p>직업ID</p> 
     */

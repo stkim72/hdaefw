@@ -8,7 +8,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmFileBaseVo;
+import com.wigo.cmm.sys.model.FileBaseVo;
 import com.wigo.cmm.sys.service.CrmFileService;
 
 /**
@@ -96,7 +96,7 @@ public class FileInfoTag extends TagSupport {
 		if (fileSeq > 0) {
 			param.setInt("fileSeq", fileSeq);
 		}
-		List<CrmFileBaseVo> fileList = null;
+		List<FileBaseVo> fileList = null;
 		try {
 			fileList = service.getList(param);
 			if (Utilities.isEmpty(fileList))

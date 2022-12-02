@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 
 import com.wigo.cmm.sys.dao.ErrHstDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmErrHstVo;
-import com.wigo.cmm.sys.model.CrmMenuBaseVo;
+import com.wigo.cmm.sys.model.ErrHstVo;
+import com.wigo.cmm.sys.model.MenuBaseVo;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class CrmErrHstService extends AbstractCrmService {
+public class CrmErrHstService extends AbstractCmmService {
 	@Autowired
 	ErrHstDao dao;
 
@@ -33,10 +33,10 @@ public class CrmErrHstService extends AbstractCrmService {
 			if (ex instanceof ClientAbortException) {
 				return;
 			}
-			CrmErrHstVo vo = new CrmErrHstVo();
-			CrmMenuBaseVo menu = (CrmMenuBaseVo) request.getAttribute("currentMenu");
+			ErrHstVo vo = new ErrHstVo();
+			MenuBaseVo menu = (MenuBaseVo) request.getAttribute("currentMenu");
 			if (menu != null) {
-				vo.setMenuCd(menu.getMenuCd());
+				vo.setMenuId(menu.getMenuId());
 			}
 
 //			ex.getMessage();

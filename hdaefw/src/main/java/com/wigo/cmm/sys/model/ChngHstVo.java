@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmChngHstVo extends CrmUserBaseVo {
+public class ChngHstVo extends UserBaseVo {
 	/**
 	*
 	*/
@@ -15,7 +15,7 @@ public class CrmChngHstVo extends CrmUserBaseVo {
 	 * 변경이력코드
 	 * </p>
 	 */
-	private String chngHstCd;
+	private String chngHstId;
 
 	private String menuCd;
 	private String menuPath;

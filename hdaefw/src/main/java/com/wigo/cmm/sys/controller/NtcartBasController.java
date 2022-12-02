@@ -18,7 +18,7 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Constants;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmNtcartBasVo;
+import com.wigo.cmm.sys.model.NtcartBasVo;
 import com.wigo.cmm.sys.service.CrmNtcartBasService;
 
 @Controller
@@ -37,7 +37,7 @@ public class NtcartBasController {
 	@GetMapping(value = { "add" })
 	public String add(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		CrmNtcartBasVo vo = new CrmNtcartBasVo();
+		NtcartBasVo vo = new NtcartBasVo();
 		vo.setBrdId(Constants._NOTICE_BBS_ID);
 		vo.setNtcartId(Utilities.getAutoSeq("BBS"));
 		vo.setTopNtcartId(vo.getNtcartId());
@@ -51,7 +51,7 @@ public class NtcartBasController {
 	@GetMapping(value = { "mod" })
 	public String mod(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		CrmNtcartBasVo vo = service.get(param);
+		NtcartBasVo vo = service.get(param);
 		model.addAttribute("vo", vo);
 		model.addAttribute("addMode", false);
 
@@ -62,7 +62,7 @@ public class NtcartBasController {
 	public String detail(@PathVariable("ntcartId") String ntcartId, ModelMap model) throws Exception {
 		EzMap param = new EzMap();
 		param.setString("ntcartId", ntcartId);
-		CrmNtcartBasVo vo = service.get(param);
+		NtcartBasVo vo = service.get(param);
 		model.addAttribute("vo", vo);
 
 		return Utilities.getProperty("tiles.crm.blank") + "sys/noticeDetail";
@@ -83,21 +83,21 @@ public class NtcartBasController {
 	}
 
 	@PostMapping(value = { "save" })
-	public @ResponseBody Object save(@RequestBody CrmNtcartBasVo vo) throws Exception {
+	public @ResponseBody Object save(@RequestBody NtcartBasVo vo) throws Exception {
 		return service.save(vo);
 	}
 
 	@PostMapping(value = { "saveList" })
-	public @ResponseBody Object saveList(@RequestBody List<CrmNtcartBasVo> list) throws Exception {
+	public @ResponseBody Object saveList(@RequestBody List<NtcartBasVo> list) throws Exception {
 		return service.saveList(list);
 	}
 
 	@PostMapping(value = { "deleteList" })
-	public @ResponseBody Object deleteList(@RequestBody List<CrmNtcartBasVo> list) throws Exception {
+	public @ResponseBody Object deleteList(@RequestBody List<NtcartBasVo> list) throws Exception {
 		return service.deleteList(list);
 	}
 	@PostMapping(value = { "remove" })
-	public @ResponseBody Object remove(@RequestBody CrmNtcartBasVo vo) throws Exception {
+	public @ResponseBody Object remove(@RequestBody NtcartBasVo vo) throws Exception {
 		return service.delete(vo);
 	}
 }

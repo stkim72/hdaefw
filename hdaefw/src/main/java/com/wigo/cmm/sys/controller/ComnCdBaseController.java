@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmComnCdBaseVo;
+import com.wigo.cmm.sys.model.ComnCdBaseVo;
 import com.wigo.cmm.sys.service.CrmComnCdService;
 
 /**
@@ -70,22 +70,22 @@ public class ComnCdBaseController {
 	}
 
 	@PostMapping(value = { "save" })
-	public @ResponseBody Object save(@RequestBody CrmComnCdBaseVo vo) throws Exception {
+	public @ResponseBody Object save(@RequestBody ComnCdBaseVo vo) throws Exception {
 		return service.save(vo);
 	}
 
 	@PostMapping(value = { "saveList" })
-	public @ResponseBody Object saveList(@RequestBody List<CrmComnCdBaseVo> list) throws Exception {
+	public @ResponseBody Object saveList(@RequestBody List<ComnCdBaseVo> list) throws Exception {
 		return service.saveList(list);
 	}
 
 	@PostMapping(value = { "deleteList" })
-	public @ResponseBody Object deleteList(@RequestBody List<CrmComnCdBaseVo> list) throws Exception {
+	public @ResponseBody Object deleteList(@RequestBody List<ComnCdBaseVo> list) throws Exception {
 		return service.deleteList(list);
 	}
 
 	@PostMapping(value = { "saveSeq" })
-	public @ResponseBody Object saveSeq(@RequestBody List<CrmComnCdBaseVo> list) throws Exception {
+	public @ResponseBody Object saveSeq(@RequestBody List<ComnCdBaseVo> list) throws Exception {
 		return service.updateSeqList(list);
 	}
 

@@ -16,11 +16,11 @@ import com.wigo.cmm.sys.dao.GrpMenuRelDao;
 import com.wigo.cmm.sys.dao.MenuBaseDao;
 import com.wigo.cmm.sys.dao.UserWdgtDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmMenuVo;
-import com.wigo.cmm.sys.model.CrmUserWdgtVo;
+import com.wigo.cmm.sys.model.MenuVo;
+import com.wigo.cmm.sys.model.UserWdgtVo;
 
 @Service("menuService")
-public class CrmMenuService extends AbstractCrmService {
+public class CrmMenuService extends AbstractCmmService {
 	@Autowired
 	MenuBaseDao dao;
 
@@ -45,11 +45,11 @@ public class CrmMenuService extends AbstractCrmService {
 		return super.delete(param);
 	}
 
-	public CrmMenuVo getNewMenu(CrmMenuVo param) throws Exception {
+	public MenuVo getNewMenu(MenuVo param) throws Exception {
 
-		String parentCd = param.getPrntsMenuCd();
-		CrmMenuVo parent = null;
-		CrmMenuVo maxInfo = null;
+		String parentCd = param.getPrntsMenuId();
+		MenuVo parent = null;
+		MenuVo maxInfo = null;
 		if (Utilities.isNotEmpty(parentCd)) {
 			EzMap so = new EzMap();
 			so.setString("menuCd", parentCd);
@@ -61,33 +61,33 @@ public class CrmMenuService extends AbstractCrmService {
 			maxInfo = dao.selectMaxInfo(so);
 		}
 		if (maxInfo == null)
-			maxInfo = new CrmMenuVo();
-		String menuCd = maxInfo.getMenuCd();
+			maxInfo = new MenuVo();
+		String menuCd = maxInfo.getMenuId();
 		int seq = maxInfo.getMenuOdrg() + 1;
 		if (Utilities.isEmpty(menuCd)) {
 			if (parent == null)
 				menuCd = "0000000000";
 			else
-				menuCd = parent.getMenuCd();
+				menuCd = parent.getMenuId();
 		}
 		if (parent == null) {
-			parent = new CrmMenuVo();
+			parent = new MenuVo();
 
 		}
 		int parentLevel = parent.getMenuLvlNo();
 		int offset = parentLevel * 2;
 //		int menuSeq = Utilities.parseInt(menuCd.substring(offset, offset + 2)) + 1;
 		menuCd = menuCd.substring(0, offset) + Utilities.padLeft(seq + "", 2, '0') + menuCd.substring(offset + 2);
-		CrmMenuVo menu = new CrmMenuVo();
-		menu.setMenuCd(menuCd);
+		MenuVo menu = new MenuVo();
+		menu.setMenuId(menuCd);
 		menu.setMenuLvlNo(parentLevel + 1);
 		menu.setMenuOdrg(seq);
 
 		if (parentLevel == 0)
-			menu.setTopMenuCd(menuCd);
+			menu.setTopMenuId(menuCd);
 		else {
-			menu.setTopMenuCd(parent.getTopMenuCd());
-			menu.setPrntsMenuCd(parent.getMenuCd());
+			menu.setTopMenuId(parent.getTopMenuId());
+			menu.setPrntsMenuId(parent.getMenuId());
 		}
 		menu.setUseYn("Y");
 		return menu;
@@ -145,13 +145,13 @@ public class CrmMenuService extends AbstractCrmService {
 		List<ITreeVo> list = Utilities.makeHierarchy(getUserMenuList(param), itemMap);
 		List<String> removeList = new ArrayList<String>();
 		for (String key : itemMap.keySet()) {
-			CrmMenuVo menu = (CrmMenuVo) itemMap.get(key);
+			MenuVo menu = (MenuVo) itemMap.get(key);
 			if (!menu.hasLinkedMenu()) {
 				removeList.add(menu.getId());
 			}
 		}
 		for (int i = 0; i < removeList.size(); i++) {
-			CrmMenuVo menu = (CrmMenuVo) itemMap.remove(removeList.get(i));
+			MenuVo menu = (MenuVo) itemMap.remove(removeList.get(i));
 			ITreeVo parant = menu.parent();
 			if (parant != null)
 			{
@@ -173,16 +173,16 @@ public class CrmMenuService extends AbstractCrmService {
 		return list;
 	}
 
-	public List<CrmMenuVo> getUserMenuList(Object param) throws Exception {
+	public List<MenuVo> getUserMenuList(Object param) throws Exception {
 		return dao.selectUserMenuList(param);
 	}
 
-	public EzMap saveSeq(CrmMenuVo param) throws Exception {
+	public EzMap saveSeq(MenuVo param) throws Exception {
 		return Utilities.getUpdateResult(dao.updateSeq(param));
 
 	}
 
-	public EzMap saveSeq(List<CrmMenuVo> list) throws Exception {
+	public EzMap saveSeq(List<MenuVo> list) throws Exception {
 		List<EzMap> result = new ArrayList<EzMap>();
 		for (int i = 0; i < list.size(); i++) {
 			result.add(saveSeq(list.get(i)));
@@ -190,25 +190,25 @@ public class CrmMenuService extends AbstractCrmService {
 		return Utilities.getSaveResult(result);
 	}
 
-	public Object insertWdgt(CrmUserWdgtVo vo) {
-		vo.setUserCd(Utilities.getLoginUserCd());
+	public Object insertWdgt(UserWdgtVo vo) {
+		vo.setUserId(Utilities.getLoginUserCd());
 		wdgtDao.delete(vo);
 		EzMap map = SessionUtil.getUserMenuMap();
-		CrmMenuVo menu = (CrmMenuVo) map.get(vo.getMenuCd());
+		MenuVo menu = (MenuVo) map.get(vo.getMenuId());
 		menu.setWdgtYn("Y");
 		return Utilities.getUpdateResult(wdgtDao.insert(vo));
 	}
 
-	public Object deleteWdgt(CrmUserWdgtVo vo) {
-		vo.setUserCd(Utilities.getLoginUserCd());
+	public Object deleteWdgt(UserWdgtVo vo) {
+		vo.setUserId(Utilities.getLoginUserCd());
 		EzMap map = SessionUtil.getUserMenuMap();
-		CrmMenuVo menu = (CrmMenuVo) map.get(vo.getMenuCd());
+		MenuVo menu = (MenuVo) map.get(vo.getMenuId());
 		menu.setWdgtYn("N");
 		return Utilities.getDeleteResult(wdgtDao.delete(vo));
 
 	}
 
-	public List<CrmUserWdgtVo> getWdgtList(Object param) {
+	public List<UserWdgtVo> getWdgtList(Object param) {
 		EzMap map = new EzMap(param);
 		map.setString("userCd", Utilities.getLoginUserCd());
 		return wdgtDao.selectList(map);

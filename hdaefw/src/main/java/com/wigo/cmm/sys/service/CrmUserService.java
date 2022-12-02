@@ -8,10 +8,10 @@ import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.dao.GrpUserRelDao;
 import com.wigo.cmm.sys.dao.UserBaseDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmUserBaseVo;
+import com.wigo.cmm.sys.model.UserBaseVo;
 
 @Service
-public class CrmUserService extends AbstractCrmService {
+public class CrmUserService extends AbstractCmmService {
 	@Autowired
 	UserBaseDao dao;
 
@@ -25,10 +25,10 @@ public class CrmUserService extends AbstractCrmService {
 
 	@Override
 	public int insert(Object param) throws Exception {
-		CrmUserBaseVo user = (CrmUserBaseVo) param;
-		if (Utilities.isEmpty(user.getUserCd())) {
+		UserBaseVo user = (UserBaseVo) param;
+		if (Utilities.isEmpty(user.getUserId())) {
 			String userCd = Utilities.getAutoSeq("USR");
-			user.setUserCd(userCd);
+			user.setUserId(userCd);
 		}
 		if (Utilities.isEmpty(user.getLoginPwd())) {
 			String pwd = user.getLoginId() + "123!@";
@@ -42,7 +42,7 @@ public class CrmUserService extends AbstractCrmService {
 		return super.insert(param);
 	}
 
-	public Object savePassword(CrmUserBaseVo param) throws Exception {
+	public Object savePassword(UserBaseVo param) throws Exception {
 		param.setLoginPwd(Utilities.passwordEncode(param.getLoginPwd()));
 		return Utilities.getUpdateResult(dao.updatePassword(param));
 	}
@@ -53,7 +53,7 @@ public class CrmUserService extends AbstractCrmService {
 
 	public Object updatePwd(EzMap param) throws Exception {
 		/* user 비밀번호 조회 */
-		CrmUserBaseVo user = dao.select(param);
+		UserBaseVo user = dao.select(param);
 		EzMap result = new EzMap();
 		String checkPwd = user.getLoginPwd();
 		String password = param.getString("password"); // 현재비밀번호

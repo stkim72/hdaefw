@@ -18,7 +18,7 @@ import com.wigo.cmm.common.util.HandlerUtils;
 import com.wigo.cmm.common.util.SessionUtil;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.controller.MainController;
-import com.wigo.cmm.sys.model.CrmLoginUserVo;
+import com.wigo.cmm.sys.model.LoginUserVo;
 import com.wigo.cmm.sys.service.CrmLoginService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -70,7 +70,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 		// if ( HandlerUtils.isInstance( handler, ErrorController.class ) ) return true;
 		// if ( HandlerUtils.isInstance( handler, LoginController.class ) ) return true;
-		CrmLoginUserVo user = Utilities.getLoginUser();
+		LoginUserVo user = Utilities.getLoginUser();
 		boolean isLogin = user != null && SessionUtil.isLogin();
 
 		// SSO(naver) 후 상담시스템에서 호출하는 single view 처리(main으로 redirect 되는 것 방지)를 위한 쿠키
@@ -93,7 +93,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 				throw new EzLoginException();
 			}
 		} else {
-			if (Utilities.isEmpty(user.getGrpCds())) {
+			if (Utilities.isEmpty(user.getGrpIds())) {
 				response.sendError(Constants._ERROR_HAS_NO_RIGHT, "권한이 없습니다.");
 			}
 			if (HandlerUtils.isInstance(handler, MainController.class))

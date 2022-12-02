@@ -7,7 +7,7 @@ import com.wigo.cmm.sys.dao.ApiExecHstDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
 
 @Service
-public class CrmApiHistService extends AbstractCrmService {
+public class CrmApiHistService extends AbstractCmmService {
 	@Autowired
 	ApiExecHstDao dao;
 

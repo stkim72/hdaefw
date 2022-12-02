@@ -78,8 +78,8 @@ import com.wigo.cmm.common.model.EzPropertyServiceImpl;
 import com.wigo.cmm.common.model.EzTreeMap;
 import com.wigo.cmm.common.model.ITreeVo;
 import com.wigo.cmm.common.util.security.KisaSeed256;
-import com.wigo.cmm.sys.model.CrmLoginUserVo;
-import com.wigo.cmm.sys.model.CrmMenuBaseVo;
+import com.wigo.cmm.sys.model.LoginUserVo;
+import com.wigo.cmm.sys.model.MenuBaseVo;
 import com.wigo.cmm.sys.service.CrmCommonService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -3033,15 +3033,15 @@ public class Utilities {
 		return propertiesService.getBoolean(name, false);
 	}
 
-	public static CrmLoginUserVo getLoginUser() {
+	public static LoginUserVo getLoginUser() {
 		HttpSession session = getSession();
 		if (session == null)
 			return null;
-		return (CrmLoginUserVo) session.getAttribute(Constants._LOGIN_SESSION_NAME);
+		return (LoginUserVo) session.getAttribute(Constants._LOGIN_SESSION_NAME);
 	}
 
 	public static String getLoginUserCd() {
-		CrmLoginUserVo loginUser = getLoginUser();
+		LoginUserVo loginUser = getLoginUser();
 		if (loginUser == null)
 			return null;
 		return loginUser.getUserCd();
@@ -3050,7 +3050,7 @@ public class Utilities {
 
 	public static String getLoginUserId() {
 		// return "2020000001";
-		CrmLoginUserVo loginUser = getLoginUser();
+		LoginUserVo loginUser = getLoginUser();
 		if (loginUser == null)
 			return null;
 		return loginUser.getLoginId();
@@ -3085,19 +3085,19 @@ public class Utilities {
 		return getAutoSeq(param);
 	}
 
-	public static CrmMenuBaseVo getCurrentMenu() {
+	public static MenuBaseVo getCurrentMenu() {
 		HttpServletRequest request = getRequest();
 		if (request == null)
 			return null;
 
-		return (CrmMenuBaseVo) request.getAttribute("currentMenu");
+		return (MenuBaseVo) request.getAttribute("currentMenu");
 	}
 
 	public static String getCurrentMenuCd() {
-		CrmMenuBaseVo menu = getCurrentMenu();
+		MenuBaseVo menu = getCurrentMenu();
 		if (menu == null)
 			return null;
-		return menu.getMenuCd();
+		return menu.getMenuId();
 	}
 
 

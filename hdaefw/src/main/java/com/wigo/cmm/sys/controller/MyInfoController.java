@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmUserBaseVo;
+import com.wigo.cmm.sys.model.UserBaseVo;
 import com.wigo.cmm.sys.service.CrmUserService;
 
 /**
@@ -55,7 +55,7 @@ public class MyInfoController {
 	/* 유저정보 조회 */
 	@PostMapping(value = { "getUser" })
 	public @ResponseBody Object getUser(@RequestBody EzMap param) throws Exception {
-		CrmUserBaseVo user = userService.get(param);
+		UserBaseVo user = userService.get(param);
 		return user;
 	} 
 	

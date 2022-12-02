@@ -9,7 +9,7 @@ import com.wigo.cmm.common.model.BaseVo;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.ICrmFile;
+import com.wigo.cmm.sys.model.ICmmFile;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  * @Company : Copyright ⓒ wigo.CO.LTD. All Right Reserved
  */
 @Slf4j
-public abstract class AbstractCrmService {
+public abstract class AbstractCmmService {
 
 	@Autowired
 	AsyncService asyncService;
@@ -54,11 +54,11 @@ public abstract class AbstractCrmService {
 	}
 
 	public int delete(Object param) throws Exception {
-		if (param instanceof ICrmFile) {
+		if (param instanceof ICmmFile) {
 			try {
-				ICrmFile crmFile = (ICrmFile) param;
+				ICmmFile crmFile = (ICmmFile) param;
 				String fileCd = crmFile.getFileCd();
-				ICrmFile obj = Utilities.isNotEmpty(fileCd) ? crmFile : get(param);
+				ICmmFile obj = Utilities.isNotEmpty(fileCd) ? crmFile : get(param);
 				asyncService.deleteFileCd(obj);
 			} catch (Exception ex) {
 				log.warn(ex.getMessage());

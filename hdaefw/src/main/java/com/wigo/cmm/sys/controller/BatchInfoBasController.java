@@ -17,7 +17,7 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.model.BatchInfoBasVo;
-import com.wigo.cmm.sys.model.CrmApiExecHstVo;
+import com.wigo.cmm.sys.model.ApiExecHstVo;
 import com.wigo.cmm.sys.service.BatchInfoBasService;
 
 /**
@@ -54,7 +54,7 @@ public class BatchInfoBasController {
 	}
 
 	@GetMapping(value = { "detail/{batchCd}" })
-	public String detail(CrmApiExecHstVo vo, @PathVariable("batchCd") String batchCd,
+	public String detail(ApiExecHstVo vo, @PathVariable("batchCd") String batchCd,
 			@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAttribute("batchCd", batchCd);
 		model.addAllAttributes(param);

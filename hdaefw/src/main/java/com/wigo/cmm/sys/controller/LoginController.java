@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.wigo.cmm.sys.model.CrmLoginUserVo;
+import com.wigo.cmm.sys.model.LoginUserVo;
 import com.wigo.cmm.sys.service.CrmLoginService;
 
 @Controller
@@ -59,7 +59,7 @@ public class LoginController {
 	}
 	//
 	@PostMapping(value = { "/login" })
-	public @ResponseBody Object login(@RequestBody CrmLoginUserVo param) throws Exception {
+	public @ResponseBody Object login(@RequestBody LoginUserVo param) throws Exception {
 		return service.updatelogin(param);
 	}
 

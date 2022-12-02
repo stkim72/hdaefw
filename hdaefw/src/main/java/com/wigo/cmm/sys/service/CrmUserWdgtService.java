@@ -15,10 +15,10 @@ import com.wigo.cmm.common.util.Constants;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.dao.UserWdgtDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmComnCdBaseVo;
+import com.wigo.cmm.sys.model.ComnCdBaseVo;
 
 @Service
-public class CrmUserWdgtService extends AbstractCrmService {
+public class CrmUserWdgtService extends AbstractCmmService {
 
 	@Autowired
 	UserWdgtDao dao;
@@ -65,7 +65,7 @@ public class CrmUserWdgtService extends AbstractCrmService {
 
 		EzMap codeSo = new EzMap();
 		codeSo.setString("codeCd", Constants._FILE_WHITE_LIST);
-		List<CrmComnCdBaseVo> list = comnCdService.getComboCode(codeSo);
+		List<ComnCdBaseVo> list = comnCdService.getComboCode(codeSo);
 		s180List = new ArrayList<String>();
 		s180Map = new HashMap<String, Object>();
 		for (int i = 0; i < list.size(); i++) {

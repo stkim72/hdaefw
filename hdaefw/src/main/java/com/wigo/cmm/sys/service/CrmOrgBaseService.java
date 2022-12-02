@@ -5,12 +5,11 @@ import org.springframework.stereotype.Service;
 
 import com.wigo.cmm.common.model.AbstractTreeVo;
 import com.wigo.cmm.common.model.EzMap;
-import com.wigo.cmm.sys.dao.OrgBaseDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmJadeOrgVo;
+import com.wigo.cmm.sys.dao.OrgBaseDao;
 
 @Service
-public class CrmOrgBaseService extends AbstractCrmService {
+public class CrmOrgBaseService extends AbstractCmmService {
 	@Autowired
 	OrgBaseDao dao;
 
@@ -20,14 +19,7 @@ public class CrmOrgBaseService extends AbstractCrmService {
 	}
 
 
-	@Override
-	public int insert(Object param) throws Exception {
-		CrmJadeOrgVo vo = get(param);
-		if (vo == null)
-			return super.insert(param);
-		else
-			return super.update(param);
-	}
+	
 
 	public Object getTreeList(EzMap param) {
 		param.setInt("recordCountPerPage", 100000);

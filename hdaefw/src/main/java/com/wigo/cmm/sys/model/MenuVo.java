@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmMenuVo extends CrmMenuBaseVo {
+public class MenuVo extends MenuBaseVo {
     /**
 	 * 
 	 */
@@ -23,11 +23,11 @@ public class CrmMenuVo extends CrmMenuBaseVo {
 	private String menuPath;
 	private String wdgtYn;
 	
-	public CrmMenuVo() {
+	public MenuVo() {
 
 	}
 
-	public CrmMenuVo(Map<String, Object> param) {
+	public MenuVo(Map<String, Object> param) {
 		super(param);
 	}
 
@@ -58,7 +58,7 @@ public class CrmMenuVo extends CrmMenuBaseVo {
 			return true;
 		List<ITreeVo> list = getChildren();
 		for (int i = 0; list != null && i < list.size(); i++) {
-			CrmMenuVo ch = (CrmMenuVo) list.get(i);
+			MenuVo ch = (MenuVo) list.get(i);
 			if (ch.hasLinkedMenu())
 				return true;
 		}

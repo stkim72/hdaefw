@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmComnCdBaseVo;
+import com.wigo.cmm.sys.model.ComnCdBaseVo;
 import com.wigo.cmm.sys.service.CrmComnCdService;
 
 /**
@@ -41,7 +41,7 @@ public class ComnCdController {
     @PostMapping( value = { "getComboCode" } )
     public @ResponseBody Object getComboCode( @RequestBody EzMap param ) throws Exception {
     	if(Utilities.isEmpty(param.getString("codeCd")) && Utilities.isEmpty(param.getString("codeType")))
-    		return new ArrayList<CrmComnCdBaseVo>();
+    		return new ArrayList<ComnCdBaseVo>();
         return service.getComboCode( param );
     }
     

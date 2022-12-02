@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmUserBaseVo;
+import com.wigo.cmm.sys.model.UserBaseVo;
 import com.wigo.cmm.sys.service.CrmUserService;
 
 /**
@@ -72,38 +72,38 @@ public class UserController {
 		return Utilities.getGridData(list,page);
 	} 
 	@PostMapping(value = { "getUser" })
-	public @ResponseBody Object getUser(@RequestBody CrmUserBaseVo param) throws Exception {
-		CrmUserBaseVo user = userService.get(param);
+	public @ResponseBody Object getUser(@RequestBody UserBaseVo param) throws Exception {
+		UserBaseVo user = userService.get(param);
 		return user;
 	} 
 	@PostMapping(value = { "addUser" })
-	public @ResponseBody Object addUser(@RequestBody CrmUserBaseVo param) throws Exception {
+	public @ResponseBody Object addUser(@RequestBody UserBaseVo param) throws Exception {
 		param.setStat("c");
 		return userService.save(param);
 	}
 	@PostMapping(value = { "editUser" })
-	public @ResponseBody Object editUser(@RequestBody CrmUserBaseVo param) throws Exception {
+	public @ResponseBody Object editUser(@RequestBody UserBaseVo param) throws Exception {
 		param.setStat("u");
 		return userService.save(param);
 	}
 	@PostMapping(value = { "removeUserList" })
-	public @ResponseBody Object removeUserList(@RequestBody List<CrmUserBaseVo> param) throws Exception {
+	public @ResponseBody Object removeUserList(@RequestBody List<UserBaseVo> param) throws Exception {
 		return userService.deleteList(param);
 	}
 	@PostMapping(value = { "removeUser" })
-	public @ResponseBody Object removeUser(@RequestBody CrmUserBaseVo param) throws Exception {
+	public @ResponseBody Object removeUser(@RequestBody UserBaseVo param) throws Exception {
 		return userService.delete(param);
 	}
 	@PostMapping(value = { "saveUser" })
-	public @ResponseBody Object saveUser(@RequestBody CrmUserBaseVo param) throws Exception {
+	public @ResponseBody Object saveUser(@RequestBody UserBaseVo param) throws Exception {
 		return userService.save(param);
 	}
 	@PostMapping(value = { "save" })
-	public @ResponseBody Object save(@RequestBody List<CrmUserBaseVo> param) throws Exception {
+	public @ResponseBody Object save(@RequestBody List<UserBaseVo> param) throws Exception {
 		return userService.saveList(param);
 	}
 	@PostMapping(value = { "resetPassword" })
-	public @ResponseBody Object resetPassword(@RequestBody CrmUserBaseVo param) throws Exception {
+	public @ResponseBody Object resetPassword(@RequestBody UserBaseVo param) throws Exception {
 		return userService.savePassword(param);
 	}
 	

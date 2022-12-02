@@ -17,14 +17,14 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.dao.FileBaseDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmFileVo;
-import com.wigo.cmm.sys.model.ICrmFile;
+import com.wigo.cmm.sys.model.FileVo;
+import com.wigo.cmm.sys.model.ICmmFile;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class CrmFileService extends AbstractCrmService {
+public class CrmFileService extends AbstractCmmService {
 	@Autowired
 	FileBaseDao dao;
 
@@ -44,13 +44,13 @@ public class CrmFileService extends AbstractCrmService {
 
 	@Override
 	public int delete(Object param) throws Exception {
-		CrmFileVo fileInfo = get(param);
+		FileVo fileInfo = get(param);
 		if (fileInfo == null)
 			return 0;
 		String saveFileName = getSaveFileName(fileInfo.getFileSaveNm());
 		Utilities.deleteFile(new File(saveFileName));
 		int ret = super.delete(param);
-		String fileCd = fileInfo.getFileCd();
+		String fileCd = fileInfo.getFileId();
 		EzMap so = new EzMap();
 		so.setString("fileCd", fileCd);
 		int cnt = getListCount(so);
@@ -78,7 +78,7 @@ public class CrmFileService extends AbstractCrmService {
 		uploadfile.transferTo(new File(fileName));
 	}
 
-	public CrmFileVo uploadFile(MultipartFile uploadfile, CrmFileVo fileInfo) throws Exception {
+	public FileVo uploadFile(MultipartFile uploadfile, FileVo fileInfo) throws Exception {
 		if (uploadfile == null)
 			throw new EzException();
 
@@ -100,7 +100,7 @@ public class CrmFileService extends AbstractCrmService {
 		}
 
 		String ctgryCd = fileInfo.getFileCtgryCd();
-		String subUrl = fileInfo.getFileCd() + "/";
+		String subUrl = fileInfo.getFileId() + "/";
 		String fileName = fileInfo.getFileNm();
 
 		// 완료후
@@ -118,7 +118,7 @@ public class CrmFileService extends AbstractCrmService {
 			delete(fileInfo);
 		}
 
-		String fileCd = fileInfo.getFileCd();
+		String fileCd = fileInfo.getFileId();
 
 		subUrl = ctgryCd + "/" + fileCd + "/";
 		String subFileName = subUrl + fileName;
@@ -131,8 +131,8 @@ public class CrmFileService extends AbstractCrmService {
 		return fileInfo;
 	}
 
-	public Object downloadFile(CrmFileVo param) throws Exception {
-		CrmFileVo fileInfo = get(param);
+	public Object downloadFile(FileVo param) throws Exception {
+		FileVo fileInfo = get(param);
 		if (fileInfo == null)
 			throw new HTTPException(404);
 		String saveName = getSaveFileName(fileInfo.getFileSaveNm());
@@ -142,7 +142,7 @@ public class CrmFileService extends AbstractCrmService {
 
 	}
 
-	public void deleteFileCd(ICrmFile crmFile) throws Exception {
+	public void deleteFileCd(ICmmFile crmFile) throws Exception {
 		if (crmFile == null)
 			return;
 		try {
@@ -160,7 +160,7 @@ public class CrmFileService extends AbstractCrmService {
 			return;
 		EzMap fileSo = new EzMap();
 		fileSo.setString("fileCd", fileCd);
-		List<CrmFileVo> fileList = dao.selectList(fileSo);
+		List<FileVo> fileList = dao.selectList(fileSo);
 		deleteList(fileList);
 
 	}

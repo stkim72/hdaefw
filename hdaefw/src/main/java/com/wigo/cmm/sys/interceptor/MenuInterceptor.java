@@ -24,8 +24,8 @@ import com.wigo.cmm.common.util.NasUtil;
 import com.wigo.cmm.common.util.SessionUtil;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.controller.MainController;
-import com.wigo.cmm.sys.model.CrmMenuBaseVo;
-import com.wigo.cmm.sys.model.CrmMenuVo;
+import com.wigo.cmm.sys.model.MenuBaseVo;
+import com.wigo.cmm.sys.model.MenuVo;
 import com.wigo.cmm.sys.service.CrmMenuService;
 import com.wigo.cmm.sys.service.CrmUserWdgtService;
 
@@ -105,20 +105,20 @@ public class MenuInterceptor implements HandlerInterceptor {
 
 		EzMap urlMap = new EzMap();
 		for (String key : menuMap.keySet()) {
-			CrmMenuVo menu = (CrmMenuVo) menuMap.get(key);
+			MenuVo menu = (MenuVo) menuMap.get(key);
 			String url = menu.getMenuUrl();
 			if (Utilities.isNotEmpty(url))
 				urlMap.put(url, menu);
 		}
 
-		CrmMenuBaseVo currentMenu = (CrmMenuBaseVo) urlMap.get(menuUrl);
+		MenuBaseVo currentMenu = (MenuBaseVo) urlMap.get(menuUrl);
 		String menuCd = currentMenu == null ? menuUrl : currentMenu.getMenuUrl();
 		request.setAttribute("currentMenuCd", menuUrl);
 		request.setAttribute("menuMap", urlMap);
 
 		if (menuTree != null && menuTree.size() > 0) {
 			request.setAttribute("menuTree", menuTree.get(0));
-			CrmMenuVo menu = (CrmMenuVo) urlMap.get(menuCd);
+			MenuVo menu = (MenuVo) urlMap.get(menuCd);
 
 			request.setAttribute("currentMenu", currentMenu);
 

@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 
 import com.wigo.cmm.common.util.SessionUtil;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmLoginUserVo;
-import com.wigo.cmm.sys.model.CrmMenuBaseVo;
+import com.wigo.cmm.sys.model.LoginUserVo;
+import com.wigo.cmm.sys.model.MenuBaseVo;
 import com.wigo.cmm.sys.service.CrmChngHstService;
 
 /**
@@ -61,21 +61,21 @@ public class LogDaoAspect implements Interceptor {
 		if (request == null)
 			return;
 
-		CrmMenuBaseVo menu = (CrmMenuBaseVo) request.getAttribute("currentMenu");
+		MenuBaseVo menu = (MenuBaseVo) request.getAttribute("currentMenu");
 		if (menu == null)
 			return;
 
 		if (!"Y".equals(menu.getChngLogYn()))
 			return;
 
-		CrmLoginUserVo user = SessionUtil.getLoginUser();
+		LoginUserVo user = SessionUtil.getLoginUser();
 		String userCd = user == null ? null : user.getLoginId();
 		if (Utilities.isEmpty(userCd))
 			userCd = "SYSTEM";
 		String reqUrl = Utilities.getRequest() == null ? null : Utilities.getRequest().getRequestURI();
 		hist.setInLogMode(true);
 		hist.setUserCd(userCd);
-		hist.setMenuCd(menu.getMenuCd());
+		hist.setMenuCd(menu.getMenuId());
 		hist.setChngCallUrl(reqUrl);
 		hist.addStack(jp.getStaticPart().toLongString(), jp.getArgs());
 	}

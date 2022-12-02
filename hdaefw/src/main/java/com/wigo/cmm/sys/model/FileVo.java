@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmFileVo extends CrmFileBaseVo {
+public class FileVo extends FileBaseVo {
 	/**
 	 * 
 	 */

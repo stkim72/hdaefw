@@ -3,13 +3,13 @@ package com.wigo.cmm.sys.dao;
 import java.util.List;
 
 import com.wigo.cmm.sys.mapper.CmmMapper;
-import com.wigo.cmm.sys.model.CrmGrpBaseVo;
-import com.wigo.cmm.sys.model.CrmLoginUserVo;
+import com.wigo.cmm.sys.model.GrpBaseVo;
+import com.wigo.cmm.sys.model.LoginUserVo;
 
 @CmmMapper
 public interface UserBaseDao extends ICmmDao {
 
-	CrmLoginUserVo selectUser(Object param) throws Exception;
+	LoginUserVo selectUser(Object param) throws Exception;
 
 	int updateLoginFail(Object param) throws Exception;
 
@@ -23,6 +23,6 @@ public interface UserBaseDao extends ICmmDao {
 
 	int updateEmp(Object param)throws Exception;
 
-	List<CrmGrpBaseVo> selectUserGroupList(Object param)throws Exception;
+	List<GrpBaseVo> selectUserGroupList(Object param)throws Exception;
 
 }

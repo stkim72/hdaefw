@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.ITreeVo;
-import com.wigo.cmm.sys.model.CrmLoginUserVo;
+import com.wigo.cmm.sys.model.LoginUserVo;
 
 /**
  * 
@@ -36,7 +36,7 @@ public class SessionUtil {
 		session.removeAttribute(Constants._LOGIN_SESSION_NAME);
 		session.removeAttribute("userCd");
 	}
-	public static void setLoginUser(CrmLoginUserVo user) {
+	public static void setLoginUser(LoginUserVo user) {
 		HttpSession session = Utilities.getSession();
 		if(session == null)
 			return ;
@@ -44,17 +44,17 @@ public class SessionUtil {
 		session.removeAttribute(Constants._USER_MENU_MAP_NAME);
 		session.setAttribute(Constants._LOGIN_SESSION_NAME,user);
 	}
-	public static CrmLoginUserVo getLoginUser() {
+	public static LoginUserVo getLoginUser() {
 		HttpSession session = Utilities.getSession();
 		if(session == null)
 			return null;
-		return (CrmLoginUserVo)session.getAttribute(Constants._LOGIN_SESSION_NAME);
+		return (LoginUserVo)session.getAttribute(Constants._LOGIN_SESSION_NAME);
 	}
 	public static String getLoginUserCd() {
 		HttpSession session = Utilities.getSession();
 		if(session == null)
 			return null;
-		CrmLoginUserVo user =  (CrmLoginUserVo)session.getAttribute(Constants._LOGIN_SESSION_NAME);
+		LoginUserVo user =  (LoginUserVo)session.getAttribute(Constants._LOGIN_SESSION_NAME);
 		if(user == null)
 			return null;
 		return (String)user.getUserCd();

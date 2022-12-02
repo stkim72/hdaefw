@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.EzPaginationInfo;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.CrmGrpBaseVo;
-import com.wigo.cmm.sys.model.CrmGrpEmpRelVo;
-import com.wigo.cmm.sys.model.CrmGrpMenuRelVo;
-import com.wigo.cmm.sys.model.CrmGrpOrgRelVo;
-import com.wigo.cmm.sys.model.CrmGrpUserRelVo;
+import com.wigo.cmm.sys.model.GrpBaseVo;
+import com.wigo.cmm.sys.model.GrpEmpRelVo;
+import com.wigo.cmm.sys.model.GrpMenuRelVo;
+import com.wigo.cmm.sys.model.GrpOrgRelVo;
+import com.wigo.cmm.sys.model.GrpUserRelVo;
 import com.wigo.cmm.sys.service.CrmGrpBaseService;
 import com.wigo.cmm.sys.service.CrmGrpEmpRelService;
 import com.wigo.cmm.sys.service.CrmGrpMenuRelService;
@@ -102,7 +102,7 @@ public class GroupController {
 	public @ResponseBody Object getGroupUserList(@RequestBody EzMap param) throws Exception {
 
 		EzPaginationInfo page = param.getPaginationInfo();
-		List<CrmGrpUserRelVo> list = groupService.getGroupUserList(param);
+		List<GrpUserRelVo> list = groupService.getGroupUserList(param);
 		page.setTotalRecordCount(groupService.getGroupUserListCount(param));
 		return Utilities.getGridData(list, page);
 	}
@@ -111,7 +111,7 @@ public class GroupController {
 	public @ResponseBody Object getGroupMenuList(@RequestBody EzMap param) throws Exception {
 
 		EzPaginationInfo page = param.getPaginationInfo();
-		List<CrmGrpMenuRelVo> list = groupService.getGroupMenuList(param);
+		List<GrpMenuRelVo> list = groupService.getGroupMenuList(param);
 		page.setTotalRecordCount(groupService.getGroupMenuListCount(param));
 		return Utilities.getGridData(list, page);
 	}
@@ -120,7 +120,7 @@ public class GroupController {
 	public @ResponseBody Object getGroupOrgList(@RequestBody EzMap param) throws Exception {
 
 		EzPaginationInfo page = param.getPaginationInfo();
-		List<CrmGrpMenuRelVo> list = groupService.getGroupOrgList(param);
+		List<GrpMenuRelVo> list = groupService.getGroupOrgList(param);
 		page.setTotalRecordCount(groupService.getGroupOrgListCount(param));
 		return Utilities.getGridData(list, page);
 	}
@@ -129,7 +129,7 @@ public class GroupController {
 	public @ResponseBody Object getGroupEmpList(@RequestBody EzMap param) throws Exception {
 
 		EzPaginationInfo page = param.getPaginationInfo();
-		List<CrmGrpMenuRelVo> list = groupService.getGroupEmpList(param);
+		List<GrpMenuRelVo> list = groupService.getGroupEmpList(param);
 		page.setTotalRecordCount(groupService.getGroupEmpListCount(param));
 		return Utilities.getGridData(list, page);
 	}
@@ -148,120 +148,120 @@ public class GroupController {
 	}
 
 	@PostMapping(value = { "addGroup" })
-	public @ResponseBody Object addGroup(@RequestBody CrmGrpBaseVo param) throws Exception {
+	public @ResponseBody Object addGroup(@RequestBody GrpBaseVo param) throws Exception {
 		param.setStat("c");
 		return groupService.save(param);
 	}
 
 	@PostMapping(value = { "editGroup" })
-	public @ResponseBody Object editGroup(@RequestBody CrmGrpBaseVo param) throws Exception {
+	public @ResponseBody Object editGroup(@RequestBody GrpBaseVo param) throws Exception {
 		param.setStat("u");
 		return groupService.save(param);
 	}
 
 	@PostMapping(value = { "removeGroupList" })
-	public @ResponseBody Object removeGroupList(@RequestBody List<CrmGrpBaseVo> param) throws Exception {
+	public @ResponseBody Object removeGroupList(@RequestBody List<GrpBaseVo> param) throws Exception {
 		return groupService.deleteList(param);
 	}
 
 	@PostMapping(value = { "removeGroup" })
-	public @ResponseBody Object removeGroup(@RequestBody CrmGrpBaseVo param) throws Exception {
+	public @ResponseBody Object removeGroup(@RequestBody GrpBaseVo param) throws Exception {
 		return groupService.delete(param);
 	}
 
 	@PostMapping(value = { "saveGroup" })
-	public @ResponseBody Object saveGroup(@RequestBody CrmGrpBaseVo param) throws Exception {
+	public @ResponseBody Object saveGroup(@RequestBody GrpBaseVo param) throws Exception {
 		return groupService.save(param);
 	}
 
 	@PostMapping(value = { "save" })
-	public @ResponseBody Object save(@RequestBody List<CrmGrpBaseVo> param) throws Exception {
+	public @ResponseBody Object save(@RequestBody List<GrpBaseVo> param) throws Exception {
 		return groupService.saveList(param);
 	}
 
 	@PostMapping(value = { "addGroupMenu" })
-	public @ResponseBody Object addGroupMenu(@RequestBody CrmGrpMenuRelVo param) throws Exception {
+	public @ResponseBody Object addGroupMenu(@RequestBody GrpMenuRelVo param) throws Exception {
 		param.setStat("c");
 		return groupMenuService.save(param);
 	}
 
 	@PostMapping(value = { "addGroupMenuList" })
-	public @ResponseBody Object addGroupMenuList(@RequestBody List<CrmGrpMenuRelVo> list) throws Exception {
+	public @ResponseBody Object addGroupMenuList(@RequestBody List<GrpMenuRelVo> list) throws Exception {
 		return groupMenuService.insertList(list);
 	}
 	@PostMapping(value = { "saveGroupOrgList" })
-	public @ResponseBody Object saveGroupOrgList(@RequestBody List<CrmGrpOrgRelVo> list) throws Exception {
+	public @ResponseBody Object saveGroupOrgList(@RequestBody List<GrpOrgRelVo> list) throws Exception {
 		return groupOrgService.insertList(list);
 	}
 	@PostMapping(value = { "saveGroupEmpList" })
-	public @ResponseBody Object saveGroupEmpList(@RequestBody List<CrmGrpEmpRelVo> list) throws Exception {
+	public @ResponseBody Object saveGroupEmpList(@RequestBody List<GrpEmpRelVo> list) throws Exception {
 		return groupEmpService.insertList(list);
 	}
 
 	@PostMapping(value = { "removeGroupMenu" })
-	public @ResponseBody Object removeGroupMenu(@RequestBody CrmGrpMenuRelVo param) throws Exception {
+	public @ResponseBody Object removeGroupMenu(@RequestBody GrpMenuRelVo param) throws Exception {
 		return groupMenuService.delete(param);
 	}
 
 	@PostMapping(value = { "removeGroupMenuList" })
-	public @ResponseBody Object removeGroupMenuList(@RequestBody List<CrmGrpMenuRelVo> list) throws Exception {
+	public @ResponseBody Object removeGroupMenuList(@RequestBody List<GrpMenuRelVo> list) throws Exception {
 		return groupMenuService.deleteList(list);
 	}
 	@PostMapping(value = { "removeGroupOrgList" })
-	public @ResponseBody Object removeGroupOrgList(@RequestBody List<CrmGrpOrgRelVo> list) throws Exception {
+	public @ResponseBody Object removeGroupOrgList(@RequestBody List<GrpOrgRelVo> list) throws Exception {
 		return groupOrgService.deleteList(list);
 	}
 	
 	@PostMapping(value = { "removeGroupEmpList" })
-	public @ResponseBody Object removeGroupEmpList(@RequestBody List<CrmGrpEmpRelVo> list) throws Exception {
+	public @ResponseBody Object removeGroupEmpList(@RequestBody List<GrpEmpRelVo> list) throws Exception {
 		return groupEmpService.deleteList(list);
 	}
 
 	@PostMapping(value = { "setMenuGroup" })
-	public @ResponseBody Object setMenuGroup(@RequestBody List<CrmGrpMenuRelVo> list,
+	public @ResponseBody Object setMenuGroup(@RequestBody List<GrpMenuRelVo> list,
 			@RequestParam("menuCd") String menuCd) throws Exception {
 		return groupMenuService.saveMenuGroup(menuCd, list);
 	}
 
 	@PostMapping(value = { "saveGroupMenu" })
-	public @ResponseBody Object saveGroupMenu(@RequestBody CrmGrpMenuRelVo param) throws Exception {
+	public @ResponseBody Object saveGroupMenu(@RequestBody GrpMenuRelVo param) throws Exception {
 		return groupMenuService.save(param);
 	}
 
 	@PostMapping(value = { "saveGroupMenuList" })
-	public @ResponseBody Object saveGroupMenuList(@RequestBody List<CrmGrpMenuRelVo> param) throws Exception {
+	public @ResponseBody Object saveGroupMenuList(@RequestBody List<GrpMenuRelVo> param) throws Exception {
 		return groupMenuService.saveList(param);
 	}
 
 	@PostMapping(value = { "addGroupUser" })
-	public @ResponseBody Object addGroupUser(@RequestBody CrmGrpUserRelVo param) throws Exception {
+	public @ResponseBody Object addGroupUser(@RequestBody GrpUserRelVo param) throws Exception {
 		param.setStat("c");
 		return groupUserService.save(param);
 	}
 
 	@PostMapping(value = { "addGroupUserList" })
-	public @ResponseBody Object addGroupUserList(@RequestBody List<CrmGrpUserRelVo> list) throws Exception {
+	public @ResponseBody Object addGroupUserList(@RequestBody List<GrpUserRelVo> list) throws Exception {
 		return groupUserService.insertList(list);
 	}
 
 	@PostMapping(value = { "removeGroupUser" })
-	public @ResponseBody Object removeGroupUser(@RequestBody CrmGrpUserRelVo param) throws Exception {
+	public @ResponseBody Object removeGroupUser(@RequestBody GrpUserRelVo param) throws Exception {
 		return groupUserService.delete(param);
 	}
 
 	@PostMapping(value = { "removeGroupUserList" })
-	public @ResponseBody Object removeGroupUserList(@RequestBody List<CrmGrpUserRelVo> list) throws Exception {
+	public @ResponseBody Object removeGroupUserList(@RequestBody List<GrpUserRelVo> list) throws Exception {
 		return groupUserService.deleteList(list);
 	}
 
 	@PostMapping(value = { "setUserGroup" })
-	public @ResponseBody Object setUserGroup(@RequestBody List<CrmGrpUserRelVo> list,
+	public @ResponseBody Object setUserGroup(@RequestBody List<GrpUserRelVo> list,
 			@RequestParam("userCd") String userCd) throws Exception {
 		return groupUserService.saveUserGroup(userCd, list);
 	}
 
 	@PostMapping(value = { "setGroupUser" })
-	public @ResponseBody Object setGroupUser(@RequestBody List<CrmGrpUserRelVo> list,
+	public @ResponseBody Object setGroupUser(@RequestBody List<GrpUserRelVo> list,
 			@RequestParam("userCd") String userCd) throws Exception {
 		return groupUserService.saveGroupUser(userCd, list);
 	}

@@ -9,16 +9,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmLoginUserVo extends CrmJadeHrVo {
+public class LoginUserVo extends EmpBaseVo {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private List<CrmGrpBaseVo> groupList;
+	private List<GrpBaseVo> groupList;
 	/*
 	 * <p>사용자 그룹 콤마로 구분</p>
 	 */
-	private String grpCds;
+	private String grpIds;
 	/*
 	 * <p>저장된 아이디</p>
 	 */
@@ -125,7 +125,7 @@ public class CrmLoginUserVo extends CrmJadeHrVo {
 		if (Utilities.isEmpty(groupCd))
 			return false;
 		for (int i = 0; groupList != null && i < groupList.size(); i++) {
-			if (groupCd.equals(groupList.get(i).getGrpCd()))
+			if (groupCd.equals(groupList.get(i).getGrpId()))
 				return true;
 		}
 		return false;

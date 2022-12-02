@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmGrpBaseVo extends BaseVo {
+public class GrpBaseVo extends BaseVo {
 	/**
 	 * 
 	 */
@@ -17,7 +17,7 @@ public class CrmGrpBaseVo extends BaseVo {
 	 * 그룹코드
 	 * </p>
 	 */
-	private String grpCd;
+	private String grpId;
 	/**
 	 * <p>
 	 * 그룹명

@@ -21,11 +21,11 @@ import com.wigo.cmm.common.util.SessionUtil;
 import com.wigo.cmm.common.util.Utilities;
 import com.wigo.cmm.sys.dao.UserBaseDao;
 import com.wigo.cmm.sys.dao.ICmmDao;
-import com.wigo.cmm.sys.model.CrmGrpBaseVo;
-import com.wigo.cmm.sys.model.CrmLoginUserVo;
+import com.wigo.cmm.sys.model.GrpBaseVo;
+import com.wigo.cmm.sys.model.LoginUserVo;
 
 @Service("loginService")
-public class CrmLoginService extends AbstractCrmService {
+public class CrmLoginService extends AbstractCmmService {
 	@Autowired
 	UserBaseDao dao;
 	@Autowired
@@ -62,13 +62,13 @@ public class CrmLoginService extends AbstractCrmService {
 		return dao;
 	}
 
-	public EzMap updatelogin(CrmLoginUserVo param) throws Exception {
+	public EzMap updatelogin(LoginUserVo param) throws Exception {
 //		boolean isDevMode = !"prod".equalsIgnoreCase(activeProfile);
 		EzMap result = new EzMap();
-		CrmLoginUserVo user = dao.selectUser(param);
+		LoginUserVo user = dao.selectUser(param);
 //		isDevMode =false;
 
-		if (user != null && Utilities.isEmpty(user.getGrpCds())) {
+		if (user != null && Utilities.isEmpty(user.getGrpIds())) {
 			result.put("errorMsg", "사용권한이 없는 사용자 입니다");
 			result.put("errorCode", "FAILED LOGIN");
 			return result;
@@ -98,13 +98,7 @@ public class CrmLoginService extends AbstractCrmService {
 
 		}
 
-		if (Utilities.isEmpty(user.getMobileNo())) {
-			String ph = user.getMphonNoEncVal();
-			if (Utilities.isNotEmpty(ph)) {
-				String phone = Utilities.decrypt(ph);
-				user.setMobileNo(phone);
-			}
-		}
+	
 
 		result.put("success", true);
 		processLogin(user);
@@ -128,14 +122,14 @@ public class CrmLoginService extends AbstractCrmService {
 	 * @param user
 	 * @throws Exception
 	 */
-	private void processLogin(CrmLoginUserVo user) throws Exception {
-		List<CrmGrpBaseVo> list = dao.selectUserGroupList(user);
+	private void processLogin(LoginUserVo user) throws Exception {
+		List<GrpBaseVo> list = dao.selectUserGroupList(user);
 		user.setGroupList(list);
 		SessionUtil.setLoginUser(user);
 		setLoginHist(user);
 	}
 
-	public void setLoginHist(CrmLoginUserVo user) throws Exception {
+	public void setLoginHist(LoginUserVo user) throws Exception {
 		dao.updateLogin(user);
 		dao.insertLoginHist(user);
 	};
@@ -245,7 +239,7 @@ public class CrmLoginService extends AbstractCrmService {
 			return;
 		}
 
-		CrmLoginUserVo usr = new CrmLoginUserVo();
+		LoginUserVo usr = new LoginUserVo();
 		usr.setLoginId(loginId);
 		EzMap res = updatelogin(usr);
 

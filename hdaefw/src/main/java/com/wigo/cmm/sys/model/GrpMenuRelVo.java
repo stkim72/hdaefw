@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmGrpMenuRelVo extends CrmMenuVo {
+public class GrpMenuRelVo extends MenuVo {
 	/**
 	 * 
 	 */
@@ -13,7 +13,7 @@ public class CrmGrpMenuRelVo extends CrmMenuVo {
 	/**
     * <p>그룹코드</p> 
     */
-    private String grpCd;
+    private String grpId;
     
     private String grpNm;
 

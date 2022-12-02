@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmNtcartBasVo extends BaseVo implements ICrmFile {
+public class NtcartBasVo extends BaseVo implements ICmmFile {
 	/**
 	*
 	*/

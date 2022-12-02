@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CrmUserBaseVo extends BaseVo {
+public class UserBaseVo extends BaseVo {
     /**
 	 * 
 	 */
@@ -15,7 +15,7 @@ public class CrmUserBaseVo extends BaseVo {
     /**
     * <p>사용자코드</p> 
     */
-    private String userCd;
+    private String userId;
     /**
     * <p>로그인ID</p> 
     */
