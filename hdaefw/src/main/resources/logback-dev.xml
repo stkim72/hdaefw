@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <!-- <include resource="org/springframework/boot/logging/logback/base.xml"/> -->
-    <property name="LOG_PATH" value="/log/sw/tomcat/crm" />
-	<property name="LOG_FILE_NAME" value="ceragem-crm-bo" />
+    <property name="LOG_PATH" value="cmm" />
+	<property name="LOG_FILE_NAME" value="cmm-bo" />
 
     <!-- File Appender -->
     <appender name="FILEOUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -29,7 +29,7 @@
     </appender>
 
     <logger name="org.springframework" level="INFO" additivity="true" />
-    <logger name="com.ceragem" level="DEBUG" additivity="true" />
+    <logger name="com.wigo" level="DEBUG" additivity="true" />
     <logger name="jdbc" level="OFF"/>
 	<logger name="jdbc.sqlonly" level="INFO"/>
 	<logger name="jdbc.sqltiming" level="OFF"/>

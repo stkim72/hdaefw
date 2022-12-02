@@ -30,7 +30,7 @@
     -->
     
     <column name="사용및적립월" field="zrtDt" type="date" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
-    <column name="매장구분" field="kdgrpCd" type="combo" maxLength="30" width="80" textAlignment="center" required="N"  codeId="ST010" hidden="N"/>
+    <column name="매장구분" field="kdgrpId" type="combo" maxLength="30" width="80" textAlignment="center" required="N"  codeId="ST010" hidden="N"/>
     <column name="매장구분" field="kdgrp" type="char" maxLength="30" width="80" textAlignment="center" required="N" hidden="Y"/>
     <column name="매장번호" field="kunnr" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>
     <column name="사용및발생매장" field="kunnrNm" type="char" maxLength="30" width="80" textAlignment="center" required="N" Pk="N" readOnly="N" defaultValue="" hidden="N"/>

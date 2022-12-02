@@ -105,6 +105,9 @@ public class EzPaginationInfo {
 		}
 		return lastPageNoOnPageList;
 	}
+	public int getOffsetRecordIndex() {
+		return getFirstRecordIndex()-1;
+	}
 
 	public int getFirstRecordIndex() {
 		return (getCurrentPageNo() - 1) * getRecordCountPerPage() + 1;

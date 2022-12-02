@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wigo.cmm.sys.dao.BatchInfoBasDao">
     <sql id="sqlPkConditions">
-                WHERE BATCH_CD          =       #{batchCd}
+                WHERE BATCH_ID          =       #{batchId}
     </sql>
     <sql id="sqlCols">
-                      BATCH_CD                    /*배치코드        */
+                      BATCH_ID                    /*배치코드        */
                     , SYS_CD                    /*시스템코드        */
                     , BATCH_NM                    /*배치명        */
                     , WRK_ID                    /*작업ID        */
@@ -18,7 +18,7 @@
                     , AMD_DT                    /*수정일시        */
     </sql>
     <sql id="sqlSelectCols">
-                      A.BATCH_CD                    /*배치코드        */
+                      A.BATCH_ID                    /*배치코드        */
                     , A.SYS_CD                    /*시스템코드        */
                     , A.BATCH_NM                    /*배치명        */
                     , A.WRK_ID                    /*작업ID        */
@@ -32,14 +32,14 @@
     </sql>
     <sql id="sqlConditions">
     <where>
-        <if test="batchCd != null and batchCd != ''">
+        <if test="batchId != null and batchId != ''">
             <choose>
-                <when test="batchCd instanceof String">
-                    AND A.BATCH_CD        =       #{batchCd}
+                <when test="batchId instanceof String">
+                    AND A.BATCH_ID        =       #{batchId}
                 </when>
                 <otherwise>
-                    AND A.BATCH_CD        IN
-                    <foreach item="item" index="index" collection="batchCd" open="(" separator="," close=")">
+                    AND A.BATCH_ID        IN
+                    <foreach item="item" index="index" collection="batchId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
@@ -86,8 +86,8 @@
             <when test="colSortName ==null or colSortName == ''">
                 ORDER BY      SYS_CD,BATCH_NM, WRK_ID, REG_DT DESC
             </when>
-            <when test="colSortName.equals('batchCd')">
-                ORDER BY      BATCH_CD
+            <when test="colSortName.equals('batchId')">
+                ORDER BY      BATCH_ID
             </when>
             <when test="colSortName.equals('sysCd')">
                 ORDER BY      SYS_CD
@@ -129,39 +129,39 @@
     </sql>
     <select id="selectListCount" resultType="int">
                 SELECT /* com.wigo.cmm.sys.dao.BatchInfoBasDao.selectListCount */ COUNT(1)
-                 FROM BATCH_INFO_BAS A
+                 FROM TB_SYS_BATCH_INFO_BAS A
         <include refid="sqlConditions"/>
     </select>
     <select id="selectList" resultType="com.wigo.cmm.sys.model.BatchInfoBasVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
                SELECT /* com.wigo.cmm.sys.dao.BatchInfoBasDao.selectList */ <include refid="sqlSelectCols"/>
-                 FROM BATCH_INFO_BAS A
+                 FROM TB_SYS_BATCH_INFO_BAS A
         <include refid="sqlConditions"/>
                 ORDER BY A.USE_YN DESC
                     , A.AMD_DT DESC
                     , A.LAST_EXEC_DT DESC
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
     <select id="select" resultType="com.wigo.cmm.sys.model.BatchInfoBasVo">
                SELECT /* com.wigo.cmm.sys.dao.BatchInfoBasDao.select */ <include refid="sqlSelectCols"/>
-                 FROM BATCH_INFO_BAS A
+                 FROM TB_SYS_BATCH_INFO_BAS A
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-        <selectKey order="BEFORE" keyProperty="batchCd" resultType="String">
+        <selectKey order="BEFORE" keyProperty="batchId" resultType="String">
             SELECT FN_CRM_AUTO_SEQ('BAT') 
               FROM DUAL
         </selectKey>
-                INSERT /* com.wigo.cmm.sys.dao.BatchInfoBasDao.insert */ INTO BATCH_INFO_BAS (
+                INSERT /* com.wigo.cmm.sys.dao.BatchInfoBasDao.insert */ INTO TB_SYS_BATCH_INFO_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
-                       #{batchCd}
+                       #{batchId}
                      , #{sysCd}
                      , #{batchNm}
                      , #{wrkId}
                      , TO_DATE(#{lastExecDt},'YYYYMMDDHH24MISS')
                      , NULL
-                     , NVL(#{useYn},'N')
+                     , IFNULL(#{useYn},'N')
                      , #{regrId}
                      , SYSDATE
                      , #{amdrId}
@@ -169,24 +169,24 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /* com.wigo.cmm.sys.dao.BatchInfoBasDao.update */ BATCH_INFO_BAS
+               UPDATE /* com.wigo.cmm.sys.dao.BatchInfoBasDao.update */ TB_SYS_BATCH_INFO_BAS
                   SET SYS_CD                                  =         #{sysCd}
                     , BATCH_NM                                =         #{batchNm}
                     , WRK_ID                                  =         #{wrkId}
-                    , USE_YN                                  =         NVL(#{useYn},USE_YN)
+                    , USE_YN                                  =         IFNULL(#{useYn},USE_YN)
                     , AMDR_ID                                 =         #{amdrId}
         <include refid="sqlPkConditions"/>
     </update>
     <update id="updateHist">
                 UPDATE /* com.wigo.cmm.sys.dao.BatchExecHstDao.update */ BATCH_EXEC_HST
-                  SET BATCH_CD                                =         #{batchCd}
+                  SET BATCH_ID                                =         #{batchId}
                 WHERE WRK_ID = #{wrkId}
-                  AND BATCH_CD IS NULL
+                  AND BATCH_ID IS NULL
                   AND SYS_CD = 'CRM'
     </update>
     <delete id="delete">
                DELETE /* com.wigo.cmm.sys.dao.BatchInfoBasDao.delete */
-                 FROM BATCH_INFO_BAS
+                 FROM TB_SYS_BATCH_INFO_BAS
         <include refid="sqlPkConditions"/>
     </delete>
 </mapper>

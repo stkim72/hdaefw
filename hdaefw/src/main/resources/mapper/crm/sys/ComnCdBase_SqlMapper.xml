@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wigo.cmm.sys.dao.CrmComnCdBaseDao">
+<mapper namespace="com.wigo.cmm.sys.dao.ComnCdBaseDao">
     <sql id="sqlPkConditions">
                 WHERE COMN_CD           =       #{comnCd}
                   AND TOP_COMN_CD       =       #{topComnCd}
@@ -243,37 +243,37 @@
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.selectListCount*/ COUNT(1)
-                 FROM CRM_COMN_CD_BAS
+                SELECT /*com.wigo.cmm.sys.dao.ComnCdBaseDao.selectListCount*/ COUNT(1)
+                 FROM TB_SYS_COMN_CD_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmComnCdBaseVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.selectList*/ <include refid="sqlCols"/>
-                 FROM CRM_COMN_CD_BAS
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.ComnCdBaseVo">
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.ComnCdBaseDao.selectList*/ <include refid="sqlCols"/>
+                 FROM TB_SYS_COMN_CD_BAS
         <include refid="sqlConditions"/>
                ORDER BY COMN_CD_LVL_NO
                       , TOP_COMN_CD
                       , COMN_CD_ODRG
                       , COMN_CD
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.CrmComnCdBaseVo">
-               SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.select*/ <include refid="sqlCols"/>
-                 FROM CRM_COMN_CD_BAS
+    <select id="select" resultType="com.wigo.cmm.sys.model.ComnCdBaseVo">
+               SELECT /*com.wigo.cmm.sys.dao.ComnCdBaseDao.select*/ <include refid="sqlCols"/>
+                 FROM TB_SYS_COMN_CD_BAS
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.insert*/ INTO CRM_COMN_CD_BAS (
+                INSERT /*com.wigo.cmm.sys.dao.ComnCdBaseDao.insert*/ INTO TB_SYS_COMN_CD_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{comnCd}
-                     , NVL(#{topComnCd},#{comnCd})
-                     , NVL(#{comnCdLvlNo},1)
-                     , NVL(#{comnCdOdrg},DECODE(#{prntsComnCd},NULL, NVL((SELECT MAX(COMN_CD_ODRG)+ 1 FROM CRM_COMN_CD_BAS WHERE COMN_CD_LVL_NO = 1),1), NVL((SELECT MAX(COMN_CD_ODRG)+ 1 FROM CRM_COMN_CD_BAS WHERE PRNTS_COMN_CD = #{prntsComnCd}),1) ) )
+                     , IFNULL(#{topComnCd},#{comnCd})
+                     , IFNULL(#{comnCdLvlNo},1)
+                     , IFNULL(#{comnCdOdrg},DECODE(#{prntsComnCd},NULL, IFNULL((SELECT MAX(COMN_CD_ODRG)+ 1 FROM TB_SYS_COMN_CD_BAS WHERE COMN_CD_LVL_NO = 1),1), IFNULL((SELECT MAX(COMN_CD_ODRG)+ 1 FROM TB_SYS_COMN_CD_BAS WHERE PRNTS_COMN_CD = #{prntsComnCd}),1) ) )
                      , #{prntsComnCd}
                      , #{comnCdNm}
-                     , NVL(#{useYn},'Y')
+                     , IFNULL(#{useYn},'Y')
                      , #{rfrn1ComnCd}
                      , #{rfrn2ComnCd}
                      , #{rfrn3ComnCd}
@@ -299,8 +299,8 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.update*/ CRM_COMN_CD_BAS
-                  SET COMN_CD_ODRG        =         NVL(#{comnCdOdrg},COMN_CD_ODRG)
+               UPDATE /*com.wigo.cmm.sys.dao.ComnCdBaseDao.update*/ TB_SYS_COMN_CD_BAS
+                  SET COMN_CD_ODRG        =         IFNULL(#{comnCdOdrg},COMN_CD_ODRG)
                     , COMN_CD_NM          =         #{comnCdNm}
                     , USE_YN              =         #{useYn}
                     , RFRN_1_COMN_CD      =         #{rfrn1ComnCd}
@@ -326,20 +326,20 @@
         <include refid="sqlPkConditions"/>
     </update>
     <update id="updateSeq">
-    UPDATE /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.updateSeq*/ CRM_COMN_CD_BAS
+    UPDATE /*com.wigo.cmm.sys.dao.ComnCdBaseDao.updateSeq*/ TB_SYS_COMN_CD_BAS
        SET COMN_CD_ODRG          =          #{comnCdOdrg}   
          , AMDR_ID             =          #{regrId}     
          , AMD_DT             =          SYSDATE
      <include refid="sqlPkConditions" />
     </update>
     <delete id="delete">
-               DELETE /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.delete*/
-                 FROM CRM_COMN_CD_BAS
+               DELETE /*com.wigo.cmm.sys.dao.ComnCdBaseDao.delete*/
+                 FROM TB_SYS_COMN_CD_BAS
         <include refid="sqlPkConditions"/>
     </delete>
      <delete id="deleteChildren">
-               DELETE /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.deleteChildren*/
-                 FROM CRM_COMN_CD_BAS
+               DELETE /*com.wigo.cmm.sys.dao.ComnCdBaseDao.deleteChildren*/
+                 FROM TB_SYS_COMN_CD_BAS
                 WHERE PRNTS_COMN_CD = #{comnCd}
                   AND TOP_COMN_CD = #{topComnCd}
     </delete>  
@@ -347,7 +347,7 @@
     
     <sql id="sqlCode" >
         SELECT <include refid="sqlCols"/>
-                 FROM CRM_COMN_CD_BAS
+                 FROM TB_SYS_COMN_CD_BAS
          WHERE  1=1
          <choose>
             <when test="codeName !=null and codeName !=''" >
@@ -414,34 +414,34 @@
                       , COMN_CD
     </sql>
      <sql id="sqlSystemCd">
-        SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.systemCd*/ MENU_CD COMN_CD
+        SELECT /*com.wigo.cmm.sys.dao.ComnCdBaseDao.systemCd*/ MENU_ID COMN_CD
              , MENU_NM COMN_CD_NM
-          FROM CRM_MENU_BAS
+          FROM TB_SYS_MENU_BAS
          WHERE  1=1 
            AND MENU_LVL_NO = 1
            AND USE_YN = 'Y'
          ORDER BY MENU_ODRG
-             , MENU_CD
+             , MENU_ID
     </sql>
     
     <sql id="sqlGroupCd">
-        SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.groupCd*/ GRP_CD COMN_CD
+        SELECT /*com.wigo.cmm.sys.dao.ComnCdBaseDao.groupCd*/ GRP_ID COMN_CD
              , GRP_NM COMN_CD_NM
-          FROM CRM_GRP_BAS
+          FROM TB_SYS_GRP_BAS
          WHERE  1=1 
          ORDER BY GRP_NM
-             , GRP_CD
+             , GRP_ID
     </sql>
     <sql id="sqlStoreNo">
-        SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.storeNo*/ STOR_NO COMN_CD
+        SELECT /*com.wigo.cmm.sys.dao.ComnCdBaseDao.storeNo*/ STOR_NO COMN_CD
              , STOR_NM COMN_CD_NM
-          FROM CRM_STOR_BAS
+          FROM TB_SYS_STOR_BAS
          WHERE  1=1 
          ORDER BY COMN_CD_NM
              , STOR_NO
     </sql>
     <sql id="sqlGodsClassNo">
-         SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.godsClassNo*/
+         SELECT /*com.wigo.cmm.sys.dao.ComnCdBaseDao.godsClassNo*/
         <choose>
 			<when test='codeCd =="L"'><!-- 대분류 -->
 				DISTINCT GODS_LCLSS_CD AS COMN_CD, GODS_LCLSS_CD_NM AS COMN_CD_NM
@@ -453,10 +453,10 @@
 				DISTINCT GODS_CLASS_CD AS COMN_CD, GODS_NM AS COMN_CD_NM
 			</otherwise>
 		</choose>
-		FROM CRM_GODS_CLASS_BAS 
+		FROM TB_SYS_GODS_CLASS_BAS 
 		ORDER BY COMN_CD ASC
     </sql>
-    <select id="selectCodeCombo" resultType="com.wigo.cmm.sys.model.CrmComnCdBaseVo">
+    <select id="selectCodeCombo" resultType="com.wigo.cmm.sys.model.ComnCdBaseVo">
     <choose>
             <when test="codeType =='systemCd' ">
                <include refid="sqlSystemCd" />
@@ -477,14 +477,14 @@
     </select>
     
     <select id="selectExcelList" resultType="com.wigo.cmm.common.model.EzMap">
-    	        SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.selectExcelList*/A.COMN_CD BG_CD
+    	        SELECT /*com.wigo.cmm.sys.dao.ComnCdBaseDao.selectExcelList*/A.COMN_CD BG_CD
              		 , A.COMN_CD_NM  BG_NM
              		 , A.USE_YN		BG_YN
 		             , B.COMN_CD SM_CD
 		             , B.COMN_CD_NM  SM_NM
 		             , B.USE_YN		SM_YN
-		    	  FROM CRM_COMN_CD_BAS A
-		    	     , CRM_COMN_CD_BAS B
+		    	  FROM TB_SYS_COMN_CD_BAS A
+		    	     , TB_SYS_COMN_CD_BAS B
 		    	 WHERE A.COMN_CD_LVL_NO = 1
 <!-- 		           AND A.USE_YN = 'Y' -->
 		           AND A.TOP_COMN_CD = B.TOP_COMN_CD

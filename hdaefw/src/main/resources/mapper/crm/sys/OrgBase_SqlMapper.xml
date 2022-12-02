@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wigo.cmm.sys.dao.CrmOrgBaseDao">
+<mapper namespace="com.wigo.cmm.sys.dao.OrgBaseDao">
     <sql id="sqlPkConditions">
                 WHERE ORG_ID            =       #{orgId}
     </sql>
@@ -28,7 +28,7 @@
                       AND ORG_ID            =       #{orgId}
         </if>
 <!--          <if test="upOrgIds != null and upOrgIds != ''"> -->
-<!--                       AND ORG_ID            IN ( SELECT ORG_ID FROM CRM_ORG_BAS  -->
+<!--                       AND ORG_ID            IN ( SELECT ORG_ID FROM TB_SYS_ORG_BAS  -->
 <!--                                                     START WITH ORG_ID = #{upOrgIds} -->
 <!--                                                 CONNECT BY PRIOR   ORG_ID = UP_ORG_ID) -->
 <!--         </if> -->
@@ -69,28 +69,28 @@
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.wigo.cmm.sys.dao.CrmOrgBaseDao.selectListCount*/ COUNT(1)
-                 FROM CRM_ORG_BAS
+                SELECT /*com.wigo.cmm.sys.dao.OrgBaseDao.selectListCount*/ COUNT(1)
+                 FROM TB_SYS_ORG_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmJadeOrgVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.wigo.cmm.sys.dao.CrmOrgBaseDao.selectList*/ <include refid="sqlCols"/>
-                 FROM CRM_ORG_BAS
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.JadeOrgVo">
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.OrgBaseDao.selectList*/ <include refid="sqlCols"/>
+                 FROM TB_SYS_ORG_BAS
         <include refid="sqlConditions"/>
                ORDER BY LVL_NO 
 <!--                    , ORG_ODRG -->
                    , ORG_NM
                    , ORG_ODRG
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.CrmJadeOrgVo">
-               SELECT /*com.wigo.cmm.sys.dao.CrmOrgBaseDao.select*/ <include refid="sqlCols"/>
-                 FROM CRM_ORG_BAS
+    <select id="select" resultType="com.wigo.cmm.sys.model.JadeOrgVo">
+               SELECT /*com.wigo.cmm.sys.dao.OrgBaseDao.select*/ <include refid="sqlCols"/>
+                 FROM TB_SYS_ORG_BAS
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.wigo.cmm.sys.dao.CrmOrgBaseDao.insert*/ INTO CRM_ORG_BAS (
+                INSERT /*com.wigo.cmm.sys.dao.OrgBaseDao.insert*/ INTO TB_SYS_ORG_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{orgId}
@@ -112,7 +112,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.wigo.cmm.sys.dao.CrmOrgBaseDao.update*/ CRM_ORG_BAS
+               UPDATE /*com.wigo.cmm.sys.dao.OrgBaseDao.update*/ TB_SYS_ORG_BAS
                   SET ORG_NM              =         #{orgNm}
                     , ORG_CLASS_ID        =         #{orgClassId}
                     , ORG_CLASS_NM        =         #{orgClassNm}
@@ -129,8 +129,8 @@
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.wigo.cmm.sys.dao.CrmOrgBaseDao.delete*/  
-                 FROM CRM_ORG_BAS
+               DELETE /*com.wigo.cmm.sys.dao.OrgBaseDao.delete*/  
+                 FROM TB_SYS_ORG_BAS
         <include refid="sqlPkConditions"/>
     </delete>
 </mapper>

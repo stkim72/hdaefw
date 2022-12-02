@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wigo.cmm.sys.dao.CrmEmpBaseDao">
+<mapper namespace="com.wigo.cmm.sys.dao.EmpBaseDao">
     <sql id="sqlPkConditions">
                 WHERE EMP_ID            =       #{empId}
     </sql>
@@ -43,7 +43,7 @@
                      AND EMP_ID            LIKE      #{empIdLike} || '%'
         </if>
         <if test="topOrgId != null and topOrgId != ''">
-             AND ORG_ID            IN ( SELECT ORG_ID FROM CRM_ORG_BAS 
+             AND ORG_ID            IN ( SELECT ORG_ID FROM TB_SYS_ORG_BAS 
                                            START WITH ORG_ID = #{topOrgId}
             CONNECT BY PRIOR   ORG_ID = UP_ORG_ID)
         </if>
@@ -123,15 +123,15 @@
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.selectListCount*/ COUNT(1)
-                 FROM CRM_EMP_BAS
+                SELECT /*com.wigo.cmm.sys.dao.EmpBaseDao.selectListCount*/ COUNT(1)
+                 FROM TB_SYS_EMP_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmJadeHrVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.selectList*/ <include refid="sqlCols"/>
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.JadeHrVo">
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.EmpBaseDao.selectList*/ <include refid="sqlCols"/>
                     , MPHON_NO MPHON_NO_ENC_VAL
-                    , (SELECT ORG_NM FROM CRM_ORG_BAS WHERE A.ORG_ID = ORG_ID) ORG_NM
+                    , (SELECT ORG_NM FROM TB_SYS_ORG_BAS WHERE A.ORG_ID = ORG_ID) ORG_NM
 <!--                         , ORG_NM -->
 <!--                           , CMP_NM -->
 <!--                           , JOB_NM  -->
@@ -139,20 +139,20 @@
 <!--                           , EMP_GRADE_NM -->
 <!--                           , EMP_TYPE_NM -->
 <!--                           , STATUS_NM -->
-                 FROM CRM_EMP_BAS A
+                 FROM TB_SYS_EMP_BAS A
         <include refid="sqlConditions"/>
                ORDER BY TO_NUMBER(EMP_GRADE_CD) 
                        , EMP_NM
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.CrmJadeHrVo">
-               SELECT  /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.select*/<include refid="sqlCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.JadeHrVo">
+               SELECT  /*com.wigo.cmm.sys.dao.EmpBaseDao.select*/<include refid="sqlCols"/>
                     , MPHON_NO MPHON_NO_ENC_VAL
-                 FROM CRM_EMP_BAS
+                 FROM TB_SYS_EMP_BAS
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT  /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.insert*/ INTO CRM_EMP_BAS (
+                INSERT  /*com.wigo.cmm.sys.dao.EmpBaseDao.insert*/ INTO TB_SYS_EMP_BAS (
         <include refid="sqlCols"/>
 <!--                         , ORG_NM -->
 <!--                           , CMP_NM -->
@@ -192,7 +192,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE  /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.update*/ CRM_EMP_BAS
+               UPDATE  /*com.wigo.cmm.sys.dao.EmpBaseDao.update*/ TB_SYS_EMP_BAS
                   SET EMP_NM              =         #{empNm}
                     , CMP_CD              =         #{cmpCd}
                     , ORG_ID              =         #{orgId}
@@ -218,8 +218,8 @@
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE  /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.delete*/ 
-                 FROM CRM_EMP_BAS
+               DELETE  /*com.wigo.cmm.sys.dao.EmpBaseDao.delete*/ 
+                 FROM TB_SYS_EMP_BAS
         <include refid="sqlPkConditions"/>
     </delete>
 </mapper>

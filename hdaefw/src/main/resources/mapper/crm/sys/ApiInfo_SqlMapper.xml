@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wigo.cmm.sys.dao.CrmApiInfoBaseDao">
+<mapper namespace="com.wigo.cmm.sys.dao.ApiInfoBaseDao">
     <sql id="sqlPkConditions">
-                WHERE API_CD            =       #{apiCd}
+                WHERE API_ID            =       #{apiId}
     </sql>
     <sql id="sqlCols">
-                      API_CD                    /*API코드        */
+                      API_ID                    /*API코드        */
                     , SYS_CD                    /*시스템코드        */
                     , API_NM                    /*API명        */
                     , API_URL                    /*APIURL        */
@@ -19,14 +19,14 @@
     </sql>
     <sql id="sqlConditions">
          <where>
-        <if test="apiCd != null and apiCd != ''">
+        <if test="apiId != null and apiId != ''">
             <choose>
-                <when test="apiCd instanceof String">
-                              AND API_CD            =       #{apiCd}
+                <when test="apiId instanceof String">
+                              AND API_ID            =       #{apiId}
                 </when>
                 <otherwise>
-                    AND API_CD            IN
-                    <foreach item="item" index="index" collection="apiCd" open="(" separator="," close=")">
+                    AND API_ID            IN
+                    <foreach item="item" index="index" collection="apiId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
@@ -82,32 +82,32 @@
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /* com.wigo.cmm.sys.dao.CrmApiInfoBaseDao.selectListCount */ COUNT(1)
-                 FROM API_INFO_BAS
+                SELECT /* com.wigo.cmm.sys.dao.ApiInfoBaseDao.selectListCount */ COUNT(1)
+                 FROM TB_SYS_API_INFO_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmApiInfoBaseVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /* com.wigo.cmm.sys.dao.CrmApiInfoBaseDao.selectList */ <include refid="sqlCols"/>
-                 FROM API_INFO_BAS
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.ApiInfoBaseVo">
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
+               SELECT /* com.wigo.cmm.sys.dao.ApiInfoBaseDao.selectList */ <include refid="sqlCols"/>
+                 FROM TB_SYS_API_INFO_BAS
         <include refid="sqlConditions"/>
                ORDER BY SYS_CD
                    , API_URL
                    , CALL_MTHD_CD
                    , USE_YN DESC
                    
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.CrmApiInfoBaseVo">
-               SELECT /* com.wigo.cmm.sys.dao.CrmApiInfoBaseDao.select */<include refid="sqlCols"/>
-                 FROM API_INFO_BAS
+    <select id="select" resultType="com.wigo.cmm.sys.model.ApiInfoBaseVo">
+               SELECT /* com.wigo.cmm.sys.dao.ApiInfoBaseDao.select */<include refid="sqlCols"/>
+                 FROM TB_SYS_API_INFO_BAS
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /* com.wigo.cmm.sys.dao.CrmApiInfoBaseDao.insert */ INTO API_INFO_BAS (
+                INSERT /* com.wigo.cmm.sys.dao.ApiInfoBaseDao.insert */ INTO TB_SYS_API_INFO_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
-                       NVL(#{apiCd},FN_CRM_AUTO_SEQ('API'))
+                       IFNULL(#{apiId},FN_CRM_AUTO_SEQ('API'))
                      , #{sysCd}
                      , #{apiNm}
                      , #{apiUrl}
@@ -121,7 +121,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /* com.wigo.cmm.sys.dao.CrmApiInfoBaseDao.update */ API_INFO_BAS
+               UPDATE /* com.wigo.cmm.sys.dao.ApiInfoBaseDao.update */ TB_SYS_API_INFO_BAS
                   SET SYS_CD              =         #{sysCd}
                     , API_NM              =         #{apiNm}
                     , API_URL             =         #{apiUrl}
@@ -133,8 +133,8 @@
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /* com.wigo.cmm.sys.dao.CrmApiInfoBaseDao.delete */ 
-                 FROM API_INFO_BAS
+               DELETE /* com.wigo.cmm.sys.dao.ApiInfoBaseDao.delete */ 
+                 FROM TB_SYS_API_INFO_BAS
         <include refid="sqlPkConditions"/>
     </delete>
 </mapper>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wigo.cmm.sys.dao.CrmApiExecHstDao">
-    <resultMap type="com.wigo.cmm.sys.model.CrmApiExecHstVo" id="CrmApiExecHstVo">
+<mapper namespace="com.wigo.cmm.sys.dao.ApiExecHstDao">
+    <resultMap type="com.wigo.cmm.sys.model.ApiExecHstVo" id="CrmApiExecHstVo">
         <result property="apiRsltTxn"  column="API_RSLT_TXN"  jdbcType="CLOB" javaType="java.lang.String" />
         <result property="apiParamTxn"  column="API_PARAM_TXN"  jdbcType="CLOB" javaType="java.lang.String" />
     </resultMap>
 
     <sql id="sqlPkConditions">
-                WHERE API_HST_CD        =       #{apiHstCd}
+                WHERE API_HST_ID        =       #{apiHstId}
     </sql>
-    <sql id="sqlCols">
-                      API_HST_CD                    /*API이력코드        */
-                    , API_CD                    /*API코드        */
+    <sql id="sqlCols"> 
+                      API_HST_ID                    /*API이력코드        */
+                    , API_ID                    /*API코드        */
                     , API_CALL_URL                    /*API호출URL        */
                     , API_RSLT_CD                    /*API결과코드        */
                     , API_RSLT_MSG_TXN                    /*API결과메시지내역        */
@@ -27,27 +27,27 @@
     </sql>
     <sql id="sqlConditions">
     <where>
-        <if test="apiHstCd != null and apiHstCd != ''">
+        <if test="apiHstId != null and apiHstId != ''">
             <choose>
-                <when test="apiHstCd instanceof String">
-                              AND A.API_HST_CD        =       #{apiHstCd}
+                <when test="apiHstId instanceof String">
+                              AND A.API_HST_ID        =       #{apiHstId}
                 </when>
                 <otherwise>
-                    AND A.API_HST_CD        IN
-                    <foreach item="item" index="index" collection="apiHstCd" open="(" separator="," close=")">
+                    AND A.API_HST_ID        IN
+                    <foreach item="item" index="index" collection="apiHstId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
             </choose>
         </if>
-        <if test="apiCd != null and apiCd != ''">
+        <if test="apiId != null and apiId != ''">
             <choose>
-                <when test="apiCd instanceof String">
-                              AND A.API_CD            =       #{apiCd}
+                <when test="apiId instanceof String">
+                              AND A.API_ID            =       #{apiId}
                 </when>
                 <otherwise>
-                    AND API_CD            IN
-                    <foreach item="item" index="index" collection="apiCd" open="(" separator="," close=")">
+                    AND API_ID            IN
+                    <foreach item="item" index="index" collection="apiId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
@@ -128,15 +128,15 @@
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.wigo.cmm.sys.dao.CrmApiExecHstDao.selectListCount*/ COUNT(1)
-                  FROM API_EXEC_HST A
-                  LEFT JOIN API_INFO_BAS  B ON A.API_CD = B.API_CD
+                SELECT /*com.wigo.cmm.sys.dao.ApiExecHstDao.selectListCount*/ COUNT(1)
+                  FROM TB_SYS_API_EXEC_HST A
+                  LEFT JOIN API_INFO_BAS  B ON A.API_ID = B.API_ID
         <include refid="sqlConditions"/>
     </select>
     <select id="selectList" resultMap="CrmApiExecHstVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.wigo.cmm.sys.dao.CrmApiExecHstDao.selectList*/ API_HST_CD                    /*API이력코드        */
-                    , A.API_CD                    /*API코드        */
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.ApiExecHstDao.selectList*/ API_HST_ID                    /*API이력코드        */
+                    , A.API_ID                    /*API코드        */
                     , A.API_CALL_URL                    /*API호출URL        */
                     , A.API_RSLT_CD                    /*API결과코드        */
                     , A.API_RSLT_MSG_TXN                    /*API결과메시지내역        */
@@ -151,24 +151,24 @@
                     , A.AMD_DT                    /*수정일시        */
                     , B.SYS_CD
                     , B.API_NM
-                 FROM API_EXEC_HST A
-                 LEFT JOIN API_INFO_BAS  B ON A.API_CD = B.API_CD
+                 FROM TB_SYS_API_EXEC_HST A
+                 LEFT JOIN API_INFO_BAS  B ON A.API_ID = B.API_ID
         <include refid="sqlConditions"/>
                ORDER BY API_CALL_DT DESC
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
     <select id="select" resultMap="CrmApiExecHstVo">
-               SELECT /*com.wigo.cmm.sys.dao.CrmApiExecHstDao.select*/<include refid="sqlCols"/>
-                    , (SELECT API_NM FROM API_INFO_BAS WHERE API_CD= A.API_CD) API_NM
-                 FROM API_EXEC_HST A
+               SELECT /*com.wigo.cmm.sys.dao.ApiExecHstDao.select*/<include refid="sqlCols"/>
+                    , (SELECT API_NM FROM API_INFO_BAS WHERE API_ID= A.API_ID) API_NM
+                 FROM TB_SYS_API_EXEC_HST A
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.wigo.cmm.sys.dao.CrmApiExecHstDao.insert*/ INTO API_EXEC_HST (
+                INSERT /*com.wigo.cmm.sys.dao.ApiExecHstDao.insert*/ INTO TB_SYS_API_EXEC_HST (
         <include refid="sqlCols"/>
                  ) VALUES (
-                       NVL(#{apiHstCd},FN_CRM_AUTO_SEQ('API'))
-                     , #{apiCd}
+                       IFNULL(#{apiHstId},FN_CRM_AUTO_SEQ('API'))
+                     , #{apiId}
                      , #{apiCallUrl}
                      , #{apiRsltCd}
                      , #{apiRsltMsgTxn}
@@ -184,8 +184,8 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.wigo.cmm.sys.dao.CrmApiExecHstDao.update*/ API_EXEC_HST
-                  SET API_CD              =         #{apiCd}
+               UPDATE /*com.wigo.cmm.sys.dao.ApiExecHstDao.update*/ TB_SYS_API_EXEC_HST
+                  SET API_ID              =         #{apiId}
                     , API_CALL_URL        =         #{apiCallUrl}
                     , API_RSLT_CD         =         #{apiRsltCd}
                     , API_RSLT_MSG_TXN    =         #{apiRsltMsgTxn}
@@ -198,8 +198,8 @@
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.wigo.cmm.sys.dao.CrmApiExecHstDao.delete*/
-                 FROM API_EXEC_HST
+               DELETE /*com.wigo.cmm.sys.dao.ApiExecHstDao.delete*/
+                 FROM TB_SYS_API_EXEC_HST
         <include refid="sqlPkConditions"/>
     </delete>
 </mapper>

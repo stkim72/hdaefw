@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wigo.cmm.sys.dao.CrmUserBaseDao">
+<mapper namespace="com.wigo.cmm.sys.dao.UserBaseDao">
     <sql id="sqlPkConditions">
         <choose>
-            <when test="userCd !=null and userCd !=''">
-            WHERE  USER_CD           =       #{userCd}
+            <when test="userId !=null and userId !=''">
+            WHERE  USER_ID           =       #{userId}
             </when>
             <otherwise>
             WHERE LOGIN_ID          = #{loginId}
-              AND NVL(DEL_YN ,'N')           != 'Y'
+              AND IFNULL(DEL_YN ,'N')           != 'Y'
               AND ROWNUM           = 1
             </otherwise>
         </choose>
     </sql>
     <sql id="sqlCols">
-                      USER_CD                    /*사용자코드        */
+                      USER_ID                    /*사용자코드        */
                     , LOGIN_ID                   /*로그인ID        */
                     , LOGIN_PWD                  /*로그인비밀번호        */
                     , USER_NM                    /*사용자명        */
@@ -34,14 +34,14 @@
     </sql>
     <sql id="sqlConditions">
     <where>
-    <if test="userCd != null and userCd != ''">
+    <if test="userId != null and userId != ''">
             <choose>
-                <when test="userCd instanceof String">
-                              AND A.USER_CD           =       #{userCd}
+                <when test="userId instanceof String">
+                              AND A.USER_ID           =       #{userId}
                 </when>
                 <otherwise>
-                    AND A.USER_CD           IN
-                    <foreach item="item" index="index" collection="userCd" open="(" separator="," close=")">
+                    AND A.USER_ID           IN
+                    <foreach item="item" index="index" collection="userId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
@@ -100,23 +100,23 @@
                       AND A.DEL_YN            =       #{delYn}
         </if>
         <if test="exGrpCd != null and exGrpCd != ''">
-           AND A.USER_CD NOT IN (SELECT USER_CD FROM CRM_GRP_USER_REL WHERE GRP_CD = #{exGrpCd})
+           AND A.USER_ID NOT IN (SELECT USER_ID FROM TB_SYS_GRP_USER_REL WHERE GRP_ID = #{exGrpCd})
            AND A.DEL_YN  = 'N'
          </if>
-         <if test="grpCd != null and grpCd != ''">
-           AND A.USER_CD IN (SELECT USER_CD FROM CRM_GRP_USER_REL WHERE GRP_CD = #{grpCd})
+         <if test="grpId != null and grpId != ''">
+           AND A.USER_ID IN (SELECT USER_ID FROM TB_SYS_GRP_USER_REL WHERE GRP_ID = #{grpId})
            AND A.DEL_YN  = 'N'
          </if>
          </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.selectListCount*/ COUNT(1)
-                 FROM CRM_USER_BAS A
+                SELECT /*com.wigo.cmm.sys.dao.UserBaseDao.selectListCount*/ COUNT(1)
+                 FROM TB_SYS_USER_BAS A
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmUserBaseVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.selectList*/ A.USER_CD                    /*사용자코드        */
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.UserBaseVo">
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.UserBaseDao.selectList*/ A.USER_ID                    /*사용자코드        */
                     , A.LOGIN_ID                   /*로그인ID        */
 <!--                     , A.LOGIN_PWD                  /*로그인비밀번호        */ -->
                     , A.USER_NM                    /*사용자명        */
@@ -133,21 +133,21 @@
                     , A.AMDR_ID                    /*수정자ID        */
                     , A.AMD_DT                    /*수정일시        */
                     , A.REGR_ID                    /*등록자ID        */
-                 FROM CRM_USER_BAS A
+                 FROM TB_SYS_USER_BAS A
         <include refid="sqlConditions"/>
                ORDER BY USER_NM
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.CrmUserBaseVo">
-               SELECT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.select*/ <include refid="sqlCols"/>
-                 FROM CRM_USER_BAS A
+    <select id="select" resultType="com.wigo.cmm.sys.model.UserBaseVo">
+               SELECT /*com.wigo.cmm.sys.dao.UserBaseDao.select*/ <include refid="sqlCols"/>
+                 FROM TB_SYS_USER_BAS A
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.insert*/ INTO CRM_USER_BAS (
+                INSERT /*com.wigo.cmm.sys.dao.UserBaseDao.insert*/ INTO TB_SYS_USER_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
-                       #{userCd}
+                       #{userId}
                      , #{loginId}
                      , #{loginPwd}
                      , #{userNm}
@@ -158,8 +158,8 @@
                      , #{pwdAmdDt}
                      , #{lastLoginDt}
                      , #{pwdExpDt}
-                     , NVL(#{loginFailCnt},0)
-                     , NVL(#{delYn},'N')
+                     , IFNULL(#{loginFailCnt},0)
+                     , IFNULL(#{delYn},'N')
                      , SYSDATE
                      , #{amdrId}
                      , SYSDATE
@@ -168,8 +168,8 @@
     </insert>
     
     <update id="update">
-               UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.update*/ CRM_USER_BAS
-                  SET LOGIN_ID            =         NVL(#{loginId},LOGIN_ID)
+               UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.update*/ TB_SYS_USER_BAS
+                  SET LOGIN_ID            =         IFNULL(#{loginId},LOGIN_ID)
                     , USER_NM             =         #{userNm}
 <!--                     , EMAIL_ADDR          =         #{emailAddr} -->
 <!--                     , MPHON_NO            =         #{mphonNo} -->
@@ -181,31 +181,31 @@
         <include refid="sqlPkConditions"/>
     </update>
     <update id="updateEmp">
-               UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.updateEmp*/ CRM_USER_BAS
+               UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.updateEmp*/ TB_SYS_USER_BAS
                   SET USER_NM             =         #{userNm}
 <!--                     , EMAIL_ADDR          =         #{emailAddr} -->
 <!--                     , MPHON_NO            =         #{mphonNo} -->
 <!--                     , USER_BIRTHDAY       =         #{userBirthday} -->
-                    , LOGIN_ID            =         NVL(#{loginId},LOGIN_ID)
+                    , LOGIN_ID            =         IFNULL(#{loginId},LOGIN_ID)
                     , DEL_YN              =         #{delYn}
                     , AMDR_ID             =         #{amdrId}
                     , AMD_DT              =         SYSDATE
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.delete*/  
-                 FROM CRM_USER_BAS
+               DELETE /*com.wigo.cmm.sys.dao.UserBaseDao.delete*/  
+                 FROM TB_SYS_USER_BAS
         <include refid="sqlPkConditions"/>
     </delete>
-    <select id="selectUser" resultType="com.wigo.cmm.sys.model.CrmLoginUserVo">
-               SELECT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.selectUser*/ A.USER_CD                    /*사용자코드        */
+    <select id="selectUser" resultType="com.wigo.cmm.sys.model.LoginUserVo">
+               SELECT /*com.wigo.cmm.sys.dao.UserBaseDao.selectUser*/ A.USER_ID                    /*사용자코드        */
                     , A.LOGIN_ID                    /*로그인ID        */
                     , A.LOGIN_PWD                    /*로그인비밀번호        */
                     , A.USER_NM                    /*사용자명        */
-                    , NVL(B.EMAIL_ADDR,A.EMAIL_ADDR) EMAIL_ADDR                   /*이메일주소        */
-                    , NVL(B.MPHON_NO,A.MPHON_NO)        MPHON_NO           /*이동전화번호        */
+                    , IFNULL(B.EMAIL_ADDR,A.EMAIL_ADDR) EMAIL_ADDR                   /*이메일주소        */
+                    , IFNULL(B.MPHON_NO,A.MPHON_NO)        MPHON_NO           /*이동전화번호        */
                     , A.USER_GNDR_CD                    /*사용자성별코드        */
-                    , NVL(B.BIRTHDAY,A.USER_BIRTHDAY)      USER_BIRTHDAY              /*사용자생년월일        */
+                    , IFNULL(B.BIRTHDAY,A.USER_BIRTHDAY)      USER_BIRTHDAY              /*사용자생년월일        */
                     , A.PWD_AMD_DT                    /*비밀번호수정일시        */
                     , A.LAST_LOGIN_DT                    /*최종로그인일시        */
                     , A.PWD_EXP_DT                    /*비밀번호만료일시        */
@@ -224,48 +224,48 @@
                     , B.RETIRE_YMD
                     , B.EMP_TYPE_CD
                     , B.MPHON_NO MPHON_NO_ENC_VAL
-<!--                     , (SELECT LISTAGG(GRP_CD, ',') WITHIN GROUP(ORDER BY GRP_CD) FROM CRM_GRP_USER_REL WHERE USER_CD = A.USER_CD) GRP_CDS  -->
-                    , ( SELECT LISTAGG(GRP_CD, ',') WITHIN GROUP(ORDER BY GRP_CD) FROM ( SELECT GRP_CD, USER_CD
-                                                                                         FROM CRM_GRP_USER_REL
+<!--                     , (SELECT LISTAGG(GRP_ID, ',') WITHIN GROUP(ORDER BY GRP_ID) FROM TB_SYS_GRP_USER_REL WHERE USER_ID = A.USER_ID) GRP_IDS  -->
+                    , ( SELECT LISTAGG(GRP_ID, ',') WITHIN GROUP(ORDER BY GRP_ID) FROM ( SELECT GRP_ID, USER_ID
+                                                                                         FROM TB_SYS_GRP_USER_REL
                                                                                             UNION ALL
-                                                                                       SELECT GRP_CD, EMP_ID
-                                                                                         FROM  CRM_GRP_EMP_REL
+                                                                                       SELECT GRP_ID, EMP_ID
+                                                                                         FROM  TB_SYS_GRP_EMP_REL
                                                                                         UNION ALL
-                                                                                       SELECT GRP_CD, EMP_ID 
+                                                                                       SELECT GRP_ID, EMP_ID 
                                                                                          FROM ( SELECT A.ORG_ID
-                                                                                                     , B.GRP_CD 
-                                                                                                   FROM CRM_ORG_BAS A
-                                                                                                      , CRM_GRP_ORG_REL B
+                                                                                                     , B.GRP_ID 
+                                                                                                   FROM TB_SYS_ORG_BAS A
+                                                                                                      , TB_SYS_GRP_ORG_REL B
                                                                                                   START WITH B.ORG_ID = A.ORG_ID
                                                                                                CONNECT BY PRIOR   A.ORG_ID = A.UP_ORG_ID ) A 
-                                                                                            , CRM_EMP_BAS B 
-                                                                                         WHERE A.ORG_ID = B.ORG_ID ) GRP WHERE GRP.USER_CD = A.USER_CD ) GRP_CDS
-                 FROM CRM_USER_BAS A 
-                 LEFT JOIN CRM_EMP_BAS B ON A.USER_CD = B.EMP_ID
+                                                                                            , TB_SYS_EMP_BAS B 
+                                                                                         WHERE A.ORG_ID = B.ORG_ID ) GRP WHERE GRP.USER_ID = A.USER_ID ) GRP_IDS
+                 FROM TB_SYS_USER_BAS A 
+                 LEFT JOIN TB_SYS_EMP_BAS B ON A.USER_ID = B.EMP_ID
       <include refid="sqlPkConditions" />
     </select>
      <update id="updateLogin">
-           UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.updateLogin*/ CRM_USER_BAS
+           UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.updateLogin*/ TB_SYS_USER_BAS
               SET LAST_LOGIN_DT        =    SYSDATE
                 , LOGIN_FAIL_CNT       =    0   
             <include refid="sqlPkConditions" />
     </update>
     <update id="updateLoginFail">
-            UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.updateLoginFail*/ CRM_USER_BAS
+            UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.updateLoginFail*/ TB_SYS_USER_BAS
               SET LAST_LOGIN_DT        =    SYSDATE
-                , LOGIN_FAIL_CNT       =    NVL(LOGIN_FAIL_CNT,0) + 1   
+                , LOGIN_FAIL_CNT       =    IFNULL(LOGIN_FAIL_CNT,0) + 1   
          <include refid="sqlPkConditions" />
     </update>
     <update id="updatePassword">
-        UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.updatePassword*/ CRM_USER_BAS
+        UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.updatePassword*/ TB_SYS_USER_BAS
               SET LOGIN_PWD        =    #{loginPwd}
                 , LOGIN_FAIL_CNT       =    0
                 , PWD_AMD_DT          =    SYSDATE
          <include refid="sqlPkConditions" />
     </update>
      <insert id="insertLoginHist">
-        INSERT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.insertLoginHist*/ INTO CRM_USER_LOGIN_HST (
-                  USER_CD
+        INSERT /*com.wigo.cmm.sys.dao.UserBaseDao.insertLoginHist*/ INTO TB_SYS_USER_LOGIN_HST (
+                  USER_ID
                 , LOGIN_DT
                 , LOGIN_IP_ADDR
                 , REGR_ID
@@ -273,7 +273,7 @@
                 , AMDR_ID
                 , AMD_DT
             ) VALUES ( 
-                  #{userCd}
+                  #{userId}
                 , SYSDATE
                 , #{peerIp}
                 , #{regrId}
@@ -283,33 +283,33 @@
             )
     </insert>
      <update id="updateMyInfo">
-       UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.updateMyInfo*/ CRM_USER_BAS
+       UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.updateMyInfo*/ TB_SYS_USER_BAS
           SET EMAIL_ADDR           =         #{emailAddr}
             , MPHON_NO             =         #{mphonNo}
             , AMDR_ID              =         #{amdrId}
             , AMD_DT               =         SYSDATE
          <include refid="sqlPkConditions" />
     </update>
-    <select id="selectUserGroupList" resultType="com.wigo.cmm.sys.model.CrmGrpBaseVo">
+    <select id="selectUserGroupList" resultType="com.wigo.cmm.sys.model.GrpBaseVo">
          SELECT B.* 
-           FROM ( SELECT GRP_CD
-                       , USER_CD
-                    FROM CRM_GRP_USER_REL
+           FROM ( SELECT GRP_ID
+                       , USER_ID
+                    FROM TB_SYS_GRP_USER_REL
                    UNION ALL
-                  SELECT GRP_CD, EMP_ID
-                    FROM  CRM_GRP_EMP_REL
+                  SELECT GRP_ID, EMP_ID
+                    FROM  TB_SYS_GRP_EMP_REL
                    UNION ALL
-                  SELECT GRP_CD, EMP_ID 
+                  SELECT GRP_ID, EMP_ID 
                    FROM ( SELECT A.ORG_ID
-                               , B.GRP_CD 
-                            FROM CRM_ORG_BAS A
-                               , CRM_GRP_ORG_REL B
+                               , B.GRP_ID 
+                            FROM TB_SYS_ORG_BAS A
+                               , TB_SYS_GRP_ORG_REL B
                            START WITH B.ORG_ID = A.ORG_ID
                          CONNECT BY PRIOR   A.ORG_ID = A.UP_ORG_ID ) A 
-                               , CRM_EMP_BAS B 
+                               , TB_SYS_EMP_BAS B 
                            WHERE A.ORG_ID = B.ORG_ID ) A 
-              , CRM_GRP_BAS B 
-          WHERE A.USER_CD = #{userCd}
-            AND A.GRP_CD = B.GRP_CD 
+              , TB_SYS_GRP_BAS B 
+          WHERE A.USER_ID = #{userId}
+            AND A.GRP_ID = B.GRP_ID 
     </select>
 </mapper>

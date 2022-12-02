@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>    
+	<definition name="_cmm_main_index" template="/WEB-INF/jsp/tiles/cmm/index.jsp" />
+	<definition name="_cmm_index_type1" template="/WEB-INF/jsp/tiles/cmm/index_type1.jsp" />
+	<definition name="_cmm_index_type2" template="/WEB-INF/jsp/tiles/cmm/index_type2.jsp" />
+	<definition name="_cmm_index_type3" template="/WEB-INF/jsp/tiles/cmm/index_type3.jsp" />
+	<definition name="_cmm_index_type4" template="/WEB-INF/jsp/tiles/cmm/index_type4.jsp" />
+	<definition name="_cmm_index_type5" template="/WEB-INF/jsp/tiles/cmm/index_type5.jsp" />
+	<definition name="_cmm_index_type6" template="/WEB-INF/jsp/tiles/cmm/index_type6.jsp" />
+	<definition name="_cmm_index_type7" template="/WEB-INF/jsp/tiles/cmm/index_type7.jsp" />
+	<definition name="_cmm_index_type8" template="/WEB-INF/jsp/tiles/cmm/index_type8.jsp" />
+	<definition name="_cmm_index_type9" template="/WEB-INF/jsp/tiles/cmm/index_type9.jsp" />
+<definition name="_cmm_blank_index" template="/WEB-INF/jsp/tiles/cmm/blank.jsp" />
+<definition name="_cmm_blank_body_index" template="/WEB-INF/jsp/tiles/cmm/blankBody.jsp" />
+
+    
+    
+
+    <definition name="cmm/blank/*/**" extends="_cmm_blank_index">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    <definition name="cmm/blankBody/*/**" extends="_cmm_blank_body_index">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    
+    
+    <definition name="cmm/type1/*/**" extends="_cmm_index_type1">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    <definition name="cmm/type2/*/**" extends="_cmm_index_type2">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    <definition name="cmm/type3/*/**" extends="_cmm_index_type3">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    <definition name="cmm/type4/*/**" extends="_cmm_index_type4">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    <definition name="cmm/type5/*/**" extends="_cmm_index_type5">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    <definition name="cmm/type6/*/**" extends="_cmm_index_type6">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    <definition name="cmm/type7/*/**" extends="_cmm_index_type7">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    <definition name="cmm/type8/*/**" extends="_cmm_index_type8">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    <definition name="cmm/type9/*/**" extends="_cmm_index_type9">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    <definition name="cmm/*/**" extends="_cmm_main_index">
+        <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
+    </definition>
+    <definition name="intro" template="/WEB-INF/jsp/tiles/cmm/intro.jsp" />
+    <definition name="main" template="/WEB-INF/jsp/tiles/cmm/main.jsp" />
+    <definition name="login" template="/WEB-INF/jsp/tiles/cmm/login.jsp" />
+    <definition name="checkSso" template="/WEB-INF/jsp/tiles/cmm/checkSso.jsp" />
+    <definition name="error" template="/WEB-INF/jsp/tiles/cmm/error.jsp" />
+</tiles-definitions>

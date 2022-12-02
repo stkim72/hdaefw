@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wigo.cmm.sys.dao.CrmUserWdgtDao">
+<mapper namespace="com.wigo.cmm.sys.dao.UserWdgtDao">
     <sql id="sqlPkConditions">
-                WHERE USER_CD           =       #{userCd}
-                  AND MENU_CD           =       #{menuCd}
+                WHERE USER_ID           =       #{userId}
+                  AND MENU_ID           =       #{menuId}
     </sql>
     <sql id="sqlCols">
-                      USER_CD                    /*사용자코드        */
-                    , MENU_CD                    /*메뉴코드        */
+                      USER_ID                    /*사용자코드        */
+                    , MENU_ID                    /*메뉴코드        */
                     , MENU_ODRG                    /*메뉴순번        */
                     , REGR_ID                    /*등록자ID        */
                     , REG_DT                    /*등록일시        */
@@ -15,29 +15,29 @@
                     , AMD_DT                    /*수정일시        */
     </sql>
     <sql id="sqlConditions">
-                WHERE A.MENU_CD = B.MENU_CD
-                  AND A.USER_CD           =       #{userCd}
-<!--         <if test="userCd != null and userCd != ''"> -->
+                WHERE A.MENU_ID = B.MENU_ID
+                  AND A.USER_ID           =       #{userId}
+<!--         <if test="userId != null and userId != ''"> -->
 <!--             <choose> -->
-<!--                 <when test="userCd instanceof String"> -->
-<!--                               AND A.USER_CD           =       #{userCd} -->
+<!--                 <when test="userId instanceof String"> -->
+<!--                               AND A.USER_ID           =       #{userId} -->
 <!--                 </when> -->
 <!--                 <otherwise> -->
-<!--                     AND A.USER_CD           IN -->
-<!--                     <foreach item="item" index="index" collection="userCd" open="(" separator="," close=")"> -->
+<!--                     AND A.USER_ID           IN -->
+<!--                     <foreach item="item" index="index" collection="userId" open="(" separator="," close=")"> -->
 <!--                         #{item} -->
 <!--                     </foreach> -->
 <!--                 </otherwise> -->
 <!--             </choose> -->
 <!--         </if> -->
-        <if test="menuCd != null and menuCd != ''">
+        <if test="menuId != null and menuId != ''">
             <choose>
-                <when test="menuCd instanceof String">
-                              AND A.MENU_CD           =       #{menuCd}
+                <when test="menuId instanceof String">
+                              AND A.MENU_ID           =       #{menuId}
                 </when>
                 <otherwise>
-                    AND A.MENU_CD           IN
-                    <foreach item="item" index="index" collection="menuCd" open="(" separator="," close=")">
+                    AND A.MENU_ID           IN
+                    <foreach item="item" index="index" collection="menuId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
@@ -49,15 +49,15 @@
         
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectListCount*/ COUNT(1)
-                 FROM CRM_USER_WDGT_BAS A
-                    , CRM_MENU_BAS B
+                SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectListCount*/ COUNT(1)
+                 FROM TB_SYS_USER_WDGT_BAS A
+                    , TB_SYS_MENU_BAS B
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmUserWdgtVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectList*/ A.USER_CD                    /*사용자코드        */
-                    , A.MENU_CD                    /*메뉴코드        */
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.UserWdgtVo">
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectList*/ A.USER_ID                    /*사용자코드        */
+                    , A.MENU_ID                    /*메뉴코드        */
                     , A.MENU_ODRG                    /*메뉴순번        */
                     , A.REGR_ID                    /*등록자ID        */
                     , A.REG_DT                    /*등록일시        */
@@ -65,30 +65,30 @@
                     , A.AMD_DT                    /*수정일시        */
                     , B.MENU_NM
                     , B.MENU_URL
-                 FROM CRM_USER_WDGT_BAS A
-                    , CRM_MENU_BAS B
-<!--                   AND A.USER_CD = NVL(#{userCd},#{amdrId})      -->
+                 FROM TB_SYS_USER_WDGT_BAS A
+                    , TB_SYS_MENU_BAS B
+<!--                   AND A.USER_ID = IFNULL(#{userId},#{amdrId})      -->
                   <include refid="sqlConditions"/>      
                 ORDER BY A.MENU_ODRG
                     , B.MENU_NM
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.CrmUserWdgtVo">
-               SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.select*/ <include refid="sqlCols"/>
-                 FROM CRM_USER_WDGT_BAS
+    <select id="select" resultType="com.wigo.cmm.sys.model.UserWdgtVo">
+               SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.select*/ <include refid="sqlCols"/>
+                 FROM TB_SYS_USER_WDGT_BAS
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
         <selectKey order="BEFORE" keyProperty="menuOdrg" resultType="int">
-            SELECT NVL(DECODE(#{menuOdrg},0,NULL,#{menuOdrg}),NVL(MAX(MENU_ODRG),0) + 1 )
-              FROM CRM_USER_WDGT_BAS
-             WHERE USER_CD = TO_CHAR(#{userCd}) 
+            SELECT IFNULL(DECODE(#{menuOdrg},0,NULL,#{menuOdrg}),IFNULL(MAX(MENU_ODRG),0) + 1 )
+              FROM TB_SYS_USER_WDGT_BAS
+             WHERE USER_ID = TO_CHAR(#{userId}) 
         </selectKey>
-                INSERT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.insert*/ INTO CRM_USER_WDGT_BAS (
+                INSERT /*com.wigo.cmm.sys.dao.UserWdgtDao.insert*/ INTO TB_SYS_USER_WDGT_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
-                       #{userCd}
-                     , #{menuCd}
+                       #{userId}
+                     , #{menuId}
                      , #{menuOdrg}
                      , #{regrId}
                      , SYSDATE
@@ -97,27 +97,27 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.update*/ CRM_USER_WDGT_BAS
+               UPDATE /*com.wigo.cmm.sys.dao.UserWdgtDao.update*/ TB_SYS_USER_WDGT_BAS
                   SET MENU_ODRG           =         #{menuOdrg}
                     , AMDR_ID             =         #{amdrId}
                     , AMD_DT              =         SYSDATE
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.delete*/ 
-                 FROM CRM_USER_WDGT_BAS
+               DELETE /*com.wigo.cmm.sys.dao.UserWdgtDao.delete*/ 
+                 FROM TB_SYS_USER_WDGT_BAS
         <include refid="sqlPkConditions"/>
     </delete>
-    <delete id="deleteMenuCd">
-               DELETE /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.deleteMenuCd*/  
-                 FROM CRM_USER_WDGT_BAS
-                WHERE MENU_CD = #{menuCd}
+    <delete id="deleteMenuId">
+               DELETE /*com.wigo.cmm.sys.dao.UserWdgtDao.deleteMenuId*/  
+                 FROM TB_SYS_USER_WDGT_BAS
+                WHERE MENU_ID = #{menuId}
     </delete>
     
     
     
     <select id="selectCustType" resultType="EzMap">
-                        SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCustType*/ A.*
+                        SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectCustType*/ A.*
                              , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_001/CNT_TOTAL)) AVG_001 
                              , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_002/CNT_TOTAL)) AVG_002
                              , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_003/CNT_TOTAL)) AVG_003
@@ -128,7 +128,7 @@
                              , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_008/CNT_TOTAL)) AVG_008
                              , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_009/CNT_TOTAL)) AVG_009
                           FROM ( SELECT COUNT(1) CNT_TOTAL
-                                      , COUNT(DECODE(NVL(CUST_TYPE_CD,'001'),'001',1,NULL) ) CNT_001
+                                      , COUNT(DECODE(IFNULL(CUST_TYPE_CD,'001'),'001',1,NULL) ) CNT_001
                                       , COUNT(DECODE(CUST_TYPE_CD,'002',1,NULL) ) CNT_002
                                       , COUNT(DECODE(CUST_TYPE_CD,'003',1,NULL) ) CNT_003 
                                       , COUNT(DECODE(CUST_TYPE_CD,'004',1,NULL) ) CNT_004
@@ -137,40 +137,40 @@
                                       , COUNT(DECODE(CUST_TYPE_CD,'007',1,NULL) ) CNT_007
                                       , COUNT(DECODE(CUST_TYPE_CD,'008',1,NULL) ) CNT_008
                                       , COUNT(DECODE(CUST_TYPE_CD,'009',1,NULL) ) CNT_009
-                                   FROM CRM_CUST_BAS
+                                   FROM TB_SYS_CUST_BAS
                                   WHERE CUST_STATUS_CD != '003'
                                ) A
     </select>
     <select id="selectCustTypeList" resultType="EzMap">
-                SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCustTypeList*/  A.COMN_CD CUST_TYPE_CD
+                SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectCustTypeList*/  A.COMN_CD CUST_TYPE_CD
                      , A.COMN_CD_NM CUST_TYPE_CD_NM
-                     , NVL(B.CNT,0) CNT
-                  FROM CRM_COMN_CD_BAS A
+                     , IFNULL(B.CNT,0) CNT
+                  FROM TB_SYS_COMN_CD_BAS A
                   LEFT JOIN ( SELECT COUNT(1) CNT 
-                              , NVL(CUST_TYPE_CD,'001') CUST_TYPE_CD 
-                           FROM CRM_CUST_BAS A
+                              , IFNULL(CUST_TYPE_CD,'001') CUST_TYPE_CD 
+                           FROM TB_SYS_CUST_BAS A
                           WHERE CUST_STATUS_CD != '003'
-                          GROUP BY NVL(CUST_TYPE_CD,'001')
+                          GROUP BY IFNULL(CUST_TYPE_CD,'001')
                           ) B ON A.COMN_CD = CUST_TYPE_CD
                   WHERE A.TOP_COMN_CD = 'CU030' 
                     AND COMN_CD_LVL_NO = 2
                   ORDER BY A.COMN_CD_ODRG
     </select>
     <select id="selectCouponList" resultType="EzMap">
-        SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCouponList*/  A.USE_DT 
-             , NVL(B.USE_CNT,0) USE_CNT
-             , NVL(C.REG_CNT,0) PUB_CNT
+        SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectCouponList*/  A.USE_DT 
+             , IFNULL(B.USE_CNT,0) USE_CNT
+             , IFNULL(C.REG_CNT,0) PUB_CNT
           FROM ( SELECT TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') USE_DT 
                    FROM DUAL
                 CONNECT BY 8 > LEVEL) A 
              , ( SELECT COUNT(1) AS USE_CNT  
                       , SUBSTR(USE_DT,1,8) USE_DT
-                   FROM CRM_COUPN_PBLS_HST
+                   FROM TB_SYS_COUPN_PBLS_HST
                   WHERE USE_DT BETWEEN TO_CHAR(SYSDATE-7,'YYYYMMDD')|| '000000' AND TO_CHAR(SYSDATE,'YYYYMMDD')|| '000000'
                     AND COUPN_TYPE_CD NOT IN ('013') 
                   GROUP BY SUBSTR(USE_DT,1,8)) B
              , ( SELECT COUNT(1) AS REG_CNT  
-                      , TO_CHAR(TRUNC(REG_DT),'YYYYMMDD') USE_DT FROM CRM_COUPN_PBLS_HST
+                      , TO_CHAR(TRUNC(REG_DT),'YYYYMMDD') USE_DT FROM TB_SYS_COUPN_PBLS_HST
                   WHERE REG_DT BETWEEN TRUNC(SYSDATE-7) AND TRUNC(SYSDATE)
                     AND COUPN_TYPE_CD NOT IN ('013')
                   GROUP BY TRUNC(REG_DT)) C
@@ -180,21 +180,21 @@
     </select>
     
     <select id="selectMembershipRegList" resultType="EzMap">
-            SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectMembershipRegList*/  A.REG_DT 
-                 , NVL(B.REG_CNT,0) REG_CNT
-                 , NVL(C.PREV_REG_CNT,0) PREV_REG_CNT
+            SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectMembershipRegList*/  A.REG_DT 
+                 , IFNULL(B.REG_CNT,0) REG_CNT
+                 , IFNULL(C.PREV_REG_CNT,0) PREV_REG_CNT
               FROM ( SELECT TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') REG_DT 
                      FROM DUAL
                    CONNECT BY LEVEL <![CDATA[<]]> 8) A 
                  , ( SELECT COUNT(1) REG_CNT
                           , TO_CHAR(TRUNC(MSHIP_SBSC_DT),'YYYYMMDD') REG_DT
-                       FROM CRM_CUST_BAS
+                       FROM TB_SYS_CUST_BAS
                       WHERE MSHIP_SBSC_YN = 'Y'
                         AND MSHIP_SBSC_DT BETWEEN TRUNC(SYSDATE-7) AND TRUNC(SYSDATE)  
                       GROUP BY TRUNC(MSHIP_SBSC_DT)) B
                  , ( SELECT COUNT(1) PREV_REG_CNT
                           , TO_CHAR(TRUNC(MSHIP_SBSC_DT)+7,'YYYYMMDD') PREV_REG_DT
-                       FROM CRM_CUST_BAS
+                       FROM TB_SYS_CUST_BAS
                       WHERE MSHIP_SBSC_YN = 'Y'
                         AND MSHIP_SBSC_DT BETWEEN TRUNC(SYSDATE-7-7) AND TRUNC(SYSDATE-7)  
                       GROUP BY TRUNC(MSHIP_SBSC_DT)) C
@@ -204,30 +204,30 @@
     </select>
     
     <select id="selectCustRegList" resultType="EzMap">
-                   SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCustRegList*/  A.* 
+                   SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectCustRegList*/  A.* 
                      FROM ( SELECT A.CHL_CD 
                                  , A.COMN_CD_NM CHL_CD_NM
                                  , A.COMN_CD_ODRG
                                  , A.COLOR_CD
-                                 , NVL(B.REG_CNT,0) REG_CNT
-                                 , NVL(C.PREV_REG_CNT,0) PREV_REG_CNT
+                                 , IFNULL(B.REG_CNT,0) REG_CNT
+                                 , IFNULL(C.PREV_REG_CNT,0) PREV_REG_CNT
                               FROM ( SELECT COMN_CD CHL_CD
                                           , COMN_CD_NM 
                                           , COMN_CD_ODRG
                                           , RFRN_1_COMN_CD COLOR_CD
-                                       FROM CRM_COMN_CD_BAS 
+                                       FROM TB_SYS_COMN_CD_BAS 
                                       WHERE TOP_COMN_CD = 'S000'
                                         AND COMN_CD_LVL_NO = 2
                                         AND COMN_CD_1_USE_YN = 'Y'
                                        ) A 
                                  , ( SELECT COUNT(1) REG_CNT
                                           , REG_CHL_CD CHL_CD
-                                       FROM CRM_CUST_BAS
+                                       FROM TB_SYS_CUST_BAS
                                       WHERE REG_DT BETWEEN TRUNC(SYSDATE-7) AND TRUNC(SYSDATE)  
                                       GROUP BY REG_CHL_CD) B
                                  , (  SELECT COUNT(1) PREV_REG_CNT
                                           , REG_CHL_CD CHL_CD
-                                       FROM CRM_CUST_BAS
+                                       FROM TB_SYS_CUST_BAS
                                       WHERE REG_DT BETWEEN TRUNC(SYSDATE-7-7) AND TRUNC(SYSDATE-7)  
                                       GROUP BY REG_CHL_CD ) C
                              WHERE A.CHL_CD = B.CHL_CD(+)
@@ -239,15 +239,15 @@
     
     
     <select id="selectOrdList" resultType="EzMap">
-               SELECT  /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectOrdList*/ A.ORD_DE
-                    , NVL(B.ORD_CNT,0) ORD_CNT
-                    , NVL(C.PREV_ORD_CNT,0) PREV_ORD_CNT
+               SELECT  /*com.wigo.cmm.sys.dao.UserWdgtDao.selectOrdList*/ A.ORD_DE
+                    , IFNULL(B.ORD_CNT,0) ORD_CNT
+                    , IFNULL(C.PREV_ORD_CNT,0) PREV_ORD_CNT
                  FROM ( SELECT TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') ORD_DE 
                          FROM DUAL
                        CONNECT BY LEVEL <![CDATA[<]]> 8) A 
                     , (SELECT COUNT(1) ORD_CNT
                             , ORD_DE 
-                         FROM CRM_CUST_BOS_CNTRT_HST
+                         FROM TB_SYS_CUST_BOS_CNTRT_HST
                         WHERE ORD_DE BETWEEN TO_CHAR(SYSDATE-7,'YYYYMMDD')  AND TO_CHAR(SYSDATE-1,'YYYYMMDD')
                           AND ITEM_TY_CD IN ( '1100', '2100', '2200', '9500', '9700')
                           AND SALE_TY_CD != '1202'
@@ -255,7 +255,7 @@
                         GROUP BY ORD_DE) B
                     , (SELECT COUNT(1) PREV_ORD_CNT
                             , TO_CHAR(TO_DATE(ORD_DE,'YYYYMMDD') + 7 ,'YYYYMMDD') ORD_DE 
-                         FROM CRM_CUST_BOS_CNTRT_HST
+                         FROM TB_SYS_CUST_BOS_CNTRT_HST
                         WHERE ORD_DE BETWEEN TO_CHAR(SYSDATE-7-7,'YYYYMMDD')  AND TO_CHAR(SYSDATE-1-7,'YYYYMMDD')
                           AND ITEM_TY_CD IN ( '1100', '2100', '2200', '9500', '9700')
                           AND SALE_TY_CD != '1202'
@@ -267,32 +267,32 @@
     </select>
     
     <select id="selectCustCountInfo" resultType="EzMap">
-              SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCustCountInfo*/ COUNT(1) CUST_CNT
+              SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectCustCountInfo*/ COUNT(1) CUST_CNT
                    , COUNT(DECODE(MSHIP_SBSC_YN,'Y',1,NULL)) MSHIP_CNT 
-                FROM CRM_CUST_BAS
+                FROM TB_SYS_CUST_BAS
                WHERE CUST_STATUS_CD != '003'
     </select>
     
     <select id="selectCustCountWeek" resultType="EzMap">
-    	SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCustCountWeek*/
+    	SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectCustCountWeek*/
 		    SUM(B.REG_CNT) THIS_WEEK_CNT
 		  , SUM(C.PREV_REG_CNT) LAST_WEEK_CNT
 		FROM (
 		    SELECT COMN_CD CHL_CD
 		          , COMN_CD_NM 
-		       FROM CRM_COMN_CD_BAS 
+		       FROM TB_SYS_COMN_CD_BAS 
 		      WHERE TOP_COMN_CD = 'S000'
 		        AND COMN_CD_LVL_NO = 2
 		        AND COMN_CD_1_USE_YN = 'Y'
 		       ) A 
 		 , ( SELECT COUNT(1) REG_CNT
 		          , REG_CHL_CD CHL_CD
-		       FROM CRM_CUST_BAS
+		       FROM TB_SYS_CUST_BAS
 		      WHERE REG_DT BETWEEN TRUNC(SYSDATE-7) AND TRUNC(SYSDATE)  
 		      GROUP BY REG_CHL_CD) B
 		 , (  SELECT COUNT(1) PREV_REG_CNT
 		          , REG_CHL_CD CHL_CD
-		       FROM CRM_CUST_BAS
+		       FROM TB_SYS_CUST_BAS
 		      WHERE REG_DT BETWEEN TRUNC(SYSDATE-7-7) AND TRUNC(SYSDATE-7)  
 		      GROUP BY REG_CHL_CD ) C
 		WHERE A.CHL_CD = B.CHL_CD(+)
@@ -300,8 +300,8 @@
     </select>
     
     <insert id="insertUserCard" >
-    /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.insertUserCard*/
-        INSERT INTO CRM_CARD_PBLS_HST
+    /*com.wigo.cmm.sys.dao.UserWdgtDao.insertUserCard*/
+        INSERT INTO TB_SYS_CARD_PBLS_HST
             (
                 CARD_PBLS_HST_SEQ,
                 ITG_CUST_NO,
@@ -332,9 +332,9 @@
              , A.REGR_ID
              , A.REG_DT
              , A.REG_CHL_CD
-         FROM CRM_CUST_BAS A
+         FROM TB_SYS_CUST_BAS A
         WHERE ITG_CUST_NO NOT IN (
-        SELECT ITG_CUST_NO FROM CRM_CARD_PBLS_HST
+        SELECT ITG_CUST_NO FROM TB_SYS_CARD_PBLS_HST
         )
     </insert>
 </mapper>

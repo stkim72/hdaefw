@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wigo.cmm.sys.dao.BatchExecHstDao">
     <sql id="sqlPkConditions">
-                WHERE BATCH_HST_CD      =       #{batchHstCd}
+                WHERE BATCH_HST_ID      =       #{batchHstId}
     </sql>
     <sql id="sqlCols">
-                      BATCH_HST_CD                    /*배치이력코드        */
-                    , BATCH_CD                    /*배치코드        */
+                      BATCH_HST_ID                    /*배치이력코드        */
+                    , BATCH_ID                    /*배치코드        */
                     , SYS_CD                    /*시스템코드        */
                     , WRK_ID                    /*작업ID        */
                     , BATCH_RSLT_CD                    /*배치결과코드        */
@@ -19,8 +19,8 @@
                     , AMD_DT                    /*수정일시        */
     </sql>
     <sql id="sqlSelectCols">
-                      A.BATCH_HST_CD                    /*배치이력코드        */
-                    , A.BATCH_CD                    /*배치코드        */
+                      A.BATCH_HST_ID                    /*배치이력코드        */
+                    , A.BATCH_ID                    /*배치코드        */
                     , A.SYS_CD                    /*시스템코드        */
                     , A.WRK_ID                    /*작업ID        */
                     , A.BATCH_RSLT_CD                    /*배치결과코드        */
@@ -34,27 +34,27 @@
     </sql>
     <sql id="sqlConditions">
         <where>
-        <if test="batchHstCd != null and batchHstCd != ''">
+        <if test="batchHstId != null and batchHstId != ''">
             <choose>
-                <when test="batchHstCd instanceof String">
-                    AND A.BATCH_HST_CD    =       #{batchHstCd}
+                <when test="batchHstId instanceof String">
+                    AND A.BATCH_HST_ID    =       #{batchHstId}
                 </when>
                 <otherwise>
-                    AND A.BATCH_HST_CD    IN
-                    <foreach item="item" index="index" collection="batchHstCd" open="(" separator="," close=")">
+                    AND A.BATCH_HST_ID    IN
+                    <foreach item="item" index="index" collection="batchHstId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
             </choose>
         </if>
-        <if test="batchCd != null and batchCd != ''">
+        <if test="batchId != null and batchId != ''">
             <choose>
-                <when test="batchCd instanceof String">
-                    AND A.BATCH_CD        =       #{batchCd}
+                <when test="batchId instanceof String">
+                    AND A.BATCH_ID        =       #{batchId}
                 </when>
                 <otherwise>
-                    AND A.BATCH_CD        IN
-                    <foreach item="item" index="index" collection="batchCd" open="(" separator="," close=")">
+                    AND A.BATCH_ID        IN
+                    <foreach item="item" index="index" collection="batchId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
@@ -121,11 +121,11 @@
             <when test="colSortName ==null or colSortName == ''">
                 ORDER BY      BATCH_CALL_DT DESC
             </when>
-            <when test="colSortName.equals('batchHstCd')">
-                ORDER BY      BATCH_HST_CD
+            <when test="colSortName.equals('batchHstId')">
+                ORDER BY      BATCH_HST_ID
             </when>
-            <when test="colSortName.equals('batchCd')">
-                ORDER BY      BATCH_CD
+            <when test="colSortName.equals('batchId')">
+                ORDER BY      BATCH_ID
             </when>
             <when test="colSortName.equals('sysCd')">
                 ORDER BY      SYS_CD
@@ -167,34 +167,34 @@
     </sql>
     <select id="selectListCount" resultType="int">
                 SELECT /* com.wigo.cmm.sys.dao.BatchExecHstDao.selectListCount */ COUNT(1)
-                 FROM BATCH_EXEC_HST A
+                 FROM TB_SYS_BATCH_EXEC_HST A
         <include refid="sqlConditions"/>
     </select>
     <select id="selectList" resultType="com.wigo.cmm.sys.model.BatchExecHstVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
                SELECT /* com.wigo.cmm.sys.dao.BatchExecHstDao.selectList */ <include refid="sqlSelectCols"/>
-                    , NVL((SELECT BATCH_NM FROM BATCH_INFO_BAS WHERE BATCH_CD = A.BATCH_CD), (SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE WRK_ID = A.WRK_ID AND SYS_CD = A.SYS_CD AND ROWNUM = 1 ))  BATCH_NM
-                 FROM BATCH_EXEC_HST A
+                    , IFNULL((SELECT BATCH_NM FROM BATCH_INFO_BAS WHERE BATCH_ID = A.BATCH_ID), (SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE WRK_ID = A.WRK_ID AND SYS_CD = A.SYS_CD AND ROWNUM = 1 ))  BATCH_NM
+                 FROM TB_SYS_BATCH_EXEC_HST A
         <include refid="sqlConditions"/>
         <include refid="sqlOrderBy"/>
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
     <select id="select" resultType="com.wigo.cmm.sys.model.BatchExecHstVo">
                SELECT /* com.wigo.cmm.sys.dao.BatchExecHstDao.select */ <include refid="sqlSelectCols"/>
-                    , NVL((SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE BATCH_CD = A.BATCH_CD), (SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE WRK_ID = A.WRK_ID AND SYS_CD = A.SYS_CD AND ROWNUM = 1 ))  BATCH_NM
-                 FROM BATCH_EXEC_HST A
+                    , IFNULL((SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE BATCH_ID = A.BATCH_ID), (SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE WRK_ID = A.WRK_ID AND SYS_CD = A.SYS_CD AND ROWNUM = 1 ))  BATCH_NM
+                 FROM TB_SYS_BATCH_EXEC_HST A
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-        <selectKey order="BEFORE" keyProperty="batchHstCd" resultType="String">
+        <selectKey order="BEFORE" keyProperty="batchHstId" resultType="String">
             SELECT FN_CRM_AUTO_SEQ('BEH') 
               FROM DUAL
         </selectKey>    
-                INSERT /* com.wigo.cmm.sys.dao.BatchExecHstDao.insert */ INTO BATCH_EXEC_HST (
+                INSERT /* com.wigo.cmm.sys.dao.BatchExecHstDao.insert */ INTO TB_SYS_BATCH_EXEC_HST (
         <include refid="sqlCols"/>
                  ) VALUES (
-                       #{batchHstCd}
-                     , #{batchCd}
+                       #{batchHstId}
+                     , #{batchId}
                      , #{sysCd}
                      , #{wrkId}
                      , #{batchRsltCd}
@@ -208,8 +208,8 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /* com.wigo.cmm.sys.dao.BatchExecHstDao.update */ BATCH_EXEC_HST
-                  SET BATCH_CD                                =         #{batchCd}
+               UPDATE /* com.wigo.cmm.sys.dao.BatchExecHstDao.update */ TB_SYS_BATCH_EXEC_HST
+                  SET BATCH_ID                                =         #{batchId}
                     , SYS_CD                                  =         #{sysCd}
                     , WRK_ID                                  =         #{wrkId}
                     , BATCH_RSLT_CD                           =         #{batchRsltCd}
@@ -222,7 +222,7 @@
     </update>
     <delete id="delete">
                DELETE /* com.wigo.cmm.sys.dao.BatchExecHstDao.delete */
-                 FROM BATCH_EXEC_HST
+                 FROM TB_SYS_BATCH_EXEC_HST
         <include refid="sqlPkConditions"/>
     </delete>
 </mapper>

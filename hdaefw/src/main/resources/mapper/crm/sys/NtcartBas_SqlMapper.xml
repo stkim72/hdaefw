@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wigo.cmm.sys.dao.CrmNtcartBasDao">
+<mapper namespace="com.wigo.cmm.sys.dao.NtcartBasDao">
     <sql id="sqlPkConditions">
                 WHERE NTCART_ID         =       #{ntcartId}
     </sql>
@@ -19,7 +19,7 @@
                     , POST_END_DT                    /*게시종료일시        */
                     , NOTE_STA_DT                    /*공지시작일시        */
                     , NOTE_END_DT                    /*공지종료일시        */
-                    , FILE_CD                    /*파일코드        */
+                    , FILE_ID                    /*파일코드        */
                     , NTCART_PWD                    /*게시물비밀번호        */
                     , REGR_ID                    /*등록자ID        */
                     , REG_DT                    /*등록일시        */
@@ -90,14 +90,14 @@
         <if test="noteEndDt != null and noteEndDt != ''">
                       AND NOTE_END_DT       =       #{noteEndDt}
         </if>
-        <if test="fileCd != null and fileCd != ''">
+        <if test="fileId != null and fileId != ''">
             <choose>
-                <when test="fileCd instanceof String">
-                              AND FILE_CD           =       #{fileCd}
+                <when test="fileId instanceof String">
+                              AND FILE_ID           =       #{fileId}
                 </when>
                 <otherwise>
-                    AND FILE_CD           IN
-                    <foreach item="item" index="index" collection="fileCd" open="(" separator="," close=")">
+                    AND FILE_ID           IN
+                    <foreach item="item" index="index" collection="fileId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
@@ -107,20 +107,20 @@
                       AND NTCART_PWD        =       #{ntcartPwd}
         </if>
         <if test="dashboard != null and dashboard != ''">
-                      AND TRIM(SYSDATE) BETWEEN  NVL(POST_STA_DT,TO_DATE('19000101','YYYYMMDD')) AND NVL(POST_END_DT,TO_DATE('99991231','YYYYMMDD'))
+                      AND TRIM(SYSDATE) BETWEEN  IFNULL(POST_STA_DT,TO_DATE('19000101','YYYYMMDD')) AND IFNULL(POST_END_DT,TO_DATE('99991231','YYYYMMDD'))
         </if>
         
         </where>
 <!--          DBMS_LOB.INSTR(찾을컬럼이름, '찾을문자열') > 0 -->
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.selectListCount*/ COUNT(1)
-                 FROM CRM_NTCART_BAS
+                SELECT /*com.wigo.cmm.sys.dao.NtcartBasDao.selectListCount*/ COUNT(1)
+                 FROM TB_SYS_NTCART_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmNtcartBasVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.selectList*/ NTCART_ID                    /*게시물ID        */
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.NtcartBasVo">
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.NtcartBasDao.selectList*/ NTCART_ID                    /*게시물ID        */
                     , BRD_ID                    /*게시판ID        */
                     , UP_NTCART_ID                    /*상위게시물ID        */
                     , TOP_NTCART_ID                    /*최상위게시물ID        */
@@ -129,28 +129,28 @@
                     , ANSWER_CTNTS                    /*답변내용        */
                     , NOTE_STATUS_CD                    /*공지상태코드        */
                     , POST_STATUS_CD                    /*게시상태코드        */
-                    , NVL(NOTE_YN,'N') NOTE_YN                    /*공지여부        */
+                    , IFNULL(NOTE_YN,'N') NOTE_YN                    /*공지여부        */
                     , /*TO_CHAR(POST_STA_DT,'YYYYMMDD')*/       POST_STA_DT             /*게시시작일시        */
                     , /*TO_CHAR(POST_END_DT,'YYYYMMDD')*/       POST_END_DT              /*게시종료일시        */
                     , /*TO_CHAR(NOTE_STA_DT,'YYYYMMDD')*/       NOTE_STA_DT              /*공지시작일시        */
                     , /*TO_CHAR(NOTE_END_DT,'YYYYMMDD')*/       NOTE_END_DT              /*공지종료일시        */
-                    , FILE_CD                    /*파일코드        */
+                    , FILE_ID                    /*파일코드        */
                     , NTCART_PWD                    /*게시물비밀번호        */
                     , REGR_ID                    /*등록자ID        */
                     , REG_DT                    /*등록일시        */
                     , AMDR_ID                    /*수정자ID        */
                     , AMD_DT                    /*수정일시        */
-                    , (SELECT COUNT(1) FROM CRM_FILE_BAS WHERE FILE_CD = NVL(A.FILE_CD,A.NTCART_ID) ) FILE_CNT
-                 FROM CRM_NTCART_BAS A
+                    , (SELECT COUNT(1) FROM TB_SYS_FILE_BAS WHERE FILE_ID = IFNULL(A.FILE_ID,A.NTCART_ID) ) FILE_CNT
+                 FROM TB_SYS_NTCART_BAS A
         <include refid="sqlConditions"/>
-               ORDER BY CASE WHEN TRIM(SYSDATE) BETWEEN  NVL(POST_STA_DT,TO_DATE('19000101','YYYYMMDD')) AND NVL(POST_END_DT,TO_DATE('99991231','YYYYMMDD')) THEN NVL(NOTE_YN,'N') ELSE  'A' END DESC
-                     , NVL(POST_END_DT,TO_DATE('99991231','YYYYMMDD')) DESC
-                     , NVL(POST_STA_DT,TO_DATE('19000101','YYYYMMDD')) 
+               ORDER BY CASE WHEN TRIM(SYSDATE) BETWEEN  IFNULL(POST_STA_DT,TO_DATE('19000101','YYYYMMDD')) AND IFNULL(POST_END_DT,TO_DATE('99991231','YYYYMMDD')) THEN IFNULL(NOTE_YN,'N') ELSE  'A' END DESC
+                     , IFNULL(POST_END_DT,TO_DATE('99991231','YYYYMMDD')) DESC
+                     , IFNULL(POST_STA_DT,TO_DATE('19000101','YYYYMMDD')) 
                      , REG_DT DESC
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.CrmNtcartBasVo">
-               SELECT /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.select*/ NTCART_ID                    /*게시물ID        */
+    <select id="select" resultType="com.wigo.cmm.sys.model.NtcartBasVo">
+               SELECT /*com.wigo.cmm.sys.dao.NtcartBasDao.select*/ NTCART_ID                    /*게시물ID        */
                     , BRD_ID                    /*게시판ID        */
                     , UP_NTCART_ID                    /*상위게시물ID        */
                     , TOP_NTCART_ID                    /*최상위게시물ID        */
@@ -159,22 +159,22 @@
                     , ANSWER_CTNTS                    /*답변내용        */
                     , NOTE_STATUS_CD                    /*공지상태코드        */
                     , POST_STATUS_CD                    /*게시상태코드        */
-                    , NVL(NOTE_YN,'N') NOTE_YN                    /*공지여부        */
+                    , IFNULL(NOTE_YN,'N') NOTE_YN                    /*공지여부        */
                     , TO_CHAR(POST_STA_DT,'YYYYMMDD') POST_STA_DT                    /*게시시작일시        */
                     , TO_CHAR(POST_END_DT,'YYYYMMDD') POST_END_DT                    /*게시종료일시        */
                     , TO_CHAR(NOTE_STA_DT,'YYYYMMDD') NOTE_STA_DT                    /*공지시작일시        */
                     , TO_CHAR(NOTE_END_DT,'YYYYMMDD') NOTE_END_DT                    /*공지종료일시        */
-                    , FILE_CD                    /*파일코드        */
+                    , FILE_ID                    /*파일코드        */
                     , NTCART_PWD                    /*게시물비밀번호        */
                     , REGR_ID                    /*등록자ID        */
                     , REG_DT                    /*등록일시        */
                     , AMDR_ID                    /*수정자ID        */
                     , AMD_DT                    /*수정일시        */
-                 FROM CRM_NTCART_BAS
+                 FROM TB_SYS_NTCART_BAS
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.insert*/ INTO CRM_NTCART_BAS (
+                INSERT /*com.wigo.cmm.sys.dao.NtcartBasDao.insert*/ INTO TB_SYS_NTCART_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{ntcartId}
@@ -186,12 +186,12 @@
                      , #{answerCtnts}
                      , #{noteStatusCd}
                      , #{postStatusCd}
-                     , NVL(#{noteYn},'N')
+                     , IFNULL(#{noteYn},'N')
                      , DECODE(#{postStaDt},NULL,NULL,TO_DATE(SUBSTR(#{postStaDt} || '000000',1,14) ,'YYYYMMDDHH24MISS'))
                      , DECODE(#{postEndDt},NULL,NULL,TO_DATE(SUBSTR(#{postEndDt} || '235959',1,14) ,'YYYYMMDDHH24MISS'))
                      , DECODE(#{noteStaDt},NULL,NULL,TO_DATE(SUBSTR(#{noteStaDt} || '000000',1,14) ,'YYYYMMDDHH24MISS'))
                      , DECODE(#{noteEndDt},NULL,NULL,TO_DATE(SUBSTR(#{noteEndDt} || '235959',1,14) ,'YYYYMMDDHH24MISS'))
-                     , NVL(#{fileCd},#{ntcartId})
+                     , IFNULL(#{fileId},#{ntcartId})
                      , #{ntcartPwd}
                      , #{regrId}
                      , SYSDATE
@@ -200,7 +200,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.update*/ CRM_NTCART_BAS
+               UPDATE /*com.wigo.cmm.sys.dao.NtcartBasDao.update*/ TB_SYS_NTCART_BAS
                   SET BRD_ID              =         #{brdId}
                     , UP_NTCART_ID        =         #{upNtcartId}
                     , TOP_NTCART_ID       =         #{topNtcartId}
@@ -214,15 +214,15 @@
                     , POST_END_DT         =         DECODE(#{postEndDt} ,NULL ,NULL, TO_DATE(SUBSTR(#{postEndDt} || '235959',1,14) ,'YYYYMMDDHH24MISS'))
                     , NOTE_STA_DT         =         DECODE(#{noteStaDt} ,NULL ,NULL, TO_DATE(SUBSTR(#{noteStaDt} || '000000',1,14) ,'YYYYMMDDHH24MISS'))
                     , NOTE_END_DT         =         DECODE(#{noteEndDt} ,NULL ,NULL, TO_DATE(SUBSTR(#{noteEndDt} || '235959',1,14) ,'YYYYMMDDHH24MISS'))
-<!--                     , FILE_CD             =         #{fileCd} -->
+<!--                     , FILE_ID             =         #{fileId} -->
                     , NTCART_PWD          =         #{ntcartPwd}
                     , AMDR_ID             =         #{amdrId}
                     , AMD_DT              =         SYSDATE
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.delete*/
-                 FROM CRM_NTCART_BAS
+               DELETE /*com.wigo.cmm.sys.dao.NtcartBasDao.delete*/
+                 FROM TB_SYS_NTCART_BAS
         <include refid="sqlPkConditions"/>
     </delete>
 </mapper>

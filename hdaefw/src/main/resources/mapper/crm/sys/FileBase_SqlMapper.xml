@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wigo.cmm.sys.dao.CrmFileBaseDao">
+<mapper namespace="com.wigo.cmm.sys.dao.FileBaseDao">
     <sql id="sqlPkConditions">
-                WHERE FILE_CD           =       #{fileCd}
+                WHERE FILE_ID           =       #{fileId}
                   AND FILE_ODRG         =       #{fileOdrg}
     </sql>
     <sql id="sqlCols">
-                      FILE_CD                    /*파일코드        */
+                      FILE_ID                    /*파일코드        */
                     , FILE_ODRG                    /*파일순번        */
                     , FILE_NM                    /*파일명        */
                     , FILE_SIZE                    /*파일크기        */
@@ -21,14 +21,14 @@
     </sql>
     <sql id="sqlConditions">
     <where>
-        <if test="fileCd != null and fileCd != ''">
+        <if test="fileId != null and fileId != ''">
             <choose>
-                <when test="fileCd instanceof String">
-                              AND FILE_CD           =       #{fileCd}
+                <when test="fileId instanceof String">
+                              AND FILE_ID           =       #{fileId}
                 </when>
                 <otherwise>
-                    AND FILE_CD           IN
-                    <foreach item="item" index="index" collection="fileCd" open="(" separator="," close=")">
+                    AND FILE_ID           IN
+                    <foreach item="item" index="index" collection="fileId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
@@ -58,38 +58,38 @@
       </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.wigo.cmm.sys.dao.CrmFileBaseDao.selectListCount*/ COUNT(1)
-                 FROM CRM_FILE_BAS
+                SELECT /*com.wigo.cmm.sys.dao.FileBaseDao.selectListCount*/ COUNT(1)
+                 FROM TB_SYS_FILE_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmFileVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.wigo.cmm.sys.dao.CrmFileBaseDao.selectList*/ <include refid="sqlCols"/>
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.FileVo">
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.FileBaseDao.selectList*/ <include refid="sqlCols"/>
                     , TO_CHAR(REG_DT, 'YYYYMMDDHH24MISS') UPL_DT
-                 FROM CRM_FILE_BAS
+                 FROM TB_SYS_FILE_BAS
         <include refid="sqlConditions"/>
-               ORDER BY <if test="fileCd != null and fileCd != ''">
+               ORDER BY <if test="fileId != null and fileId != ''">
                     FILE_ODRG ,
                 </if> REG_DT DESC
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.CrmFileVo">
-               SELECT /*com.wigo.cmm.sys.dao.CrmFileBaseDao.select*/<include refid="sqlCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.FileVo">
+               SELECT /*com.wigo.cmm.sys.dao.FileBaseDao.select*/<include refid="sqlCols"/>
                     , TO_CHAR(REG_DT, 'YYYYMMDDHH24MISS') UPL_DT
-                 FROM CRM_FILE_BAS
+                 FROM TB_SYS_FILE_BAS
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
         <selectKey order="BEFORE" keyProperty="fileOdrg" resultType="int">
-            SELECT NVL(DECODE(#{fileOdrg},0,NULL,#{fileOdrg}),NVL(MAX(FILE_ODRG),0) + 1 )
-              FROM CRM_FILE_BAS
-             WHERE FILE_CD = TO_CHAR(#{fileCd}) 
+            SELECT IFNULL(DECODE(#{fileOdrg},0,NULL,#{fileOdrg}),IFNULL(MAX(FILE_ODRG),0) + 1 )
+              FROM TB_SYS_FILE_BAS
+             WHERE FILE_ID = TO_CHAR(#{fileId}) 
         </selectKey>
         
-                INSERT /*com.wigo.cmm.sys.dao.CrmFileBaseDao.insert*/ INTO CRM_FILE_BAS (
+                INSERT /*com.wigo.cmm.sys.dao.FileBaseDao.insert*/ INTO TB_SYS_FILE_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
-                       #{fileCd}
+                       #{fileId}
                      , #{fileOdrg}
                      , #{fileNm}
                      , #{fileSize}
@@ -104,7 +104,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.wigo.cmm.sys.dao.CrmFileBaseDao.update*/ CRM_FILE_BAS
+               UPDATE /*com.wigo.cmm.sys.dao.FileBaseDao.update*/ TB_SYS_FILE_BAS
                   SET FILE_NM             =         #{fileNm}
                     , FILE_SIZE           =         #{fileSize}
                     , FILE_SAVE_NM        =         #{fileSaveNm}
@@ -116,16 +116,16 @@
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.wigo.cmm.sys.dao.CrmFileBaseDao.delete*/ 
-                 FROM CRM_FILE_BAS
-                WHERE FILE_CD            =       TO_CHAR(#{fileCd})
+               DELETE /*com.wigo.cmm.sys.dao.FileBaseDao.delete*/ 
+                 FROM TB_SYS_FILE_BAS
+                WHERE FILE_ID            =       TO_CHAR(#{fileId})
                 <if test="fileOdrg != null and fileOdrg != ''">
                   AND FILE_ODRG           =       #{fileOdrg} 
                 </if>
     </delete>
     <select id="selectMaxfileOdrg" resultType="int">
-        SELECT /*com.wigo.cmm.sys.dao.CrmFileBaseDao.selectMaxfileOdrg*/ NVL(DECODE(#{fileOdrg},0,NULL,#{fileOdrg}),NVL(MAX(FILE_ODRG),0) + 1 )
-              FROM CRM_FILE_BAS
-             WHERE FILE_CD = TO_CHAR(#{fileCd})
+        SELECT /*com.wigo.cmm.sys.dao.FileBaseDao.selectMaxfileOdrg*/ IFNULL(DECODE(#{fileOdrg},0,NULL,#{fileOdrg}),IFNULL(MAX(FILE_ODRG),0) + 1 )
+              FROM TB_SYS_FILE_BAS
+             WHERE FILE_ID = TO_CHAR(#{fileId})
     </select>
 </mapper>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wigo.cmm.sys.dao.CrmGrpOrgRelDao">
+<mapper namespace="com.wigo.cmm.sys.dao.GrpOrgRelDao">
     <sql id="sqlPkConditions">
-                WHERE GRP_CD            =       #{grpCd}
+                WHERE GRP_ID            =       #{grpId}
                   AND ORG_ID            =       #{orgId}
     </sql>
     <sql id="sqlCols">
-                      GRP_CD                    /*그룹코드        */
+                      GRP_ID                    /*그룹코드        */
                     , ORG_ID                    /*조직ID        */
                     , REGR_ID                    /*등록자ID        */
                     , REG_DT                    /*등록일시        */
@@ -15,14 +15,14 @@
     </sql>
     <sql id="sqlConditions">
     <where>
-        <if test="grpCd != null and grpCd != ''">
+        <if test="grpId != null and grpId != ''">
             <choose>
-                <when test="grpCd instanceof String">
-                              AND A.GRP_CD            =       #{grpCd}
+                <when test="grpId instanceof String">
+                              AND A.GRP_ID            =       #{grpId}
                 </when>
                 <otherwise>
-                    AND A.GRP_CD            IN
-                    <foreach item="item" index="index" collection="grpCd" open="(" separator="," close=")">
+                    AND A.GRP_ID            IN
+                    <foreach item="item" index="index" collection="grpId" open="(" separator="," close=")">
                         #{item}
                     </foreach>
                 </otherwise>
@@ -32,20 +32,20 @@
                       AND A.ORG_ID            =       #{orgId}
         </if>
          <if test="exGrpCd != null and exGrpCd != ''">
-           AND ORG_ID NOT IN (SELECT ORG_ID FROM CRM_GRP_ORG_REL WHERE GRP_CD = #{exGrpCd})
+           AND ORG_ID NOT IN (SELECT ORG_ID FROM TB_SYS_GRP_ORG_REL WHERE GRP_ID = #{exGrpCd})
          </if>
       </where>
     </sql>
     <select id="selectListCount" resultType="int">
-               SELECT /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.selectListCount*/ COUNT(1)
-                 FROM CRM_GRP_ORG_REL A
-                INNER JOIN CRM_GRP_BAS B ON A.GRP_CD = B.GRP_CD 
-                INNER JOIN CRM_ORG_BAS C ON A.ORG_ID = C.ORG_ID
+               SELECT /*com.wigo.cmm.sys.dao.GrpOrgRelDao.selectListCount*/ COUNT(1)
+                 FROM TB_SYS_GRP_ORG_REL A
+                INNER JOIN TB_SYS_GRP_BAS B ON A.GRP_ID = B.GRP_ID 
+                INNER JOIN TB_SYS_ORG_BAS C ON A.ORG_ID = C.ORG_ID
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmGrpOrgRelVo">
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.selectList*/ A.GRP_CD                    /*그룹코드        */
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.GrpOrgRelVo">
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.GrpOrgRelDao.selectList*/ A.GRP_ID                    /*그룹코드        */
                     , A.ORG_ID                    /*조직ID        */
                     , A.REGR_ID                    /*등록자ID        */
                     , A.REG_DT                    /*등록일시        */
@@ -53,23 +53,23 @@
                     , A.AMD_DT                    /*수정일시        */
                     , B.GRP_NM
                     , C.ORG_NM
-                 FROM CRM_GRP_ORG_REL A
-                INNER JOIN CRM_GRP_BAS B ON A.GRP_CD = B.GRP_CD 
-                INNER JOIN CRM_ORG_BAS C ON A.ORG_ID = C.ORG_ID
+                 FROM TB_SYS_GRP_ORG_REL A
+                INNER JOIN TB_SYS_GRP_BAS B ON A.GRP_ID = B.GRP_ID 
+                INNER JOIN TB_SYS_ORG_BAS C ON A.ORG_ID = C.ORG_ID
         <include refid="sqlConditions"/>
                ORDER BY C.ORG_NM
-        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.wigo.cmm.sys.model.CrmGrpOrgRelVo">
-               SELECT /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.select*/ <include refid="sqlCols"/>
-                 FROM CRM_GRP_ORG_REL
+    <select id="select" resultType="com.wigo.cmm.sys.model.GrpOrgRelVo">
+               SELECT /*com.wigo.cmm.sys.dao.GrpOrgRelDao.select*/ <include refid="sqlCols"/>
+                 FROM TB_SYS_GRP_ORG_REL
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.insert*/ INTO CRM_GRP_ORG_REL (
+                INSERT /*com.wigo.cmm.sys.dao.GrpOrgRelDao.insert*/ INTO TB_SYS_GRP_ORG_REL (
         <include refid="sqlCols"/>
                  ) VALUES (
-                       #{grpCd}
+                       #{grpId}
                      , #{orgId}
                      , #{regrId}
                      , SYSDATE
@@ -78,20 +78,20 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.update*/ CRM_GRP_ORG_REL
+               UPDATE /*com.wigo.cmm.sys.dao.GrpOrgRelDao.update*/ TB_SYS_GRP_ORG_REL
                   SET AMDR_ID             =         #{amdrId}
                     , AMD_DT              =         SYSDATE
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.delete*/ 
-                 FROM CRM_GRP_ORG_REL
+               DELETE /*com.wigo.cmm.sys.dao.GrpOrgRelDao.delete*/ 
+                 FROM TB_SYS_GRP_ORG_REL
         <include refid="sqlPkConditions"/>
     </delete>
     <delete id="deleteGrpCd">
-               DELETE /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.deleteGrpCd*/  
-                 FROM CRM_GRP_ORG_REL
-                WHERE GRP_CD            =       #{grpCd}
+               DELETE /*com.wigo.cmm.sys.dao.GrpOrgRelDao.deleteGrpCd*/  
+                 FROM TB_SYS_GRP_ORG_REL
+                WHERE GRP_ID            =       #{grpId}
     </delete>
     
 </mapper>
