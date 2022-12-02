@@ -57,7 +57,7 @@ public class LogDatabaseConfig {
 	int poolSize;
 
 	@Bean(name = "logDataSource")
-	public DataSource dataSource() {
+	DataSource dataSource() {
 		HikariConfig hikariConfig = new HikariConfig();
 		if (poolSize <= 0)
 			poolSize = 100;
@@ -80,7 +80,7 @@ public class LogDatabaseConfig {
 	}
 
 	@Bean(name = "logSqlSessionFactory")
-	public SqlSessionFactory sqlSessionFactory(@Qualifier("logDataSource") DataSource dataSource) throws Exception {
+	SqlSessionFactory sqlSessionFactory(@Qualifier("logDataSource") DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean
@@ -92,7 +92,7 @@ public class LogDatabaseConfig {
 	}
 
 	@Bean(name = "logSqlSessionTemplate")
-	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+	SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
 

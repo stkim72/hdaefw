@@ -35,8 +35,8 @@ public class TransactionConfig {
 //		return new DataSourceTransactionManager(dataSource);
 //	}
 	@Primary
-	@Bean(name = "crmTransactionManager")
-	DataSourceTransactionManager crmTxManager(@Qualifier("crmDataSource") DataSource dataSource) throws Exception {
+	@Bean(name = "cmmTransactionManager")
+	DataSourceTransactionManager cmmTxManager(@Qualifier("cmmDataSource") DataSource dataSource) throws Exception {
 		DataSourceTransactionManager tx = new DataSourceTransactionManager(dataSource);
 		tx.setDefaultTimeout(60 * 2);
 		return tx;

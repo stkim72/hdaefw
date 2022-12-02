@@ -2,11 +2,8 @@ package com.wigo.cmm.config;
 
 import java.util.concurrent.TimeUnit;
 
-import org.apache.catalina.Context;
-import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +34,7 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "com.ceragem" })
+@ComponentScan({ "com.wigo" })
 public class WebMVCConfig implements WebMvcConfigurer {
 	@Autowired
 	@Qualifier(value = "authInterceptor")
@@ -51,19 +48,19 @@ public class WebMVCConfig implements WebMvcConfigurer {
 //	    @Qualifier(value = "apiAuthIntercepter")
 //		private HandlerInterceptor apiAuthIntercepter;
 
-	@Bean
-	public TomcatServletWebServerFactory tomcatFactory() {
-		return new TomcatServletWebServerFactory() {
-			@Override
-			protected void postProcessContext(Context context) {
-				((StandardJarScanner) context.getJarScanner()).setScanManifest(false);
-			}
-		};
-	}
+//	@Bean
+//	TomcatServletWebServerFactory tomcatFactory() {
+//		return new TomcatServletWebServerFactory() {
+//			@Override
+//			protected void postProcessContext(Context context) {
+//				((StandardJarScanner) context.getJarScanner()).setScanManifest(false);
+//			}
+//		};
+//	}
 
 	// 뷰 세팅1
 	@Bean
-	public TilesConfigurer tilesConfigurer() {
+	TilesConfigurer tilesConfigurer() {
 		final TilesConfigurer configurer = new TilesConfigurer();
 		// 타일즈 설정파일이 위치하는 디렉토리+파일명
 		configurer.setDefinitions(new String[] { "classpath:/config/tiles/tiles-*.xml" });
@@ -73,7 +70,7 @@ public class WebMVCConfig implements WebMvcConfigurer {
 
 	// 뷰 세팅2
 	@Bean
-	public ViewResolver tilesViewResolver() {
+	ViewResolver tilesViewResolver() {
 		final TilesViewResolver tilesViewResolver = new TilesViewResolver();
 		tilesViewResolver.setViewClass(TilesView.class);
 		tilesViewResolver.setOrder(1); // 뷰 우선순위
