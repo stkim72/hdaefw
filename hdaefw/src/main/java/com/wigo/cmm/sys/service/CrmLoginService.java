@@ -19,15 +19,15 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Constants;
 import com.wigo.cmm.common.util.SessionUtil;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.dao.CrmUserBaseDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.UserBaseDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.CrmGrpBaseVo;
 import com.wigo.cmm.sys.model.CrmLoginUserVo;
 
 @Service("loginService")
 public class CrmLoginService extends AbstractCrmService {
 	@Autowired
-	CrmUserBaseDao dao;
+	UserBaseDao dao;
 	@Autowired
 	CrmLoginService service;
 	@Value("${spring.sso.auth-url}")
@@ -58,7 +58,7 @@ public class CrmLoginService extends AbstractCrmService {
 	String activeProfile;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 

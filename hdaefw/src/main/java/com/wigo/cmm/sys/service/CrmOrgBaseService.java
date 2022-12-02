@@ -5,17 +5,17 @@ import org.springframework.stereotype.Service;
 
 import com.wigo.cmm.common.model.AbstractTreeVo;
 import com.wigo.cmm.common.model.EzMap;
-import com.wigo.cmm.sys.dao.CrmOrgBaseDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.OrgBaseDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.CrmJadeOrgVo;
 
 @Service
 public class CrmOrgBaseService extends AbstractCrmService {
 	@Autowired
-	CrmOrgBaseDao dao;
+	OrgBaseDao dao;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 

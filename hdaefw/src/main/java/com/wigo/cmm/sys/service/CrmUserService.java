@@ -5,21 +5,21 @@ import org.springframework.stereotype.Service;
 
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.dao.CrmGrpUserRelDao;
-import com.wigo.cmm.sys.dao.CrmUserBaseDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.GrpUserRelDao;
+import com.wigo.cmm.sys.dao.UserBaseDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.CrmUserBaseVo;
 
 @Service
 public class CrmUserService extends AbstractCrmService {
 	@Autowired
-	CrmUserBaseDao dao;
+	UserBaseDao dao;
 
 	@Autowired
-	CrmGrpUserRelDao grpUserDao;
+	GrpUserRelDao grpUserDao;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 

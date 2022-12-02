@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wigo.cmm.common.model.EzMap;
-import com.wigo.cmm.sys.dao.CrmGrpUserRelDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.GrpUserRelDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.CrmGrpUserRelVo;
 
 @Service
 public class CrmGrpUserRelService extends AbstractCrmService {
 	@Autowired
-	CrmGrpUserRelDao dao;
+	GrpUserRelDao dao;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 

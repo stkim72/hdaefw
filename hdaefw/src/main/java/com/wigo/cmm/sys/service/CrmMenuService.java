@@ -12,26 +12,26 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.model.ITreeVo;
 import com.wigo.cmm.common.util.SessionUtil;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.dao.CrmGrpMenuRelDao;
-import com.wigo.cmm.sys.dao.CrmMenuBaseDao;
-import com.wigo.cmm.sys.dao.CrmUserWdgtDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.GrpMenuRelDao;
+import com.wigo.cmm.sys.dao.MenuBaseDao;
+import com.wigo.cmm.sys.dao.UserWdgtDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.CrmMenuVo;
 import com.wigo.cmm.sys.model.CrmUserWdgtVo;
 
 @Service("menuService")
 public class CrmMenuService extends AbstractCrmService {
 	@Autowired
-	CrmMenuBaseDao dao;
+	MenuBaseDao dao;
 
 	@Autowired
-	CrmGrpMenuRelDao grpMenuDao;
+	GrpMenuRelDao grpMenuDao;
 
 	@Autowired
-	CrmUserWdgtDao wdgtDao;
+	UserWdgtDao wdgtDao;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 

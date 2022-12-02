@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wigo.cmm.common.model.BaseVo;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.ICrmFile;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public abstract class AbstractCrmService {
 	@Autowired
 	AsyncService asyncService;
 
-	public abstract ICrmDao getDao();
+	public abstract ICmmDao getDao();
 
 	public <T> List<T> getList(Object param) throws Exception {
 		return getDao().selectList(param);

@@ -9,7 +9,7 @@ import com.wigo.cmm.sys.model.CrmGrpMenuRelVo;
 import com.wigo.cmm.sys.model.CrmGrpUserRelVo;
 
 @CrmMapper
-public interface CrmGrpBaseDao extends ICrmDao {
+public interface GrpBaseDao extends ICmmDao {
 
 	List<CrmGrpUserRelVo> selectGroupUserList(Object param) throws Exception;
 

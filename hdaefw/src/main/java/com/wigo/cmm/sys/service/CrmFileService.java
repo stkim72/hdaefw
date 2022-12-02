@@ -15,8 +15,8 @@ import com.wigo.cmm.common.model.EzAjaxException;
 import com.wigo.cmm.common.model.EzException;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.dao.CrmFileBaseDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.FileBaseDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.CrmFileVo;
 import com.wigo.cmm.sys.model.ICrmFile;
 
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class CrmFileService extends AbstractCrmService {
 	@Autowired
-	CrmFileBaseDao dao;
+	FileBaseDao dao;
 
 	@Value("${spring.nas.path}")
 	String nasPath;
@@ -38,7 +38,7 @@ public class CrmFileService extends AbstractCrmService {
 	CrmUserWdgtService mainService;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 

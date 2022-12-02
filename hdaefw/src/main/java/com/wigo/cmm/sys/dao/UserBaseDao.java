@@ -7,7 +7,7 @@ import com.wigo.cmm.sys.model.CrmGrpBaseVo;
 import com.wigo.cmm.sys.model.CrmLoginUserVo;
 
 @CrmMapper
-public interface CrmUserBaseDao extends ICrmDao {
+public interface UserBaseDao extends ICmmDao {
 
 	CrmLoginUserVo selectUser(Object param) throws Exception;
 

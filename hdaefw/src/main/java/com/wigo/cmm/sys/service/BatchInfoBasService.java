@@ -13,7 +13,7 @@ import com.jcraft.jsch.Session;
 import com.wigo.cmm.common.model.EzAjaxException;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.sys.dao.BatchInfoBasDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.BatchInfoBasVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +53,7 @@ public class BatchInfoBasService extends AbstractCrmService {
 	AsyncService asyncService;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 

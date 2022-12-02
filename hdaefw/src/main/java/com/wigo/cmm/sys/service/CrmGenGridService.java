@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wigo.cmm.common.model.EzMap;
-import com.wigo.cmm.sys.dao.CrmGenGridDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.GenGridDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 
 @Service
 public class CrmGenGridService extends AbstractCrmService {
 	@Autowired
-	CrmGenGridDao dao;
+	GenGridDao dao;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 	public List<EzMap > getCodeList(Object param){

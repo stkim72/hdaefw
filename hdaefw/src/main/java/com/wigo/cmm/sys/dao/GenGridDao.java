@@ -6,6 +6,6 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.sys.mapper.CrmMapper;
 
 @CrmMapper
-public interface CrmGenGridDao extends ICrmDao {
+public interface GenGridDao extends ICmmDao {
 	List<EzMap> selectCodeList(Object param);
 }

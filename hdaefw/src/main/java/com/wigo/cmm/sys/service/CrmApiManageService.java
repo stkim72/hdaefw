@@ -4,17 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.dao.CrmApiInfoBaseDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.ApiInfoBaseDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.CrmApiInfoBaseVo;
 
 @Service
 public class CrmApiManageService extends AbstractCrmService {
 	@Autowired
-	CrmApiInfoBaseDao dao;
+	ApiInfoBaseDao dao;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 

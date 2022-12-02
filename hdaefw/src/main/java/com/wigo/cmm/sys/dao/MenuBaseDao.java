@@ -7,7 +7,7 @@ import com.wigo.cmm.sys.mapper.CrmMapper;
 import com.wigo.cmm.sys.model.CrmMenuVo;
 
 @CrmMapper
-public interface CrmMenuBaseDao extends ICrmDao {
+public interface MenuBaseDao extends ICmmDao {
 
 	CrmMenuVo selectMaxInfo(Object so) throws Exception;
 

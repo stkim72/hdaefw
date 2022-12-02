@@ -10,8 +10,8 @@ import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wigo.cmm.sys.dao.CrmErrHstDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.ErrHstDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.CrmErrHstVo;
 import com.wigo.cmm.sys.model.CrmMenuBaseVo;
 
@@ -21,10 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class CrmErrHstService extends AbstractCrmService {
 	@Autowired
-	CrmErrHstDao dao;
+	ErrHstDao dao;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 

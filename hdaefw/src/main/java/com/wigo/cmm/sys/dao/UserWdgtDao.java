@@ -6,7 +6,7 @@ import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.sys.mapper.CrmMapper;
 
 @CrmMapper
-public interface CrmUserWdgtDao extends ICrmDao {
+public interface UserWdgtDao extends ICmmDao {
 
 	int deleteMenuCd(Object param) throws Exception;
 

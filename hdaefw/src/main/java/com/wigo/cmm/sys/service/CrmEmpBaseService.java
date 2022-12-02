@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.dao.CrmEmpBaseDao;
-import com.wigo.cmm.sys.dao.CrmUserBaseDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.EmpBaseDao;
+import com.wigo.cmm.sys.dao.UserBaseDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.CrmJadeHrVo;
 import com.wigo.cmm.sys.model.CrmLoginUserVo;
 import com.wigo.cmm.sys.model.CrmUserBaseVo;
@@ -14,13 +14,13 @@ import com.wigo.cmm.sys.model.CrmUserBaseVo;
 @Service
 public class CrmEmpBaseService extends AbstractCrmService {
 	@Autowired
-	CrmEmpBaseDao dao;
+	EmpBaseDao dao;
 	@Autowired
-	CrmUserBaseDao userDao;
+	UserBaseDao userDao;
 
 	
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 

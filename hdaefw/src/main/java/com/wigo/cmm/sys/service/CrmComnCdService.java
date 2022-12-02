@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 import com.wigo.cmm.common.model.BaseVo;
 import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.dao.CrmComnCdBaseDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.ComnCdBaseDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.CrmComnCdBaseVo;
 
 @Service
 public class CrmComnCdService extends AbstractCrmService {
 	@Autowired
-	CrmComnCdBaseDao dao;
+	ComnCdBaseDao dao;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 

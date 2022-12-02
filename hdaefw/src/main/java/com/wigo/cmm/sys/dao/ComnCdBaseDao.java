@@ -7,7 +7,7 @@ import com.wigo.cmm.sys.mapper.CrmMapper;
 import com.wigo.cmm.sys.model.CrmComnCdBaseVo;
 
 @CrmMapper
-public interface CrmComnCdBaseDao extends ICrmDao {
+public interface ComnCdBaseDao extends ICmmDao {
 
 	int updateSeq(Object param) throws Exception;
 

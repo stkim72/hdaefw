@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wigo.cmm.common.model.EzMap;
-import com.wigo.cmm.sys.dao.CrmGrpBaseDao;
-import com.wigo.cmm.sys.dao.CrmGrpEmpRelDao;
-import com.wigo.cmm.sys.dao.CrmGrpMenuRelDao;
-import com.wigo.cmm.sys.dao.CrmGrpOrgRelDao;
-import com.wigo.cmm.sys.dao.CrmGrpUserRelDao;
-import com.wigo.cmm.sys.dao.ICrmDao;
+import com.wigo.cmm.sys.dao.GrpBaseDao;
+import com.wigo.cmm.sys.dao.GrpEmpRelDao;
+import com.wigo.cmm.sys.dao.GrpMenuRelDao;
+import com.wigo.cmm.sys.dao.GrpOrgRelDao;
+import com.wigo.cmm.sys.dao.GrpUserRelDao;
+import com.wigo.cmm.sys.dao.ICmmDao;
 import com.wigo.cmm.sys.model.CrmGrpBaseVo;
 import com.wigo.cmm.sys.model.CrmGrpMenuRelVo;
 import com.wigo.cmm.sys.model.CrmGrpUserRelVo;
@@ -19,18 +19,18 @@ import com.wigo.cmm.sys.model.CrmGrpUserRelVo;
 @Service
 public class CrmGrpBaseService extends AbstractCrmService {
 	@Autowired
-	CrmGrpBaseDao dao;
+	GrpBaseDao dao;
 	@Autowired
-	CrmGrpUserRelDao grpUserDao;
+	GrpUserRelDao grpUserDao;
 	@Autowired
-	CrmGrpMenuRelDao grpMenuDao;
+	GrpMenuRelDao grpMenuDao;
 	@Autowired
-	CrmGrpOrgRelDao grpOrgDao;
+	GrpOrgRelDao grpOrgDao;
 	@Autowired
-	CrmGrpEmpRelDao grpEmpDao;
+	GrpEmpRelDao grpEmpDao;
 
 	@Override
-	public ICrmDao getDao() {
+	public ICmmDao getDao() {
 		return dao;
 	}
 
