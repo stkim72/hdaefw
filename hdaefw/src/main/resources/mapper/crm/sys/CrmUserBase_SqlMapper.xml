@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmUserBaseDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmUserBaseDao">
     <sql id="sqlPkConditions">
         <choose>
             <when test="userCd !=null and userCd !=''">
@@ -110,13 +110,13 @@
          </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.ceragem.crm.sys.dao.CrmUserBaseDao.selectListCount*/ COUNT(1)
+                SELECT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.selectListCount*/ COUNT(1)
                  FROM CRM_USER_BAS A
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmUserBaseVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.ceragem.crm.sys.dao.CrmUserBaseDao.selectList*/ A.USER_CD                    /*사용자코드        */
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmUserBaseVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.selectList*/ A.USER_CD                    /*사용자코드        */
                     , A.LOGIN_ID                   /*로그인ID        */
 <!--                     , A.LOGIN_PWD                  /*로그인비밀번호        */ -->
                     , A.USER_NM                    /*사용자명        */
@@ -136,15 +136,15 @@
                  FROM CRM_USER_BAS A
         <include refid="sqlConditions"/>
                ORDER BY USER_NM
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.CrmUserBaseVo">
-               SELECT /*com.ceragem.crm.sys.dao.CrmUserBaseDao.select*/ <include refid="sqlCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.CrmUserBaseVo">
+               SELECT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.select*/ <include refid="sqlCols"/>
                  FROM CRM_USER_BAS A
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.ceragem.crm.sys.dao.CrmUserBaseDao.insert*/ INTO CRM_USER_BAS (
+                INSERT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.insert*/ INTO CRM_USER_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{userCd}
@@ -168,7 +168,7 @@
     </insert>
     
     <update id="update">
-               UPDATE /*com.ceragem.crm.sys.dao.CrmUserBaseDao.update*/ CRM_USER_BAS
+               UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.update*/ CRM_USER_BAS
                   SET LOGIN_ID            =         NVL(#{loginId},LOGIN_ID)
                     , USER_NM             =         #{userNm}
 <!--                     , EMAIL_ADDR          =         #{emailAddr} -->
@@ -181,7 +181,7 @@
         <include refid="sqlPkConditions"/>
     </update>
     <update id="updateEmp">
-               UPDATE /*com.ceragem.crm.sys.dao.CrmUserBaseDao.updateEmp*/ CRM_USER_BAS
+               UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.updateEmp*/ CRM_USER_BAS
                   SET USER_NM             =         #{userNm}
 <!--                     , EMAIL_ADDR          =         #{emailAddr} -->
 <!--                     , MPHON_NO            =         #{mphonNo} -->
@@ -193,12 +193,12 @@
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.ceragem.crm.sys.dao.CrmUserBaseDao.delete*/  
+               DELETE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.delete*/  
                  FROM CRM_USER_BAS
         <include refid="sqlPkConditions"/>
     </delete>
-    <select id="selectUser" resultType="com.ceragem.crm.sys.model.CrmLoginUserVo">
-               SELECT /*com.ceragem.crm.sys.dao.CrmUserBaseDao.selectUser*/ A.USER_CD                    /*사용자코드        */
+    <select id="selectUser" resultType="com.wigo.cmm.sys.model.CrmLoginUserVo">
+               SELECT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.selectUser*/ A.USER_CD                    /*사용자코드        */
                     , A.LOGIN_ID                    /*로그인ID        */
                     , A.LOGIN_PWD                    /*로그인비밀번호        */
                     , A.USER_NM                    /*사용자명        */
@@ -245,26 +245,26 @@
       <include refid="sqlPkConditions" />
     </select>
      <update id="updateLogin">
-           UPDATE /*com.ceragem.crm.sys.dao.CrmUserBaseDao.updateLogin*/ CRM_USER_BAS
+           UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.updateLogin*/ CRM_USER_BAS
               SET LAST_LOGIN_DT        =    SYSDATE
                 , LOGIN_FAIL_CNT       =    0   
             <include refid="sqlPkConditions" />
     </update>
     <update id="updateLoginFail">
-            UPDATE /*com.ceragem.crm.sys.dao.CrmUserBaseDao.updateLoginFail*/ CRM_USER_BAS
+            UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.updateLoginFail*/ CRM_USER_BAS
               SET LAST_LOGIN_DT        =    SYSDATE
                 , LOGIN_FAIL_CNT       =    NVL(LOGIN_FAIL_CNT,0) + 1   
          <include refid="sqlPkConditions" />
     </update>
     <update id="updatePassword">
-        UPDATE /*com.ceragem.crm.sys.dao.CrmUserBaseDao.updatePassword*/ CRM_USER_BAS
+        UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.updatePassword*/ CRM_USER_BAS
               SET LOGIN_PWD        =    #{loginPwd}
                 , LOGIN_FAIL_CNT       =    0
                 , PWD_AMD_DT          =    SYSDATE
          <include refid="sqlPkConditions" />
     </update>
      <insert id="insertLoginHist">
-        INSERT /*com.ceragem.crm.sys.dao.CrmUserBaseDao.insertLoginHist*/ INTO CRM_USER_LOGIN_HST (
+        INSERT /*com.wigo.cmm.sys.dao.CrmUserBaseDao.insertLoginHist*/ INTO CRM_USER_LOGIN_HST (
                   USER_CD
                 , LOGIN_DT
                 , LOGIN_IP_ADDR
@@ -283,14 +283,14 @@
             )
     </insert>
      <update id="updateMyInfo">
-       UPDATE /*com.ceragem.crm.sys.dao.CrmUserBaseDao.updateMyInfo*/ CRM_USER_BAS
+       UPDATE /*com.wigo.cmm.sys.dao.CrmUserBaseDao.updateMyInfo*/ CRM_USER_BAS
           SET EMAIL_ADDR           =         #{emailAddr}
             , MPHON_NO             =         #{mphonNo}
             , AMDR_ID              =         #{amdrId}
             , AMD_DT               =         SYSDATE
          <include refid="sqlPkConditions" />
     </update>
-    <select id="selectUserGroupList" resultType="com.ceragem.crm.sys.model.CrmGrpBaseVo">
+    <select id="selectUserGroupList" resultType="com.wigo.cmm.sys.model.CrmGrpBaseVo">
          SELECT B.* 
            FROM ( SELECT GRP_CD
                        , USER_CD

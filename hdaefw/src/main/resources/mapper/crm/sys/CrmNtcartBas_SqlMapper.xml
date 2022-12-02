@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmNtcartBasDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmNtcartBasDao">
     <sql id="sqlPkConditions">
                 WHERE NTCART_ID         =       #{ntcartId}
     </sql>
@@ -114,13 +114,13 @@
 <!--          DBMS_LOB.INSTR(찾을컬럼이름, '찾을문자열') > 0 -->
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.ceragem.crm.sys.dao.CrmNtcartBasDao.selectListCount*/ COUNT(1)
+                SELECT /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.selectListCount*/ COUNT(1)
                  FROM CRM_NTCART_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmNtcartBasVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.ceragem.crm.sys.dao.CrmNtcartBasDao.selectList*/ NTCART_ID                    /*게시물ID        */
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmNtcartBasVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.selectList*/ NTCART_ID                    /*게시물ID        */
                     , BRD_ID                    /*게시판ID        */
                     , UP_NTCART_ID                    /*상위게시물ID        */
                     , TOP_NTCART_ID                    /*최상위게시물ID        */
@@ -147,10 +147,10 @@
                      , NVL(POST_END_DT,TO_DATE('99991231','YYYYMMDD')) DESC
                      , NVL(POST_STA_DT,TO_DATE('19000101','YYYYMMDD')) 
                      , REG_DT DESC
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.CrmNtcartBasVo">
-               SELECT /*com.ceragem.crm.sys.dao.CrmNtcartBasDao.select*/ NTCART_ID                    /*게시물ID        */
+    <select id="select" resultType="com.wigo.cmm.sys.model.CrmNtcartBasVo">
+               SELECT /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.select*/ NTCART_ID                    /*게시물ID        */
                     , BRD_ID                    /*게시판ID        */
                     , UP_NTCART_ID                    /*상위게시물ID        */
                     , TOP_NTCART_ID                    /*최상위게시물ID        */
@@ -174,7 +174,7 @@
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.ceragem.crm.sys.dao.CrmNtcartBasDao.insert*/ INTO CRM_NTCART_BAS (
+                INSERT /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.insert*/ INTO CRM_NTCART_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{ntcartId}
@@ -200,7 +200,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.ceragem.crm.sys.dao.CrmNtcartBasDao.update*/ CRM_NTCART_BAS
+               UPDATE /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.update*/ CRM_NTCART_BAS
                   SET BRD_ID              =         #{brdId}
                     , UP_NTCART_ID        =         #{upNtcartId}
                     , TOP_NTCART_ID       =         #{topNtcartId}
@@ -221,7 +221,7 @@
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.ceragem.crm.sys.dao.CrmNtcartBasDao.delete*/
+               DELETE /*com.wigo.cmm.sys.dao.CrmNtcartBasDao.delete*/
                  FROM CRM_NTCART_BAS
         <include refid="sqlPkConditions"/>
     </delete>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmEmpBaseDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmEmpBaseDao">
     <sql id="sqlPkConditions">
                 WHERE EMP_ID            =       #{empId}
     </sql>
@@ -123,13 +123,13 @@
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.ceragem.crm.sys.dao.CrmEmpBaseDao.selectListCount*/ COUNT(1)
+                SELECT /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.selectListCount*/ COUNT(1)
                  FROM CRM_EMP_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmJadeHrVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.ceragem.crm.sys.dao.CrmEmpBaseDao.selectList*/ <include refid="sqlCols"/>
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmJadeHrVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.selectList*/ <include refid="sqlCols"/>
                     , MPHON_NO MPHON_NO_ENC_VAL
                     , (SELECT ORG_NM FROM CRM_ORG_BAS WHERE A.ORG_ID = ORG_ID) ORG_NM
 <!--                         , ORG_NM -->
@@ -143,16 +143,16 @@
         <include refid="sqlConditions"/>
                ORDER BY TO_NUMBER(EMP_GRADE_CD) 
                        , EMP_NM
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.CrmJadeHrVo">
-               SELECT  /*com.ceragem.crm.sys.dao.CrmEmpBaseDao.select*/<include refid="sqlCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.CrmJadeHrVo">
+               SELECT  /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.select*/<include refid="sqlCols"/>
                     , MPHON_NO MPHON_NO_ENC_VAL
                  FROM CRM_EMP_BAS
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT  /*com.ceragem.crm.sys.dao.CrmEmpBaseDao.insert*/ INTO CRM_EMP_BAS (
+                INSERT  /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.insert*/ INTO CRM_EMP_BAS (
         <include refid="sqlCols"/>
 <!--                         , ORG_NM -->
 <!--                           , CMP_NM -->
@@ -192,7 +192,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE  /*com.ceragem.crm.sys.dao.CrmEmpBaseDao.update*/ CRM_EMP_BAS
+               UPDATE  /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.update*/ CRM_EMP_BAS
                   SET EMP_NM              =         #{empNm}
                     , CMP_CD              =         #{cmpCd}
                     , ORG_ID              =         #{orgId}
@@ -218,7 +218,7 @@
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE  /*com.ceragem.crm.sys.dao.CrmEmpBaseDao.delete*/ 
+               DELETE  /*com.wigo.cmm.sys.dao.CrmEmpBaseDao.delete*/ 
                  FROM CRM_EMP_BAS
         <include refid="sqlPkConditions"/>
     </delete>

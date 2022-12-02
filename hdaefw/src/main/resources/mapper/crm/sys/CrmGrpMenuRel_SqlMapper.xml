@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmGrpMenuRelDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmGrpMenuRelDao">
     <sql id="sqlPkConditions">
                 WHERE GRP_CD            =       #{grpCd}
                   AND MENU_CD           =       #{menuCd}
@@ -60,25 +60,25 @@
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.ceragem.crm.sys.dao.CrmGrpMenuRelDao.selectListCount*/ COUNT(1)
+                SELECT /*com.wigo.cmm.sys.dao.CrmGrpMenuRelDao.selectListCount*/ COUNT(1)
                  FROM CRM_GRP_MENU_REL
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmGrpMenuRelVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.ceragem.crm.sys.dao.CrmGrpMenuRelDao.selectList*/ <include refid="sqlCols"/>
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmGrpMenuRelVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.CrmGrpMenuRelDao.selectList*/ <include refid="sqlCols"/>
                  FROM CRM_GRP_MENU_REL
         <include refid="sqlConditions"/>
                ORDER BY REG_DT DESC
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.CrmGrpMenuRelVo">
-               SELECT /*com.ceragem.crm.sys.dao.CrmGrpMenuRelDao.select*/ <include refid="sqlCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.CrmGrpMenuRelVo">
+               SELECT /*com.wigo.cmm.sys.dao.CrmGrpMenuRelDao.select*/ <include refid="sqlCols"/>
                  FROM CRM_GRP_MENU_REL
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.ceragem.crm.sys.dao.CrmGrpMenuRelDao.insert*/ INTO CRM_GRP_MENU_REL (
+                INSERT /*com.wigo.cmm.sys.dao.CrmGrpMenuRelDao.insert*/ INTO CRM_GRP_MENU_REL (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{grpCd}
@@ -94,7 +94,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.ceragem.crm.sys.dao.CrmGrpMenuRelDao.update*/  CRM_GRP_MENU_REL
+               UPDATE /*com.wigo.cmm.sys.dao.CrmGrpMenuRelDao.update*/  CRM_GRP_MENU_REL
                   SET MENU_REG_AUTH_YN    =         #{menuRegAuthYn}
                     , MENU_READ_AUTH_YN   =         #{menuReadAuthYn}
                     , MENU_AMD_AUTH_YN    =         #{menuAmdAuthYn}
@@ -104,12 +104,12 @@
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.ceragem.crm.sys.dao.CrmGrpMenuRelDao.delete*/ 
+               DELETE /*com.wigo.cmm.sys.dao.CrmGrpMenuRelDao.delete*/ 
                  FROM CRM_GRP_MENU_REL
         <include refid="sqlPkConditions"/>
     </delete>
     <delete id="deleteMenuCd">
-               DELETE  /*com.ceragem.crm.sys.dao.CrmGrpMenuRelDao.deleteMenuCd*/ 
+               DELETE  /*com.wigo.cmm.sys.dao.CrmGrpMenuRelDao.deleteMenuCd*/ 
                  FROM CRM_GRP_MENU_REL
                 WHERE MENU_CD  =  #{menuCd}
     </delete>

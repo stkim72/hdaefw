@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmUserWdgtDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmUserWdgtDao">
     <sql id="sqlPkConditions">
                 WHERE USER_CD           =       #{userCd}
                   AND MENU_CD           =       #{menuCd}
@@ -49,14 +49,14 @@
         
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectListCount*/ COUNT(1)
+                SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectListCount*/ COUNT(1)
                  FROM CRM_USER_WDGT_BAS A
                     , CRM_MENU_BAS B
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmUserWdgtVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectList*/ A.USER_CD                    /*사용자코드        */
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmUserWdgtVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectList*/ A.USER_CD                    /*사용자코드        */
                     , A.MENU_CD                    /*메뉴코드        */
                     , A.MENU_ODRG                    /*메뉴순번        */
                     , A.REGR_ID                    /*등록자ID        */
@@ -71,10 +71,10 @@
                   <include refid="sqlConditions"/>      
                 ORDER BY A.MENU_ODRG
                     , B.MENU_NM
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.CrmUserWdgtVo">
-               SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.select*/ <include refid="sqlCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.CrmUserWdgtVo">
+               SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.select*/ <include refid="sqlCols"/>
                  FROM CRM_USER_WDGT_BAS
         <include refid="sqlPkConditions"/>
     </select>
@@ -84,7 +84,7 @@
               FROM CRM_USER_WDGT_BAS
              WHERE USER_CD = TO_CHAR(#{userCd}) 
         </selectKey>
-                INSERT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.insert*/ INTO CRM_USER_WDGT_BAS (
+                INSERT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.insert*/ INTO CRM_USER_WDGT_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{userCd}
@@ -97,19 +97,19 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.update*/ CRM_USER_WDGT_BAS
+               UPDATE /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.update*/ CRM_USER_WDGT_BAS
                   SET MENU_ODRG           =         #{menuOdrg}
                     , AMDR_ID             =         #{amdrId}
                     , AMD_DT              =         SYSDATE
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.delete*/ 
+               DELETE /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.delete*/ 
                  FROM CRM_USER_WDGT_BAS
         <include refid="sqlPkConditions"/>
     </delete>
     <delete id="deleteMenuCd">
-               DELETE /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.deleteMenuCd*/  
+               DELETE /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.deleteMenuCd*/  
                  FROM CRM_USER_WDGT_BAS
                 WHERE MENU_CD = #{menuCd}
     </delete>
@@ -117,7 +117,7 @@
     
     
     <select id="selectCustType" resultType="EzMap">
-                        SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectCustType*/ A.*
+                        SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCustType*/ A.*
                              , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_001/CNT_TOTAL)) AVG_001 
                              , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_002/CNT_TOTAL)) AVG_002
                              , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_003/CNT_TOTAL)) AVG_003
@@ -142,7 +142,7 @@
                                ) A
     </select>
     <select id="selectCustTypeList" resultType="EzMap">
-                SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectCustTypeList*/  A.COMN_CD CUST_TYPE_CD
+                SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCustTypeList*/  A.COMN_CD CUST_TYPE_CD
                      , A.COMN_CD_NM CUST_TYPE_CD_NM
                      , NVL(B.CNT,0) CNT
                   FROM CRM_COMN_CD_BAS A
@@ -157,7 +157,7 @@
                   ORDER BY A.COMN_CD_ODRG
     </select>
     <select id="selectCouponList" resultType="EzMap">
-        SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectCouponList*/  A.USE_DT 
+        SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCouponList*/  A.USE_DT 
              , NVL(B.USE_CNT,0) USE_CNT
              , NVL(C.REG_CNT,0) PUB_CNT
           FROM ( SELECT TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') USE_DT 
@@ -180,7 +180,7 @@
     </select>
     
     <select id="selectMembershipRegList" resultType="EzMap">
-            SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectMembershipRegList*/  A.REG_DT 
+            SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectMembershipRegList*/  A.REG_DT 
                  , NVL(B.REG_CNT,0) REG_CNT
                  , NVL(C.PREV_REG_CNT,0) PREV_REG_CNT
               FROM ( SELECT TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') REG_DT 
@@ -204,7 +204,7 @@
     </select>
     
     <select id="selectCustRegList" resultType="EzMap">
-                   SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectCustRegList*/  A.* 
+                   SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCustRegList*/  A.* 
                      FROM ( SELECT A.CHL_CD 
                                  , A.COMN_CD_NM CHL_CD_NM
                                  , A.COMN_CD_ODRG
@@ -239,7 +239,7 @@
     
     
     <select id="selectOrdList" resultType="EzMap">
-               SELECT  /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectOrdList*/ A.ORD_DE
+               SELECT  /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectOrdList*/ A.ORD_DE
                     , NVL(B.ORD_CNT,0) ORD_CNT
                     , NVL(C.PREV_ORD_CNT,0) PREV_ORD_CNT
                  FROM ( SELECT TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') ORD_DE 
@@ -267,14 +267,14 @@
     </select>
     
     <select id="selectCustCountInfo" resultType="EzMap">
-              SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectCustCountInfo*/ COUNT(1) CUST_CNT
+              SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCustCountInfo*/ COUNT(1) CUST_CNT
                    , COUNT(DECODE(MSHIP_SBSC_YN,'Y',1,NULL)) MSHIP_CNT 
                 FROM CRM_CUST_BAS
                WHERE CUST_STATUS_CD != '003'
     </select>
     
     <select id="selectCustCountWeek" resultType="EzMap">
-    	SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectCustCountWeek*/
+    	SELECT /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.selectCustCountWeek*/
 		    SUM(B.REG_CNT) THIS_WEEK_CNT
 		  , SUM(C.PREV_REG_CNT) LAST_WEEK_CNT
 		FROM (
@@ -300,7 +300,7 @@
     </select>
     
     <insert id="insertUserCard" >
-    /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.insertUserCard*/
+    /*com.wigo.cmm.sys.dao.CrmUserWdgtDao.insertUserCard*/
         INSERT INTO CRM_CARD_PBLS_HST
             (
                 CARD_PBLS_HST_SEQ,

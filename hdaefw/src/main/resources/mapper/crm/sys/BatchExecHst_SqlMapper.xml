@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.BatchExecHstDao">
+<mapper namespace="com.wigo.cmm.sys.dao.BatchExecHstDao">
     <sql id="sqlPkConditions">
                 WHERE BATCH_HST_CD      =       #{batchHstCd}
     </sql>
@@ -166,21 +166,21 @@
         </if>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /* com.ceragem.crm.sys.dao.BatchExecHstDao.selectListCount */ COUNT(1)
+                SELECT /* com.wigo.cmm.sys.dao.BatchExecHstDao.selectListCount */ COUNT(1)
                  FROM BATCH_EXEC_HST A
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.BatchExecHstVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /* com.ceragem.crm.sys.dao.BatchExecHstDao.selectList */ <include refid="sqlSelectCols"/>
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.BatchExecHstVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.wigo.cmm.sys.dao.BatchExecHstDao.selectList */ <include refid="sqlSelectCols"/>
                     , NVL((SELECT BATCH_NM FROM BATCH_INFO_BAS WHERE BATCH_CD = A.BATCH_CD), (SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE WRK_ID = A.WRK_ID AND SYS_CD = A.SYS_CD AND ROWNUM = 1 ))  BATCH_NM
                  FROM BATCH_EXEC_HST A
         <include refid="sqlConditions"/>
         <include refid="sqlOrderBy"/>
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.BatchExecHstVo">
-               SELECT /* com.ceragem.crm.sys.dao.BatchExecHstDao.select */ <include refid="sqlSelectCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.BatchExecHstVo">
+               SELECT /* com.wigo.cmm.sys.dao.BatchExecHstDao.select */ <include refid="sqlSelectCols"/>
                     , NVL((SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE BATCH_CD = A.BATCH_CD), (SELECT BATCH_NM FROM  BATCH_INFO_BAS WHERE WRK_ID = A.WRK_ID AND SYS_CD = A.SYS_CD AND ROWNUM = 1 ))  BATCH_NM
                  FROM BATCH_EXEC_HST A
         <include refid="sqlPkConditions"/>
@@ -190,7 +190,7 @@
             SELECT FN_CRM_AUTO_SEQ('BEH') 
               FROM DUAL
         </selectKey>    
-                INSERT /* com.ceragem.crm.sys.dao.BatchExecHstDao.insert */ INTO BATCH_EXEC_HST (
+                INSERT /* com.wigo.cmm.sys.dao.BatchExecHstDao.insert */ INTO BATCH_EXEC_HST (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{batchHstCd}
@@ -208,7 +208,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /* com.ceragem.crm.sys.dao.BatchExecHstDao.update */ BATCH_EXEC_HST
+               UPDATE /* com.wigo.cmm.sys.dao.BatchExecHstDao.update */ BATCH_EXEC_HST
                   SET BATCH_CD                                =         #{batchCd}
                     , SYS_CD                                  =         #{sysCd}
                     , WRK_ID                                  =         #{wrkId}
@@ -221,7 +221,7 @@
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /* com.ceragem.crm.sys.dao.BatchExecHstDao.delete */
+               DELETE /* com.wigo.cmm.sys.dao.BatchExecHstDao.delete */
                  FROM BATCH_EXEC_HST
         <include refid="sqlPkConditions"/>
     </delete>

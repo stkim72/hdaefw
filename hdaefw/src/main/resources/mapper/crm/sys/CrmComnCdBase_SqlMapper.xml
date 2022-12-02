@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmComnCdBaseDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmComnCdBaseDao">
     <sql id="sqlPkConditions">
                 WHERE COMN_CD           =       #{comnCd}
                   AND TOP_COMN_CD       =       #{topComnCd}
@@ -243,28 +243,28 @@
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.selectListCount*/ COUNT(1)
+                SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.selectListCount*/ COUNT(1)
                  FROM CRM_COMN_CD_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmComnCdBaseVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.selectList*/ <include refid="sqlCols"/>
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmComnCdBaseVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.selectList*/ <include refid="sqlCols"/>
                  FROM CRM_COMN_CD_BAS
         <include refid="sqlConditions"/>
                ORDER BY COMN_CD_LVL_NO
                       , TOP_COMN_CD
                       , COMN_CD_ODRG
                       , COMN_CD
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.CrmComnCdBaseVo">
-               SELECT /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.select*/ <include refid="sqlCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.CrmComnCdBaseVo">
+               SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.select*/ <include refid="sqlCols"/>
                  FROM CRM_COMN_CD_BAS
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.insert*/ INTO CRM_COMN_CD_BAS (
+                INSERT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.insert*/ INTO CRM_COMN_CD_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{comnCd}
@@ -299,7 +299,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.update*/ CRM_COMN_CD_BAS
+               UPDATE /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.update*/ CRM_COMN_CD_BAS
                   SET COMN_CD_ODRG        =         NVL(#{comnCdOdrg},COMN_CD_ODRG)
                     , COMN_CD_NM          =         #{comnCdNm}
                     , USE_YN              =         #{useYn}
@@ -326,19 +326,19 @@
         <include refid="sqlPkConditions"/>
     </update>
     <update id="updateSeq">
-    UPDATE /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.updateSeq*/ CRM_COMN_CD_BAS
+    UPDATE /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.updateSeq*/ CRM_COMN_CD_BAS
        SET COMN_CD_ODRG          =          #{comnCdOdrg}   
          , AMDR_ID             =          #{regrId}     
          , AMD_DT             =          SYSDATE
      <include refid="sqlPkConditions" />
     </update>
     <delete id="delete">
-               DELETE /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.delete*/
+               DELETE /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.delete*/
                  FROM CRM_COMN_CD_BAS
         <include refid="sqlPkConditions"/>
     </delete>
      <delete id="deleteChildren">
-               DELETE /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.deleteChildren*/
+               DELETE /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.deleteChildren*/
                  FROM CRM_COMN_CD_BAS
                 WHERE PRNTS_COMN_CD = #{comnCd}
                   AND TOP_COMN_CD = #{topComnCd}
@@ -414,7 +414,7 @@
                       , COMN_CD
     </sql>
      <sql id="sqlSystemCd">
-        SELECT /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.systemCd*/ MENU_CD COMN_CD
+        SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.systemCd*/ MENU_CD COMN_CD
              , MENU_NM COMN_CD_NM
           FROM CRM_MENU_BAS
          WHERE  1=1 
@@ -425,7 +425,7 @@
     </sql>
     
     <sql id="sqlGroupCd">
-        SELECT /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.groupCd*/ GRP_CD COMN_CD
+        SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.groupCd*/ GRP_CD COMN_CD
              , GRP_NM COMN_CD_NM
           FROM CRM_GRP_BAS
          WHERE  1=1 
@@ -433,7 +433,7 @@
              , GRP_CD
     </sql>
     <sql id="sqlStoreNo">
-        SELECT /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.storeNo*/ STOR_NO COMN_CD
+        SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.storeNo*/ STOR_NO COMN_CD
              , STOR_NM COMN_CD_NM
           FROM CRM_STOR_BAS
          WHERE  1=1 
@@ -441,7 +441,7 @@
              , STOR_NO
     </sql>
     <sql id="sqlGodsClassNo">
-         SELECT /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.godsClassNo*/
+         SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.godsClassNo*/
         <choose>
 			<when test='codeCd =="L"'><!-- 대분류 -->
 				DISTINCT GODS_LCLSS_CD AS COMN_CD, GODS_LCLSS_CD_NM AS COMN_CD_NM
@@ -456,7 +456,7 @@
 		FROM CRM_GODS_CLASS_BAS 
 		ORDER BY COMN_CD ASC
     </sql>
-    <select id="selectCodeCombo" resultType="com.ceragem.crm.sys.model.CrmComnCdBaseVo">
+    <select id="selectCodeCombo" resultType="com.wigo.cmm.sys.model.CrmComnCdBaseVo">
     <choose>
             <when test="codeType =='systemCd' ">
                <include refid="sqlSystemCd" />
@@ -476,8 +476,8 @@
         </choose>
     </select>
     
-    <select id="selectExcelList" resultType="com.ceragem.crm.common.model.EzMap">
-    	        SELECT /*com.ceragem.crm.sys.dao.CrmComnCdBaseDao.selectExcelList*/A.COMN_CD BG_CD
+    <select id="selectExcelList" resultType="com.wigo.cmm.common.model.EzMap">
+    	        SELECT /*com.wigo.cmm.sys.dao.CrmComnCdBaseDao.selectExcelList*/A.COMN_CD BG_CD
              		 , A.COMN_CD_NM  BG_NM
              		 , A.USE_YN		BG_YN
 		             , B.COMN_CD SM_CD

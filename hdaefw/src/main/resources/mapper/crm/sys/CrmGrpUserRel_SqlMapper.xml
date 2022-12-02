@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmGrpUserRelDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmGrpUserRelDao">
     <sql id="sqlPkConditions">
                 WHERE GRP_CD            =       #{grpCd}
                   AND USER_CD           =       #{userCd}
@@ -44,25 +44,25 @@
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.ceragem.crm.sys.dao.CrmGrpUserRelDao.selectListCount*/ COUNT(1)
+                SELECT /*com.wigo.cmm.sys.dao.CrmGrpUserRelDao.selectListCount*/ COUNT(1)
                  FROM CRM_GRP_USER_REL
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmGrpUserRelVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.ceragem.crm.sys.dao.CrmGrpUserRelDao.selectList*/ <include refid="sqlCols"/>
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmGrpUserRelVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.CrmGrpUserRelDao.selectList*/ <include refid="sqlCols"/>
                  FROM CRM_GRP_USER_REL
         <include refid="sqlConditions"/>
                ORDER BY REG_DT DESC
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.CrmGrpUserRelVo">
-               SELECT /*com.ceragem.crm.sys.dao.CrmGrpUserRelDao.select*/ <include refid="sqlCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.CrmGrpUserRelVo">
+               SELECT /*com.wigo.cmm.sys.dao.CrmGrpUserRelDao.select*/ <include refid="sqlCols"/>
                  FROM CRM_GRP_USER_REL
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.ceragem.crm.sys.dao.CrmGrpUserRelDao.insert*/ INTO CRM_GRP_USER_REL (
+                INSERT /*com.wigo.cmm.sys.dao.CrmGrpUserRelDao.insert*/ INTO CRM_GRP_USER_REL (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{grpCd}
@@ -74,19 +74,19 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.ceragem.crm.sys.dao.CrmGrpUserRelDao.update*/ CRM_GRP_USER_REL
+               UPDATE /*com.wigo.cmm.sys.dao.CrmGrpUserRelDao.update*/ CRM_GRP_USER_REL
                   SET AMDR_ID             =         #{amdrId}
                     , AMD_DT              =         SYSDATE
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.ceragem.crm.sys.dao.CrmGrpUserRelDao.delete*/  
+               DELETE /*com.wigo.cmm.sys.dao.CrmGrpUserRelDao.delete*/  
                  FROM CRM_GRP_USER_REL
         <include refid="sqlPkConditions"/>
     </delete>
     
     <delete id="deleteUserCd">
-               DELETE /*com.ceragem.crm.sys.dao.CrmGrpUserRelDao.deleteUserCd*/ 
+               DELETE /*com.wigo.cmm.sys.dao.CrmGrpUserRelDao.deleteUserCd*/ 
                  FROM CRM_GRP_USER_REL
                 WHERE USER_CD = #{userCd}
     </delete>

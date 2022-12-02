@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmGrpBaseDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmGrpBaseDao">
     <sql id="sqlPkConditions">
                 WHERE GRP_CD            =       #{grpCd}
     </sql>
@@ -33,25 +33,25 @@
      </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.ceragem.crm.sys.dao.CrmGrpBaseDao.selectListCount*/ COUNT(1)
+                SELECT /*com.wigo.cmm.sys.dao.CrmGrpBaseDao.selectListCount*/ COUNT(1)
                  FROM CRM_GRP_BAS
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmGrpBaseVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.ceragem.crm.sys.dao.CrmGrpBaseDao.selectList*/<include refid="sqlCols"/>
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmGrpBaseVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.CrmGrpBaseDao.selectList*/<include refid="sqlCols"/>
                  FROM CRM_GRP_BAS
         <include refid="sqlConditions"/>
                ORDER BY REG_DT DESC
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.CrmGrpBaseVo">
-               SELECT /*com.ceragem.crm.sys.dao.CrmGrpBaseDao.select*/ <include refid="sqlCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.CrmGrpBaseVo">
+               SELECT /*com.wigo.cmm.sys.dao.CrmGrpBaseDao.select*/ <include refid="sqlCols"/>
                  FROM CRM_GRP_BAS
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.ceragem.crm.sys.dao.CrmGrpBaseDao.insert*/ INTO CRM_GRP_BAS (
+                INSERT /*com.wigo.cmm.sys.dao.CrmGrpBaseDao.insert*/ INTO CRM_GRP_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{grpCd}
@@ -63,14 +63,14 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.ceragem.crm.sys.dao.CrmGrpBaseDao.update*/ CRM_GRP_BAS
+               UPDATE /*com.wigo.cmm.sys.dao.CrmGrpBaseDao.update*/ CRM_GRP_BAS
                   SET GRP_NM              =         #{grpNm}
                     , AMDR_ID             =         #{amdrId}
                     , AMD_DT              =         SYSDATE
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.ceragem.crm.sys.dao.CrmGrpBaseDao.delete*/
+               DELETE /*com.wigo.cmm.sys.dao.CrmGrpBaseDao.delete*/
                  FROM CRM_GRP_BAS
         <include refid="sqlPkConditions"/>
     </delete>
@@ -100,7 +100,7 @@
              </choose> 
                 AND C.DEL_YN = 'N'
     </select>
-    <select id="selectGroupCheckList" resultType="com.ceragem.crm.sys.model.CrmGrpBaseVo">
+    <select id="selectGroupCheckList" resultType="com.wigo.cmm.sys.model.CrmGrpBaseVo">
         SELECT A.GRP_CD
              , A.GRP_NM
              , DECODE( NVL(B.GRP_CD,C.GRP_CD),NULL,'N','Y') CHECK_YN
@@ -108,8 +108,8 @@
           LEFT JOIN CRM_GRP_USER_REL B ON A.GRP_CD = B.GRP_CD AND B.USER_CD = #{userCd}
           LEFT JOIN CRM_GRP_MENU_REL C ON A.GRP_CD = C.GRP_CD AND C.MENU_CD = #{menuCd}
     </select>
-    <select id="selectGroupUserList" resultType="com.ceragem.crm.sys.model.CrmGrpUserRelVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+    <select id="selectGroupUserList" resultType="com.wigo.cmm.sys.model.CrmGrpUserRelVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
        SELECT A.GRP_CD
             , C.USER_CD
             , C.LOGIN_ID
@@ -131,7 +131,7 @@
          </choose> 
          AND C.DEL_YN = 'N'
        ORDER BY C.LOGIN_ID
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
     <select id="selectGroupMenuListCount" resultType="int">
         SELECT COUNT(1) CNT
@@ -155,8 +155,8 @@
             AND C.MENU_LVL_NO > 1
             AND C.MENU_AUTH_YN = 'Y'
     </select>
-    <select id="selectGroupMenuList" resultType="com.ceragem.crm.sys.model.CrmGrpMenuRelVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+    <select id="selectGroupMenuList" resultType="com.wigo.cmm.sys.model.CrmGrpMenuRelVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
        SELECT A.GRP_CD
             , C.MENU_CD
             , C.MENU_NM
@@ -191,6 +191,6 @@
           AND C.MENU_AUTH_YN = 'Y'
         ORDER BY C.MENU_CD
           
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
 </mapper>

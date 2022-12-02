@@ -30,7 +30,7 @@
     <logger name="org.springframework" level="INFO" additivity="true" />
     <logger name="com.ceragem" level="DEBUG" additivity="true" />
     
-<!--     <logger name="com.ceragem.crm.sys.dao.CrmChngHstDao.insert" level="ERROR" additivity="true"> -->
+<!--     <logger name="com.wigo.cmm.sys.dao.CrmChngHstDao.insert" level="ERROR" additivity="true"> -->
 <!--         <appender-ref ref="dailyRollingFileAppender"/> -->
 <!--     </logger> -->
     

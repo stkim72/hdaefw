@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.BatchInfoBasDao">
+<mapper namespace="com.wigo.cmm.sys.dao.BatchInfoBasDao">
     <sql id="sqlPkConditions">
                 WHERE BATCH_CD          =       #{batchCd}
     </sql>
@@ -128,22 +128,22 @@
         </if>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /* com.ceragem.crm.sys.dao.BatchInfoBasDao.selectListCount */ COUNT(1)
+                SELECT /* com.wigo.cmm.sys.dao.BatchInfoBasDao.selectListCount */ COUNT(1)
                  FROM BATCH_INFO_BAS A
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.BatchInfoBasVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /* com.ceragem.crm.sys.dao.BatchInfoBasDao.selectList */ <include refid="sqlSelectCols"/>
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.BatchInfoBasVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /* com.wigo.cmm.sys.dao.BatchInfoBasDao.selectList */ <include refid="sqlSelectCols"/>
                  FROM BATCH_INFO_BAS A
         <include refid="sqlConditions"/>
                 ORDER BY A.USE_YN DESC
                     , A.AMD_DT DESC
                     , A.LAST_EXEC_DT DESC
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.BatchInfoBasVo">
-               SELECT /* com.ceragem.crm.sys.dao.BatchInfoBasDao.select */ <include refid="sqlSelectCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.BatchInfoBasVo">
+               SELECT /* com.wigo.cmm.sys.dao.BatchInfoBasDao.select */ <include refid="sqlSelectCols"/>
                  FROM BATCH_INFO_BAS A
         <include refid="sqlPkConditions"/>
     </select>
@@ -152,7 +152,7 @@
             SELECT FN_CRM_AUTO_SEQ('BAT') 
               FROM DUAL
         </selectKey>
-                INSERT /* com.ceragem.crm.sys.dao.BatchInfoBasDao.insert */ INTO BATCH_INFO_BAS (
+                INSERT /* com.wigo.cmm.sys.dao.BatchInfoBasDao.insert */ INTO BATCH_INFO_BAS (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{batchCd}
@@ -169,7 +169,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /* com.ceragem.crm.sys.dao.BatchInfoBasDao.update */ BATCH_INFO_BAS
+               UPDATE /* com.wigo.cmm.sys.dao.BatchInfoBasDao.update */ BATCH_INFO_BAS
                   SET SYS_CD                                  =         #{sysCd}
                     , BATCH_NM                                =         #{batchNm}
                     , WRK_ID                                  =         #{wrkId}
@@ -178,14 +178,14 @@
         <include refid="sqlPkConditions"/>
     </update>
     <update id="updateHist">
-                UPDATE /* com.ceragem.crm.sys.dao.BatchExecHstDao.update */ BATCH_EXEC_HST
+                UPDATE /* com.wigo.cmm.sys.dao.BatchExecHstDao.update */ BATCH_EXEC_HST
                   SET BATCH_CD                                =         #{batchCd}
                 WHERE WRK_ID = #{wrkId}
                   AND BATCH_CD IS NULL
                   AND SYS_CD = 'CRM'
     </update>
     <delete id="delete">
-               DELETE /* com.ceragem.crm.sys.dao.BatchInfoBasDao.delete */
+               DELETE /* com.wigo.cmm.sys.dao.BatchInfoBasDao.delete */
                  FROM BATCH_INFO_BAS
         <include refid="sqlPkConditions"/>
     </delete>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmUserLoginHstDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmUserLoginHstDao">
     <sql id="sqlPkConditions">
                 WHERE USER_CD           =       #{userCd}
                   AND LOGIN_DT          =       #{loginDt}
@@ -51,16 +51,16 @@
         </if>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /*com.ceragem.crm.sys.dao.CrmUserLoginHstDao.selectListCount*/ COUNT(1)
+                SELECT /*com.wigo.cmm.sys.dao.CrmUserLoginHstDao.selectListCount*/ COUNT(1)
                  FROM CRM_USER_LOGIN_HST A
                     , CRM_USER_BAS B
                     , CRM_EMP_BAS C
                     , CRM_ORG_BAS D
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmUserLoginHstVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.ceragem.crm.sys.dao.CrmUserLoginHstDao.selectList*/ A.USER_CD                    /*사용자코드        */
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmUserLoginHstVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.CrmUserLoginHstDao.selectList*/ A.USER_CD                    /*사용자코드        */
                     , A.LOGIN_DT                    /*로그인일시        */
                     , A.LOGIN_IP_ADDR                /*로그인IP주소        */
                     , B.LOGIN_ID
@@ -75,15 +75,15 @@
                     , CRM_ORG_BAS D
         <include refid="sqlConditions"/>
                ORDER BY A.LOGIN_DT DESC
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.CrmUserLoginHstVo">
-               SELECT /*com.ceragem.crm.sys.dao.CrmUserLoginHstDao.select*/ <include refid="sqlCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.CrmUserLoginHstVo">
+               SELECT /*com.wigo.cmm.sys.dao.CrmUserLoginHstDao.select*/ <include refid="sqlCols"/>
                  FROM CRM_USER_LOGIN_HST
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.ceragem.crm.sys.dao.CrmUserLoginHstDao.insert*/ INTO CRM_USER_LOGIN_HST (
+                INSERT /*com.wigo.cmm.sys.dao.CrmUserLoginHstDao.insert*/ INTO CRM_USER_LOGIN_HST (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{userCd}
@@ -96,14 +96,14 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.ceragem.crm.sys.dao.CrmUserLoginHstDao.update*/ CRM_USER_LOGIN_HST
+               UPDATE /*com.wigo.cmm.sys.dao.CrmUserLoginHstDao.update*/ CRM_USER_LOGIN_HST
                   SET LOGIN_IP_ADDR       =         #{loginIpAddr}
                     , AMDR_ID             =         #{amdrId}
                     , AMD_DT              =         SYSDATE
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.ceragem.crm.sys.dao.CrmUserLoginHstDao.delete*/  
+               DELETE /*com.wigo.cmm.sys.dao.CrmUserLoginHstDao.delete*/  
                  FROM CRM_USER_LOGIN_HST
         <include refid="sqlPkConditions"/>
     </delete>

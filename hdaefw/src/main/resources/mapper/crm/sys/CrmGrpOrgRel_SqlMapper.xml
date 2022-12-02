@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmGrpOrgRelDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmGrpOrgRelDao">
     <sql id="sqlPkConditions">
                 WHERE GRP_CD            =       #{grpCd}
                   AND ORG_ID            =       #{orgId}
@@ -37,15 +37,15 @@
       </where>
     </sql>
     <select id="selectListCount" resultType="int">
-               SELECT /*com.ceragem.crm.sys.dao.CrmGrpOrgRelDao.selectListCount*/ COUNT(1)
+               SELECT /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.selectListCount*/ COUNT(1)
                  FROM CRM_GRP_ORG_REL A
                 INNER JOIN CRM_GRP_BAS B ON A.GRP_CD = B.GRP_CD 
                 INNER JOIN CRM_ORG_BAS C ON A.ORG_ID = C.ORG_ID
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmGrpOrgRelVo">
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
-               SELECT /*com.ceragem.crm.sys.dao.CrmGrpOrgRelDao.selectList*/ A.GRP_CD                    /*그룹코드        */
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmGrpOrgRelVo">
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
+               SELECT /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.selectList*/ A.GRP_CD                    /*그룹코드        */
                     , A.ORG_ID                    /*조직ID        */
                     , A.REGR_ID                    /*등록자ID        */
                     , A.REG_DT                    /*등록일시        */
@@ -58,15 +58,15 @@
                 INNER JOIN CRM_ORG_BAS C ON A.ORG_ID = C.ORG_ID
         <include refid="sqlConditions"/>
                ORDER BY C.ORG_NM
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.CrmGrpOrgRelVo">
-               SELECT /*com.ceragem.crm.sys.dao.CrmGrpOrgRelDao.select*/ <include refid="sqlCols"/>
+    <select id="select" resultType="com.wigo.cmm.sys.model.CrmGrpOrgRelVo">
+               SELECT /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.select*/ <include refid="sqlCols"/>
                  FROM CRM_GRP_ORG_REL
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /*com.ceragem.crm.sys.dao.CrmGrpOrgRelDao.insert*/ INTO CRM_GRP_ORG_REL (
+                INSERT /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.insert*/ INTO CRM_GRP_ORG_REL (
         <include refid="sqlCols"/>
                  ) VALUES (
                        #{grpCd}
@@ -78,18 +78,18 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /*com.ceragem.crm.sys.dao.CrmGrpOrgRelDao.update*/ CRM_GRP_ORG_REL
+               UPDATE /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.update*/ CRM_GRP_ORG_REL
                   SET AMDR_ID             =         #{amdrId}
                     , AMD_DT              =         SYSDATE
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /*com.ceragem.crm.sys.dao.CrmGrpOrgRelDao.delete*/ 
+               DELETE /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.delete*/ 
                  FROM CRM_GRP_ORG_REL
         <include refid="sqlPkConditions"/>
     </delete>
     <delete id="deleteGrpCd">
-               DELETE /*com.ceragem.crm.sys.dao.CrmGrpOrgRelDao.deleteGrpCd*/  
+               DELETE /*com.wigo.cmm.sys.dao.CrmGrpOrgRelDao.deleteGrpCd*/  
                  FROM CRM_GRP_ORG_REL
                 WHERE GRP_CD            =       #{grpCd}
     </delete>

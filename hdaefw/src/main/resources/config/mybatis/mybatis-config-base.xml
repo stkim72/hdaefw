@@ -24,14 +24,14 @@
 	
         
 	<typeAliases>
-        <typeAlias type="com.ceragem.crm.common.model.EzMap" alias="EzMap"/>
-        <typeAlias type="com.ceragem.crm.common.model.EzTreeMap" alias="EzTreeMap"/>
-<!--         <typeAlias type="com.ceragem.crm.common.model.EzMenuMap" alias="EzMenuMap"/> -->
+        <typeAlias type="com.wigo.cmm.common.model.EzMap" alias="EzMap"/>
+        <typeAlias type="com.wigo.cmm.common.model.EzTreeMap" alias="EzTreeMap"/>
+<!--         <typeAlias type="com.wigo.cmm.common.model.EzMenuMap" alias="EzMenuMap"/> -->
     </typeAliases>
     
     <typeHandlers>
-        <typeHandler handler="com.ceragem.crm.common.util.EzClobHandler" javaType="String" jdbcType="LONGVARCHAR"/>
-        <typeHandler handler="com.ceragem.crm.common.util.EzClobHandler" javaType="String" jdbcType="CLOB"/>
-        <typeHandler handler="com.ceragem.crm.common.util.EzClobHandler" javaType="String" jdbcType="NCLOB"/>
+        <typeHandler handler="com.wigo.cmm.common.util.EzClobHandler" javaType="String" jdbcType="LONGVARCHAR"/>
+        <typeHandler handler="com.wigo.cmm.common.util.EzClobHandler" javaType="String" jdbcType="CLOB"/>
+        <typeHandler handler="com.wigo.cmm.common.util.EzClobHandler" javaType="String" jdbcType="NCLOB"/>
     </typeHandlers>
 </configuration>

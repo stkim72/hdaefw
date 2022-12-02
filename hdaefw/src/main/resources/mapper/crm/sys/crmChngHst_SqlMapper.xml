@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmChngHstDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmChngHstDao">
     <sql id="sqlPkConditions">
                 WHERE CHNG_HST_CD       =       #{chngHstCd}
     </sql>
@@ -82,21 +82,21 @@
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
-                SELECT /* com.ceragem.crm.sys.dao.CrmChngHstDao.selectListCount */ COUNT(1)
+                SELECT /* com.wigo.cmm.sys.dao.CrmChngHstDao.selectListCount */ COUNT(1)
                  FROM CRM_CHNG_HST A
                 INNER JOIN CRM_MENU_BAS B ON A.MENU_CD = B.MENU_CD
                 INNER JOIN CRM_USER_BAS C ON A.REGR_ID = C.USER_CD
         <include refid="sqlConditions"/>
     </select>
-    <select id="selectList" resultType="com.ceragem.crm.sys.model.CrmChngHstVo">
-        SELECT /* com.ceragem.crm.sys.dao.CrmChngHstDao.selectList */ A.* 
+    <select id="selectList" resultType="com.wigo.cmm.sys.model.CrmChngHstVo">
+        SELECT /* com.wigo.cmm.sys.dao.CrmChngHstDao.selectList */ A.* 
              , ( SELECT LISTAGG(MENU_NM, '>') WITHIN GROUP(ORDER BY MENU_LVL_NO)
                    FROM CRM_MENU_BAS
                   START WITH MENU_CD = A.MENU_CD 
                 CONNECT BY PRIOR PRNTS_MENU_CD = MENU_CD
                 ) MENU_PATH
         FROM (
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader"/>
                SELECT A.CHNG_HST_CD                    /*변경이력코드        */
                     , A.MENU_CD                    /*메뉴코드        */
                     , A.CHNG_CALL_URL                    /*변경호출URL        */
@@ -121,11 +121,11 @@
                 INNER JOIN CRM_USER_BAS C ON A.REGR_ID = C.USER_CD
         <include refid="sqlConditions"/>
                ORDER BY REG_DT DESC
-        <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingFooter"/>
+        <include refid="com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter"/>
         ) A
     </select>
-    <select id="select" resultType="com.ceragem.crm.sys.model.CrmChngHstVo">
-               SELECT /* com.ceragem.crm.sys.dao.CrmChngHstDao.select */ A.CHNG_HST_CD                    /*변경이력코드        */
+    <select id="select" resultType="com.wigo.cmm.sys.model.CrmChngHstVo">
+               SELECT /* com.wigo.cmm.sys.dao.CrmChngHstDao.select */ A.CHNG_HST_CD                    /*변경이력코드        */
                     , A.MENU_CD                    /*메뉴코드        */
                     , A.CHNG_CALL_URL                    /*변경호출URL        */
                     , A.CHNG_RSLT_TXN                    /*변경결과내역        */
@@ -152,7 +152,7 @@
         <include refid="sqlPkConditions"/>
     </select>
     <insert id="insert">
-                INSERT /* com.ceragem.crm.sys.dao.CrmChngHstDao.insert */ INTO CRM_CHNG_HST (
+                INSERT /* com.wigo.cmm.sys.dao.CrmChngHstDao.insert */ INTO CRM_CHNG_HST (
         <include refid="sqlCols"/>
                  ) VALUES (
                        NVL(#{chngHstCd},FN_CRM_AUTO_SEQ('C'))
@@ -171,7 +171,7 @@
                  )
     </insert>
     <update id="update">
-               UPDATE /* com.ceragem.crm.sys.dao.CrmChngHstDao.update */ CRM_CHNG_HST
+               UPDATE /* com.wigo.cmm.sys.dao.CrmChngHstDao.update */ CRM_CHNG_HST
                   SET MENU_CD             =         #{menuCd}
                     , CHNG_CALL_URL       =         #{chngCallUrl}
                     , CHNG_RSLT_TXN       =         #{chngRsltTxn}
@@ -185,7 +185,7 @@
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
-               DELETE /* com.ceragem.crm.sys.dao.CrmChngHstDao.delete */ 
+               DELETE /* com.wigo.cmm.sys.dao.CrmChngHstDao.delete */ 
                  FROM CRM_CHNG_HST
         <include refid="sqlPkConditions"/>
     </delete>

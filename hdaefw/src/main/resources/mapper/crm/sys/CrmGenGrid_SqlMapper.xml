@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ceragem.crm.sys.dao.CrmGenGridDao">
+<mapper namespace="com.wigo.cmm.sys.dao.CrmGenGridDao">
 <select id="selectList" resultType="EzMap">
-           SELECT /*com.ceragem.crm.sys.dao.CrmGenGridDao.selectList*/ A.COLUMN_ID
+           SELECT /*com.wigo.cmm.sys.dao.CrmGenGridDao.selectList*/ A.COLUMN_ID
                 , A.TABLE_NAME
                 , A.COLUMN_NAME
                 , A.DATA_TYPE
@@ -56,7 +56,7 @@
 <!--       , A.ORDINAL_POSITION -->
 </select>
 <select id="selectCodeList" resultType="EzMap">
-        SELECT   /*com.ceragem.crm.sys.dao.CrmGenGridDao.selectCodeList*/  *
+        SELECT   /*com.wigo.cmm.sys.dao.CrmGenGridDao.selectCodeList*/  *
           FROM CRM_COMN_CD_BAS
          WHERE USE_YN = 'Y'
          ORDER BY TOP_COMN_CD
