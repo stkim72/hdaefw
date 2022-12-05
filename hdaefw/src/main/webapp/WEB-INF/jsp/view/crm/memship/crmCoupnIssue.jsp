@@ -17,7 +17,7 @@
     position: absolute;
     /* top: 0; */
     /* right: 0; */
-    background: url(/static/crm/images/ico_reselect1.png) 11px 50% no-repeat #5b5b5b;
+    background: url(/static/cmm/images/ico_reselect1.png) 11px 50% no-repeat #5b5b5b;
     border-radius: 27px;
     color: #fff;
     font-size: 16px;
@@ -132,9 +132,9 @@
 								  data-block-ui="Y"
 								  data-grid-id="grdPubCustList"
 								  data-pagenation="Y"
-								  data-get-url="<c:url value='/crmMshipCoupnBas/getPubList'/>"
+								  data-get-url="<c:url value='/cmmMshipCoupnBas/getPubList'/>"
 								  data-type="grid" 
-								  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmCoupnPblsCust.xml'/>"
+								  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmCoupnPblsCust.xml'/>"
 								  >
 								</div>
         	

@@ -199,7 +199,7 @@
 		<!-- //right -->
 		
 <form id="sendForm" name="sendForm">
-	<input type="hidden" id="USERID" name="USERID" value="crm_1">
+	<input type="hidden" id="USERID" name="USERID" value="cmm_1">
 	<input type="hidden" id="VTYPE" name="VTYPE" value="">
 	<input type="hidden" id="CLIENT" name="CLIENT" value="">
 	<input type="hidden" id="CAMPAIGN_ID" name="CAMPAIGN_ID" value="">
@@ -233,8 +233,8 @@ function search() {
 /* 그리드 셀 더블 클릭 */
 function onGridCellDblClick(gridView, itemIndex, column, json, value){
 	
-// 	Utilities.openMenuTab("crmCustBas" , 'custDivCd=2&custNm=' + json.custNm);
-	Utilities.openMenuTab("crmCustBas" , "custDivCd=2&custNm=" + json.custNm + "&itgCustNo=" + json.itgCustNo + "&searchFlag=" + "1");
+// 	Utilities.openMenuTab("cmmCustBas" , 'custDivCd=2&custNm=' + json.custNm);
+	Utilities.openMenuTab("cmmCustBas" , "custDivCd=2&custNm=" + json.custNm + "&itgCustNo=" + json.itgCustNo + "&searchFlag=" + "1");
 }
 
 //매장팝업을 호출한다
@@ -312,7 +312,7 @@ function changeText(reason){
 		return;
 	var url = "<c:url value='${urlPrefix}/getList${urlSuffix}'/>";
     var param = Utilities.formToMap("frmSearch");
-    param.indiInfoHandlPrsnNo = "${LOGIN_USER.userCd}";
+    param.indiInfoHandlPrsnNo = "${LOGIN_USER.userId}";
     param.connPrsnIpAddr = "${peerIpAddr}";
     param.dnldTxn = reason;
     grdList.exportExcel("고객목록.xlsx",true,url,param)
@@ -351,7 +351,7 @@ function targetMsgSendPop(){
 			targetData : targetData
 		}
 //console.log("== param\n"+ JSON.stringify(param));return;
-	var url = "<c:url value='crmCustBas/saveTargetSendInfo${urlSuffix}'/>";
+	var url = "<c:url value='cmmCustBas/saveTargetSendInfo${urlSuffix}'/>";
 	Utilities.getAjax(url, param, true, function(data, jqXHR) {
 		if (Utilities.processResult(data, jqXHR, "발송할 대상고객 저장에 실패했습니다.")) {
 			$('#sendForm [name="USERID"]').val("${eonUser}");

@@ -306,7 +306,7 @@
 											<td colspan="4">
 												<div class="mFlex2">
 													<span class="flex">
-														<input type="text" class="it" title="이메일" value="crm_12004@ceragem.com">
+														<input type="text" class="it" title="이메일" value="cmm_12004@ceragem.com">
 													</span>
 													<a href="#;" class="mBtn1 m lWhite">중복체크</a>
 												</div>
@@ -357,7 +357,7 @@
 								</div>
 							</div>
 							<div class="gProfile1">
-								<div class="mImg1" style="background-image:url(/static/crm/images/x_profile1.png);"></div>
+								<div class="mImg1" style="background-image:url(/static/cmm/images/x_profile1.png);"></div>
 								<div class="mBoard2">
 									<table>
 										<caption>멤버십정보</caption>

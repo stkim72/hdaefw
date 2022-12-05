@@ -70,7 +70,7 @@
             function validate(param){
                 if(!param.grpCd){
                     alert("그룹 아이디는 필수 입니다.");
-                    $("#userCd").focus();
+                    $("#userId").focus();
                     return false;
                 }
                   if(!param.grpNm){

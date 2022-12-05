@@ -19,7 +19,7 @@ import com.wigo.cmm.sys.model.EmpBaseVo;
 import com.wigo.cmm.sys.service.EmpBaseService;
 
 @Controller
-@RequestMapping(value = { "employ", "{menuCd}/employ" })
+@RequestMapping(value = { "employ", "{menuId}/employ" })
 public class EmpBaseController{
 
 @Autowired

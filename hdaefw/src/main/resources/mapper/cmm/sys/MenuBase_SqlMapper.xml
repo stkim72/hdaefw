@@ -180,9 +180,9 @@
                      , IFNULL(#{chngLogYn},'N')
                      , #{useYn}
                      , #{regrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                  )
     </insert>
     <update id="update">
@@ -199,14 +199,14 @@
                     , CHNG_LOG_YN         =         #{chngLogYn}
                     , USE_YN              =         #{useYn}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
         <include refid="sqlPkConditions"/>
     </update>
     <update id="updateSeq">
                UPDATE /*com.wigo.cmm.sys.dao.MenuBaseDao.updateSeq*/ TB_SYS_MENU_BAS
                   SET MENU_ODRG           =         #{menuOdrg}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
@@ -274,12 +274,11 @@
           FROM  TB_SYS_GRP_EMP_REL
          UNION ALL
         SELECT GRP_ID, EMP_ID 
-          FROM ( SELECT A.ORG_ID
+          FROM (  SELECT A.ORG_ID
                       , B.GRP_ID 
                     FROM TB_SYS_ORG_BAS A
                        , TB_SYS_GRP_ORG_REL B
-                   START WITH B.ORG_ID = A.ORG_ID
-                CONNECT BY PRIOR   A.ORG_ID = A.UP_ORG_ID ) A 
+                   WHERE B.ORG_ID = A.ORG_ID ) A 
              , TB_SYS_EMP_BAS B 
          WHERE A.ORG_ID = B.ORG_ID )
          SELECT  /*com.wigo.cmm.sys.dao.MenuBaseDao.selectUserMenuList*/ A.*
@@ -308,7 +307,7 @@
                      , A.AMDR_ID
                      , A.AMD_DT
                      , A.CHNG_LOG_YN
-                     , DECODE(B.MENU_ID , NULL,'N','Y') WDGT_YN
+                     , CASE WHEN B.MENU_ID IS NULL THEN 'N' ELSE 'Y' END WDGT_YN
                   FROM TB_SYS_MENU_BAS A
                    LEFT JOIN TB_SYS_USER_WDGT_BAS B ON A.MENU_ID = B.MENU_ID AND B.USER_ID = #{userId}
                  WHERE TOP_MENU_ID          =           #{topMenuId}
@@ -318,18 +317,17 @@
                        OR A.MENU_URL IS NULL 
                        OR A.MENU_LVL_NO = 1
                        )
-                  ) A , (
-                      SELECT   MAX (MENU_REG_AUTH_YN)     MENU_REG_AUTH_YN
-                            , MAX (MENU_READ_AUTH_YN)     MENU_READ_AUTH_YN
-                           , MAX (MENU_AMD_AUTH_YN)     MENU_AMD_AUTH_YN
-                           , MAX (MENU_DEL_AUTH_YN)     MENU_DEL_AUTH_YN
+                  ) A LEFT JOIN (
+                      SELECT   MAX(MENU_REG_AUTH_YN)     MENU_REG_AUTH_YN
+                            , MAX(MENU_READ_AUTH_YN)     MENU_READ_AUTH_YN
+                           , MAX(MENU_AMD_AUTH_YN)     MENU_AMD_AUTH_YN
+                           , MAX(MENU_DEL_AUTH_YN)     MENU_DEL_AUTH_YN
                             , MENU_ID
                         FROM GRP_USR GU
                            , TB_SYS_GRP_MENU_REL GM
                        WHERE GU.GRP_ID = GM.GRP_ID AND GU.USER_ID = #{userId}
                        GROUP BY MENU_ID
-                  ) B
-                  WHERE A.MENU_ID = B.MENU_ID(+)
+                  ) B ON A.MENU_ID = B.MENU_ID
                  ORDER BY A.TOP_MENU_ID, A.MENU_LVL_NO, A.MENU_ODRG
     </select>
     <select id="selectChildrenCount" resultType="int">

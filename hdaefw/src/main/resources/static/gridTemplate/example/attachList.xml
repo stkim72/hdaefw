@@ -26,6 +26,6 @@
     <column name="파일확장자명" field="fileExtNm" type="char" maxLength="100" width="80" textAlignment="left" required="N" hidden="N"/>
     <column name="MIME유형명" field="mimeTypeNm" type="char" maxLength="100" width="80" textAlignment="left" required="N" hidden="N"/>
     <column name="업로드아이디" field="amdrId" type="char" maxLength="20" width="80" textAlignment="left" required="Y" hidden="N"/>
-    <column name="업로드일시" field="amdDt" type="date" width="80" textAlignment="center" required="Y" defaultValue="SYSDATE" hidden="N"/>
+    <column name="업로드일시" field="amdDt" type="date" width="80" textAlignment="center" required="Y" defaultValue="current_timestamp()" hidden="N"/>
     <column name="관리" field="btnFileinfo" type="button" width="50" textAlignment="center"  hidden="N"/>
 </grid>

@@ -189,7 +189,7 @@
 			  data-pagenation="Y"
 			  data-get-url="<c:url value='/example/getList'/>"
 			  data-type="grid" 
-			  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmSmtpPopupUser.xml'/>"
+			  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmSmtpPopupUser.xml'/>"
 			  >
 			</div>
 			

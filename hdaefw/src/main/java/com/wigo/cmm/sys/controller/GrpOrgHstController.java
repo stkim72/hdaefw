@@ -19,7 +19,7 @@ import com.wigo.cmm.sys.model.GrpOrgHstVo;
 import com.wigo.cmm.sys.service.GrpOrgHstService;
 
 @Controller
-@RequestMapping(value = { "grpOrgHst", "{menuCd}/grpOrgHst" })
+@RequestMapping(value = { "grpOrgHst", "{menuId}/grpOrgHst" })
 public class GrpOrgHstController{
 
 @Autowired

@@ -8,7 +8,7 @@ import com.wigo.cmm.sys.mapper.CmmMapper;
 @CmmMapper
 public interface UserWdgtDao extends ICmmDao {
 
-	int deleteMenuCd(Object param) throws Exception;
+	int deleteMenuId(Object param) throws Exception;
 
 	EzMap selectCustType() throws Exception;
 

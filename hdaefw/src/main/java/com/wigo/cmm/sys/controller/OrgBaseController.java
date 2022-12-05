@@ -19,7 +19,7 @@ import com.wigo.cmm.sys.model.OrgBaseVo;
 import com.wigo.cmm.sys.service.OrgBaseService;
 
 @Controller
-@RequestMapping(value = { "organization", "{menuCd}/organization" })
+@RequestMapping(value = { "organization", "{menuId}/organization" })
 public class OrgBaseController{
 
 @Autowired

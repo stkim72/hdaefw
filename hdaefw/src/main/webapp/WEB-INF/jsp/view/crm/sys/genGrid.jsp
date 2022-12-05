@@ -1092,7 +1092,7 @@
 
         var inc = doc.createElement("include");
         if(isApiMode())
-        	$(inc).attr("refid", "com.ceragem.api.crm.dao.CrmCommonDao.pagingHeader");
+        	$(inc).attr("refid", "com.ceragem.api.cmm.dao.CrmCommonDao.pagingHeader");
         else
         	$(inc).attr("refid", "com.wigo.cmm.sys.dao.CrmCommonDao.pagingHeader");
         s1.appendChild(inc);
@@ -1118,7 +1118,7 @@
         
         var inc = doc.createElement("include");
         if(isApiMode())
-        	$(inc).attr("refid", "com.ceragem.api.crm.dao.CrmCommonDao.pagingFooter");
+        	$(inc).attr("refid", "com.ceragem.api.cmm.dao.CrmCommonDao.pagingFooter");
         else
         	$(inc).attr("refid", "com.wigo.cmm.sys.dao.CrmCommonDao.pagingFooter");
         s1.appendChild(inc);
@@ -1281,13 +1281,13 @@
 		{
 			strJava += "import io.swagger.v3.oas.annotations.media.Schema;\n"
 			if(hasYnValue)
-				strJava += "import com.ceragem.api.crm.validate.YnValue;\n";
+				strJava += "import com.ceragem.api.cmm.validate.YnValue;\n";
 			if(hasCodeValue)
-				strJava += "import com.ceragem.api.crm.validate.CodeValue;\n";
+				strJava += "import com.ceragem.api.cmm.validate.CodeValue;\n";
 			if(hasDtValue)
-				strJava += "import com.ceragem.api.crm.validate.DatetimeValue;\n";
+				strJava += "import com.ceragem.api.cmm.validate.DatetimeValue;\n";
 			if(hasMaxByte)
-				strJava += "import com.ceragem.api.crm.validate.MaxByte;\n";
+				strJava += "import com.ceragem.api.cmm.validate.MaxByte;\n";
 		}
 		strJava += "import lombok.Getter;\n"
 		strJava += "import lombok.Setter;\n"
@@ -1442,9 +1442,9 @@
 			
 			strJava += "import com.ceragem.api.base.model.ApiPagination;\n";
 			if(hasYnValue)
-				strJava += "import com.ceragem.api.crm.validate.YnValue;\n";
+				strJava += "import com.ceragem.api.cmm.validate.YnValue;\n";
 			if(hasCodeValue)
-				strJava += "import com.ceragem.api.crm.validate.CodeValue;\n";
+				strJava += "import com.ceragem.api.cmm.validate.CodeValue;\n";
 		}
 		strJava += "import lombok.Getter;\n"
 		strJava += "import lombok.Setter;\n"
@@ -1497,7 +1497,7 @@
         	strJava += "import com.wigo.cmm.sys.service.AbstractCrmService;\n";
          strJava += "import "+getJavaName(true,"dao")+";\n";
          if(isApiMode())
-         	strJava += "import com.ceragem.api.crm.dao.ICrmDao;\n";
+         	strJava += "import com.ceragem.api.cmm.dao.ICrmDao;\n";
         else
         	strJava += "import com.wigo.cmm.sys.dao.ICrmDao;\n";
          strJava += "\n";
@@ -1536,7 +1536,7 @@
         else
            	strJava += "import com.wigo.cmm.sys.mapper.CrmMapper;\n";
 		if(isApiMode())
-		 	strJava += "import com.ceragem.api.crm.dao.ICrmDao;\n";
+		 	strJava += "import com.ceragem.api.cmm.dao.ICrmDao;\n";
 		else
 			strJava += "import com.wigo.cmm.sys.dao.ICrmDao;\n";
         strJava += "\n";
@@ -1605,9 +1605,9 @@
         	strJava += 'import io.swagger.v3.oas.annotations.tags.Tag;\n';
         	strJava += 'import org.springdoc.api.annotations.ParameterObject;\n';
         	
-        	strJava += 'import com.ceragem.api.crm.model.'+moduleName+'So;\n';
-        	strJava += 'import com.ceragem.api.crm.model.'+moduleName+'Vo;\n';
-        	strJava += 'import com.ceragem.api.crm.service.'+moduleName+'Service;\n';
+        	strJava += 'import com.ceragem.api.cmm.model.'+moduleName+'So;\n';
+        	strJava += 'import com.ceragem.api.cmm.model.'+moduleName+'Vo;\n';
+        	strJava += 'import com.ceragem.api.cmm.service.'+moduleName+'Service;\n';
         	strJava += 'import com.ceragem.api.base.util.Utilities;\n';
         	strJava += 'import com.ceragem.api.base.constant.Constants;\n';
         	strJava += 'import com.wigo.cmm.common.model.EzApiException;\n';
@@ -1645,14 +1645,14 @@
         	var mappingUrl = _TABLE_NAME.replaceAll("_","-").toLowerCase();
         	strJava += "@Tag(name = \""+_TABLE_COMMENT+"\", description = \""+_TABLE_COMMENT+" API\")\n";
         	strJava += "@RestController\n";
-        	strJava += "@RequestMapping(\"/crm/v1.0/"+mappingUrl+"\")\n";
+        	strJava += "@RequestMapping(\"/cmm/v1.0/"+mappingUrl+"\")\n";
         	 strJava += "public class "+getJavaName(false,"controller")+" extends BaseRestController {\n";
         	
         }
         else 
         {
         	strJava += "@Controller\n";
-        	strJava += '@RequestMapping(value = { "'+javaName+'", "{menuCd}/'+javaName+'" })\n';
+        	strJava += '@RequestMapping(value = { "'+javaName+'", "{menuId}/'+javaName+'" })\n';
         	 strJava += "public class "+getJavaName(false,"controller")+"{\n";
         }
         
@@ -1826,7 +1826,7 @@
             strJava += "@GetMapping(value = { \"\", \"index\" })\n";
             strJava += "public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {\n";
             strJava += "    model.addAllAttributes(param);\n";
-            strJava += "    return Utilities.getProperty(\"tiles.crm\") + \""+lastPack+"/"+javaName+"List\";\n";
+            strJava += "    return Utilities.getProperty(\"tiles.cmm\") + \""+lastPack+"/"+javaName+"List\";\n";
             strJava += "}\n";
             strJava += "\n";
             strJava += '/**\n';

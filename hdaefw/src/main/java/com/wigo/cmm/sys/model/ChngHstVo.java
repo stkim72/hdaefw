@@ -17,7 +17,7 @@ public class ChngHstVo extends UserBaseVo {
 	 */
 	private String chngHstId;
 
-	private String menuCd;
+	private String menuId;
 	private String menuPath;
 	/**
 	 * <p>

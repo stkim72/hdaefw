@@ -19,7 +19,7 @@
 			</div>
 	</div>
 	<div  id="divGridList1" style="height:370px" 
-		data-get-url="<c:url value='${urlPrefix}/sub/crmCustCntplcBas/getList'/>${urlSuffix}"
+		data-get-url="<c:url value='${urlPrefix}/sub/cmmCustCntplcBas/getList'/>${urlSuffix}"
 		data-grid-id="grdList1" data-pagenation="N" data-type="grid"
 		data-post="Y"
 		data-tpl-url="<c:url value='/static/gridTemplate/cst/CR009.xml'/>">
@@ -99,7 +99,7 @@ function newContact(){
 	
 	var pitgCustNo = parent.parenItgCustNo;
 
-	var url = "<c:url value='${urlPrefix}/sub/crmCustCntplcBas/add${urlSuffix}'/>?itgCustNo="+ pitgCustNo;
+	var url = "<c:url value='${urlPrefix}/sub/cmmCustCntplcBas/add${urlSuffix}'/>?itgCustNo="+ pitgCustNo;
 	Utilities.openModal(url,700,300);
 
 }
@@ -115,7 +115,7 @@ function deleteContact(){
 function deleteContact(pCntplcSeq){
 	if(!pCntplcSeq)
 		return;
-	var url = "<c:url value='${urlPrefix}/sub/crmCustCntplcBas/remove${urlSuffix}'/>";
+	var url = "<c:url value='${urlPrefix}/sub/cmmCustCntplcBas/remove${urlSuffix}'/>";
 	var saveJson = {
 			cntplcSeq : pCntplcSeq
 	}
@@ -142,7 +142,7 @@ function saveList(gridView) {
 		if (!confirm("수정된 데이터를 저장하시겠습니까?"))
 			return;
 		if(saveValidate(gridView))
-		var url = "<c:url value='${urlPrefix}/sub/crmCustCntplcBas/saveList${urlSuffix}'/>";
+		var url = "<c:url value='${urlPrefix}/sub/cmmCustCntplcBas/saveList${urlSuffix}'/>";
 		Utilities.getAjax(url, saveJson, true, function(data, jqXHR) {
 			if (Utilities.processResult(data, jqXHR, "시스템 저장에 실패했습니다.")) {
 				alert("시스템 저장에  성공했습니다.");
@@ -166,7 +166,7 @@ function removeRow(gridView) {
 	if (saveJson.length) {
 		if (!confirm("데이터를 삭제하면 복구할  수 없습니다. 계속하시겠습니까?"))
 			return;
-		var url = "<c:url value='${urlPrefix}/sub/crmCustCntplcBas/deleteList${urlSuffix}'/>";
+		var url = "<c:url value='${urlPrefix}/sub/cmmCustCntplcBas/deleteList${urlSuffix}'/>";
 		Utilities.getAjax(url, saveJson, true, function(data, jqXHR) {
 			if (Utilities.processResult(data, jqXHR, "연락처 삭제에 실패했습니다.")) {
 				alert("연락처 삭제에  성공했습니다.");
@@ -199,12 +199,12 @@ function removeRow(gridView) {
 /* 그리드 컬럼 클릭 */
 // function onGridCellClick(gridView, rowIndex, columnName, colIndex, fieldIndex) {
 // //	var url = "<c:url value='${urlPrefix}/mod${urlSuffix}'/>";
-// 	var url = "<c:url value='${urlPrefix}/sub/crmCustCntplcBas/mod${urlSuffix}'/>?cntplcSeq="+ grdList1.getJsonRow(rowIndex).cntplcSeq;
+// 	var url = "<c:url value='${urlPrefix}/sub/cmmCustCntplcBas/mod${urlSuffix}'/>?cntplcSeq="+ grdList1.getJsonRow(rowIndex).cntplcSeq;
 // 	Utilities.openModal(url,700,400);
 // }
 /* 그리드 셀 더블 클릭 */
 function onGridCellDblClick(gridView, itemIndex, column, json, value){
-	var url = "<c:url value='${urlPrefix}/sub/crmCustCntplcBas/mod${urlSuffix}'/>?cntplcSeq="+ grdList1.getJsonRow(itemIndex).cntplcSeq;
+	var url = "<c:url value='${urlPrefix}/sub/cmmCustCntplcBas/mod${urlSuffix}'/>?cntplcSeq="+ grdList1.getJsonRow(itemIndex).cntplcSeq;
 	Utilities.openModal(url,700,300);
 }
 </script>

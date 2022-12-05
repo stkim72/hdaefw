@@ -86,7 +86,7 @@
                                         data-get-url="<c:url value='${urlPrefix}/getList${urlSuffix}'/>" 
                                         data-type="grid" 
                                         data-grid-callback="onGridLoad" 
-                                        data-tpl-url="<c:url value='/static/gridTemplate/system/crmGrpMenuHst.xml'/>"
+                                        data-tpl-url="<c:url value='/static/gridTemplate/system/cmmGrpMenuHst.xml'/>"
 				>
 				
 				</div>

@@ -116,9 +116,9 @@
                      , #{menuId}
                      , 'N'
                      , #{regrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                  )
     </insert>
     <insert id="insertDelete">
@@ -130,9 +130,9 @@
                      , #{menuId}
                      , 'Y'
                      , #{regrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                  )
     </insert>
     <update id="update">
@@ -141,7 +141,7 @@
                     , MENU_ID             =         #{menuId}
                     , DEL_YN              =         #{delYn}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">

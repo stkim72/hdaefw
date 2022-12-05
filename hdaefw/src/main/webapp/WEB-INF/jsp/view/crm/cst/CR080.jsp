@@ -268,7 +268,7 @@ function changeText(reason){
     if(!reason)
         return;
     var param = Utilities.formToMap("frmSearch");
-    param.indiInfoHandlPrsnNo = "${LOGIN_USER.userCd}";
+    param.indiInfoHandlPrsnNo = "${LOGIN_USER.userId}";
     param.connPrsnIpAddr = "${peerIpAddr}";
     param.dnldTxn = reason;
     param.pfmWorkCd = "003";

@@ -98,9 +98,9 @@
                      , #{fileExtNm}
                      , #{mimeTypeNm}
                      , #{regrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                  )
     </insert>
     <update id="update">
@@ -111,7 +111,7 @@
                     , FILE_URL            =         #{fileUrl}
                     , FILE_EXT_NM         =         #{fileExtNm}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
                     , MIME_TYPE_NM        =         #{mimeTypeNm}
         <include refid="sqlPkConditions"/>
     </update>

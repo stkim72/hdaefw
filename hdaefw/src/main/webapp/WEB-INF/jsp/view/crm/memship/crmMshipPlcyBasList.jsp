@@ -146,7 +146,7 @@ $(document).ready(function() {
 				  data-pagenation="Y"
 				  data-get-url="<c:url value='/memberPolicy/getList'/>"
 				  data-type="grid" 
-				  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipPlcyBas.xml'/>"
+				  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipPlcyBas.xml'/>"
 				  >
 				</div>
 
@@ -1140,9 +1140,9 @@ $(document).ready(function() {
 								  data-post="Y"
 								  data-grid-id="grdShopList"
 								  data-pagenation="Y"
-								  data-get-url="<c:url value='/crmMshipApplyStorRel/getList'/>"
+								  data-get-url="<c:url value='/cmmMshipApplyStorRel/getList'/>"
 								  data-type="grid" 
-								  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipApplyStorRel.xml'/>"
+								  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipApplyStorRel.xml'/>"
 							  >
 							</div>
 			            

@@ -80,9 +80,9 @@ function onGridCellDblClick(gridView, itemIndex, column, json, value){
 
 /* 상세화면 팝업 로드(수정) */
 function showDetail27(json){
-// //	var url = "<c:url value='${urlPrefix}/cot/crmCustPhnCnslDtlHist${urlSuffix}'/>";
-// 	var url = "<c:url value='${urlPrefix}/trn/crmCustBosCntrtTxnDtlHist'/>/" + json.cnslHistNo + "/" + json.aspCustKey + "/" + json.itgCustNo;
-// //	var url = "<c:url value='${urlPrefix}/sub/crmCustCntplcBas/mod${urlSuffix}'/>?cntplcSeq="+ grdList1.getJsonRow(rowIndex).cntplcSeq;
+// //	var url = "<c:url value='${urlPrefix}/cot/cmmCustPhnCnslDtlHist${urlSuffix}'/>";
+// 	var url = "<c:url value='${urlPrefix}/trn/cmmCustBosCntrtTxnDtlHist'/>/" + json.cnslHistNo + "/" + json.aspCustKey + "/" + json.itgCustNo;
+// //	var url = "<c:url value='${urlPrefix}/sub/cmmCustCntplcBas/mod${urlSuffix}'/>?cntplcSeq="+ grdList1.getJsonRow(rowIndex).cntplcSeq;
 //     Utilities.openModal(url,1000,600);
 }
 

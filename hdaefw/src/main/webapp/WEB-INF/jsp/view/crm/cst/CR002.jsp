@@ -285,7 +285,7 @@
 </div>
 
 <form id="sendForm" name="sendForm">
-	<input type="hidden" id="USERID" name="USERID" value="crm_1">
+	<input type="hidden" id="USERID" name="USERID" value="cmm_1">
 	<input type="hidden" id="VTYPE" name="VTYPE" value="1">
 	<input type="hidden" id="CLIENT" name="CLIENT" value="099">
 	<input type="hidden" id="CAMPAIGN_ID" name="CAMPAIGN_ID" value="GRP_20220713172404">
@@ -391,7 +391,7 @@ function changeText(reason){
         return;
     var url = "<c:url value='${urlPrefix}/getList${urlSuffix}'/>";
     var param = Utilities.formToMap("frmSearch");
-    param.indiInfoHandlPrsnNo = "${LOGIN_USER.userCd}";
+    param.indiInfoHandlPrsnNo = "${LOGIN_USER.userId}";
     param.connPrsnIpAddr = "${peerIpAddr}";
     param.dnldTxn = reason;
     param.pfmWorkCd = "003";
@@ -506,7 +506,7 @@ function popupBlack(){
 /* 그리드 셀 더블 클릭 */
 function onGridCellDblClick(gridView, itemIndex, column, json, value){
 
-    Utilities.openMenuTab("crmCustBas" , "custDivCd=1&custNm=" + json.custNm + "&itgCustNo=" + json.itgCustNo + "&searchFlag=" + "1");
+    Utilities.openMenuTab("cmmCustBas" , "custDivCd=1&custNm=" + json.custNm + "&itgCustNo=" + json.itgCustNo + "&searchFlag=" + "1");
 
 }
 
@@ -555,7 +555,7 @@ function targetMsgSendPop(){
 			targetData : targetData
 		}
 //console.log("== param\n"+ JSON.stringify(param));return;
-	var url = "<c:url value='crmCustBas/saveTargetSendInfo${urlSuffix}'/>";
+	var url = "<c:url value='cmmCustBas/saveTargetSendInfo${urlSuffix}'/>";
 	Utilities.getAjax(url, param, true, function(data, jqXHR) {
 		if (Utilities.processResult(data, jqXHR, "발송할 대상고객 저장에 실패했습니다.")) {
 			$('#sendForm [name="USERID"]').val("${eonUser}");

@@ -131,7 +131,7 @@
 						data-get-url="<c:url value='${urlPrefix}/getList${urlSuffix}'/>"
       					data-grid-id="grdList" 
       					data-type="grid" 
-      					data-tpl-url="<c:url value='/static/gridTemplate/camp/crmCampBdgetBas.xml'/>">
+      					data-tpl-url="<c:url value='/static/gridTemplate/camp/cmmCampBdgetBas.xml'/>">
       
       
 			</div>

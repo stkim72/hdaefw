@@ -395,9 +395,9 @@ $(document).ready(function() {
 								  data-post="Y"
 								  data-grid-id="grdShopList"
 								  data-pagenation="Y"
-								  data-get-url="<c:url value='/crmMshipApplyStorRel/getList'/>"
+								  data-get-url="<c:url value='/cmmMshipApplyStorRel/getList'/>"
 								  data-type="grid" 
-								  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipSmtpStorRel.xml'/>"
+								  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipSmtpStorRel.xml'/>"
 							  >
 							</div>
 			              <!-- //box -->
@@ -444,9 +444,9 @@ $(document).ready(function() {
 								  data-post="Y"
 								  data-grid-id="grdGodsList"
 								  data-pagenation="Y"
-								  data-get-url="<c:url value='/crmMshipCoupnBas/getGodsRelList'/>"
+								  data-get-url="<c:url value='/cmmMshipCoupnBas/getGodsRelList'/>"
 								  data-type="grid" 
-								  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipSmtpGodsRel.xml'/>"
+								  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipSmtpGodsRel.xml'/>"
 							  >
 							</div>
 			            
@@ -495,9 +495,9 @@ $(document).ready(function() {
 								  data-post="Y"
 								  data-grid-id="grdStmpList"
 								  data-pagenation="Y"
-								  data-get-url="<c:url value='/crmMshipCardBasList/getHisList'/>"
+								  data-get-url="<c:url value='/cmmMshipCardBasList/getHisList'/>"
 								  data-type="grid" 
-								  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipSmtpListRel.xml'/>"
+								  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipSmtpListRel.xml'/>"
 								  >
 								</div>
 			                

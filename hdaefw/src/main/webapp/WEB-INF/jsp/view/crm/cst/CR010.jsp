@@ -150,7 +150,7 @@
 		// 삭제 여부
 		$("#regChlCd").val("CRM");		
 
-		var url = "<c:url value='${urlPrefix}/sub/crmCustCntplcBas/save${urlSuffix}'/>";
+		var url = "<c:url value='${urlPrefix}/sub/cmmCustCntplcBas/save${urlSuffix}'/>";
 		Utilities.getAjax(url,saveJson,true,function(data , jqXHR){
             if(Utilities.processResult(data , jqXHR , "연락처 저장에 실패했습니다."))
             {

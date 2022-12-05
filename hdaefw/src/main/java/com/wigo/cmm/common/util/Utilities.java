@@ -64,6 +64,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -2812,17 +2813,17 @@ public class Utilities {
 //		return (EzMap) session.getAttribute(Constants._LOGIN_SESSION_NAME);
 //	}
 //
-//	public static String getLoginUserCd() {
+//	public static String getLoginUserId() {
 //		// return "2020000001";
 //		EzMap loginUser = getLoginUser();
 //		if (loginUser == null)
 //			return null;
-//		return loginUser.getString("userCd");
+//		return loginUser.getString("userId");
 //
 //	}
 
 //	public static boolean isLogin() {
-//		return BaseUtilities.isNotEmpty(getLoginUserCd());
+//		return BaseUtilities.isNotEmpty(getLoginUserId());
 //	}
 
 	public static EzMap getGridData(List<? extends Object> list, int totalRecordCount, int currentPageNo, int pageSize,
@@ -3040,15 +3041,15 @@ public class Utilities {
 		return (LoginUserVo) session.getAttribute(Constants._LOGIN_SESSION_NAME);
 	}
 
-	public static String getLoginUserCd() {
+	public static String getLoginUserId() {
 		LoginUserVo loginUser = getLoginUser();
 		if (loginUser == null)
 			return null;
-		return loginUser.getUserCd();
+		return loginUser.getUserId();
 
 	}
 
-	public static String getLoginUserId() {
+	public static String getLoginId() {
 		// return "2020000001";
 		LoginUserVo loginUser = getLoginUser();
 		if (loginUser == null)
@@ -3059,7 +3060,7 @@ public class Utilities {
 
 	public static boolean isLogin() {
 
-		return Utilities.isNotEmpty(getLoginUserCd());
+		return Utilities.isNotEmpty(getLoginUserId());
 	}
 
 	public static String getAutoSeq(String prefix) throws Exception {
@@ -3093,7 +3094,7 @@ public class Utilities {
 		return (MenuBaseVo) request.getAttribute("currentMenu");
 	}
 
-	public static String getCurrentMenuCd() {
+	public static String getCurrentMenuId() {
 		MenuBaseVo menu = getCurrentMenu();
 		if (menu == null)
 			return null;
@@ -3262,5 +3263,14 @@ public class Utilities {
 		data.put("pagination", pageMap);
 
 		return ezMap;
+	}
+	
+	public boolean isMatch(String url1,String url2) {
+		AntPathMatcher matcher = new AntPathMatcher();
+		if (Utilities.isEmpty(url1))
+			return false;
+		if (url1.endsWith("/"))
+			url1 = url1.substring(0, url1.length() - 1);
+		return matcher.match(url2, url1);
 	}
 }

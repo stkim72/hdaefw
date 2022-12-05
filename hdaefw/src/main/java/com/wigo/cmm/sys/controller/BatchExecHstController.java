@@ -31,7 +31,7 @@ import com.wigo.cmm.sys.service.BatchExecHstService;
  */
 
 @Controller
-@RequestMapping(value = { "batchHist", "{menuCd}/batchHist" })
+@RequestMapping(value = { "batchHist", "{menuId}/batchHist" })
 public class BatchExecHstController{
 
 @Autowired

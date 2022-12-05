@@ -212,7 +212,7 @@
 								</div>
 							</div>
 <!-- 							<div class="gProfile1"> -->
-<!-- 								<div class="mImg1" style="background-image:url(/static/crm/images/x_profile1.png);"></div> -->
+<!-- 								<div class="mImg1" style="background-image:url(/static/cmm/images/x_profile1.png);"></div> -->
 								<div class="mBoard2">
 									<table>
 										<caption>멤버십정보</caption>
@@ -696,7 +696,7 @@
 								</div>
 							</div>
 <!-- 							<div class="gProfile1"> -->
-<!-- 								<div class="mImg1" style="background-image:url(/static/crm/images/x_profile1.png);"></div> -->
+<!-- 								<div class="mImg1" style="background-image:url(/static/cmm/images/x_profile1.png);"></div> -->
 								<div class="mBoard2">
 									<table>
 										<caption>멤버십정보</caption>
@@ -1017,56 +1017,56 @@
 						<li id="syn" class="active" data-tab1-type="6"  >
 							<a href="#mainTab06" data-tab1-type="6" onclick="tab1Click(6)" style="cursor:pointer">종합이력</a>
 							<div id="syn00" class="sub">
-								<a id="syn2" data-url='<c:url value="crmCustBas/syn/crmCustSynthesisHst2List"/>' data-tab2-type="30" onclick="tab2Click(30)" style="cursor:pointer">고객여정(전일자)</a> <!-- 22.11.8 종합이력과 고객여정 위치 변경 -->
-								<a id="syn1" class="active" data-url='<c:url value="crmCustBas/syn/crmCustSynthesisHstList"/>' data-tab2-type="29" onclick="tab2Click(29)" style="cursor:pointer">종합</a>							
+								<a id="syn2" data-url='<c:url value="cmmCustBas/syn/cmmCustSynthesisHst2List"/>' data-tab2-type="30" onclick="tab2Click(30)" style="cursor:pointer">고객여정(전일자)</a> <!-- 22.11.8 종합이력과 고객여정 위치 변경 -->
+								<a id="syn1" class="active" data-url='<c:url value="cmmCustBas/syn/cmmCustSynthesisHstList"/>' data-tab2-type="29" onclick="tab2Click(29)" style="cursor:pointer">종합</a>							
 							</div>
 
 						</li>					
 						<li id="sub" data-tab1-type="1"  >
 							<a href="#mainTab01" data-tab1-type="1" onclick="tab1Click(1)" style="cursor:pointer">부가정보</a>
 							<div id="sub00" class="sub">
-								<a id="sub1" class="active" data-url='<c:url value="crmCustBas/sub/crmCustHshldBasList"/>' data-tab2-type="1" onclick="tab2Click(1)" style="cursor:pointer">가구정보</a>
-								<a id="sub2" data-url='<c:url value="crmCustBas/sub/crmCustCntplcBas"/>' data-tab2-type="2" onclick="tab2Click(2)" style="cursor:pointer">연락처정보</a>
-								<a id="sub3" data-url='<c:url value="crmCustBas/sub/crmCustInfoPtuseAgreeHstList"/>' data-tab2-type="3" onclick="tab2Click(3)" style="cursor:pointer">정보동의</a>
-								<%-- <a id="sub4" data-url='<c:url value="crmCustBas/sub/crmRcvRfslHstList"/>' data-tab2-type="4" onclick="tab2Click(4)" style="cursor:pointer">수신거부</a> --%>
-								<a id="sub5" data-url='<c:url value="crmCustBas/sub/crmCustGradeChngHstList"/>' data-tab2-type="5" onclick="tab2Click(5)" style="cursor:pointer">등급변경</a>
-								<a id="sub6" data-url='<c:url value="crmCustBas/sub/crmCustInfoChngHstList"/>' data-tab2-type="6" onclick="tab2Click(6)" style="cursor:pointer">정보변경</a>
-								<a id="sub7" data-url='<c:url value="crmCustBas/sub/knownpersonList"/>' data-tab2-type="7" onclick="tab2Click(7)" style="cursor:pointer">지인정보</a>
-								<a id="sub8" data-url='<c:url value="crmCustBas/sub/crmCustPatronStorBasList"/>' data-tab2-type="8" onclick="tab2Click(8)" style="cursor:pointer">단골매장</a>							
+								<a id="sub1" class="active" data-url='<c:url value="cmmCustBas/sub/cmmCustHshldBasList"/>' data-tab2-type="1" onclick="tab2Click(1)" style="cursor:pointer">가구정보</a>
+								<a id="sub2" data-url='<c:url value="cmmCustBas/sub/cmmCustCntplcBas"/>' data-tab2-type="2" onclick="tab2Click(2)" style="cursor:pointer">연락처정보</a>
+								<a id="sub3" data-url='<c:url value="cmmCustBas/sub/cmmCustInfoPtuseAgreeHstList"/>' data-tab2-type="3" onclick="tab2Click(3)" style="cursor:pointer">정보동의</a>
+								<%-- <a id="sub4" data-url='<c:url value="cmmCustBas/sub/cmmRcvRfslHstList"/>' data-tab2-type="4" onclick="tab2Click(4)" style="cursor:pointer">수신거부</a> --%>
+								<a id="sub5" data-url='<c:url value="cmmCustBas/sub/cmmCustGradeChngHstList"/>' data-tab2-type="5" onclick="tab2Click(5)" style="cursor:pointer">등급변경</a>
+								<a id="sub6" data-url='<c:url value="cmmCustBas/sub/cmmCustInfoChngHstList"/>' data-tab2-type="6" onclick="tab2Click(6)" style="cursor:pointer">정보변경</a>
+								<a id="sub7" data-url='<c:url value="cmmCustBas/sub/knownpersonList"/>' data-tab2-type="7" onclick="tab2Click(7)" style="cursor:pointer">지인정보</a>
+								<a id="sub8" data-url='<c:url value="cmmCustBas/sub/cmmCustPatronStorBasList"/>' data-tab2-type="8" onclick="tab2Click(8)" style="cursor:pointer">단골매장</a>							
 							</div>
 
 						</li>
 						<li id="trn" data-tab1-type="2" >
 							<a href="#mainTab02" onclick="tab1Click(2)" data-tab1-type="2" style="cursor:pointer">거래이력</a>
 							<div id="trn00" class="sub">
-								<a class="active" data-url='<c:url value="crmCustBas/trn/crmCustBosCntrtTxnList"/>' data-tab2-type="9" onclick="tab2Click(9)" style="cursor:pointer">BOS거래</a>
-								<a data-url='<c:url value="crmCustBas/trn/crmCustPosSaleHstList"/>' data-tab2-type="28" onclick="tab2Click(28)" style="cursor:pointer">POS거래</a>
+								<a class="active" data-url='<c:url value="cmmCustBas/trn/cmmCustBosCntrtTxnList"/>' data-tab2-type="9" onclick="tab2Click(9)" style="cursor:pointer">BOS거래</a>
+								<a data-url='<c:url value="cmmCustBas/trn/cmmCustPosSaleHstList"/>' data-tab2-type="28" onclick="tab2Click(28)" style="cursor:pointer">POS거래</a>
 							</div>
 						</li>
 						<li id="cot" data-tab1-type="3">
 							<a href="#mainTab03" onclick="tab1Click(3)" data-tab1-type="3" style="cursor:pointer">접촉이력</a>
 							<div id="cot00" class="sub">
-								<a id="sub10" class="active" data-url='<c:url value="crmCustBas/cot/crmCustPhnCnslHistList"/>' data-tab2-type="10" onclick="tab2Click(10)" style="cursor:pointer">상담</a>
-								<a id="sub11" data-url='<c:url value="crmCustBas/cot/crmCustAsSubmitHistList"/>' data-tab2-type="11" onclick="tab2Click(11)" style="cursor:pointer">AS</a>
-								<a id="sub12" data-url='<c:url value="crmCustBas/cot/crmCustBosCntrtTxnHCList"/>' data-tab2-type="12" onclick="tab2Click(12)" style="cursor:pointer">홈체험</a>
-								<a id="sub13" data-url='<c:url value="crmCustBas/cot/crmCustExprnHstList"/>' data-tab2-type="13" onclick="tab2Click(13)" style="cursor:pointer">체험</a>
-								<a id="sub14" data-url='<c:url value="crmCustBas/cot/crmCustBosHcHstList"/>' data-tab2-type="27" onclick="tab2Click(27)" style="cursor:pointer">HC</a>
-								<a id="sub15" data-url='<c:url value="crmCustBas/sub/ceraCkList"/>' data-tab2-type="14" onclick="tab2Click(14)" style="cursor:pointer">세라체크</a>
-								<a id="sub16" data-url='<c:url value="crmCustBas/sub/ceraDnaList"/>' data-tab2-type="15" onclick="tab2Click(15)" style="cursor:pointer">세라체크DNA</a>
-								<a id="sub17" data-url='<c:url value="crmCustBas/sub/ceraIotList"/>' data-tab2-type="16" onclick="tab2Click(16)" style="cursor:pointer">IOT</a>
-								<a id="sub18" data-url='<c:url value="crmCustBas/sub/recommendList"/>' data-tab2-type="17" onclick="tab2Click(17)" style="cursor:pointer">추천</a>
+								<a id="sub10" class="active" data-url='<c:url value="cmmCustBas/cot/cmmCustPhnCnslHistList"/>' data-tab2-type="10" onclick="tab2Click(10)" style="cursor:pointer">상담</a>
+								<a id="sub11" data-url='<c:url value="cmmCustBas/cot/cmmCustAsSubmitHistList"/>' data-tab2-type="11" onclick="tab2Click(11)" style="cursor:pointer">AS</a>
+								<a id="sub12" data-url='<c:url value="cmmCustBas/cot/cmmCustBosCntrtTxnHCList"/>' data-tab2-type="12" onclick="tab2Click(12)" style="cursor:pointer">홈체험</a>
+								<a id="sub13" data-url='<c:url value="cmmCustBas/cot/cmmCustExprnHstList"/>' data-tab2-type="13" onclick="tab2Click(13)" style="cursor:pointer">체험</a>
+								<a id="sub14" data-url='<c:url value="cmmCustBas/cot/cmmCustBosHcHstList"/>' data-tab2-type="27" onclick="tab2Click(27)" style="cursor:pointer">HC</a>
+								<a id="sub15" data-url='<c:url value="cmmCustBas/sub/ceraCkList"/>' data-tab2-type="14" onclick="tab2Click(14)" style="cursor:pointer">세라체크</a>
+								<a id="sub16" data-url='<c:url value="cmmCustBas/sub/ceraDnaList"/>' data-tab2-type="15" onclick="tab2Click(15)" style="cursor:pointer">세라체크DNA</a>
+								<a id="sub17" data-url='<c:url value="cmmCustBas/sub/ceraIotList"/>' data-tab2-type="16" onclick="tab2Click(16)" style="cursor:pointer">IOT</a>
+								<a id="sub18" data-url='<c:url value="cmmCustBas/sub/recommendList"/>' data-tab2-type="17" onclick="tab2Click(17)" style="cursor:pointer">추천</a>
 							</div>
 						</li>
 						<li id="mem" data-tab1-type="4">
 							<a href="#mainTab04" onclick="tab1Click(4)" data-tab1-type="4" style="cursor:pointer">회원이력</a>
 							<div id="mem00" class="sub">
-								<a class="active" data-url='<c:url value="crmCustBas/sub/couponList"/>' data-tab2-type="18" value="18getElementByClassName" onclick="tab2Click(18)" style="cursor:pointer">쿠폰</a>
-								<a data-url='<c:url value="crmCustBas/sub/pointList"/>' data-tab2-type="19" onclick="tab2Click(19)" style="cursor:pointer">포인트</a>
-								<a data-url='<c:url value="crmCustBas/sub/stampList"/>' data-tab2-type="20" onclick="tab2Click(20)" style="cursor:pointer">스탬프</a>
-								<a data-url='<c:url value="crmCustBas/sub/cardList"/>' data-tab2-type="21" onclick="tab2Click(21)" style="cursor:pointer">카드</a>
-								<a data-url='<c:url value="crmCustBas/sub/sendList"/>' data-tab2-type="22" onclick="tab2Click(22)" style="cursor:pointer">발송</a>
-								<a data-url='<c:url value="crmCustBas/sub/campaignList"/>' data-tab2-type="25" onclick="tab2Click(25)" style="cursor:pointer">프로모션</a>
-								<a data-url='<c:url value="crmCustBas/sub/advncmtList"/>' data-tab2-type="23" onclick="tab2Click(23)" style="cursor:pointer">승급점수</a>
+								<a class="active" data-url='<c:url value="cmmCustBas/sub/couponList"/>' data-tab2-type="18" value="18getElementByClassName" onclick="tab2Click(18)" style="cursor:pointer">쿠폰</a>
+								<a data-url='<c:url value="cmmCustBas/sub/pointList"/>' data-tab2-type="19" onclick="tab2Click(19)" style="cursor:pointer">포인트</a>
+								<a data-url='<c:url value="cmmCustBas/sub/stampList"/>' data-tab2-type="20" onclick="tab2Click(20)" style="cursor:pointer">스탬프</a>
+								<a data-url='<c:url value="cmmCustBas/sub/cardList"/>' data-tab2-type="21" onclick="tab2Click(21)" style="cursor:pointer">카드</a>
+								<a data-url='<c:url value="cmmCustBas/sub/sendList"/>' data-tab2-type="22" onclick="tab2Click(22)" style="cursor:pointer">발송</a>
+								<a data-url='<c:url value="cmmCustBas/sub/campaignList"/>' data-tab2-type="25" onclick="tab2Click(25)" style="cursor:pointer">프로모션</a>
+								<a data-url='<c:url value="cmmCustBas/sub/advncmtList"/>' data-tab2-type="23" onclick="tab2Click(23)" style="cursor:pointer">승급점수</a>
 													
 							</div>
 						</li>
@@ -1074,7 +1074,7 @@
 						    <a href="#mainTab02" onclick="searchMove()" data-tab1-type="5" style="cursor:pointer">설문이력</a>
 							<%-- <a href="#mainTab02" onclick="tab1Click(5)" data-tab1-type="5" style="cursor:pointer">설문이력</a>
 							<div id="trn00" class="sub">
-								<a class="active" data-url='<c:url value="crmCustBas/sub/surveyList"/>' data-tab2-type="26" onclick="tab2Click(26)" style="cursor:pointer">설문</a>
+								<a class="active" data-url='<c:url value="cmmCustBas/sub/surveyList"/>' data-tab2-type="26" onclick="tab2Click(26)" style="cursor:pointer">설문</a>
 							</div> --%>
 						</li>					
 					</ul>

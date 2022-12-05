@@ -118,10 +118,10 @@
 					  data-post="Y"
 					  data-grid-id="grdList"
 					  data-pagenation="Y"
-					  data-get-url="<c:url value='/crmMshipCoupnBas/getList'/>"
+					  data-get-url="<c:url value='/cmmMshipCoupnBas/getList'/>"
 					  data-type="grid" 
                     	data-block-ui="Y"
-					  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipCoupnBas2.xml'/>"
+					  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipCoupnBas2.xml'/>"
 					  >
 					</div>
                 
@@ -210,7 +210,7 @@ function grdList_cellDblClick(gridView, itemIndex, column,json, value){
 /* 검색조건 검색 */
 function search() {
 	$("form#frmSearch").find("#currentPageNo").val(1);
- 	var url = "<c:url value='crmMshipCoupnBas/getList${urlSuffix}'/>";
+ 	var url = "<c:url value='cmmMshipCoupnBas/getList${urlSuffix}'/>";
 	var param = Utilities.formToMap("frmSearch");
 	param.recordCountPerPage = 20;
 	grdList.loadUrl(url, param);

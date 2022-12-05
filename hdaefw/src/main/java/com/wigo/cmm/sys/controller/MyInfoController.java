@@ -33,7 +33,7 @@ import com.wigo.cmm.sys.service.UserService;
  */
 
 @Controller
-@RequestMapping(value = {"myInfo","{menuCd}/myInfo"})
+@RequestMapping(value = {"myInfo","{menuId}/myInfo"})
 public class MyInfoController {
 	@Autowired
 	UserService userService;

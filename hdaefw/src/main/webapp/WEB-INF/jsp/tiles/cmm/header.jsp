@@ -18,27 +18,27 @@
 <c:set var="rightBoxHeight5" value="775px" scope="request"/>
 
  <title>세라젬 CRM</title>
-<link rel="shortcut icon" href="/static/crm/images/favicon.ico">
+<link rel="shortcut icon" href="/static/cmm/images/favicon.ico">
 <!-- library -->
-<script type="text/javascript" src="/static/crm/js/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/crm/plugins/swiper/swiper.min.css">
-<script type="text/javascript" src="/static/crm/plugins/swiper/swiper.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/crm/plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
-<script type="text/javascript" src="/static/crm/plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-<link rel="stylesheet" href="/static/crm/css/jquery-ui.css">
-<script type="text/javascript" src="/static/crm/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/static/cmm/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/cmm/plugins/swiper/swiper.min.css">
+<script type="text/javascript" src="/static/cmm/plugins/swiper/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/cmm/plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="/static/cmm/plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="/static/cmm/css/jquery-ui.css">
+<script type="text/javascript" src="/static/cmm/js/jquery-ui.js"></script>
 <!-- //library -->
 <!-- customer -->
-<link rel="stylesheet" href="/static/crm/css/ui.css?reqrend=${reqrend}">
-<%-- <script type="text/javascript" src="/static/crm/js/ui.js?reqrend=${reqrend}"></script> --%>
+<link rel="stylesheet" href="/static/cmm/css/ui.css?reqrend=${reqrend}">
+<%-- <script type="text/javascript" src="/static/cmm/js/ui.js?reqrend=${reqrend}"></script> --%>
 
 
 
 <!--  membership  -->
 <c:set var="now" value="<%=new java.util.Date()%>" />
 <c:set var="dayVer"><fmt:formatDate value="${now}" pattern="yyyyMMddhhmmss" /></c:set> 
-<script type="text/javascript" src="/static/crm/js/memship.js?reqrend=<c:out value="${dayVer}" />" />"></script>
-<link rel="stylesheet" type="text/css" media="all" href="/static/crm/css/memship.css?reqrend=<c:out value="${dayVer}" />">
+<script type="text/javascript" src="/static/cmm/js/memship.js?reqrend=<c:out value="${dayVer}" />" />"></script>
+<link rel="stylesheet" type="text/css" media="all" href="/static/cmm/css/memship.css?reqrend=<c:out value="${dayVer}" />">
 <!--  membership  -->
 
 
@@ -109,7 +109,7 @@ var _user_auth_u = "${currentMenu.menuAmdAuthYn}";
 var _user_auth_d = "${currentMenu.menuDelAuthYn}";
 
 var _urlSuffix = "${urlSuffix}";
-var _PROGRAM_ID ='${currentMenuCd}';
+var _PROGRAM_ID ='${currentMenuId}';
 var _SYSTEM_ID  ='${currentSystemId}';
 var _basePath = "<c:url value='${urlPrefix}' />";
 var _code_url = "<c:url value='${urlPrefix}/commCode/getComboCode'/>${urlSuffix}";

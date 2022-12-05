@@ -1,6 +1,5 @@
 package com.wigo.cmm.sys.interceptor;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -73,15 +72,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		LoginUserVo user = Utilities.getLoginUser();
 		boolean isLogin = user != null && SessionUtil.isLogin();
 
-		// SSO(naver) 후 상담시스템에서 호출하는 single view 처리(main으로 redirect 되는 것 방지)를 위한 쿠키
-		String queryString = request.getQueryString();
-		if (queryString != null && Constants.SINGLE_VIEW.equals(request.getRequestURI())
-				&& queryString.contains(Constants.IDENTIFIER)) {
-			Cookie cookie = new Cookie(Constants.SINGLE_VIEW_COOKIE, request.getRequestURI() + "?" + queryString);
-			cookie.setMaxAge(60 * 60 * 9);
-			cookie.setPath("/");
-			response.addCookie(cookie);
-		}
+		
 
 		if (!isLogin) {
 			if (SessionUtil.isAjaxRequest()) {
@@ -99,9 +90,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 			if (HandlerUtils.isInstance(handler, MainController.class))
 				return true;
 
-			String menuCd = (String) request.getAttribute("currentMenuCd");
+			String menuId = (String) request.getAttribute("currentMenuId");
 			EzMap menuMap = (EzMap) request.getAttribute("menuMap");
-			if (menuMap.containsKey(menuCd)) {
+			if (menuMap.containsKey(menuId)) {
 				return true;
 			} else {
 				response.sendError(Constants._ERROR_HAS_NO_RIGHT, "권한이 없습니다.");

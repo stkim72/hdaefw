@@ -675,7 +675,7 @@
 					  data-pagenation="Y"
 					  data-get-url="<c:url value='/example/getList'/>"
 					  data-type="grid" 
-					  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipStampCpnBas.xml'/>"
+					  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipStampCpnBas.xml'/>"
 					  >
 					</div>
 					
@@ -1035,7 +1035,7 @@ function searchCoupon () {
 	searchJson.mshipCoupnBasNo = $('#cpnCode').val();
 	searchJson.useYn = "Y";
 	
-	var url = "<c:url value='crmMshipStampBas/searchCpn${urlSuffix}'/>";
+	var url = "<c:url value='cmmMshipStampBas/searchCpn${urlSuffix}'/>";
 	searchJson.recordCountPerPage = 20;
 	grdListCpn.loadUrl(url, searchJson);
 }

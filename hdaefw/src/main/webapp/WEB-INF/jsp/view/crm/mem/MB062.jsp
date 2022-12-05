@@ -50,7 +50,7 @@
 				data-type="grid" 
 				data-block-ui="Y"
 				data-grid-callback="onGridLoad" 
-				data-tpl-url="<c:url value='/static/gridTemplate/mem/crmStoreCustMove.xml'/>">
+				data-tpl-url="<c:url value='/static/gridTemplate/mem/cmmStoreCustMove.xml'/>">
 			</div>
 			<!-- //비대상고객 그리드영역 -->
 	    </div>
@@ -102,7 +102,7 @@
 				data-type="grid" 
 				data-block-ui="Y"
 				data-grid-callback="onGridLoad" 
-				data-tpl-url="<c:url value='/static/gridTemplate/mem/crmStoreCustMove.xml'/>">
+				data-tpl-url="<c:url value='/static/gridTemplate/mem/cmmStoreCustMove.xml'/>">
 			</div>
 			<!-- //대상고객 그리드영역 -->
 	    </div>

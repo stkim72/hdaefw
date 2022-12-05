@@ -87,9 +87,9 @@
 			  data-post="Y"
 			  data-grid-id="grdList"
 			  data-pagenation="Y"
-			  data-get-url="<c:url value='/crmMshipCoupnBas/getGrpSearchList'/>"
+			  data-get-url="<c:url value='/cmmMshipCoupnBas/getGrpSearchList'/>"
 			  data-type="grid" 
-			  data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustGrpBas.xml'/>"
+			  data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustGrpBas.xml'/>"
 			  >
 			</div>
 

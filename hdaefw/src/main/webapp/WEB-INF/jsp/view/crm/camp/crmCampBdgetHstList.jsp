@@ -98,7 +98,7 @@
       					data-grid-id="grdList" 
                     	data-block-ui="Y"
       					data-type="grid" 
-      					data-tpl-url="<c:url value='/static/gridTemplate/camp/crmCampBdgetHst.xml'/>">
+      					data-tpl-url="<c:url value='/static/gridTemplate/camp/cmmCampBdgetHst.xml'/>">
       
       
 		

@@ -113,7 +113,7 @@
 			</div>
 		</div>
 		<form id="sendForm" name="sendForm">
-		    <input type="hidden" id="USERID" name="USERID" value="crm_1">
+		    <input type="hidden" id="USERID" name="USERID" value="cmm_1">
 		    <input type="hidden" id="VTYPE" name="VTYPE" value="1">
 		    <input type="hidden" id="CLIENT" name="CLIENT" value="099">
 		    <input type="hidden" id="CAMPAIGN_ID" name="CAMPAIGN_ID" value="GRP_20220713172404">
@@ -229,7 +229,7 @@ function changeText(reason){
     if(!reason)
         return;
     var param = Utilities.formToMap("frmSearch");
-    param.indiInfoHandlPrsnNo = "${LOGIN_USER.userCd}";
+    param.indiInfoHandlPrsnNo = "${LOGIN_USER.userId}";
     param.connPrsnIpAddr = "${peerIpAddr}";
     param.dnldTxn = reason;
     param.pfmWorkCd = "003";

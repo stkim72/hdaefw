@@ -73,9 +73,9 @@
 						  data-grid-id="grdList"
 						  data-pagenation="Y"
                     	data-block-ui="Y"
-						  data-get-url="<c:url value='/crmCampTempltBas/getList'/>"
+						  data-get-url="<c:url value='/cmmCampTempltBas/getList'/>"
 						  data-type="grid" 
-						  data-tpl-url="<c:url value='/static/gridTemplate/camp/crmCampTempltBas2.xml'/>"
+						  data-tpl-url="<c:url value='/static/gridTemplate/camp/cmmCampTempltBas2.xml'/>"
 						  >
 						</div>
                        
@@ -196,7 +196,7 @@ function search(campDspBasNo) {
  	}
  	
 	$("form#frmSearch").find("#currentPageNo").val(1);
- 	var url = "<c:url value='crmCampTempltBas/getList${urlSuffix}'/>";
+ 	var url = "<c:url value='cmmCampTempltBas/getList${urlSuffix}'/>";
 	var param = Utilities.formToMap("frmSearch");
 	param.recordCountPerPage = 20;
 	grdList.loadUrl(url, param);

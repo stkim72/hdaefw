@@ -34,7 +34,7 @@ import com.wigo.cmm.sys.service.ComnCdService;
  */
 //@Slf4j
 @Controller
-@RequestMapping(value = { "code", "{menuCd}/code" })
+@RequestMapping(value = { "code", "{menuId}/code" })
 public class ComnCdBaseController {
 	@Autowired
 	ComnCdService service;

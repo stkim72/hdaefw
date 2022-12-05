@@ -82,7 +82,7 @@
 	data-block-ui="Y"
 	data-type="grid" 
 	data-grid-callback="onGridLoad" 
-	data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustGrpTargetCust.xml'/>">
+	data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustGrpTargetCust.xml'/>">
 </div>
 <!-- //grid -->
 
@@ -307,7 +307,7 @@
 		var url = "<c:url value='${urlPrefix}/custGroup/saveTargetSendInfo${urlSuffix}'/>";
 		Utilities.getAjax(url, param, true, function(data, jqXHR) {
 			if (Utilities.processResult(data, jqXHR, "발송할 대상고객 저장에 실패했습니다.")) {
-				//$('#sendForm [name="USERID"]').val("crm_1");
+				//$('#sendForm [name="USERID"]').val("cmm_1");
 				$('#sendForm [name="VTYPE"]').val(vType);
 				$('#sendForm [name="CLIENT"]').val(clientId);
 				$('#sendForm [name="CAMPAIGN_ID"]').val(campId);
@@ -376,7 +376,7 @@
 		var url = "<c:url value='${urlPrefix}/custGroup/saveTotalTargetSendInfo${urlSuffix}'/>";
 		Utilities.getAjax(url, param, true, function(data, jqXHR) {
 			if (Utilities.processResult(data, jqXHR, "발송할 대상고객 저장에 실패했습니다.")) {
-				//$('#sendForm [name="USERID"]').val("crm_1");
+				//$('#sendForm [name="USERID"]').val("cmm_1");
 				$('#sendForm [name="VTYPE"]').val(vType);
 				$('#sendForm [name="CLIENT"]').val(clientId);
 				$('#sendForm [name="CAMPAIGN_ID"]').val(campId);
@@ -398,7 +398,7 @@
 	function targetMsgSendHistPop(){
 		var campId = "CR058_"+ new Date().getTime();
 		
-		//$('#sendForm [name="USERID"]').val("crm_1");
+		//$('#sendForm [name="USERID"]').val("cmm_1");
 		$('#sendForm [name="VTYPE"]').val("4");
 		$('#sendForm [name="CLIENT"]').val("");
 		$('#sendForm [name="CAMPAIGN_ID"]').val("");

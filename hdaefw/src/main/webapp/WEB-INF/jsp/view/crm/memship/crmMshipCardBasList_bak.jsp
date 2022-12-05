@@ -129,9 +129,9 @@ $(document).ready(function() {
 				  data-post="Y"
 				  data-grid-id="grdList"
 				  data-pagenation="Y"
-				  data-get-url="<c:url value='/crmMshipCardBasList/getList'/>"
+				  data-get-url="<c:url value='/cmmMshipCardBasList/getList'/>"
 				  data-type="grid" 
-				  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipCardBas.xml'/>"
+				  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipCardBas.xml'/>"
 				  >
 				</div>
                 <!-- //list -->
@@ -486,9 +486,9 @@ $(document).ready(function() {
 								  data-post="Y"
 								  data-grid-id="grdShopList"
 								  data-pagenation="Y"
-								  data-get-url="<c:url value='/crmMshipApplyStorRel/getList'/>"
+								  data-get-url="<c:url value='/cmmMshipApplyStorRel/getList'/>"
 								  data-type="grid" 
-								  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipApplyStorRel.xml'/>"
+								  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipApplyStorRel.xml'/>"
 							  >
 							</div>
 			            
@@ -535,9 +535,9 @@ $(document).ready(function() {
 								  data-post="Y"
 								  data-grid-id="grdGodsList"
 								  data-pagenation="Y"
-								  data-get-url="<c:url value='/crmMshipCoupnBas/getGodsRelList'/>"
+								  data-get-url="<c:url value='/cmmMshipCoupnBas/getGodsRelList'/>"
 								  data-type="grid" 
-								  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipApplyGodsRel.xml'/>"
+								  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipApplyGodsRel.xml'/>"
 							  >
 							</div>
 			            
@@ -582,9 +582,9 @@ $(document).ready(function() {
 								  data-post="Y"
 								  data-grid-id="grdChlList"
 								  data-pagenation="Y"
-								  data-get-url="<c:url value='/crmMshipApplyStorRel/getChlRelList'/>"
+								  data-get-url="<c:url value='/cmmMshipApplyStorRel/getChlRelList'/>"
 								  data-type="grid" 
-								  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipApplyChlRel.xml'/>"
+								  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipApplyChlRel.xml'/>"
 							  >
 							</div>
 			            
@@ -631,9 +631,9 @@ $(document).ready(function() {
 							  data-post="Y"
 							  data-grid-id="grdCardHstList"
 							  data-pagenation="Y"
-							  data-get-url="<c:url value='/crmMshipCardBas/grdCardHstList'/>"
+							  data-get-url="<c:url value='/cmmMshipCardBas/grdCardHstList'/>"
 							  data-type="grid" 
-							  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmCardPblsHst.xml'/>">
+							  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmCardPblsHst.xml'/>">
 							</div>
 							
             </div>

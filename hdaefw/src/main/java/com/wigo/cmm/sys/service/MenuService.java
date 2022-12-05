@@ -40,8 +40,8 @@ public class MenuService extends AbstractCmmService {
 		int cnt = dao.selectChildrenCount(param);
 		if (cnt > 0)
 			throw new EzAjaxException("하부메뉴가 존재합니다.");
-		grpMenuDao.deleteMenuCd(param);
-		wdgtDao.deleteMenuCd(param);
+		grpMenuDao.deleteMenuId(param);
+		wdgtDao.deleteMenuId(param);
 		return super.delete(param);
 	}
 
@@ -52,23 +52,23 @@ public class MenuService extends AbstractCmmService {
 		MenuVo maxInfo = null;
 		if (Utilities.isNotEmpty(parentCd)) {
 			EzMap so = new EzMap();
-			so.setString("menuCd", parentCd);
+			so.setString("menuId", parentCd);
 			parent = get(so);
 			maxInfo = dao.selectMaxInfo(so);
 		} else {
 			EzMap so = new EzMap();
-			so.setString("menuCd", "0000000000");
+			so.setString("menuId", "0000000000");
 			maxInfo = dao.selectMaxInfo(so);
 		}
 		if (maxInfo == null)
 			maxInfo = new MenuVo();
-		String menuCd = maxInfo.getMenuId();
+		String menuId = maxInfo.getMenuId();
 		int seq = maxInfo.getMenuOdrg() + 1;
-		if (Utilities.isEmpty(menuCd)) {
+		if (Utilities.isEmpty(menuId)) {
 			if (parent == null)
-				menuCd = "0000000000";
+				menuId = "0000000000";
 			else
-				menuCd = parent.getMenuId();
+				menuId = parent.getMenuId();
 		}
 		if (parent == null) {
 			parent = new MenuVo();
@@ -76,15 +76,15 @@ public class MenuService extends AbstractCmmService {
 		}
 		int parentLevel = parent.getMenuLvlNo();
 		int offset = parentLevel * 2;
-//		int menuSeq = Utilities.parseInt(menuCd.substring(offset, offset + 2)) + 1;
-		menuCd = menuCd.substring(0, offset) + Utilities.padLeft(seq + "", 2, '0') + menuCd.substring(offset + 2);
+//		int menuSeq = Utilities.parseInt(menuId.substring(offset, offset + 2)) + 1;
+		menuId = menuId.substring(0, offset) + Utilities.padLeft(seq + "", 2, '0') + menuId.substring(offset + 2);
 		MenuVo menu = new MenuVo();
-		menu.setMenuId(menuCd);
+		menu.setMenuId(menuId);
 		menu.setMenuLvlNo(parentLevel + 1);
 		menu.setMenuOdrg(seq);
 
 		if (parentLevel == 0)
-			menu.setTopMenuId(menuCd);
+			menu.setTopMenuId(menuId);
 		else {
 			menu.setTopMenuId(parent.getTopMenuId());
 			menu.setPrntsMenuId(parent.getMenuId());
@@ -112,7 +112,7 @@ public class MenuService extends AbstractCmmService {
 	}
 
 //	public List<EzMap> getGridTreeList(EzMap param) throws Exception {
-//		return  Utilities.convertTreeJson(getList(param),"menuCd","menuNm","uprMenCId");
+//		return  Utilities.convertTreeJson(getList(param),"menuId","menuNm","uprMenCId");
 //	}
 //	
 	/**
@@ -191,7 +191,7 @@ public class MenuService extends AbstractCmmService {
 	}
 
 	public Object insertWdgt(UserWdgtVo vo) {
-		vo.setUserId(Utilities.getLoginUserCd());
+		vo.setUserId(Utilities.getLoginUserId());
 		wdgtDao.delete(vo);
 		EzMap map = SessionUtil.getUserMenuMap();
 		MenuVo menu = (MenuVo) map.get(vo.getMenuId());
@@ -200,7 +200,7 @@ public class MenuService extends AbstractCmmService {
 	}
 
 	public Object deleteWdgt(UserWdgtVo vo) {
-		vo.setUserId(Utilities.getLoginUserCd());
+		vo.setUserId(Utilities.getLoginUserId());
 		EzMap map = SessionUtil.getUserMenuMap();
 		MenuVo menu = (MenuVo) map.get(vo.getMenuId());
 		menu.setWdgtYn("N");
@@ -210,7 +210,7 @@ public class MenuService extends AbstractCmmService {
 
 	public List<UserWdgtVo> getWdgtList(Object param) {
 		EzMap map = new EzMap(param);
-		map.setString("userCd", Utilities.getLoginUserCd());
+		map.setString("userId", Utilities.getLoginUserId());
 		return wdgtDao.selectList(map);
 	}
 }

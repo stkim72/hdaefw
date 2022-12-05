@@ -120,10 +120,10 @@
 						  data-post="Y"
 						  data-grid-id="grdList"
 						  data-pagenation="Y"
-						  data-get-url="<c:url value='/crmCampTempltBas/getList'/>"
+						  data-get-url="<c:url value='/cmmCampTempltBas/getList'/>"
 						  data-type="grid" 
                     	data-block-ui="Y"
-						  data-tpl-url="<c:url value='/static/gridTemplate/camp/crmCampTempltBas.xml'/>"
+						  data-tpl-url="<c:url value='/static/gridTemplate/camp/cmmCampTempltBas.xml'/>"
 						  >
 						</div>
 						

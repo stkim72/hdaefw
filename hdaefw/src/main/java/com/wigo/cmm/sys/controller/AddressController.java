@@ -35,7 +35,7 @@ import com.wigo.cmm.sys.service.AddressService;
  */
 
 @Controller
-@RequestMapping(value = { "address","{menuCd}/address" })
+@RequestMapping(value = { "address","{menuId}/address" })
 public class AddressController {
 	@Autowired
 	AddressService service;

@@ -177,9 +177,9 @@
                      , #{retireYmd}
                      , #{empTypeCd}
                      , #{mphonNoEncVal}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{regrId}
                      
 <!--                      , #{orgNm} -->
@@ -208,7 +208,7 @@
                     , EMP_TYPE_CD         =         #{empTypeCd}
                     , MPHON_NO            =         #{mphonNoEncVal}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
 <!--                     , ORG_NM -->
 <!--                         , CMP_NM            =  #{cmpNm} -->
 <!--                         , JOB_NM             = #{jobNm} -->

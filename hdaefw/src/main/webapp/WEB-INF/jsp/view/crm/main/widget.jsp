@@ -7,8 +7,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<script type="text/javascript" src="/static/crm/js/Chart.min.js"></script>
-<script type="text/javascript" src="/static/crm/js/chartjs-plugin-labels.js"></script>
+<script type="text/javascript" src="/static/cmm/js/Chart.min.js"></script>
+<script type="text/javascript" src="/static/cmm/js/chartjs-plugin-labels.js"></script>
 
 <body>
     

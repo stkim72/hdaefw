@@ -21,7 +21,7 @@
         <div class="cont">
             <fieldset>
                 <legend>로그인</legend>
-                <h1><img src="/static/crm/images/logo_login.png" alt="Create Well Life CERAGEM 통함 CRM"></h1>
+                <h1><img src="/static/cmm/images/logo_login.png" alt="Create Well Life CERAGEM 통함 CRM"></h1>
                 <dl>
                     <dt>아이디</dt>
                     <dd>

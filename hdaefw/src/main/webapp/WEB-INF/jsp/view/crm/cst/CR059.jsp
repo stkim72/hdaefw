@@ -60,7 +60,7 @@
 	data-block-ui="Y"
 	data-type="grid" 
 	data-grid-callback="onGridLoad" 
-	data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustSendHist.xml'/>">
+	data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustSendHist.xml'/>">
 </div>
 <!-- //grid -->
 

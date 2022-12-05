@@ -22,7 +22,7 @@ import com.wigo.cmm.sys.model.NtcartBasVo;
 import com.wigo.cmm.sys.service.NtcartBasService;
 
 @Controller
-@RequestMapping(value = { "notice", "{menuCd}/notice" })
+@RequestMapping(value = { "notice", "{menuId}/notice" })
 public class NtcartBasController {
 
 	@Autowired

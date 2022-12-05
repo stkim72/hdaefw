@@ -72,15 +72,15 @@
                        #{grpId}
                      , #{orgId}
                      , #{regrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                  )
     </insert>
     <update id="update">
                UPDATE /*com.wigo.cmm.sys.dao.GrpOrgRelDao.update*/ TB_SYS_GRP_ORG_REL
                   SET AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">

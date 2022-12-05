@@ -107,7 +107,7 @@
 			  data-pagenation="Y"
 			  data-get-url="<c:url value='/example/getList'/>"
 			  data-type="grid" 
-			  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmCoupnSingleView.xml'/>"
+			  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmCoupnSingleView.xml'/>"
 			  >
 			</div>
 		
@@ -170,7 +170,7 @@ function search() {
 	//$("#frmDetail #btnReg").text("등록").hide();
 	$("#frmDetail #btnEdit").hide();
 	$("form#frmSearch").find("#currentPageNo").val(1);
- 	var url = "<c:url value='/crmMshipCoupnBas/getList${urlSuffix}'/>";
+ 	var url = "<c:url value='/cmmMshipCoupnBas/getList${urlSuffix}'/>";
 	var param = Utilities.formToMap("frmSearch");
 	
 	param.recordCountPerPage = 20;

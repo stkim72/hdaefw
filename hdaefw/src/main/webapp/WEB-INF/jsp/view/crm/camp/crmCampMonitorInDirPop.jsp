@@ -54,7 +54,7 @@
 			data-scroll-x="Y"  
                     	data-block-ui="Y"
 			data-grid-callback="onGridLoad" 
-			data-tpl-url="<c:url value='/static/gridTemplate/camp/crmCampMonitorPop.xml'/>">
+			data-tpl-url="<c:url value='/static/gridTemplate/camp/cmmCampMonitorPop.xml'/>">
 		</div>
 	</div>
 </div>

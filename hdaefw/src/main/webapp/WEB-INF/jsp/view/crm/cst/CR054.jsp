@@ -701,7 +701,7 @@
 			data-get-url="" 
 			data-type="grid" 
 			data-grid-callback="onGridLoad" 
-			data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustGrpDealGods.xml'/>">
+			data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustGrpDealGods.xml'/>">
 		</div>
 	</div>
 	<!-- 거래이력 -->
@@ -744,7 +744,7 @@
 		data-get-url="" 
 		data-type="grid" 
 		data-grid-callback="onGridLoad" 
-		data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustGrpTargetExt.xml'/>">
+		data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustGrpTargetExt.xml'/>">
 	</div>
 	<!-- //추출고객 그리드영역 -->
 	<!-- //추출양식 그리드영역 -->
@@ -756,7 +756,7 @@
 			data-get-url="" 
 			data-type="grid" 
 			data-grid-callback="onGridLoad" 
-			data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustGrpTargetExtSample.xml'/>">
+			data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustGrpTargetExtSample.xml'/>">
 		</div>
 	</div>
 	<!-- //추출양식 그리드영역 -->
@@ -802,7 +802,7 @@
 				data-block-ui="Y"
 				data-type="grid" 
 				data-grid-callback="onGridLoad" 
-				data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustGrpTargetQueryChk.xml'/>">
+				data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustGrpTargetQueryChk.xml'/>">
 			</div>
 			<!-- //대상고객 그리드영역 -->
 		</div>

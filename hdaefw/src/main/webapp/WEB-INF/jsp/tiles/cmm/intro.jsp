@@ -18,7 +18,7 @@
     <!-- module -->
     <div class="mVm1 mIntro1">
         <div class="cont">
-            <h1><img src="/static/crm/images/logo_intro.png" alt="Create Well Life CERAGEM 통함 CRM"></h1>
+            <h1><img src="/static/cmm/images/logo_intro.png" alt="Create Well Life CERAGEM 통함 CRM"></h1>
             <div class="list">
                 <ul>
                     <li class="ico1">

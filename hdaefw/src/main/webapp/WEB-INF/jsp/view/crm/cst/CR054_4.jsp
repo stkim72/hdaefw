@@ -53,7 +53,7 @@
 		data-type="grid" 
 		data-block-ui="Y"
 		data-grid-callback="onGridLoad" 
-		data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustGrpDealGods.xml'/>">
+		data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustGrpDealGods.xml'/>">
 	</div>
 	<p>&nbsp;</p>
 	<div class="mSort2 medium"> <!-- class="mini" => 상하좌우 여백 좁은 사이즈-->

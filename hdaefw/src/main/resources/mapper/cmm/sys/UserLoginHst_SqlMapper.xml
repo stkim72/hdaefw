@@ -90,16 +90,16 @@
                      , #{loginDt}
                      , #{loginIpAddr}
                      , #{regrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                  )
     </insert>
     <update id="update">
                UPDATE /*com.wigo.cmm.sys.dao.UserLoginHstDao.update*/ TB_SYS_USER_LOGIN_HST
                   SET LOGIN_IP_ADDR       =         #{loginIpAddr}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">

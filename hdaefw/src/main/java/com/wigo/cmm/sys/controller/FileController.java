@@ -44,7 +44,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Controller
-@RequestMapping(value = { "file", "{menuCd}/file" })
+@RequestMapping(value = { "file", "{menuId}/file" })
 public class FileController {
 	@Autowired
 	FileService service;

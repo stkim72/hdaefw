@@ -35,7 +35,7 @@ import com.wigo.cmm.sys.service.UserService;
  */
 
 @Controller
-@RequestMapping(value = {"user","{menuCd}/user"})
+@RequestMapping(value = {"user","{menuId}/user"})
 public class UserController {
 	@Autowired
 	UserService userService;

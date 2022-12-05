@@ -35,15 +35,15 @@ public class JwtUtility {
 
 	}
 
-	public static String createToken(String userCd, String systemCd, long hours) {
+	public static String createToken(String userId, String systemCd, long hours) {
 		Map<String, Object> headers = new HashMap<>();
 		headers.put("typ", "JWT");
 		headers.put("alg", "HS256");
 
 		// payload 부분 설정
 		Map<String, Object> payloads = new HashMap<>();
-		if (Utilities.isNotEmpty(userCd))
-			payloads.put("userCd", userCd);
+		if (Utilities.isNotEmpty(userId))
+			payloads.put("userId", userId);
 		if (Utilities.isNotEmpty(systemCd))
 			payloads.put("systemCd", systemCd);
 
@@ -63,8 +63,8 @@ public class JwtUtility {
 		return jwt;
 	}
 
-	public static String createToken(String userCd, String systemCd) {
-		return createToken(userCd, systemCd, 24);
+	public static String createToken(String userId, String systemCd) {
+		return createToken(userId, systemCd, 24);
 	}
 
 	// 토큰 생성

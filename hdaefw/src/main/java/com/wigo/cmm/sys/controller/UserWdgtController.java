@@ -19,7 +19,7 @@ import com.wigo.cmm.sys.model.UserWdgtVo;
 import com.wigo.cmm.sys.service.UserWdgtService;
 
 @Controller
-@RequestMapping(value = { "crmUserWdgt", "{menuCd}/crmUserWdgt" })
+@RequestMapping(value = { "crmUserWdgt", "{menuId}/crmUserWdgt" })
 public class UserWdgtController{
 
 @Autowired
@@ -34,7 +34,7 @@ public String init(@RequestParam Map<String, Object> param, ModelMap model) thro
 @PostMapping(value = { "getList" })
 public @ResponseBody Object getList(@RequestBody EzMap param) throws Exception {
     EzPaginationInfo page = param.getPaginationInfo();
-    param.setString("userCd", Utilities.getLoginUserCd());
+    param.setString("userId", Utilities.getLoginUserId());
     List<EzMap> list = service.getList(param);
     page.setTotalRecordCount(service.getListCount(param));
     return Utilities.getGridData(list,page);

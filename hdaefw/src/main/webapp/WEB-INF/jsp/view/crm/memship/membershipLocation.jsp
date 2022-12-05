@@ -20,7 +20,7 @@
         <p class="mInfo2" data-info="nextGrade"><span class="check">${nextGradeName}까지 <strong class="txtRed">${nextOffset }</strong>만점 남았습니다.</span></p>
         <!-- graph -->
         <div class="mGraph1" >
-            <div class="back"><img src="/static/crm/images/img_graph1.png" alt="그래프 배경 : 고객등급(화이트, 브론즈, 실버, 골드, VIP), 고객여정(잠재고객, 가망고객, 체험고객, 구매고객, 충성고객)"></div>
+            <div class="back"><img src="/static/cmm/images/img_graph1.png" alt="그래프 배경 : 고객등급(화이트, 브론즈, 실버, 골드, VIP), 고객여정(잠재고객, 가망고객, 체험고객, 구매고객, 충성고객)"></div>
             <!-- score 254 -->
             <div class="mScore1" style="left:${(myLevel-1  )*165 + 89}px" data-my-grade='info'>
                 <div class="row level5" data-grade-cd="006">

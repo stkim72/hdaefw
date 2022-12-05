@@ -27,8 +27,8 @@ public class UserService extends AbstractCmmService {
 	public int insert(Object param) throws Exception {
 		UserBaseVo user = (UserBaseVo) param;
 		if (Utilities.isEmpty(user.getUserId())) {
-			String userCd = Utilities.getAutoSeq("USR");
-			user.setUserId(userCd);
+			String userId = Utilities.getAutoSeq("USR");
+			user.setUserId(userId);
 		}
 		if (Utilities.isEmpty(user.getLoginPwd())) {
 			String pwd = user.getLoginId() + "123!@";
@@ -73,7 +73,7 @@ public class UserService extends AbstractCmmService {
 
 	@Override
 	public int delete(Object param) throws Exception {
-		grpUserDao.deleteUserCd(param);
+		grpUserDao.deleteUserId(param);
 		return super.delete(param);
 	}
 }

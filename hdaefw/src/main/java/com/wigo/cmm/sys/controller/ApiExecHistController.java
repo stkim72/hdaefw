@@ -36,7 +36,7 @@ import com.wigo.cmm.sys.service.ApiHistService;
  */
 
 @Controller
-@RequestMapping(value = { "apiHist","{menuCd}/apiHist"})
+@RequestMapping(value = { "apiHist","{menuId}/apiHist"})
 public class ApiExecHistController {
 	@Autowired
 	ApiHistService service;

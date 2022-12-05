@@ -20,10 +20,10 @@ public class GrpUserRelService extends AbstractCmmService {
 		return dao;
 	}
 
-	public Object saveUserGroup(String userCd, List<GrpUserRelVo> list) throws Exception {
+	public Object saveUserGroup(String userId, List<GrpUserRelVo> list) throws Exception {
 		EzMap param = new EzMap();
-		param.setString("userCd", userCd);
-		dao.deleteUserCd(param);
+		param.setString("userId", userId);
+		dao.deleteUserId(param);
 		return insertList(list);
 	}
 	public Object saveGroupUser(String grpCd, List<GrpUserRelVo> list) throws Exception{

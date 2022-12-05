@@ -28,7 +28,7 @@
 	<!-- header -->
 	<div id="header">
 <!-- 		<a href="#;" data-click="showLeftMenu" class="menu">메뉴보기</a> -->
-		<h1><a href="/"><img src="/static/crm/images/logo.png" alt="CERAGEM 통합고객"></a></h1>
+		<h1><a href="/"><img src="/static/cmm/images/logo.png" alt="CERAGEM 통합고객"></a></h1>
 		<!-- gnb -->
 		<div id="gnbNav" class="mGnb">
 			<ul>
@@ -45,7 +45,7 @@
 									<c:forEach var="menu3" items="${subMenu.children }" >
 									<c:if test='${menu3.menuShowYn eq "Y" }'>
 
-									<c:set var="menu3Data">data-top-menu-cd="${ menu3.topMenuCd}" data-menu-cd="${menu3.menuCd }" data-menu-lvl-no="${menu3.menuLvlNo }" data-menu-url="${menu3.menuUrl }" data-menu-nm="${menu3.menuNm }" data-menu-popup-yn="${menu3.menuPopupYn }"</c:set>
+									<c:set var="menu3Data">data-top-menu-cd="${ menu3.topMenuId}" data-menu-cd="${menu3.menuId }" data-menu-lvl-no="${menu3.menuLvlNo }" data-menu-url="${menu3.menuUrl }" data-menu-nm="${menu3.menuNm }" data-menu-popup-yn="${menu3.menuPopupYn }"</c:set>
 
 
 <!-- 									<div class="ls"><button class="iFavor1 active"></button> <a href="#;">통합고객 기본정보</a></div> -->
@@ -74,38 +74,9 @@
 					</c:if>
 				</c:forEach>
 <!-- 				<li> -->
-<!-- 					<a href="/static/crm/filelist.html" target="_blank" class="dep1">퍼블리싱</a> -->
+<!-- 					<a href="/static/cmm/filelist.html" target="_blank" class="dep1">퍼블리싱</a> -->
 <!-- 				</li> -->
-				<li>
-                    <a href="#;" class="dep1">BI</a>
-                        <div class="dep2">
-                            <ul>
-                                <li>
-                                    <strong class="tit" data-click="goMstr">정형분석</strong>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=10BFDEA56F4057C43802D19B47912A09&share=1&uid=ceraview&pwd=ceragem1234"  >회원 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=D572C494B04DE3A47ED0E69DBD2FF00E&share=1&uid=ceraview&pwd=ceragem1234"  >체험 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=6F5187EB7A4E6761EA3BDF89FE72CFD3&share=1&uid=ceraview&pwd=ceragem1234"  >포인트 분석(향후사용)</a></div>
-                                    <%-- <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=283292D6E54BFE8CF5ECA1A7ABA83B38&share=1&uid=ceraview&pwd=ceragem1234"  >구매 분석</a></div> --%>	<!-- 22.11.07 오류창 노출로 숨김  -->
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=B972C003EC4B7E33B4057AB9B5AF1834&share=1&uid=ceraview&pwd=ceragem1234"  >추천인 분석(향후사용)</a></div>
-                                </li>
-                                <li>
-                                    <strong class="tit" data-click="goMstr">비정형분석</strong>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=62B36A934CF9871DDAB86484C8C72101&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >회원 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=CC530CB448878A14A4D778AF66C53BA3&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >스탬프 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=995BDB9947938F32134BEF96891D4FB6&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >포인트 분석(향후사용)</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=BEC912FF43F4190F34DEA6AF795D989D&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >쿠폰 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=1398FCC345A2EA64F3ADCEBB854830DB&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >체험 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=B20F2D7A4C6F417792D0049A6404AB3A&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >구매 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=938D8CD2415B8311190A788E877BABBE&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >캠페인 분석(향후사용)</a></div>
-                                    
-                                </li>
-                            </ul>
-                        </div>
-<!-- 					<a href="http://dev-bi.ceragem.com/MicroStrategy/servlet/mstrWeb?evt=3140&src=mstrWeb.3140&documentID=E05F0E304A46B37CFCF0FF98B0D53418&Server=GLCMAP01D&Project=CERAGEM&Port=0&share=1&uid=ceragem&pwd=1234" target="_blank" class="dep1">BI</a> -->
-				</li>
-                <li>
-                    <a href="${eonUrl }?USERID=${eonUser }&VTYPE=4" class="dep1" target="_blank">발송</a>
-                </li>
+				
 			</ul>
 		</div>
 		<!-- //gnb -->
@@ -140,7 +111,7 @@
 				<ul id="ulMyMenu">
 
 				<c:forEach var="menu3" items="${ wdgtList}" varStatus="status">
-					<c:set var="menu3Data">data-top-menu-cd="${ menu3.topMenuCd}" data-menu-cd="${menu3.menuCd }" data-menu-lvl-no="${menu3.menuLvlNo }" data-menu-url="${menu3.menuUrl }" data-menu-nm="${menu3.menuNm }" data-menu-popup-yn="${menu3.menuPopupYn }"</c:set>
+					<c:set var="menu3Data">data-top-menu-cd="${ menu3.topMenuId}" data-menu-cd="${menu3.menuId }" data-menu-lvl-no="${menu3.menuLvlNo }" data-menu-url="${menu3.menuUrl }" data-menu-nm="${menu3.menuNm }" data-menu-popup-yn="${menu3.menuPopupYn }"</c:set>
 					<li ${menu3Data}><a href="#;"   data-click="showThirdMenu" ${menu3Data} >${menu3.menuNm }</a> <button class="delete" data-click="removeWdgt" ${ menu3Data}>삭제</button></li>
 				</c:forEach>
 
@@ -170,13 +141,13 @@
 				<c:if test='${topLevelMenu.menuShowYn eq "Y" }'>
 					<c:forEach var="subMenu" items="${ topLevelMenu.children}">
 						<c:if test='${subMenu.menuShowYn eq "Y" }'>
-						<c:set var="subMenuData">data-top-menu-cd="${ subMenu.topMenuCd}" data-menu-cd="${subMenu.menuCd }" data-menu-lvl-no="${subMenu.menuLvlNo }" data-menu-url="${subMenu.menuUrl }" data-menu-nm="${subMenu.menuNm }" data-menu-popup-yn="${subMenu.menuPopupYn }"</c:set>
+						<c:set var="subMenuData">data-top-menu-cd="${ subMenu.topMenuId}" data-menu-cd="${subMenu.menuId }" data-menu-lvl-no="${subMenu.menuLvlNo }" data-menu-url="${subMenu.menuUrl }" data-menu-nm="${subMenu.menuNm }" data-menu-popup-yn="${subMenu.menuPopupYn }"</c:set>
 						<li data-menu-depth="2" style="<c:if test='${cnt > 1 }'><c:set value="2" var="cnt" />display:none</c:if>" ${subMenuData }>
                 			<a data-click="showSubMenu" href="#;" class="dep1" ${subMenuData }>${subMenu.menuNm }</a>
                 			<c:if test="${!empty subMenu.children}">
                 			<ul data-menu-depth="3" ${subMenuData }>
                 				<c:forEach var="menu3" items="${ subMenu.children}">
-                				<c:set var="menu3Data">data-top-menu-cd="${ menu3.topMenuCd}" data-menu-cd="${menu3.menuCd }" data-menu-lvl-no="${menu3.menuLvlNo }" data-menu-url="${menu3.menuUrl }" data-menu-nm="${menu3.menuNm }" data-menu-popup-yn="${menu3.menuPopupYn }"</c:set>
+                				<c:set var="menu3Data">data-top-menu-cd="${ menu3.topMenuId}" data-menu-cd="${menu3.menuId }" data-menu-lvl-no="${menu3.menuLvlNo }" data-menu-url="${menu3.menuUrl }" data-menu-nm="${menu3.menuNm }" data-menu-popup-yn="${menu3.menuPopupYn }"</c:set>
                 					<c:if test='${menu3.menuShowYn eq "Y" }'>
                 			 <li ${menu3Data }>
                 			 	<a href="#;" data-click="showThirdMenu" class="" ${menu3Data }>${menu3.menuNm }</a>
@@ -184,7 +155,7 @@
                 			 		<ul class="" ${menu3Data }>
                 			 		<c:forEach var="menu4" items="${ menu3.children}">
                 			 			<c:if test='${menu4.menuShowYn eq "Y" }'>
-                			 			<c:set var="menu4Data">data-top-menu-cd="${ menu4.topMenuCd}" data-menu-cd="${menu4.menuCd }" data-menu-lvl-no="${menu4.menuLvlNo }" data-menu-url="${menu4.menuUrl }" data-menu-nm="${menu4.menuNm }" data-menu-popup-yn="${menu4.menuPopupYn }"</c:set>
+                			 			<c:set var="menu4Data">data-top-menu-cd="${ menu4.topMenuId}" data-menu-cd="${menu4.menuId }" data-menu-lvl-no="${menu4.menuLvlNo }" data-menu-url="${menu4.menuUrl }" data-menu-nm="${menu4.menuNm }" data-menu-popup-yn="${menu4.menuPopupYn }"</c:set>
                 			 			<li ${menu4Data }>
                 			 				<a href="#;" data-click="showFourthMenu" class="" ${menu4Data }>${menu4.menuNm }</a>
                 			 			</li>
@@ -225,7 +196,7 @@ var _TAB_SLIDE = new Swiper("#swiperTab", {
 
 function showToplevelMenu(element,data){
 	$("li[data-menu-depth=2]").hide();
-	$("li[data-menu-depth=2][data-top-menu-cd="+data.topMenuCd+"]").show();
+	$("li[data-menu-depth=2][data-top-menu-cd="+data.topMenuId+"]").show();
 
 // 	const toggleHeader = $('#full-toggle'), sideHeader = $('.header_side');
 
@@ -233,13 +204,13 @@ function showToplevelMenu(element,data){
 //     toggleHeader.addClass('open-side');
 	$("ul[data-menu-depth=3][data-menu-cd]").hide();
 	$("li[data-menu-depth=2][data-menu-cd]").removeClass("active");
-    showSecondMenu(data.menuCd,true);
+    showSecondMenu(data.menuId,true);
 }
-function showSecondMenu(menuCd,forceOpen){
+function showSecondMenu(menuId,forceOpen){
 
 
-	let ul = $("ul[data-menu-depth=3][data-menu-cd="+menuCd+"]");
-	let li = $("li[data-menu-depth=2][data-menu-cd="+menuCd+"]");
+	let ul = $("ul[data-menu-depth=3][data-menu-cd="+menuId+"]");
+	let li = $("li[data-menu-depth=2][data-menu-cd="+menuId+"]");
 	if(ul.length){
 		if(li.hasClass("active")){
 			if(!forceOpen){
@@ -262,7 +233,7 @@ function showFourthMenu(element,data){
 	goMenu(data);
 }
 function showSubMenu(element,data){
-	showSecondMenu(data.menuCd);
+	showSecondMenu(data.menuId);
 	if(data.menuUrl){
 		goMenu(data);
 	}
@@ -304,7 +275,7 @@ function showMenuUrl(url,param){
 }
 
 function openContentsTab(menu,param){
-	let id = menu.menuCd;
+	let id = menu.menuId;
 	let url =  "/" + menu.menuUrl;
 	if(param)
 	{
@@ -459,9 +430,9 @@ function togMyMenu(el,data){
 }
 function addMyMenu(data){
 
-	var el = $("[data-btn-type=myMenuBtn][data-menu-cd="+data.menuCd+"]");
+	var el = $("[data-btn-type=myMenuBtn][data-menu-cd="+data.menuId+"]");
 	el.addClass("active");
-	var dataStr = 'data-menu-cd="'+data.menuCd+'" data-menu-nm="'+data.menuNm+'" data-menu-url="'+data.menuUrl+'"';
+	var dataStr = 'data-menu-cd="'+data.menuId+'" data-menu-nm="'+data.menuNm+'" data-menu-url="'+data.menuUrl+'"';
 	var html = $('<li '+dataStr+'></li>');
 
 	var a = $('<a href="#;" '+dataStr+'>'+data.menuNm+'</a>');
@@ -493,9 +464,9 @@ function addMyMenu(data){
 
 function removeMyMenu(data){
 
-	var el = $("[data-btn-type=myMenuBtn][data-menu-cd="+data.menuCd+"]");
+	var el = $("[data-btn-type=myMenuBtn][data-menu-cd="+data.menuId+"]");
 	el.removeClass("active");
-	$("#ulMyMenu").find("li[data-menu-cd="+data.menuCd+"]").remove();
+	$("#ulMyMenu").find("li[data-menu-cd="+data.menuId+"]").remove();
 
 	var url = "/removeWdgt";
 
@@ -521,11 +492,11 @@ function showMyMenu(element){
 
 
 $(document).ready(function() {
-	const el =$('[data-menu-url=crmCustBas]');
+	const el =$('[data-menu-url=cmmCustBas]');
     if(el.length)
     {
     	const data = el.data();
-//     	openMenuTab(data.menuCd,data.menuNm,data.menuUrl,true);
+//     	openMenuTab(data.menuId,data.menuNm,data.menuUrl,true);
     	openMenuTab("widget","메인","/widget",true);
     }
 

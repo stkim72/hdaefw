@@ -84,12 +84,12 @@ public class LoginUserVo extends EmpBaseVo {
 	 * 사용자코드
 	 * </p>
 	 */
-	public String getUserCd() {
+	public String getUserId() {
 		return getEmpId();
 	}
 
-	public void setUserCd(String userCd) {
-		setEmpId(userCd);
+	public void setUserId(String userId) {
+		setEmpId(userId);
 	}
 
 //	public String getLoginId() {

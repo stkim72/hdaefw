@@ -19,7 +19,7 @@ import com.wigo.cmm.sys.model.ErrHstVo;
 import com.wigo.cmm.sys.service.ErrHstService;
 
 @Controller
-@RequestMapping(value = { "errorHst", "{menuCd}/errorHst" })
+@RequestMapping(value = { "errorHst", "{menuId}/errorHst" })
 public class ErrHstController{
 
 @Autowired

@@ -9,7 +9,7 @@
             <otherwise>
             WHERE LOGIN_ID          = #{loginId}
               AND IFNULL(DEL_YN ,'N')           != 'Y'
-              AND ROWNUM           = 1
+              LIMIT 0, 1
             </otherwise>
         </choose>
     </sql>
@@ -160,9 +160,9 @@
                      , #{pwdExpDt}
                      , IFNULL(#{loginFailCnt},0)
                      , IFNULL(#{delYn},'N')
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{regrId}
                  )
     </insert>
@@ -177,7 +177,7 @@
 <!--                     , USER_BIRTHDAY       =         #{userBirthday} -->
                     , DEL_YN              =         #{delYn}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
         <include refid="sqlPkConditions"/>
     </update>
     <update id="updateEmp">
@@ -189,7 +189,7 @@
                     , LOGIN_ID            =         IFNULL(#{loginId},LOGIN_ID)
                     , DEL_YN              =         #{delYn}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
@@ -225,7 +225,7 @@
                     , B.EMP_TYPE_CD
                     , B.MPHON_NO MPHON_NO_ENC_VAL
 <!--                     , (SELECT LISTAGG(GRP_ID, ',') WITHIN GROUP(ORDER BY GRP_ID) FROM TB_SYS_GRP_USER_REL WHERE USER_ID = A.USER_ID) GRP_IDS  -->
-                    , ( SELECT LISTAGG(GRP_ID, ',') WITHIN GROUP(ORDER BY GRP_ID) FROM ( SELECT GRP_ID, USER_ID
+                    , ( SELECT GROUP_CONCAT(GRP_ID ORDER BY GRP_ID SEPARATOR  ',') FROM ( SELECT GRP_ID, USER_ID
                                                                                          FROM TB_SYS_GRP_USER_REL
                                                                                             UNION ALL
                                                                                        SELECT GRP_ID, EMP_ID
@@ -236,9 +236,9 @@
                                                                                                      , B.GRP_ID 
                                                                                                    FROM TB_SYS_ORG_BAS A
                                                                                                       , TB_SYS_GRP_ORG_REL B
-                                                                                                  START WITH B.ORG_ID = A.ORG_ID
-                                                                                               CONNECT BY PRIOR   A.ORG_ID = A.UP_ORG_ID ) A 
-                                                                                            , TB_SYS_EMP_BAS B 
+                                                                                                  WHERE B.ORG_ID = A.ORG_ID
+                                                                                               ) A 
+                                                                                             , TB_SYS_EMP_BAS B 
                                                                                          WHERE A.ORG_ID = B.ORG_ID ) GRP WHERE GRP.USER_ID = A.USER_ID ) GRP_IDS
                  FROM TB_SYS_USER_BAS A 
                  LEFT JOIN TB_SYS_EMP_BAS B ON A.USER_ID = B.EMP_ID
@@ -246,13 +246,13 @@
     </select>
      <update id="updateLogin">
            UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.updateLogin*/ TB_SYS_USER_BAS
-              SET LAST_LOGIN_DT        =    SYSDATE
+              SET LAST_LOGIN_DT        =    current_timestamp()
                 , LOGIN_FAIL_CNT       =    0   
             <include refid="sqlPkConditions" />
     </update>
     <update id="updateLoginFail">
             UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.updateLoginFail*/ TB_SYS_USER_BAS
-              SET LAST_LOGIN_DT        =    SYSDATE
+              SET LAST_LOGIN_DT        =    current_timestamp()
                 , LOGIN_FAIL_CNT       =    IFNULL(LOGIN_FAIL_CNT,0) + 1   
          <include refid="sqlPkConditions" />
     </update>
@@ -260,7 +260,7 @@
         UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.updatePassword*/ TB_SYS_USER_BAS
               SET LOGIN_PWD        =    #{loginPwd}
                 , LOGIN_FAIL_CNT       =    0
-                , PWD_AMD_DT          =    SYSDATE
+                , PWD_AMD_DT          =    current_timestamp()
          <include refid="sqlPkConditions" />
     </update>
      <insert id="insertLoginHist">
@@ -274,12 +274,12 @@
                 , AMD_DT
             ) VALUES ( 
                   #{userId}
-                , SYSDATE
+                , current_timestamp()
                 , #{peerIp}
                 , #{regrId}
-                , SYSDATE
+                , current_timestamp()
                 , #{regrId}
-                , SYSDATE
+                , current_timestamp()
             )
     </insert>
      <update id="updateMyInfo">
@@ -287,7 +287,7 @@
           SET EMAIL_ADDR           =         #{emailAddr}
             , MPHON_NO             =         #{mphonNo}
             , AMDR_ID              =         #{amdrId}
-            , AMD_DT               =         SYSDATE
+            , AMD_DT               =         current_timestamp()
          <include refid="sqlPkConditions" />
     </update>
     <select id="selectUserGroupList" resultType="com.wigo.cmm.sys.model.GrpBaseVo">
@@ -304,10 +304,10 @@
                                , B.GRP_ID 
                             FROM TB_SYS_ORG_BAS A
                                , TB_SYS_GRP_ORG_REL B
-                           START WITH B.ORG_ID = A.ORG_ID
-                         CONNECT BY PRIOR   A.ORG_ID = A.UP_ORG_ID ) A 
-                               , TB_SYS_EMP_BAS B 
-                           WHERE A.ORG_ID = B.ORG_ID ) A 
+                           WHERE B.ORG_ID = A.ORG_ID
+                        ) A 
+                       , TB_SYS_EMP_BAS B 
+                   WHERE A.ORG_ID = B.ORG_ID ) A 
               , TB_SYS_GRP_BAS B 
           WHERE A.USER_ID = #{userId}
             AND A.GRP_ID = B.GRP_ID 

@@ -151,7 +151,7 @@ function grdList_load(gridView,gridId){
 	
 		
 	if(${LOGIN_USER.hasGroup("A0001")} 
-	   && (_user_login_id=="crm_13007@ceragem.com" || _user_login_id=="crm_13002@ceragem.com")){
+	   && (_user_login_id=="cmm_13007@ceragem.com" || _user_login_id=="cmm_13002@ceragem.com")){
 		grdList.showColumn("btnExecute","btnExecute");
 	}
      search();

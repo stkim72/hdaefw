@@ -174,13 +174,13 @@
                      , #{apiRsltMsgTxn}
                      , #{apiParamTxn}
                      , #{apiRsltTxn}
-                     , DECODE(#{apiCallDt},NULL,SYSDATE,STR_TO_DATE(#{apiCallDt},'%Y%m%d%H%i%s'))
-                     , DECODE(#{apiCallDt},NULL,0, (SYSDATE - STR_TO_DATE(#{apiCallDt},'%Y%m%d%H%i%s')) * 86400 )
+                     , DECODE(#{apiCallDt},NULL,current_timestamp(),STR_TO_DATE(#{apiCallDt},'%Y%m%d%H%i%s'))
+                     , DECODE(#{apiCallDt},NULL,0, (current_timestamp() - STR_TO_DATE(#{apiCallDt},'%Y%m%d%H%i%s')) * 86400 )
                      , #{apiCallIpAddr}
                      , #{regrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                  )
     </insert>
     <update id="update">
@@ -194,7 +194,7 @@
                     , API_CALL_DT         =         #{apiCallDt}
                     , API_EXEC_MSEC        =         #{apiExecMsec}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">

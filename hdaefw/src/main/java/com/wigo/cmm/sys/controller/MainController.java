@@ -54,7 +54,7 @@ public class MainController {
 	@GetMapping(value = { "main" })
 	public String main(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam Map<String, Object> param, ModelMap map) throws Exception {
-//		param.put("userCd", SessionUtil.getLoginUserCd());
+//		param.put("userId", SessionUtil.getLoginUserId());
 		map.addAttribute("wdgtList", menuService.getWdgtList(param));
 
 		return "main";

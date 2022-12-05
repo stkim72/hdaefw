@@ -101,9 +101,9 @@
 		  data-post="Y"
 		  data-grid-id="grdList"
 		  data-pagenation="Y"
-		  data-get-url="<c:url value='/crmMshipCardBas/getCardInfo'/>"
+		  data-get-url="<c:url value='/cmmMshipCardBas/getCardInfo'/>"
 		  data-type="grid" 
-		  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmCardCustBas.xml'/>">
+		  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmCardCustBas.xml'/>">
 		</div>
 		
 		

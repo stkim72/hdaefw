@@ -26,7 +26,7 @@
 			data-type="grid" 
 			data-block-ui="Y"
 			data-grid-callback="onGridLoad" 
-			data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustGrpTargetRel.xml'/>">
+			data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustGrpTargetRel.xml'/>">
 		</div>
 		<!-- //비대상고객 그리드영역 -->
     </div>
@@ -54,7 +54,7 @@
 			data-block-ui="Y"
 			data-type="grid" 
 			data-grid-callback="onGridLoad" 
-			data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustGrpTargetRel.xml'/>">
+			data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustGrpTargetRel.xml'/>">
 		</div>
 		<!-- //대상고객 그리드영역 -->
     </div>

@@ -103,10 +103,10 @@ function onGridCellDblClick(gridView, itemIndex, column, json, value){
 
 /* 상세화면 팝업 로드(수정) */
 function showDetail11(json){
-//	var url = "<c:url value='${urlPrefix}/cot/crmCustPhnCnslDtlHist${urlSuffix}'/>";
-//	var url = "<c:url value='${urlPrefix}/cot/crmCustAsSubmitDtlHist'/>/" + "315954" + "/" + json.asSubmitNo + "/" + json.submitDate;
-//	var url = "<c:url value='${urlPrefix}/sub/crmCustCntplcBas/mod${urlSuffix}'/>?cntplcSeq="+ grdList1.getJsonRow(rowIndex).cntplcSeq;
-	var url = "<c:url value='${urlPrefix}/cot/crmCustAsSubmitDtlHist'/>/" + parent.parenItgCustNo + "/" + json.asSubmitNo + "/" + json.submitDate;
+//	var url = "<c:url value='${urlPrefix}/cot/cmmCustPhnCnslDtlHist${urlSuffix}'/>";
+//	var url = "<c:url value='${urlPrefix}/cot/cmmCustAsSubmitDtlHist'/>/" + "315954" + "/" + json.asSubmitNo + "/" + json.submitDate;
+//	var url = "<c:url value='${urlPrefix}/sub/cmmCustCntplcBas/mod${urlSuffix}'/>?cntplcSeq="+ grdList1.getJsonRow(rowIndex).cntplcSeq;
+	var url = "<c:url value='${urlPrefix}/cot/cmmCustAsSubmitDtlHist'/>/" + parent.parenItgCustNo + "/" + json.asSubmitNo + "/" + json.submitDate;
     Utilities.openModal(url,1300,750);
 }
 

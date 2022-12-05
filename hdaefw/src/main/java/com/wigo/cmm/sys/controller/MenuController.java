@@ -35,7 +35,7 @@ import com.wigo.cmm.sys.service.MenuService;
  */
 
 @Controller
-@RequestMapping(value = { "menu", "{menuCd}/menu" })
+@RequestMapping(value = { "menu", "{menuId}/menu" })
 public class MenuController {
 	@Autowired
 	MenuService service;

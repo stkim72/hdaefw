@@ -19,7 +19,7 @@ import com.wigo.cmm.sys.model.GrpMenuHstVo;
 import com.wigo.cmm.sys.service.GrpMenuHstService;
 
 @Controller
-@RequestMapping(value = { "authChgLog", "{menuCd}/authChgLog" })
+@RequestMapping(value = { "authChgLog", "{menuId}/authChgLog" })
 public class GrpChgHstController{
 
 @Autowired

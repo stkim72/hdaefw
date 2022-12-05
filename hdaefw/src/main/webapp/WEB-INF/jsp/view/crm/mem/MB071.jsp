@@ -67,7 +67,7 @@
 				data-get-url="" 
 				data-type="grid" 
 				data-grid-callback="onGridLoad" 
-				data-tpl-url="<c:url value='/static/gridTemplate/mem/crmStoreSearchMulti.xml'/>">
+				data-tpl-url="<c:url value='/static/gridTemplate/mem/cmmStoreSearchMulti.xml'/>">
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -78,7 +78,7 @@
 				data-get-url="" 
 				data-type="grid" 
 				data-grid-callback="onGridLoad" 
-				data-tpl-url="<c:url value='/static/gridTemplate/mem/crmStoreSearch.xml'/>">
+				data-tpl-url="<c:url value='/static/gridTemplate/mem/cmmStoreSearch.xml'/>">
 			</div>
 		</c:otherwise>
 	</c:choose>

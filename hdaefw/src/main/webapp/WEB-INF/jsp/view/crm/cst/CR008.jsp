@@ -133,7 +133,7 @@
 		// 삭제 여부
 		$("#regChlCd").val("CRM");		
 
-		var url = "<c:url value='${urlPrefix}/sub/crmCustHshldBas/save${urlSuffix}'/>";
+		var url = "<c:url value='${urlPrefix}/sub/cmmCustHshldBas/save${urlSuffix}'/>";
 
 		Utilities.getAjax(url,saveJson,true,function(data , jqXHR){
             if(Utilities.processResult(data , jqXHR , "관계 저장에 실패했습니다."))
@@ -161,7 +161,7 @@
 			
 		}		
 		
-		var url = "<c:url value='${urlPrefix}/sub/crmCustHshldBas/remove${urlSuffix}'/>";
+		var url = "<c:url value='${urlPrefix}/sub/cmmCustHshldBas/remove${urlSuffix}'/>";
 	    console.log("확인 : "+saveJsonDel.famlyRelCd);
 		Utilities.getAjax(url,saveJsonDel,true,function(data , jqXHR){
             if(Utilities.processResult(data , jqXHR , "관계 삭제에 실패했습니다."))

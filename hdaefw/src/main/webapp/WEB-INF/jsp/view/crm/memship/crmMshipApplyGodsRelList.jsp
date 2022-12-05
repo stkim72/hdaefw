@@ -14,8 +14,8 @@
 	  data-post="Y"
 	  data-grid-id="grdList"
 	  data-pagenation="Y"
-	  data-get-url="<c:url value='/crmMshipApplyGodsRel/getList'/>"
+	  data-get-url="<c:url value='/cmmMshipApplyGodsRel/getList'/>"
 	  data-type="grid" 
-	  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipApplyGodsRel.xml'/>"
+	  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipApplyGodsRel.xml'/>"
 	  >
 	</div>

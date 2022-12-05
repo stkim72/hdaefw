@@ -61,7 +61,7 @@ public class MenuInterceptor implements HandlerInterceptor {
 	@Autowired
 	UserWdgtService mainService;
 
-	private String setMenuCd(HttpServletRequest request) throws Exception {
+	private String setMenuId(HttpServletRequest request) throws Exception {
 
 		if (request == null)
 			return null;
@@ -96,9 +96,9 @@ public class MenuInterceptor implements HandlerInterceptor {
 			menuUrl = sPath;
 
 		EzMap so = new EzMap();
-		String topMenuCd = "0100000000";
-		so.put("topMenuCd", topMenuCd);
-		so.put("userCd", SessionUtil.getLoginUserCd());
+		String topMenuId = "0100000000";
+		so.put("topMenuId", topMenuId);
+		so.put("userId", SessionUtil.getLoginUserId());
 
 		EzMap menuMap = new EzMap();
 		List<ITreeVo> menuTree = menuService.getUserMenuTree(so, menuMap);
@@ -112,13 +112,13 @@ public class MenuInterceptor implements HandlerInterceptor {
 		}
 
 		MenuBaseVo currentMenu = (MenuBaseVo) urlMap.get(menuUrl);
-		String menuCd = currentMenu == null ? menuUrl : currentMenu.getMenuUrl();
-		request.setAttribute("currentMenuCd", menuUrl);
+		String menuId = currentMenu == null ? menuUrl : currentMenu.getMenuUrl();
+		request.setAttribute("currentMenuId", menuUrl);
 		request.setAttribute("menuMap", urlMap);
 
 		if (menuTree != null && menuTree.size() > 0) {
 			request.setAttribute("menuTree", menuTree.get(0));
-			MenuVo menu = (MenuVo) urlMap.get(menuCd);
+			MenuVo menu = (MenuVo) urlMap.get(menuId);
 
 			request.setAttribute("currentMenu", currentMenu);
 
@@ -142,20 +142,20 @@ public class MenuInterceptor implements HandlerInterceptor {
 			urlPrefix += "/" + menuUrl;
 		else
 			urlPrefix = "";
-		request.setAttribute("currentSystemId", topMenuCd);
+		request.setAttribute("currentSystemId", topMenuId);
 //		request.setAttribute("currentRootUrl",root.getString("menuUrl"));
 
 		request.setAttribute("currentMenu", currentMenu);
-		request.setAttribute("loginUserCd", SessionUtil.getLoginUserCd());
+		request.setAttribute("loginUserId", SessionUtil.getLoginUserId());
 		request.setAttribute("urlSuffix", urlSuffix);
 		request.setAttribute("urlPrefix", urlPrefix);
-		request.setAttribute("systemId", topMenuCd);
+		request.setAttribute("systemId", topMenuId);
 		request.setAttribute("contextPath", cPath);
 		request.setAttribute("peerIpAddr", Utilities.getPeerIp());
 		String uniqId = Utilities.getUniqID(20);
 
 		request.setAttribute("requestTicket", uniqId);
-		return menuCd;
+		return menuId;
 	}
 
 	@Override
@@ -192,7 +192,7 @@ public class MenuInterceptor implements HandlerInterceptor {
 
 			}
 
-			setMenuCd(request);
+			setMenuId(request);
 			if (SessionUtil.isAjaxRequest())
 				return true;
 			return true;

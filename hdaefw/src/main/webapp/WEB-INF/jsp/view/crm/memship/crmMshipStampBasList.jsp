@@ -92,7 +92,7 @@
 					  data-get-url="<c:url value='/example/getList'/>"
 					  data-type="grid" 
 					  data-block-ui="Y"
-					  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipStampBas.xml'/>"
+					  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipStampBas.xml'/>"
 					  >
 					</div>
                 <button class="btnClose">고객정보 닫기</button>
@@ -468,10 +468,10 @@
 								  data-post="Y"
 								  data-grid-id="grdShopList"
 								  data-pagenation="Y"
-								  data-get-url="<c:url value='/crmMshipApplyStorRel/getList'/>"
+								  data-get-url="<c:url value='/cmmMshipApplyStorRel/getList'/>"
 								  data-type="grid"
 								  data-block-ui="Y" 
-								  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipSmtpStorRel.xml'/>"
+								  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipSmtpStorRel.xml'/>"
 							  >
 							</div>
                 
@@ -517,10 +517,10 @@
 								  data-post="Y"
 								  data-grid-id="grdGodsList"
 								  data-pagenation="Y"
-								  data-get-url="<c:url value='/crmMshipCoupnBas/getGodsRelList'/>"
+								  data-get-url="<c:url value='/cmmMshipCoupnBas/getGodsRelList'/>"
 								  data-type="grid" 
 								  data-block-ui="Y"
-								  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipApplyGodsRel.xml'/>"
+								  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipApplyGodsRel.xml'/>"
 							  >
 							</div>
 				
@@ -565,10 +565,10 @@
 					  data-post="Y"
 					  data-grid-id="grdStmpList"
 					  data-pagenation="Y"
-					  data-get-url="<c:url value='/crmMshipApplyStorRel/getList'/>"
+					  data-get-url="<c:url value='/cmmMshipApplyStorRel/getList'/>"
 					  data-type="grid" 
 					  data-block-ui="Y"
-					  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipSmtpListRel.xml'/>"
+					  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipSmtpListRel.xml'/>"
 				  >
 				</div>
             </div>
@@ -617,7 +617,7 @@
 					  data-pagenation="Y"
 					  data-get-url="<c:url value='/example/getList'/>"
 					  data-type="grid" 
-					  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipStampCpnBas.xml'/>"
+					  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipStampCpnBas.xml'/>"
 					  >
 					</div>
 					

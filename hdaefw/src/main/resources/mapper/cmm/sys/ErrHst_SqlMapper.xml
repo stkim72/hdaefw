@@ -110,19 +110,25 @@
                  FROM TB_SYS_ERR_HST
         <include refid="sqlPkConditions"/>
     </select>
-    <insert id="insert">
-                INSERT /*com.wigo.cmm.sys.dao.ErrHstDao.insert*/ INTO TB_SYS_ERR_HST (
-        <include refid="sqlCols"/>
+    <insert id="insert" useGeneratedKeys="true"    keyProperty="errHstId">
+               INSERT /*com.wigo.cmm.sys.dao.ErrHstDao.insert*/ INTO TB_SYS_ERR_HST (
+                      MENU_ID                    /*메뉴코드        */
+                    , MENU_URL                    /*메뉴URL        */
+                    , ERR_CD                    /*오류코드        */
+                    , ERR_MSG_TXN                    /*오류메시지내역        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
                  ) VALUES (
-                       FN_CRM_AUTO_SEQ('ERC')
-                     , #{menuId}
+                       #{menuId}
                      , #{menuUrl}
                      , #{errCd}
                      , #{errMsgTxn}
                      , #{regrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                  )
     </insert>
     <update id="update">
@@ -132,7 +138,7 @@
                     , ERR_CD              =         #{errCd}
                     , ERR_MSG_TXN         =         #{errMsgTxn}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">

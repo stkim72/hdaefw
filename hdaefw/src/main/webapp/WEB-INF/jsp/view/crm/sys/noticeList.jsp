@@ -54,7 +54,7 @@
 					data-get-url="<c:url value='${urlPrefix}/getList${urlSuffix}'/>"
       				data-grid-id="grdList" data-type="grid"
       				data-pagination="Y" 
-      				data-tpl-url="<c:url value='/static/gridTemplate/system/crmNtcartBas.xml'/>">
+      				data-tpl-url="<c:url value='/static/gridTemplate/system/cmmNtcartBas.xml'/>">
     		</div>
 			</div>
 			

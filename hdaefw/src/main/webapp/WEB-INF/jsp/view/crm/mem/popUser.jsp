@@ -99,7 +99,7 @@
 					  data-pagenation="Y"
 					  data-get-url="<c:url value='/example/getList'/>"
 					  data-type="grid" 
-					  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmSmtpPopupUser.xml'/>"
+					  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmSmtpPopupUser.xml'/>"
 					  >
 					</div>
 		
@@ -162,7 +162,7 @@ function search() {
 	$("#frmDetail #btnEdit").hide();
 	$("form#frmSearch").find("#currentPageNo").val(1);
  	var url = "<c:url value='${urlPrefix}/getMemSearchList${urlSuffix}'/>";
- 	// crmMshipCoupnBas/getMemSearchList
+ 	// cmmMshipCoupnBas/getMemSearchList
 	var param = Utilities.formToMap("frmSearch");
 	
 	param.recordCountPerPage = 20;

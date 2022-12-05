@@ -129,7 +129,7 @@
       					data-pagenation="Y"
                     	data-block-ui="Y"
       					data-type="grid" 
-      					data-tpl-url="<c:url value='/static/gridTemplate/camp/crmCampDspHst.xml'/>">
+      					data-tpl-url="<c:url value='/static/gridTemplate/camp/cmmCampDspHst.xml'/>">
       
 
 			</div>

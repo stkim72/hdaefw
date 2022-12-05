@@ -107,7 +107,7 @@ function grdList_rowChanged(grdView,oldRow,newRow,rowData){
 function searchMenu(currentPageNo){
     var param = {
         grpCd : _current_group_cd,
-        topMenuCd : $("#selectCodeCombo").val(),
+        topMenuId : $("#selectCodeCombo").val(),
         currentPageNo : currentPageNo?currentPageNo : 1 
     };
     url = "<c:url value='${urlPrefix}/getGroupMenuList'/>${urlSuffix}";
@@ -409,7 +409,7 @@ function newGroupMenu(){
 		alert("먼저 그룹을 선택하세요");
 		return false;
 	}
-	var url = "<c:url value='${urlPrefix}/groupMenuPopup${urlSuffix}'/>?grpCd="+_current_group_cd+"&topMenuCd="+$("#selectCodeCombo").val();
+	var url = "<c:url value='${urlPrefix}/groupMenuPopup${urlSuffix}'/>?grpCd="+_current_group_cd+"&topMenuId="+$("#selectCodeCombo").val();
 	Utilities.openModal(url,1200,798);
 //    Utilities.windowOpen(url,"addGroupMenu",700,680);
 }

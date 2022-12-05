@@ -258,7 +258,7 @@ public class LoginService extends AbstractCmmService {
 			response.sendRedirect(returl);
 		} else {
 //			usr.setUserNm(loginId);
-//			usr.setUserCd(loginId);
+//			usr.setUserId(loginId);
 //			usr.setUserNm(loginId);
 //			SessionUtil.setLoginUser(usr);
 //			request.getRequestDispatcher("/").forward(request, response);

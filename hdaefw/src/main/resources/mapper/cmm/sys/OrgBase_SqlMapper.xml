@@ -65,7 +65,7 @@
         <if test="endYmd != null and endYmd != ''">
                       AND END_YMD           =       #{endYmd}
         </if>
-                      AND DATE_FORMAT(SYSDATE,'%Y%m%d') BETWEEN STA_YMD AND END_YMD
+                      AND DATE_FORMAT(current_timestamp(),'%Y%m%d') BETWEEN STA_YMD AND END_YMD
         </where>
     </sql>
     <select id="selectListCount" resultType="int">
@@ -106,9 +106,9 @@
                      , #{staYmd}
                      , #{endYmd}
                      , #{regrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                  )
     </insert>
     <update id="update">
@@ -125,7 +125,7 @@
                     , STA_YMD           =         #{staYmd}
                     , END_YMD             =         #{endYmd}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">

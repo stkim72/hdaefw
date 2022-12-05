@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.wigo.cmm.common.model.EzMap;
@@ -36,7 +37,7 @@ public class UserWdgtService extends AbstractCmmService {
 
 	@PostConstruct
 	public void initMainData() throws Exception {
-//		asyncService.initMainData();
+		asyncService.initMainData();
 	}
 
 	public void initLastData() throws Exception {
@@ -55,7 +56,7 @@ public class UserWdgtService extends AbstractCmmService {
 		return new EzMap();
 	}
 
-//	@Scheduled(cron = "0 0 * * * *")
+	@Scheduled(cron = "0 0 * * * *")
 	public EzMap refreshData() throws Exception {
 		return getData();
 	}

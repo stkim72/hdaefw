@@ -31,7 +31,7 @@ import com.wigo.cmm.sys.service.BatchInfoBasService;
  */
 
 @Controller
-@RequestMapping(value = { "batch", "{menuCd}/batch" })
+@RequestMapping(value = { "batch", "{menuId}/batch" })
 public class BatchInfoBasController {
 
 	@Autowired

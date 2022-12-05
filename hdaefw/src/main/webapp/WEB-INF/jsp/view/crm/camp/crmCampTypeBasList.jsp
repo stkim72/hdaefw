@@ -98,9 +98,9 @@
 						  data-grid-id="grdList"
 						  data-pagenation="Y"
                     	data-block-ui="Y"
-						  data-get-url="<c:url value='/crmCampTypeBas/getList'/>"
+						  data-get-url="<c:url value='/cmmCampTypeBas/getList'/>"
 						  data-type="grid" 
-						  data-tpl-url="<c:url value='/static/gridTemplate/camp/crmCampTypeBas.xml'/>"
+						  data-tpl-url="<c:url value='/static/gridTemplate/camp/cmmCampTypeBas.xml'/>"
 						  >
 						</div>
 						

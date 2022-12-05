@@ -113,9 +113,9 @@
 						  data-grid-id="grdList"
 						  data-pagenation="Y"
                     	data-block-ui="Y"
-						  data-get-url="<c:url value='/crmCampTgtrBas/getList'/>"
+						  data-get-url="<c:url value='/cmmCampTgtrBas/getList'/>"
 						  data-type="grid" 
-						  data-tpl-url="<c:url value='/static/gridTemplate/camp/crmCampTgtrBas.xml'/>"
+						  data-tpl-url="<c:url value='/static/gridTemplate/camp/cmmCampTgtrBas.xml'/>"
 						  >
 					
 				
@@ -179,7 +179,7 @@ function changeText(reason){
         return;
     var url = "<c:url value='${urlPrefix}/getList${urlSuffix}'/>";
     var param = Utilities.formToMap("frmSearch");
-    param.indiInfoHandlPrsnNo = "${LOGIN_USER.userCd}";
+    param.indiInfoHandlPrsnNo = "${LOGIN_USER.userId}";
     param.connPrsnIpAddr = "${peerIpAddr}";
     param.dnldTxn = reason;
     param.pfmWorkCd = "003";

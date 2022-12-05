@@ -68,7 +68,7 @@
 			data-block-ui="Y"
 			data-type="grid" 
 			data-grid-callback="onGridLoad" 
-			data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustGrpBas.xml'/>">
+			data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustGrpBas.xml'/>">
 		</div>
 		<!-- //고객그룹 그리드영역 -->
 	</div>

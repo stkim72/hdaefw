@@ -19,7 +19,7 @@ import com.wigo.cmm.sys.model.GrpMenuHstVo;
 import com.wigo.cmm.sys.service.GrpMenuHstService;
 
 @Controller
-@RequestMapping(value = { "grpMenuHst", "{menuCd}/grpMenuHst" })
+@RequestMapping(value = { "grpMenuHst", "{menuId}/grpMenuHst" })
 public class GrpMenuHstController{
 
 @Autowired

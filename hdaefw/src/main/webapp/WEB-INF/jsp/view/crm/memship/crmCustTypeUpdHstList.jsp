@@ -97,10 +97,10 @@
 			  data-post="Y"
 			  data-grid-id="grdList"
 			  data-pagenation="Y"
-			  data-get-url="<c:url value='/crmCustTypeUpdHst/getList'/>"
+			  data-get-url="<c:url value='/cmmCustTypeUpdHst/getList'/>"
 			  data-type="grid" 
                     	data-block-ui="Y"
-			  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmCustTypeUpdHst.xml'/>">
+			  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmCustTypeUpdHst.xml'/>">
 						
 	</div>
 </div>

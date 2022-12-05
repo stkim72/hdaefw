@@ -124,7 +124,7 @@
 		  data-get-url="<c:url value='/example/getList'/>"
 		  data-type="grid"
 		  data-block-ui="Y"
-		  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipStmpIssue.xml'/>"
+		  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipStmpIssue.xml'/>"
 		  >
 		</div>
         

@@ -101,9 +101,9 @@
 				  data-post="Y"
 				  data-grid-id="grdList"
 				  data-pagenation="Y"
-				  data-get-url="<c:url value='/crmMshipCardBasList/getList'/>"
+				  data-get-url="<c:url value='/cmmMshipCardBasList/getList'/>"
 				  data-type="grid" 
-				  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipCardBas2.xml'/>"
+				  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipCardBas2.xml'/>"
 				  >
 			</div>
 		
@@ -167,7 +167,7 @@ function search() {
 	//$("#frmDetail #btnReg").text("등록").hide();
 	$("#frmDetail #btnEdit").hide();
 	$("form#frmSearch").find("#currentPageNo").val(1);
- 	var url = "<c:url value='/crmMshipCardBas/getList${urlSuffix}'/>";
+ 	var url = "<c:url value='/cmmMshipCardBas/getList${urlSuffix}'/>";
 	var param = Utilities.formToMap("frmSearch");
 	
 	param.recordCountPerPage = 20;

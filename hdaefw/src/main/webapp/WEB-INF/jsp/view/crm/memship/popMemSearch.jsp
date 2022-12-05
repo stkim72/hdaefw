@@ -165,9 +165,9 @@
 			  data-grid-id="grdList"
 			  data-pagenation="Y"
 			  data-scroll-x="Y"
-			  data-get-url="<c:url value='/crmMshipCoupnBas/getMemSearchList'/>"
+			  data-get-url="<c:url value='/cmmMshipCoupnBas/getMemSearchList'/>"
 			  data-type="grid" 
-			  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMemSearch.xml'/>"
+			  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMemSearch.xml'/>"
 			  >
 			</div>
 

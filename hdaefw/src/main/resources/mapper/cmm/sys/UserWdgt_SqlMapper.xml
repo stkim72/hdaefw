@@ -91,16 +91,16 @@
                      , #{menuId}
                      , #{menuOdrg}
                      , #{regrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                  )
     </insert>
     <update id="update">
                UPDATE /*com.wigo.cmm.sys.dao.UserWdgtDao.update*/ TB_SYS_USER_WDGT_BAS
                   SET MENU_ODRG           =         #{menuOdrg}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         SYSDATE
+                    , AMD_DT              =         current_timestamp()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
@@ -160,18 +160,18 @@
         SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectCouponList*/  A.USE_DT 
              , IFNULL(B.USE_CNT,0) USE_CNT
              , IFNULL(C.REG_CNT,0) PUB_CNT
-          FROM ( SELECT DATE_FORMAT(SYSDATE-8 + LEVEL,'%Y%m%d') USE_DT 
+          FROM ( SELECT DATE_FORMAT(current_timestamp()-8 + LEVEL,'%Y%m%d') USE_DT 
                    FROM DUAL
                 CONNECT BY 8 > LEVEL) A 
              , ( SELECT COUNT(1) AS USE_CNT  
                       , SUBSTR(USE_DT,1,8) USE_DT
                    FROM TB_SYS_COUPN_PBLS_HST
-                  WHERE USE_DT BETWEEN DATE_FORMAT(SYSDATE-7,'%Y%m%d')|| '000000' AND DATE_FORMAT(SYSDATE,'%Y%m%d')|| '000000'
+                  WHERE USE_DT BETWEEN DATE_FORMAT(current_timestamp()-7,'%Y%m%d')|| '000000' AND DATE_FORMAT(current_timestamp(),'%Y%m%d')|| '000000'
                     AND COUPN_TYPE_CD NOT IN ('013') 
                   GROUP BY SUBSTR(USE_DT,1,8)) B
              , ( SELECT COUNT(1) AS REG_CNT  
                       , DATE_FORMAT(TRUNC(REG_DT),'%Y%m%d') USE_DT FROM TB_SYS_COUPN_PBLS_HST
-                  WHERE REG_DT BETWEEN TRUNC(SYSDATE-7) AND TRUNC(SYSDATE)
+                  WHERE REG_DT BETWEEN TRUNC(current_timestamp()-7) AND TRUNC(current_timestamp())
                     AND COUPN_TYPE_CD NOT IN ('013')
                   GROUP BY TRUNC(REG_DT)) C
          WHERE A.USE_DT = B.USE_DT(+)
@@ -183,20 +183,20 @@
             SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectMembershipRegList*/  A.REG_DT 
                  , IFNULL(B.REG_CNT,0) REG_CNT
                  , IFNULL(C.PREV_REG_CNT,0) PREV_REG_CNT
-              FROM ( SELECT DATE_FORMAT(SYSDATE-8 + LEVEL,'%Y%m%d') REG_DT 
+              FROM ( SELECT DATE_FORMAT(current_timestamp()-8 + LEVEL,'%Y%m%d') REG_DT 
                      FROM DUAL
                    CONNECT BY LEVEL <![CDATA[<]]> 8) A 
                  , ( SELECT COUNT(1) REG_CNT
                           , DATE_FORMAT(TRUNC(MSHIP_SBSC_DT),'%Y%m%d') REG_DT
                        FROM TB_SYS_CUST_BAS
                       WHERE MSHIP_SBSC_YN = 'Y'
-                        AND MSHIP_SBSC_DT BETWEEN TRUNC(SYSDATE-7) AND TRUNC(SYSDATE)  
+                        AND MSHIP_SBSC_DT BETWEEN TRUNC(current_timestamp()-7) AND TRUNC(current_timestamp())  
                       GROUP BY TRUNC(MSHIP_SBSC_DT)) B
                  , ( SELECT COUNT(1) PREV_REG_CNT
                           , DATE_FORMAT(TRUNC(MSHIP_SBSC_DT)+7,'%Y%m%d') PREV_REG_DT
                        FROM TB_SYS_CUST_BAS
                       WHERE MSHIP_SBSC_YN = 'Y'
-                        AND MSHIP_SBSC_DT BETWEEN TRUNC(SYSDATE-7-7) AND TRUNC(SYSDATE-7)  
+                        AND MSHIP_SBSC_DT BETWEEN TRUNC(current_timestamp()-7-7) AND TRUNC(current_timestamp()-7)  
                       GROUP BY TRUNC(MSHIP_SBSC_DT)) C
              WHERE A.REG_DT = B.REG_DT(+)
                AND A.REG_DT = C.PREV_REG_DT(+)
@@ -223,12 +223,12 @@
                                  , ( SELECT COUNT(1) REG_CNT
                                           , REG_CHL_CD CHL_CD
                                        FROM TB_SYS_CUST_BAS
-                                      WHERE REG_DT BETWEEN TRUNC(SYSDATE-7) AND TRUNC(SYSDATE)  
+                                      WHERE REG_DT BETWEEN TRUNC(current_timestamp()-7) AND TRUNC(current_timestamp())  
                                       GROUP BY REG_CHL_CD) B
                                  , (  SELECT COUNT(1) PREV_REG_CNT
                                           , REG_CHL_CD CHL_CD
                                        FROM TB_SYS_CUST_BAS
-                                      WHERE REG_DT BETWEEN TRUNC(SYSDATE-7-7) AND TRUNC(SYSDATE-7)  
+                                      WHERE REG_DT BETWEEN TRUNC(current_timestamp()-7-7) AND TRUNC(current_timestamp()-7)  
                                       GROUP BY REG_CHL_CD ) C
                              WHERE A.CHL_CD = B.CHL_CD(+)
                                AND A.CHL_CD = C.CHL_CD(+) ) A 
@@ -242,13 +242,13 @@
                SELECT  /*com.wigo.cmm.sys.dao.UserWdgtDao.selectOrdList*/ A.ORD_DE
                     , IFNULL(B.ORD_CNT,0) ORD_CNT
                     , IFNULL(C.PREV_ORD_CNT,0) PREV_ORD_CNT
-                 FROM ( SELECT DATE_FORMAT(SYSDATE-8 + LEVEL,'%Y%m%d') ORD_DE 
+                 FROM ( SELECT DATE_FORMAT(current_timestamp()-8 + LEVEL,'%Y%m%d') ORD_DE 
                          FROM DUAL
                        CONNECT BY LEVEL <![CDATA[<]]> 8) A 
                     , (SELECT COUNT(1) ORD_CNT
                             , ORD_DE 
                          FROM TB_SYS_CUST_BOS_CNTRT_HST
-                        WHERE ORD_DE BETWEEN DATE_FORMAT(SYSDATE-7,'%Y%m%d')  AND DATE_FORMAT(SYSDATE-1,'%Y%m%d')
+                        WHERE ORD_DE BETWEEN DATE_FORMAT(current_timestamp()-7,'%Y%m%d')  AND DATE_FORMAT(current_timestamp()-1,'%Y%m%d')
                           AND ITEM_TY_CD IN ( '1100', '2100', '2200', '9500', '9700')
                           AND SALE_TY_CD != '1202'
                           AND ORD_STS_CD != '99'
@@ -256,7 +256,7 @@
                     , (SELECT COUNT(1) PREV_ORD_CNT
                             , DATE_FORMAT(STR_TO_DATE(ORD_DE,'%Y%m%d') + 7 ,'%Y%m%d') ORD_DE 
                          FROM TB_SYS_CUST_BOS_CNTRT_HST
-                        WHERE ORD_DE BETWEEN DATE_FORMAT(SYSDATE-7-7,'%Y%m%d')  AND DATE_FORMAT(SYSDATE-1-7,'%Y%m%d')
+                        WHERE ORD_DE BETWEEN DATE_FORMAT(current_timestamp()-7-7,'%Y%m%d')  AND DATE_FORMAT(current_timestamp()-1-7,'%Y%m%d')
                           AND ITEM_TY_CD IN ( '1100', '2100', '2200', '9500', '9700')
                           AND SALE_TY_CD != '1202'
                           AND ORD_STS_CD != '99'
@@ -288,12 +288,12 @@
 		 , ( SELECT COUNT(1) REG_CNT
 		          , REG_CHL_CD CHL_CD
 		       FROM TB_SYS_CUST_BAS
-		      WHERE REG_DT BETWEEN TRUNC(SYSDATE-7) AND TRUNC(SYSDATE)  
+		      WHERE REG_DT BETWEEN TRUNC(current_timestamp()-7) AND TRUNC(current_timestamp())  
 		      GROUP BY REG_CHL_CD) B
 		 , (  SELECT COUNT(1) PREV_REG_CNT
 		          , REG_CHL_CD CHL_CD
 		       FROM TB_SYS_CUST_BAS
-		      WHERE REG_DT BETWEEN TRUNC(SYSDATE-7-7) AND TRUNC(SYSDATE-7)  
+		      WHERE REG_DT BETWEEN TRUNC(current_timestamp()-7-7) AND TRUNC(current_timestamp()-7)  
 		      GROUP BY REG_CHL_CD ) C
 		WHERE A.CHL_CD = B.CHL_CD(+)
 		AND A.CHL_CD = C.CHL_CD(+)

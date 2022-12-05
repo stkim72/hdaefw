@@ -42,7 +42,7 @@ import com.wigo.cmm.sys.service.GrpUserRelService;
  */
 
 @Controller
-@RequestMapping(value = { "group", "{menuCd}/group" })
+@RequestMapping(value = { "group", "{menuId}/group" })
 public class GroupController {
 	@Autowired
 	GrpBaseService groupService;
@@ -219,8 +219,8 @@ public class GroupController {
 
 	@PostMapping(value = { "setMenuGroup" })
 	public @ResponseBody Object setMenuGroup(@RequestBody List<GrpMenuRelVo> list,
-			@RequestParam("menuCd") String menuCd) throws Exception {
-		return groupMenuService.saveMenuGroup(menuCd, list);
+			@RequestParam("menuId") String menuId) throws Exception {
+		return groupMenuService.saveMenuGroup(menuId, list);
 	}
 
 	@PostMapping(value = { "saveGroupMenu" })
@@ -256,14 +256,14 @@ public class GroupController {
 
 	@PostMapping(value = { "setUserGroup" })
 	public @ResponseBody Object setUserGroup(@RequestBody List<GrpUserRelVo> list,
-			@RequestParam("userCd") String userCd) throws Exception {
-		return groupUserService.saveUserGroup(userCd, list);
+			@RequestParam("userId") String userId) throws Exception {
+		return groupUserService.saveUserGroup(userId, list);
 	}
 
 	@PostMapping(value = { "setGroupUser" })
 	public @ResponseBody Object setGroupUser(@RequestBody List<GrpUserRelVo> list,
-			@RequestParam("userCd") String userCd) throws Exception {
-		return groupUserService.saveGroupUser(userCd, list);
+			@RequestParam("userId") String userId) throws Exception {
+		return groupUserService.saveGroupUser(userId, list);
 	}
 
 }

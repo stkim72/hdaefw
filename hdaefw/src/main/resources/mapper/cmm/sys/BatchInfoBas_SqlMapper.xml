@@ -163,9 +163,9 @@
                      , NULL
                      , IFNULL(#{useYn},'N')
                      , #{regrId}
-                     , SYSDATE
+                     , current_timestamp()
                      , #{amdrId}
-                     , SYSDATE
+                     , current_timestamp()
                  )
     </insert>
     <update id="update">

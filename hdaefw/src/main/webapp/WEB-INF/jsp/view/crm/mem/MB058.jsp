@@ -70,7 +70,7 @@
 			data-block-ui="Y"
 			data-type="grid" 
 			data-grid-callback="onGridLoad" 
-			data-tpl-url="<c:url value='/static/gridTemplate/mem/crmStoreBas.xml'/>">
+			data-tpl-url="<c:url value='/static/gridTemplate/mem/cmmStoreBas.xml'/>">
 		</div>
 		<!-- //매장 그리드영역 -->
 	</div>
@@ -279,7 +279,7 @@
 			data-block-ui="Y"
 			data-type="grid" 
 			data-grid-callback="onGridLoad" 
-			data-tpl-url="<c:url value='/static/gridTemplate/mem/crmStoreCust.xml'/>">
+			data-tpl-url="<c:url value='/static/gridTemplate/mem/cmmStoreCust.xml'/>">
 		</div>
 		<%-- <iframe data-tab-type="iframe" id="targetRelIFrm" scrolling="yes" src="<c:url value='${urlPrefix}/inputTargetRelInfo'/>${urlSuffix}" 
 				style="width: 100%; min-height: 300px; border: 0px; height: 580px;"></iframe> --%>

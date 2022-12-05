@@ -134,9 +134,9 @@ $(document).ready(function() {
 				  data-grid-id="grdList"
 				  data-pagenation="Y"
 				  data-scroll-x="Y"
-				  data-get-url="<c:url value='/crmMshipCardBasList/getList'/>"
+				  data-get-url="<c:url value='/cmmMshipCardBasList/getList'/>"
 				  data-type="grid" 
-				  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmMshipCardBas.xml'/>"
+				  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmMshipCardBas.xml'/>"
 				  >
 				</div>
                 <!-- //list -->
@@ -339,9 +339,9 @@ $(document).ready(function() {
 							  data-post="Y"
 							  data-grid-id="grdCardHstList"
 							  data-pagenation="Y"
-							  data-get-url="<c:url value='/crmMshipCardBas/grdCardHstList'/>"
+							  data-get-url="<c:url value='/cmmMshipCardBas/grdCardHstList'/>"
 							  data-type="grid" 
-							  data-tpl-url="<c:url value='/static/gridTemplate/memship/crmCardPblsHst.xml'/>">
+							  data-tpl-url="<c:url value='/static/gridTemplate/memship/cmmCardPblsHst.xml'/>">
 							</div>
 							
 							

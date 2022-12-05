@@ -115,9 +115,9 @@ function search1()
 
 /* 그리드 셀 더블 클릭 */
 function onGridCellDblClick(gridView, itemIndex, column, json, value){
-// 	var url = "<c:url value='${urlPrefix}/sub/crmCustHshldBas/mod${urlSuffix}'/>?itgCustNo="+ grdList1.getJsonRow(itemIndex).itgCustNo + "&repHshldNo="+ grdList1.getJsonRow(itemIndex).repHshldNo;
+// 	var url = "<c:url value='${urlPrefix}/sub/cmmCustHshldBas/mod${urlSuffix}'/>?itgCustNo="+ grdList1.getJsonRow(itemIndex).itgCustNo + "&repHshldNo="+ grdList1.getJsonRow(itemIndex).repHshldNo;
 	
-	var url = "<c:url value='${urlPrefix}/sub/crmCustHshldBas/mod'/>" + "/" + grdList1.getJsonRow(itemIndex).itgCustNo;
+	var url = "<c:url value='${urlPrefix}/sub/cmmCustHshldBas/mod'/>" + "/" + grdList1.getJsonRow(itemIndex).itgCustNo;
 
 	Utilities.openModal(url,600, 300);
 }
@@ -128,8 +128,8 @@ function newRel(){
 	
  	console.log(pitgCustNo);
  	
-	var url = "<c:url value='${urlPrefix}/sub/crmCustHshldBas/add${urlSuffix}'/>?repHshldNo="+ pitgCustNo;
-//	var url = "<c:url value='${urlPrefix}/sub/crmCustHshldBas/mod'/>/" + grdList1.getJsonRow(itemIndex).itgCustNo + "/" + grdList1.getJsonRow(itemIndex).repHshldNo;
+	var url = "<c:url value='${urlPrefix}/sub/cmmCustHshldBas/add${urlSuffix}'/>?repHshldNo="+ pitgCustNo;
+//	var url = "<c:url value='${urlPrefix}/sub/cmmCustHshldBas/mod'/>/" + grdList1.getJsonRow(itemIndex).itgCustNo + "/" + grdList1.getJsonRow(itemIndex).repHshldNo;
  	// openModal :function(url,width,height,callFunc,callbackFunc,callbackWin)
  	Utilities.openModal(url, 600, 300);
  	//Utilities.windowOpen(url,  900, 730);

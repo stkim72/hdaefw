@@ -64,7 +64,7 @@
 			data-load-focus="Y"
 			data-type="grid" 
 			data-grid-callback="onGridLoad" 
-			data-tpl-url="<c:url value='/static/gridTemplate/cst/crmCustGrpSearch.xml'/>">
+			data-tpl-url="<c:url value='/static/gridTemplate/cst/cmmCustGrpSearch.xml'/>">
 		</div>
 		<!-- //고객그룹 그리드영역 -->
 		
