@@ -81,7 +81,7 @@
     </select>
     <insert id="insert">
         <selectKey order="BEFORE" keyProperty="fileOdrg" resultType="int">
-            SELECT IFNULL(DECODE(#{fileOdrg},0,NULL,#{fileOdrg}),IFNULL(MAX(FILE_ODRG),0) + 1 )
+            SELECT IFNULL(CASE WHEN (#{fileOdrg}=0 THEN NULL ELSE #{fileOdrg} END ,IFNULL(MAX(FILE_ODRG),0) + 1 )
               FROM TB_SYS_FILE_BAS
              WHERE FILE_ID = DATE_FORMAT(#{fileId}) 
         </selectKey>
@@ -124,7 +124,7 @@
                 </if>
     </delete>
     <select id="selectMaxfileOdrg" resultType="int">
-        SELECT /*com.wigo.cmm.sys.dao.FileBaseDao.selectMaxfileOdrg*/ IFNULL(DECODE(#{fileOdrg},0,NULL,#{fileOdrg}),IFNULL(MAX(FILE_ODRG),0) + 1 )
+        SELECT /*com.wigo.cmm.sys.dao.FileBaseDao.selectMaxfileOdrg*/ IFNULL(CASE WHEN #{fileOdrg} = 0 THEN NULL ELSE #{fileOdrg} END,IFNULL(MAX(FILE_ODRG),0) + 1 )
               FROM TB_SYS_FILE_BAS
              WHERE FILE_ID = DATE_FORMAT(#{fileId})
     </select>

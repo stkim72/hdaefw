@@ -103,7 +103,7 @@
     <select id="selectGroupCheckList" resultType="com.wigo.cmm.sys.model.GrpBaseVo">
         SELECT A.GRP_ID
              , A.GRP_NM
-             , DECODE( IFNULL(B.GRP_ID,C.GRP_ID),NULL,'N','Y') CHECK_YN
+             , CASE WHEN  IFNULL(B.GRP_ID,C.GRP_ID) IS NULL THEN 'N' ELSE 'Y' END CHECK_YN
           FROM TB_SYS_GRP_BAS A
           LEFT JOIN TB_SYS_GRP_USER_REL B ON A.GRP_ID = B.GRP_ID AND B.USER_ID = #{userId}
           LEFT JOIN TB_SYS_GRP_MENU_REL C ON A.GRP_ID = C.GRP_ID AND C.MENU_ID = #{menuId}

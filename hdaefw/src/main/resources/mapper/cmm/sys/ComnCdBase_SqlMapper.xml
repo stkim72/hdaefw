@@ -270,7 +270,11 @@
                        #{comnCd}
                      , IFNULL(#{topComnCd},#{comnCd})
                      , IFNULL(#{comnCdLvlNo},1)
-                     , IFNULL(#{comnCdOdrg},DECODE(#{prntsComnCd},NULL, IFNULL((SELECT MAX(COMN_CD_ODRG)+ 1 FROM TB_SYS_COMN_CD_BAS WHERE COMN_CD_LVL_NO = 1),1), IFNULL((SELECT MAX(COMN_CD_ODRG)+ 1 FROM TB_SYS_COMN_CD_BAS WHERE PRNTS_COMN_CD = #{prntsComnCd}),1) ) )
+                     , IFNULL(#{comnCdOdrg},
+                              CASE WHEN #{prntsComnCd} IS NULL THEN IFNULL((SELECT MAX(COMN_CD_ODRG)+ 1 FROM TB_SYS_COMN_CD_BAS WHERE COMN_CD_LVL_NO = 1),1) 
+                                   ELSE IFNULL((SELECT MAX(COMN_CD_ODRG)+ 1 FROM TB_SYS_COMN_CD_BAS WHERE PRNTS_COMN_CD = #{prntsComnCd}),1) 
+                               END 
+                              )
                      , #{prntsComnCd}
                      , #{comnCdNm}
                      , IFNULL(#{useYn},'Y')

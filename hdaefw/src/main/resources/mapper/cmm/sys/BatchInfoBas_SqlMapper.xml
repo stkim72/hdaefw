@@ -28,7 +28,7 @@
                     , A.REGR_ID                    /*등록자ID        */
                     , DATE_FORMAT(A.REG_DT,'%Y%m%d%H%i%s')    REG_DT                    /*등록일시        */
                     , A.AMDR_ID                    /*수정자ID        */
-                    , DECODE(A.LAST_SUCC_YN, NULL,NULL,DATE_FORMAT(A.AMD_DT,'%Y%m%d%H%i%s'))    AMD_DT                    /*수정일시        */
+                    , CASE WHEN A.LAST_SUCC_YN IS NULL THEN NULL ELSE DATE_FORMAT(A.AMD_DT,'%Y%m%d%H%i%s') END    AMD_DT                    /*수정일시        */
     </sql>
     <sql id="sqlConditions">
     <where>

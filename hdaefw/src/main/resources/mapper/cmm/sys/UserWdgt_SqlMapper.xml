@@ -118,25 +118,25 @@
     
     <select id="selectCustType" resultType="EzMap">
                         SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectCustType*/ A.*
-                             , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_001/CNT_TOTAL)) AVG_001 
-                             , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_002/CNT_TOTAL)) AVG_002
-                             , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_003/CNT_TOTAL)) AVG_003
-                             , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_004/CNT_TOTAL)) AVG_004
-                             , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_005/CNT_TOTAL)) AVG_005
-                             , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_006/CNT_TOTAL)) AVG_006
-                             , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_007/CNT_TOTAL)) AVG_007
-                             , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_008/CNT_TOTAL)) AVG_008
-                             , DECODE(CNT_TOTAL,0,0,ROUND(100*CNT_009/CNT_TOTAL)) AVG_009
+                             , CASE WHEN CNT_TOTAL=0 THEN 0 ELSE ROUND(100*CNT_001/CNT_TOTAL) END AVG_001 
+                             , CASE WHEN CNT_TOTAL=0 THEN 0 ELSE ROUND(100*CNT_002/CNT_TOTAL) END AVG_002
+                             , CASE WHEN CNT_TOTAL=0 THEN 0 ELSE ROUND(100*CNT_003/CNT_TOTAL) END AVG_003
+                             , CASE WHEN CNT_TOTAL=0 THEN 0 ELSE ROUND(100*CNT_004/CNT_TOTAL) END AVG_004
+                             , CASE WHEN CNT_TOTAL=0 THEN 0 ELSE ROUND(100*CNT_005/CNT_TOTAL) END AVG_005
+                             , CASE WHEN CNT_TOTAL=0 THEN 0 ELSE ROUND(100*CNT_006/CNT_TOTAL) END AVG_006
+                             , CASE WHEN CNT_TOTAL=0 THEN 0 ELSE ROUND(100*CNT_007/CNT_TOTAL) END AVG_007
+                             , CASE WHEN CNT_TOTAL=0 THEN 0 ELSE ROUND(100*CNT_008/CNT_TOTAL) END AVG_008
+                             , CASE WHEN CNT_TOTAL=0 THEN 0 ELSE ROUND(100*CNT_009/CNT_TOTAL) END AVG_009
                           FROM ( SELECT COUNT(1) CNT_TOTAL
-                                      , COUNT(DECODE(IFNULL(CUST_TYPE_CD,'001'),'001',1,NULL) ) CNT_001
-                                      , COUNT(DECODE(CUST_TYPE_CD,'002',1,NULL) ) CNT_002
-                                      , COUNT(DECODE(CUST_TYPE_CD,'003',1,NULL) ) CNT_003 
-                                      , COUNT(DECODE(CUST_TYPE_CD,'004',1,NULL) ) CNT_004
-                                      , COUNT(DECODE(CUST_TYPE_CD,'005',1,NULL) ) CNT_005
-                                      , COUNT(DECODE(CUST_TYPE_CD,'006',1,NULL) ) CNT_006
-                                      , COUNT(DECODE(CUST_TYPE_CD,'007',1,NULL) ) CNT_007
-                                      , COUNT(DECODE(CUST_TYPE_CD,'008',1,NULL) ) CNT_008
-                                      , COUNT(DECODE(CUST_TYPE_CD,'009',1,NULL) ) CNT_009
+                                      , COUNT(CASE WHEN IFNULL(CUST_TYPE_CD,'001') = '001' THEN 1 ELSE NULL END ) CNT_001
+                                      , COUNT(CASE WHEN CUST_TYPE_CD = '002' THEN 1 ELSE NULL END ) CNT_002
+                                      , COUNT(CASE WHEN CUST_TYPE_CD = '003' THEN 1 ELSE NULL END ) CNT_003 
+                                      , COUNT(CASE WHEN CUST_TYPE_CD = '004' THEN 1 ELSE NULL END ) CNT_004
+                                      , COUNT(CASE WHEN CUST_TYPE_CD = '005' THEN 1 ELSE NULL END ) CNT_005
+                                      , COUNT(CASE WHEN CUST_TYPE_CD = '006' THEN 1 ELSE NULL END ) CNT_006
+                                      , COUNT(CASE WHEN CUST_TYPE_CD = '007' THEN 1 ELSE NULL END ) CNT_007
+                                      , COUNT(CASE WHEN CUST_TYPE_CD = '008' THEN 1 ELSE NULL END ) CNT_008
+                                      , COUNT(CASE WHEN CUST_TYPE_CD = '009' THEN 1 ELSE NULL END ) CNT_009
                                    FROM TB_SYS_CUST_BAS
                                   WHERE CUST_STATUS_CD != '003'
                                ) A
@@ -268,7 +268,7 @@
     
     <select id="selectCustCountInfo" resultType="EzMap">
               SELECT /*com.wigo.cmm.sys.dao.UserWdgtDao.selectCustCountInfo*/ COUNT(1) CUST_CNT
-                   , COUNT(DECODE(MSHIP_SBSC_YN,'Y',1,NULL)) MSHIP_CNT 
+                   , COUNT(CASE WHEN MSHIP_SBSC_YN = 'Y' THEN 1 ELSE NULL END) MSHIP_CNT 
                 FROM TB_SYS_CUST_BAS
                WHERE CUST_STATUS_CD != '003'
     </select>

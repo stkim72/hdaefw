@@ -145,7 +145,7 @@
                     , A.API_CALL_DT                    /*API호출일시        */
                     , A.API_EXEC_MSEC                    /*API실행초        */
                     , A.API_CALL_IP_ADDR           /*API호출IP주소*/
-                    , DECODE(A.REGR_ID,'000','',A.REGR_ID) REGR_ID                    /*등록자ID        */
+                    , CASE WHEN A.REGR_ID = '000' THEN '' ELSE A.REGR_ID END REGR_ID                    /*등록자ID        */
                     , A.REG_DT                    /*등록일시        */
                     , A.AMDR_ID                    /*수정자ID        */
                     , A.AMD_DT                    /*수정일시        */
@@ -174,8 +174,8 @@
                      , #{apiRsltMsgTxn}
                      , #{apiParamTxn}
                      , #{apiRsltTxn}
-                     , DECODE(#{apiCallDt},NULL,current_timestamp(),STR_TO_DATE(#{apiCallDt},'%Y%m%d%H%i%s'))
-                     , DECODE(#{apiCallDt},NULL,0, (current_timestamp() - STR_TO_DATE(#{apiCallDt},'%Y%m%d%H%i%s')) * 86400 )
+                     , CASE WHEN #{apiCallDt} IS NULL THEN current_timestamp() ELSE STR_TO_DATE(#{apiCallDt},'%Y%m%d%H%i%s') END
+                     , CASE WHEN #{apiCallDt} IS NULL THEN 0 ELSE (current_timestamp() - STR_TO_DATE(#{apiCallDt},'%Y%m%d%H%i%s')) * 86400 END
                      , #{apiCallIpAddr}
                      , #{regrId}
                      , current_timestamp()
