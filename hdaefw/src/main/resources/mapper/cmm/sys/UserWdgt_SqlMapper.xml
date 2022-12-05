@@ -170,10 +170,10 @@
                     AND COUPN_TYPE_CD NOT IN ('013') 
                   GROUP BY SUBSTR(USE_DT,1,8)) B
              , ( SELECT COUNT(1) AS REG_CNT  
-                      , DATE_FORMAT(TRUNC(REG_DT),'%Y%m%d') USE_DT FROM TB_SYS_COUPN_PBLS_HST
-                  WHERE REG_DT BETWEEN TRUNC(current_timestamp()-7) AND TRUNC(current_timestamp())
+                      , DATE_FORMAT(DATE(REG_DT),'%Y%m%d') USE_DT FROM TB_SYS_COUPN_PBLS_HST
+                  WHERE REG_DT BETWEEN DATE(current_timestamp()-7) AND DATE(current_timestamp())
                     AND COUPN_TYPE_CD NOT IN ('013')
-                  GROUP BY TRUNC(REG_DT)) C
+                  GROUP BY DATE(REG_DT)) C
          WHERE A.USE_DT = B.USE_DT(+)
            AND A.USE_DT = C.USE_DT(+)
          ORDER BY A.USE_DT
@@ -187,17 +187,17 @@
                      FROM DUAL
                    CONNECT BY LEVEL <![CDATA[<]]> 8) A 
                  , ( SELECT COUNT(1) REG_CNT
-                          , DATE_FORMAT(TRUNC(MSHIP_SBSC_DT),'%Y%m%d') REG_DT
+                          , DATE_FORMAT(DATE(MSHIP_SBSC_DT),'%Y%m%d') REG_DT
                        FROM TB_SYS_CUST_BAS
                       WHERE MSHIP_SBSC_YN = 'Y'
-                        AND MSHIP_SBSC_DT BETWEEN TRUNC(current_timestamp()-7) AND TRUNC(current_timestamp())  
-                      GROUP BY TRUNC(MSHIP_SBSC_DT)) B
+                        AND MSHIP_SBSC_DT BETWEEN DATE(current_timestamp()-7) AND DATE(current_timestamp())  
+                      GROUP BY DATE(MSHIP_SBSC_DT)) B
                  , ( SELECT COUNT(1) PREV_REG_CNT
-                          , DATE_FORMAT(TRUNC(MSHIP_SBSC_DT)+7,'%Y%m%d') PREV_REG_DT
+                          , DATE_FORMAT(DATE(MSHIP_SBSC_DT)+7,'%Y%m%d') PREV_REG_DT
                        FROM TB_SYS_CUST_BAS
                       WHERE MSHIP_SBSC_YN = 'Y'
-                        AND MSHIP_SBSC_DT BETWEEN TRUNC(current_timestamp()-7-7) AND TRUNC(current_timestamp()-7)  
-                      GROUP BY TRUNC(MSHIP_SBSC_DT)) C
+                        AND MSHIP_SBSC_DT BETWEEN DATE(current_timestamp()-7-7) AND DATE(current_timestamp()-7)  
+                      GROUP BY DATE(MSHIP_SBSC_DT)) C
              WHERE A.REG_DT = B.REG_DT(+)
                AND A.REG_DT = C.PREV_REG_DT(+)
              ORDER BY A.REG_DT
@@ -223,12 +223,12 @@
                                  , ( SELECT COUNT(1) REG_CNT
                                           , REG_CHL_CD CHL_CD
                                        FROM TB_SYS_CUST_BAS
-                                      WHERE REG_DT BETWEEN TRUNC(current_timestamp()-7) AND TRUNC(current_timestamp())  
+                                      WHERE REG_DT BETWEEN DATE(current_timestamp()-7) AND DATE(current_timestamp())  
                                       GROUP BY REG_CHL_CD) B
                                  , (  SELECT COUNT(1) PREV_REG_CNT
                                           , REG_CHL_CD CHL_CD
                                        FROM TB_SYS_CUST_BAS
-                                      WHERE REG_DT BETWEEN TRUNC(current_timestamp()-7-7) AND TRUNC(current_timestamp()-7)  
+                                      WHERE REG_DT BETWEEN DATE(current_timestamp()-7-7) AND DATE(current_timestamp()-7)  
                                       GROUP BY REG_CHL_CD ) C
                              WHERE A.CHL_CD = B.CHL_CD(+)
                                AND A.CHL_CD = C.CHL_CD(+) ) A 
@@ -288,12 +288,12 @@
 		 , ( SELECT COUNT(1) REG_CNT
 		          , REG_CHL_CD CHL_CD
 		       FROM TB_SYS_CUST_BAS
-		      WHERE REG_DT BETWEEN TRUNC(current_timestamp()-7) AND TRUNC(current_timestamp())  
+		      WHERE REG_DT BETWEEN DATE(current_timestamp()-7) AND DATE(current_timestamp())  
 		      GROUP BY REG_CHL_CD) B
 		 , (  SELECT COUNT(1) PREV_REG_CNT
 		          , REG_CHL_CD CHL_CD
 		       FROM TB_SYS_CUST_BAS
-		      WHERE REG_DT BETWEEN TRUNC(current_timestamp()-7-7) AND TRUNC(current_timestamp()-7)  
+		      WHERE REG_DT BETWEEN DATE(current_timestamp()-7-7) AND DATE(current_timestamp()-7)  
 		      GROUP BY REG_CHL_CD ) C
 		WHERE A.CHL_CD = B.CHL_CD(+)
 		AND A.CHL_CD = C.CHL_CD(+)
