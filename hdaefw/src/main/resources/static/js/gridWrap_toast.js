@@ -94,7 +94,7 @@ $(document).ready(function() {
 var _gridHeaderHeight = 35;
 var _gridPaginationHeight = 28;
 var _defaultRecordCountPerPage = 30;
-tui.Grid.applyTheme('crm',{
+tui.Grid.applyTheme('cmm',{
 //	outline : {
 //		showVerticalBorder : true,
 //		border : '#CCCCCC'

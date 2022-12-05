@@ -259,7 +259,7 @@ class StatusRenderer {
     
     class CheckboxRenderer {
         constructor(props) {
-            const elem = $('<img src="/static/crm/images/ico_checkbox1.png" style="cursor:pointer" />');
+            const elem = $('<img src="/static/cmm/images/ico_checkbox1.png" style="cursor:pointer" />');
             const el = elem[0];
             this.el = el;
             const gridId = props.columnInfo.renderer.gridId;
@@ -342,9 +342,9 @@ class StatusRenderer {
         }
 
         render(props) {
-            const imgPath = '/static/crm/images/';
+            const imgPath = '/static/cmm/images/';
             
-            // /static/crm/images
+            // /static/cmm/images
         	//ico_checkbox1_a.png
 //            if(!props.grid.canRender(props)){
 //                return false;
