@@ -99,7 +99,7 @@
                   AND A.ERR_MSG_TXN     =       #{errMsgTxn}
         </if>
         <if test="jobIdLike != null and jobIdLike != ''">
-                  AND WRK_ID LIKE  '%' || #{jobIdLike}  || '%'
+                  AND WRK_ID LIKE  CONCAT('%', #{jobIdLike} , '%')
         </if>
         <if test="strtDt != null and strtDt != ''">
                       AND A.BATCH_CALL_DT      >=       STR_TO_DATE(#{strtDt},'%Y%m%d')
@@ -108,7 +108,7 @@
                       AND STR_TO_DATE(#{endDt},'%Y%m%d') + 1 > A.BATCH_CALL_DT
         </if>
         <if test="batchRsltCdLike != null and batchRsltCdLike != ''">
-                      AND A.BATCH_RSLT_CD      LIKE       '%' || #{batchRsltCdLike}  || '%'
+                      AND A.BATCH_RSLT_CD      LIKE      CONCAT( '%' , #{batchRsltCdLike}  , '%')
         </if>
         <if test="successYn != null and successYn != ''">
                       AND A.BATCH_RSLT_CD      =       #{successYn} 

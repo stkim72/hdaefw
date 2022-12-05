@@ -51,7 +51,7 @@
                       AND A.LOGIN_ID          =       #{loginId}
         </if>
          <if test="loginIdLike != null and loginIdLike != ''">
-                      AND A.LOGIN_ID         LIKE   '%' ||  #{loginIdLike} ||'%'
+                      AND A.LOGIN_ID         LIKE   CONCAT('%' ,  #{loginIdLike} ,'%')
         </if>
         <if test="loginPwd != null and loginPwd != ''">
                       AND A.LOGIN_PWD         =       #{loginPwd}
@@ -60,7 +60,7 @@
                       AND A.USER_NM           =       #{userNm}
         </if>
         <if test="userNmLike != null and userNmLike != ''">
-                      AND A.USER_NM          LIKE   '%' ||  #{userNmLike} ||'%'
+                      AND A.USER_NM          LIKE   CONCAT('%' ,  #{userNmLike} ,'%')
         </if>
         <if test="emailAddr != null and emailAddr != ''">
                       AND A.EMAIL_ADDR        =       #{emailAddr}

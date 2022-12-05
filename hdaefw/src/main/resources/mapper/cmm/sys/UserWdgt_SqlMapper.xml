@@ -166,7 +166,7 @@
              , ( SELECT COUNT(1) AS USE_CNT  
                       , SUBSTR(USE_DT,1,8) USE_DT
                    FROM TB_SYS_COUPN_PBLS_HST
-                  WHERE USE_DT BETWEEN DATE_FORMAT(current_timestamp()-7,'%Y%m%d')|| '000000' AND DATE_FORMAT(current_timestamp(),'%Y%m%d')|| '000000'
+                  WHERE USE_DT BETWEEN CONCAT(DATE_FORMAT(current_timestamp()-7,'%Y%m%d') , '000000' AND DATE_FORMAT(current_timestamp(),'%Y%m%d'), '000000')
                     AND COUPN_TYPE_CD NOT IN ('013') 
                   GROUP BY SUBSTR(USE_DT,1,8)) B
              , ( SELECT COUNT(1) AS REG_CNT  

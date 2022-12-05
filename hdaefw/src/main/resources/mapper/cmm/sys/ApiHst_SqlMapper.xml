@@ -58,7 +58,7 @@
                       AND A.API_CALL_URL      =       #{apiCallUrl}
         </if>
         <if test="apiCallUrlLike != null and apiCallUrlLike != ''">
-                      AND A.API_CALL_URL     LIKE    '%' ||  #{apiCallUrlLike} || '%'
+                      AND A.API_CALL_URL     LIKE   CONCAT( '%' ,  #{apiCallUrlLike} , '%' )
         </if>
         
         <if test="apiRsltCd != null and apiRsltCd != ''">
@@ -88,7 +88,7 @@
             </choose>
         </if>
         <if test="apiRsltCdLike != null and apiRsltCdLike != ''">
-                      AND A.API_RSLT_CD      LIKE       #{apiRsltCdLike}  || '%'
+                      AND A.API_RSLT_CD   LIKE   CONCAT(       #{apiRsltCdLike}  ,'%' )
         </if>
         <if test="apiRsltMsgTxn != null and apiRsltMsgTxn != ''">
                       AND A.API_RSLT_MSG_TXN  =       #{apiRsltMsgTxn}

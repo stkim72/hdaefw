@@ -44,10 +44,10 @@
                       AND STR_TO_DATE(#{endDt},'%Y%m%d') + 1 > A.LOGIN_DT
         </if>
         <if test="loginIdLike != null and loginIdLike != ''">
-                      AND B.LOGIN_ID         LIKE   '%' ||  #{loginIdLike} ||'%'
+                      AND B.LOGIN_ID         LIKE  CONCAT( '%' ,  #{loginIdLike} ,'%' )
         </if>
         <if test="userNmLike != null and userNmLike != ''">
-                      AND B.USER_NM          LIKE   '%' ||  #{userNmLike} ||'%'
+                      AND B.USER_NM          LIKE  CONCAT( '%' ,  #{userNmLike} ,'%' )
         </if>
     </sql>
     <select id="selectListCount" resultType="int">

@@ -45,7 +45,7 @@
                       AND MENU_NM           =       #{menuNm}
         </if>
         <if test="menuNmLike != null and menuNmLike != ''">
-                      AND MENU_NM          LIKE   '%' ||  #{menuNmLike} ||'%'
+                      AND MENU_NM          LIKE  CONCAT( '%' ,  #{menuNmLike} ,'%')
         </if>
         <if test="menuUrl != null and menuUrl != ''">
                       AND MENU_URL          =       #{menuUrl}

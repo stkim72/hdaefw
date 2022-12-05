@@ -74,10 +74,10 @@
                   AND A.USE_YN          =       #{useYn}
         </if>
         <if test="batchNmLike != null and batchNmLike != ''">
-                  AND A.BATCH_NM        LIKE     '%' ||   #{batchNmLike} || '%'
+                  AND A.BATCH_NM        CONCAT(     '%' ,   #{batchNmLike} , '%')
         </if>
         <if test="jobIdLike != null and jobIdLike != ''">
-                  AND A.WRK_ID        LIKE     '%' ||   #{jobIdLike} || '%'
+                  AND A.WRK_ID        CONCAT(     '%' ,   #{jobIdLike} , '%')
         </if>
         </where>
     </sql>

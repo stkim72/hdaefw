@@ -69,10 +69,10 @@
                       AND STR_TO_DATE(#{endDt},'%Y%m%d') + 1 > A.REG_DT
         </if>
         <if test="menuUrlLike != null and menuUrlLike != ''">
-                      AND A.MENU_URL LIKE '%' || #{menuUrlLike} || '%'
+                      AND A.MENU_URL LIKE CONCAT('%' , #{menuUrlLike} , '%')
         </if>
         <if test="menuNmLike != null and menuNmLike != ''">
-                      AND B.MENU_NM LIKE '%' || #{menuNmLike} || '%'
+                      AND B.MENU_NM LIKE CONCAT('%' , #{menuNmLike} , '%')
         </if>
         </where>
     </sql>

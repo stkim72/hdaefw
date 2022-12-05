@@ -37,10 +37,10 @@
                       AND EMP_NM            =       #{empNm}
         </if>
         <if test="empNmLike != null and empNmLike != ''">
-                      AND EMP_NM            LIKE     '%' ||  #{empNmLike} || '%'
+                      AND EMP_NM            LIKE    CONCAT( '%' ,  #{empNmLike} , '%')
         </if>
         <if test="empIdLike != null and empIdLike != ''">
-                     AND EMP_ID            LIKE      #{empIdLike} || '%'
+                     AND EMP_ID            LIKE     CONCAT( #{empIdLike} , '%')
         </if>
         <if test="topOrgId != null and topOrgId != ''">
              AND ORG_ID            IN ( SELECT ORG_ID FROM TB_SYS_ORG_BAS 

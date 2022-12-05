@@ -87,10 +87,10 @@
                       AND COMN_CD_NM        =       #{comnCdNm}
         </if>
         <if test="comnCdNmLike != null and comnCdNmLike != ''">
-                      AND COMN_CD_NM        LIKE     '%' ||  #{comnCdNmLike} || '%'
+                      AND COMN_CD_NM        LIKE    CONCAT( '%' ,  #{comnCdNmLike} , '%' )
         </if>
         <if test="comnCdLike != null and comnCdLike != ''">
-                      AND COMN_CD       LIKE      #{comnCdLike} || '%'
+                      AND COMN_CD       LIKE    CONCAT(  #{comnCdLike} , '%' )
         </if>
         
         <if test="useYn != null and useYn != ''">
@@ -406,10 +406,10 @@
                       AND COMN_CD_NM        =       #{comnCdNm}
         </if>
         <if test="comnCdNmLike != null and comnCdNmLike != ''">
-                      AND COMN_CD_NM        LIKE     '%' ||  #{comnCdNmLike} || '%'
+                      AND COMN_CD_NM        LIKE    CONCAT( '%' ,  #{comnCdNmLike} , '%')
         </if>
         <if test="comnCdLike != null and comnCdLike != ''">
-                      AND COMN_CD       LIKE      #{comnCdLike} || '%'
+                      AND COMN_CD       LIKE    CONCAT( #{comnCdLike} , '%')
         </if>
         
                ORDER BY COMN_CD_LVL_NO
@@ -495,10 +495,10 @@
 		           AND B.COMN_CD_LVL_NO = 2
 <!-- 		           AND B.USE_YN= 'Y' -->
 		<if test="comnCdNmLike != null and comnCdNmLike != ''">
-                   AND A.COMN_CD_NM    LIKE     '%' ||  #{comnCdNmLike} || '%'
+                   AND A.COMN_CD_NM    LIKE    CONCAT('%' ,  #{comnCdNmLike} , '%')
         </if>
         <if test="comnCdLike != null and comnCdLike != ''">
-                   AND A.COMN_CD       LIKE      #{comnCdLike} || '%'
+                   AND A.COMN_CD       LIKE     CONCAT( #{comnCdLike} , '%')
         </if>
 		         ORDER BY A.TOP_COMN_CD
 		             , B.COMN_CD_ODRG

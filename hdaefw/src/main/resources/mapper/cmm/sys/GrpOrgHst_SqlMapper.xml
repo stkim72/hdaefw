@@ -55,10 +55,10 @@
                       AND STR_TO_DATE(#{endDt},'%Y%m%d') + 1 > A.REG_DT
         </if>
         <if test="empId != null and empId != ''">
-                      AND A.AMDR_ID LIKE  #{empId} || '%'
+                      AND A.AMDR_ID LIKE CONCAT( #{empId} , '%')
         </if>
         <if test="orgNmLike != null and orgNmLike != ''">
-                      AND C.ORG_NM LIKE '%' || #{orgNmLike} || '%'
+                      AND C.ORG_NM LIKE CONCAT('%' , #{orgNmLike} , '%')
         </if>
         </where>
     </sql>

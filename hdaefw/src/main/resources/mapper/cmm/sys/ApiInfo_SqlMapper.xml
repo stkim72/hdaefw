@@ -49,7 +49,7 @@
                       AND API_URL           =       #{apiUrl}
         </if>
         <if test="apiUrlLike != null and apiUrlLike != ''">
-                      AND API_URL           LIKE   '%'  ||  #{apiUrlLike} || '%'
+                      AND API_URL           LIKE  CONCAT( '%'  ,  #{apiUrlLike} , '%' )
         </if>
         
         <if test="callMthdCd != null and callMthdCd != ''">
@@ -73,11 +73,10 @@
         </if>
         <if test="reqUrl != null and reqUrl != '' " >
                     AND USE_YN = 'Y'
-<!--                     AND API_URL LIKE  '%'  ||  #{reqUrl} -->
                     AND API_URL =  #{reqUrl}
         </if>
         <if test="apiNm != null and apiNm != ''">
-                      AND API_NM           LIKE   '%'  ||   #{apiNm} || '%'
+                      AND API_NM           LIKE  CONCAT( '%'  ,   #{apiNm} , '%' )
         </if>
         </where>
     </sql>

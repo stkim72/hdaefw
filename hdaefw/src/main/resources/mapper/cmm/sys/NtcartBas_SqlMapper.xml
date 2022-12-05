@@ -187,10 +187,10 @@
                      , #{noteStatusCd}
                      , #{postStatusCd}
                      , IFNULL(#{noteYn},'N')
-                     , CASE WHEN #{postStaDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(#{postStaDt} || '000000',1,14) ,'%Y%m%d%H%i%s') END
-                     , CASE WHEN #{postEndDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(#{postEndDt} || '235959',1,14) ,'%Y%m%d%H%i%s') END
-                     , CASE WHEN #{noteStaDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(#{noteStaDt} || '000000',1,14) ,'%Y%m%d%H%i%s') END
-                     , CASE WHEN #{noteEndDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(#{noteEndDt} || '235959',1,14) ,'%Y%m%d%H%i%s') END
+                     , CASE WHEN #{postStaDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(CONCAT(#{postStaDt} , '000000'),1,14) ,'%Y%m%d%H%i%s') END
+                     , CASE WHEN #{postEndDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(CONCAT(#{postEndDt} , '235959'),1,14) ,'%Y%m%d%H%i%s') END
+                     , CASE WHEN #{noteStaDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(CONCAT(#{noteStaDt} , '000000'),1,14) ,'%Y%m%d%H%i%s') END
+                     , CASE WHEN #{noteEndDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(CONCAT(#{noteEndDt} , '235959'),1,14) ,'%Y%m%d%H%i%s') END
                      , IFNULL(#{fileId},#{ntcartId})
                      , #{ntcartPwd}
                      , #{regrId}
@@ -210,10 +210,10 @@
                     , NOTE_STATUS_CD      =         #{noteStatusCd}
                     , POST_STATUS_CD      =         #{postStatusCd}
                     , NOTE_YN             =         #{noteYn}
-                    , POST_STA_DT         =         CASE WHEN #{postStaDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(#{postStaDt} || '000000',1,14) ,'%Y%m%d%H%i%s') END
-                    , POST_END_DT         =         CASE WHEN #{postEndDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(#{postEndDt} || '235959',1,14) ,'%Y%m%d%H%i%s') END
-                    , NOTE_STA_DT         =         CASE WHEN #{noteStaDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(#{noteStaDt} || '000000',1,14) ,'%Y%m%d%H%i%s') END
-                    , NOTE_END_DT         =         CASE WHEN #{noteEndDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(#{noteEndDt} || '235959',1,14) ,'%Y%m%d%H%i%s') END
+                    , POST_STA_DT         =         CASE WHEN #{postStaDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(CONCAT(#{postStaDt} , '000000'),1,14) ,'%Y%m%d%H%i%s') END
+                    , POST_END_DT         =         CASE WHEN #{postEndDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(CONCAT(#{postEndDt} , '235959'),1,14) ,'%Y%m%d%H%i%s') END
+                    , NOTE_STA_DT         =         CASE WHEN #{noteStaDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(CONCAT(#{noteStaDt} , '000000'),1,14) ,'%Y%m%d%H%i%s') END
+                    , NOTE_END_DT         =         CASE WHEN #{noteEndDt} IS NULL THEN NULL ELSE STR_TO_DATE(SUBSTR(CONCAT(#{noteEndDt} , '235959'),1,14) ,'%Y%m%d%H%i%s') END
 <!--                     , FILE_ID             =         #{fileId} -->
                     , NTCART_PWD          =         #{ntcartPwd}
                     , AMDR_ID             =         #{amdrId}

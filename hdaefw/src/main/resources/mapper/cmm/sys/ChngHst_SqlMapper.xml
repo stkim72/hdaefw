@@ -68,16 +68,16 @@
                       AND STR_TO_DATE(#{endDt},'%Y%m%d') + 1 > A.CHNG_CALL_DT
         </if>
         <if test="loginIdLike != null and loginIdLike != ''">
-                      AND C.LOGIN_ID         LIKE   '%' ||  #{loginIdLike} ||'%'
+                      AND C.LOGIN_ID         LIKE  CONCAT( '%' ,  #{loginIdLike} ,'%')
         </if>
         <if test="userNmLike != null and userNmLike != ''">
-                      AND C.USER_NM          LIKE   '%' ||  #{userNmLike} ||'%'
+                      AND C.USER_NM          LIKE  CONCAT( '%' ,  #{userNmLike} ,'%')
         </if>
         <if test="menuNmLike != null and menuNmLike != ''">
-                      AND B.MENU_NM          LIKE   '%' ||  #{menuNmLike} ||'%'
+                      AND B.MENU_NM          LIKE   CONCAT('%' ,  #{menuNmLike} ,'%')
         </if>
         <if test="chngCallUrlLike != null and chngCallUrlLike != ''">
-                      AND A.CHNG_CALL_URL     LIKE   '%' || #{chngCallUrlLike} ||'%'
+                      AND A.CHNG_CALL_URL     LIKE  CONCAT( '%' , #{chngCallUrlLike} ,'%')
         </if>
         </where>
     </sql>
