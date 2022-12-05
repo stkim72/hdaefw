@@ -24,7 +24,7 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 //@Configuration
 public class TomcatMcastConfig implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
 
-	static final String SESSION_CLUSTER_DOMAIN = "crm-cluster";
+	static final String SESSION_CLUSTER_DOMAIN = "cmm-cluster";
 
 	@Value("${spring.mcast.host}")
 	String host;

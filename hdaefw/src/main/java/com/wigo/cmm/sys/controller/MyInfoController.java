@@ -42,14 +42,14 @@ public class MyInfoController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/myInfo";
+		return Utilities.getProperty("tiles.cmm") + "sys/myInfo";
 	}
 	
 	/* 비밀번호 변경 모달 연결 */
 	@GetMapping(value = { "myInfoChgPsw" })
 	public String userPopup(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/myInfoChgPwd";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/myInfoChgPwd";
 	}
 	
 	/* 유저정보 조회 */

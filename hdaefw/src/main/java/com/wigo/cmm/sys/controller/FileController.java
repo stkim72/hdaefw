@@ -52,7 +52,7 @@ public class FileController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/fileList";
+		return Utilities.getProperty("tiles.cmm") + "sys/fileList";
 	}
 
 	@GetMapping(value = { "add", "mod", "fileInfo" })
@@ -67,9 +67,9 @@ public class FileController {
 		model.addAttribute("fileInfo", ezMap);
 		model.addAttribute("fileCd", fileCd);
 		if ("view".equals(param.get("mode")))
-			return Utilities.getProperty("tiles.crm.blank") + "sys/fileViewPopup";
+			return Utilities.getProperty("tiles.cmm.blank") + "sys/fileViewPopup";
 		else
-			return Utilities.getProperty("tiles.crm.blank") + "sys/filePopup";
+			return Utilities.getProperty("tiles.cmm.blank") + "sys/filePopup";
 	}
 
 	@PostMapping(value = { "uploadFile" })

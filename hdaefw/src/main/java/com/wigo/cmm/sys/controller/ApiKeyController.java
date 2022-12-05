@@ -44,7 +44,7 @@ public class ApiKeyController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/apikeyList";
+		return Utilities.getProperty("tiles.cmm") + "sys/apikeyList";
 	}
 	
 	@PostMapping(value = { "getList" })

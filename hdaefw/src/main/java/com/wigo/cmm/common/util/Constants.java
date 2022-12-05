@@ -61,6 +61,6 @@ public class Constants {
 	public final static String _FILE_WHITE_LIST = "S180";
 
 	public final static String SINGLE_VIEW_COOKIE = "SINGLE_VIEW";
-	public final static String SINGLE_VIEW = "/crmCustBas";
+	public final static String SINGLE_VIEW = "/cmmCustBas";
 	public final static String IDENTIFIER = "&isCTC";
 }

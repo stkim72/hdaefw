@@ -28,7 +28,7 @@ GrpMenuHstService service;
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
     model.addAllAttributes(param);
-    return Utilities.getProperty("tiles.crm") + "sys/grpMenuHstList";
+    return Utilities.getProperty("tiles.cmm") + "sys/grpMenuHstList";
 }
 
 @PostMapping(value = { "getList" })

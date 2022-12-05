@@ -25,13 +25,13 @@ public class GenGridController {
 	@GetMapping(value = { "" })
 	public  Object index(@RequestParam Map<String, Object> param, ModelMap model) throws Exception{
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/genGrid";
+		return Utilities.getProperty("tiles.cmm") + "sys/genGrid";
 	}
 	
 	@GetMapping(value = { "text" })
 	public  Object text(@RequestParam Map<String, Object> param, ModelMap model) throws Exception{
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/genGridPop";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/genGridPop";
 	}
 	
 	@PostMapping(value = { "selectColInfo" })

@@ -50,7 +50,7 @@ BatchExecHstService service;
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
     model.addAllAttributes(param);
-    return Utilities.getProperty("tiles.crm") + "sys/batchHistList";
+    return Utilities.getProperty("tiles.cmm") + "sys/batchHistList";
 }
 
 /**
@@ -74,7 +74,7 @@ public String detail(BatchExecHstVo vo,@PathVariable("batchHstCd") String batchH
 	vo.setBatchHstId(batchHstId);
 	model.addAttribute("hist", service.get(vo));
 	model.addAllAttributes(param);
-	return Utilities.getProperty("tiles.crm.blank") + "sys/batchHistDetail";
+	return Utilities.getProperty("tiles.cmm.blank") + "sys/batchHistDetail";
 }
 /**
  * 

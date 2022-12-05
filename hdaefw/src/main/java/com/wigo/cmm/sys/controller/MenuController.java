@@ -43,7 +43,7 @@ public class MenuController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/menuList";
+		return Utilities.getProperty("tiles.cmm") + "sys/menuList";
 	}
 
 	@GetMapping(value = { "add" })
@@ -51,7 +51,7 @@ public class MenuController {
 		//model.addAllAttributes(param);
 		MenuVo menu = service.getNewMenu(new MenuVo(param));
 		model.addAllAttributes(Utilities.beanToMap(menu));
-		return Utilities.getProperty("tiles.crm.blank") + "sys/menuAdd";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/menuAdd";
 	}
 
 	@PostMapping(value = { "getList" })

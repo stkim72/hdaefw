@@ -42,7 +42,7 @@ public class AsyncService {
 	}
 
 	@Async
-	public void deleteFileCd(ICmmFile crmFile) throws Exception {
-		fileService.deleteFileCd(crmFile);
+	public void deleteFileCd(ICmmFile cmmFile) throws Exception {
+		fileService.deleteFileCd(cmmFile);
 	}
 }

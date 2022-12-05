@@ -46,9 +46,9 @@ public class TransactionConfig {
 //	@Bean(name = "txManager")
 //	public PlatformTransactionManager chainedTransactionManager(
 //			@Qualifier("logTransactionManager") PlatformTransactionManager transactionManager,
-//			@Qualifier("crmTransactionManager") PlatformTransactionManager crmTransactionManager) {
+//			@Qualifier("cmmTransactionManager") PlatformTransactionManager cmmTransactionManager) {
 //		
-//		return new ChainedTransactionManager(transactionManager, crmTransactionManager);
+//		return new ChainedTransactionManager(transactionManager, cmmTransactionManager);
 //	}
 
 //	@Bean(name = "userTransaction")

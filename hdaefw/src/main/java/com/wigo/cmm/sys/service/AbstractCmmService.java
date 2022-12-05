@@ -56,9 +56,9 @@ public abstract class AbstractCmmService {
 	public int delete(Object param) throws Exception {
 		if (param instanceof ICmmFile) {
 			try {
-				ICmmFile crmFile = (ICmmFile) param;
-				String fileCd = crmFile.getFileCd();
-				ICmmFile obj = Utilities.isNotEmpty(fileCd) ? crmFile : get(param);
+				ICmmFile cmmFile = (ICmmFile) param;
+				String fileCd = cmmFile.getFileCd();
+				ICmmFile obj = Utilities.isNotEmpty(fileCd) ? cmmFile : get(param);
 				asyncService.deleteFileCd(obj);
 			} catch (Exception ex) {
 				log.warn(ex.getMessage());

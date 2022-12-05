@@ -42,7 +42,7 @@ public class UserLoginHstController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/userLoginHist";
+		return Utilities.getProperty("tiles.cmm") + "sys/userLoginHist";
 	}
 	@PostMapping(value = { "getList" })
 	public @ResponseBody Object getList(@RequestBody EzMap param) throws Exception {

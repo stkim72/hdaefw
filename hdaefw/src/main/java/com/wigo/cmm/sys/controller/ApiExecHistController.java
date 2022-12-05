@@ -44,14 +44,14 @@ public class ApiExecHistController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/apiHistList";
+		return Utilities.getProperty("tiles.cmm") + "sys/apiHistList";
 	}
 	@GetMapping(value = { "detail/{apiHstCd}" })
 	public String detail(ApiExecHstVo vo,@PathVariable("apiHstCd") String apiHstId , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		vo.setApiHstId(apiHstId);
 		model.addAttribute("hist", service.get(vo));
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/apiHistDetail";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/apiHistDetail";
 	}
 	
 	@PostMapping(value = { "getList" })

@@ -492,15 +492,14 @@ function showMyMenu(element){
 
 
 $(document).ready(function() {
-	const el =$('[data-menu-url=cmmCustBas]');
-    if(el.length)
-    {
-    	const data = el.data();
-//     	openMenuTab(data.menuId,data.menuNm,data.menuUrl,true);
-    	openMenuTab("widget","메인","/widget",true);
-    }
+// 	const el =$('[data-menu-url=cmmCustBas]');
+//     if(el.length)
+//     {
+//     	const data = el.data();
+//     	openMenuTab("widget","메인","/widget",true);
+//     }
 
-
+    openMenuTab("widget","메인","/widget",true);
 
 	$(".lMenu .modal").on("click",function(){
 		$(this).parent().removeClass("active");

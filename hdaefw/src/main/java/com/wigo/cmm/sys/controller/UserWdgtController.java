@@ -19,7 +19,7 @@ import com.wigo.cmm.sys.model.UserWdgtVo;
 import com.wigo.cmm.sys.service.UserWdgtService;
 
 @Controller
-@RequestMapping(value = { "crmUserWdgt", "{menuId}/crmUserWdgt" })
+@RequestMapping(value = { "cmmUserWdgt", "{menuId}/cmmUserWdgt" })
 public class UserWdgtController{
 
 @Autowired
@@ -28,7 +28,7 @@ UserWdgtService service;
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
     model.addAllAttributes(param);
-    return Utilities.getProperty("tiles.crm") + "sys/crmUserWdgtList";
+    return Utilities.getProperty("tiles.cmm") + "sys/cmmUserWdgtList";
 }
 
 @PostMapping(value = { "getList" })

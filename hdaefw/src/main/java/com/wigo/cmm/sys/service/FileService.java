@@ -142,12 +142,12 @@ public class FileService extends AbstractCmmService {
 
 	}
 
-	public void deleteFileCd(ICmmFile crmFile) throws Exception {
-		if (crmFile == null)
+	public void deleteFileCd(ICmmFile cmmFile) throws Exception {
+		if (cmmFile == null)
 			return;
 		try {
-			if (Utilities.isNotEmpty(crmFile.getFileCd())) {
-				deleteFileCd(crmFile.getFileCd());
+			if (Utilities.isNotEmpty(cmmFile.getFileCd())) {
+				deleteFileCd(cmmFile.getFileCd());
 			}
 		} catch (Exception ex) {
 			log.debug(ex.getMessage());

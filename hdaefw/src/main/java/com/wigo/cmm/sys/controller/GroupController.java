@@ -62,31 +62,31 @@ public class GroupController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/groupList";
+		return Utilities.getProperty("tiles.cmm") + "sys/groupList";
 	}
 
 	@GetMapping(value = { "groupPopup" })
 	public String groupPopup(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/groupPopup";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/groupPopup";
 	}
 
 	@GetMapping(value = { "add" })
 	public String add(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/groupAdd";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/groupAdd";
 	}
 
 	@GetMapping(value = { "groupMenuPopup" })
 	public String groupMenuPopup(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/groupMenuList";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/groupMenuList";
 	}
 
 	@GetMapping(value = { "groupUserPopup" })
 	public String groupUserPopup(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/groupUserList";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/groupUserList";
 	}
 
 	@PostMapping(value = { "getList" })

@@ -14,9 +14,6 @@
 <definition name="_cmm_blank_index" template="/WEB-INF/jsp/tiles/cmm/blank.jsp" />
 <definition name="_cmm_blank_body_index" template="/WEB-INF/jsp/tiles/cmm/blankBody.jsp" />
 
-    
-    
-
     <definition name="cmm/blank/*/**" extends="_cmm_blank_index">
         <put-attribute name="content" value="/WEB-INF/jsp/view/cmm/{1}/{2}.jsp" type="template" />
     </definition>

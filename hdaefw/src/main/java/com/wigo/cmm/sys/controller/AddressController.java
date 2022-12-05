@@ -43,12 +43,12 @@ public class AddressController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/addressList";
+		return Utilities.getProperty("tiles.cmm") + "sys/addressList";
 	}
 	@GetMapping(value = { "addressPop" })
 	public String addressPop(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/addressPop";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/addressPop";
 	}
 	@PostMapping(value = { "getList" })
 	public @ResponseBody Object getList(@RequestBody EzMap param) throws Exception {

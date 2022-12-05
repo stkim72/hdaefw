@@ -31,7 +31,7 @@ public class NtcartBasController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.type2") + "sys/noticeList";
+		return Utilities.getProperty("tiles.cmm.type2") + "sys/noticeList";
 	}
 
 	@GetMapping(value = { "add" })
@@ -45,7 +45,7 @@ public class NtcartBasController {
 		model.addAttribute("vo", vo);
 		model.addAttribute("addMode", true);
 
-		return Utilities.getProperty("tiles.crm.blank") + "sys/noticePop";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/noticePop";
 	}
 
 	@GetMapping(value = { "mod" })
@@ -55,7 +55,7 @@ public class NtcartBasController {
 		model.addAttribute("vo", vo);
 		model.addAttribute("addMode", false);
 
-		return Utilities.getProperty("tiles.crm.blank") + "sys/noticePop";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/noticePop";
 	}
 	
 	@GetMapping(value = { "/{ntcartId}" })
@@ -65,7 +65,7 @@ public class NtcartBasController {
 		NtcartBasVo vo = service.get(param);
 		model.addAttribute("vo", vo);
 
-		return Utilities.getProperty("tiles.crm.blank") + "sys/noticeDetail";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/noticeDetail";
 	}
 
 	@PostMapping(value = { "getList" })

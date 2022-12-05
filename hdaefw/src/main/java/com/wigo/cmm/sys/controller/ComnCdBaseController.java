@@ -44,7 +44,7 @@ public class ComnCdBaseController {
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 //		log.debug(bosService.getCustomerList("AM001").toString());
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.type3") + "sys/codeList";
+		return Utilities.getProperty("tiles.cmm.type3") + "sys/codeList";
 	}
 
 	@PostMapping(value = { "getList" })

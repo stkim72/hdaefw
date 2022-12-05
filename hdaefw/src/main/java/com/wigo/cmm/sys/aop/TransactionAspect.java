@@ -28,7 +28,7 @@ public class TransactionAspect {
 	}
 
 	@Bean
-	Advisor crmTransactionAdviceAdvisor(@Qualifier("cmmTransactionManager") TransactionManager txManager) {
+	Advisor cmmTransactionAdviceAdvisor(@Qualifier("cmmTransactionManager") TransactionManager txManager) {
 		AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
 		pointcut.setExpression(CRM_AOP_TRANSCTION_EXPRESSION);
 		return new DefaultPointcutAdvisor(pointcut, advice(txManager));

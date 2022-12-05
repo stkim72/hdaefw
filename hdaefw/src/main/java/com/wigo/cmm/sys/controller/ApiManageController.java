@@ -45,13 +45,13 @@ public class ApiManageController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/apiManageList";
+		return Utilities.getProperty("tiles.cmm") + "sys/apiManageList";
 	}
 	@GetMapping(value = { "detail/{apiCd}" })
 	public String detail(ApiExecHstVo vo,@PathVariable("apiCd") String apiCd , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAttribute("apiCd", apiCd);
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/apiHistPop";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/apiHistPop";
 	}
 	@PostMapping(value = { "getList" })
 	public @ResponseBody Object getList(@RequestBody EzMap param) throws Exception {

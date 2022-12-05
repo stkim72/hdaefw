@@ -60,17 +60,17 @@ public class PropertyConfig {
 
 		
 		
-		map.setString("tiles.crm", "crm/");
-		map.setString("tiles.crm.type1", "crm/type1/");
-		map.setString("tiles.crm.type2", "crm/type2/");
-		map.setString("tiles.crm.type3", "crm/type3/");
-		map.setString("tiles.crm.type4", "crm/type4/");
-		map.setString("tiles.crm.type5", "crm/type5/");
-		map.setString("tiles.crm.type6", "crm/type6/");
-		map.setString("tiles.crm.type7", "crm/type7/");
-		map.setString("tiles.crm.type8", "crm/type8/");
-		map.setString("tiles.crm.type9", "crm/type9/");
-		map.setString("tiles.crm.blank", "crm/blank/");
+		map.setString("tiles.cmm", "cmm/");
+		map.setString("tiles.cmm.type1", "cmm/type1/");
+		map.setString("tiles.cmm.type2", "cmm/type2/");
+		map.setString("tiles.cmm.type3", "cmm/type3/");
+		map.setString("tiles.cmm.type4", "cmm/type4/");
+		map.setString("tiles.cmm.type5", "cmm/type5/");
+		map.setString("tiles.cmm.type6", "cmm/type6/");
+		map.setString("tiles.cmm.type7", "cmm/type7/");
+		map.setString("tiles.cmm.type8", "cmm/type8/");
+		map.setString("tiles.cmm.type9", "cmm/type9/");
+		map.setString("tiles.cmm.blank", "cmm/blank/");
 //		for (PropertySource<?> propertySource : ((ConfigurableEnvironment) environment).getPropertySources()) {
 //			if (propertySource instanceof EnumerablePropertySource) {
 //				for (String key : ((EnumerablePropertySource<?>) propertySource).getPropertyNames()) {

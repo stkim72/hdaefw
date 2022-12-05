@@ -50,7 +50,7 @@ public class BatchInfoBasController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/batchList";
+		return Utilities.getProperty("tiles.cmm") + "sys/batchList";
 	}
 
 	@GetMapping(value = { "detail/{batchCd}" })
@@ -58,7 +58,7 @@ public class BatchInfoBasController {
 			@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAttribute("batchCd", batchCd);
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/batchHistPop";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/batchHistPop";
 	}
 
 	/**

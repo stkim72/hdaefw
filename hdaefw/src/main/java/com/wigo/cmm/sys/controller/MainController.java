@@ -69,7 +69,7 @@ public class MainController {
 		List<NtcartBasVo> noticeList = noticeService.getList(so);
 		map.addAttribute("noticeList",noticeList);
 		map.addAttribute("widgetData",widgetServcie.getData());
-		return "crm/blankBody/main/widget";
+		return "cmm/blankBody/main/widget";
 	}
 	
 	
@@ -86,14 +86,14 @@ public class MainController {
 	@RequestMapping(value = { "util/sort" })
 	public String sort(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam Map<String, Object> param, ModelMap map) throws Exception {
-		return Utilities.getProperty("tiles.crm.blank") + "main/sort";
+		return Utilities.getProperty("tiles.cmm.blank") + "main/sort";
 	}
 
 	@RequestMapping(value = { "util/textDialog" })
 	public String textDialog(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam Map<String, Object> param, ModelMap map) throws Exception {
 		map.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "main/textDialog";
+		return Utilities.getProperty("tiles.cmm.blank") + "main/textDialog";
 	}
 
 }

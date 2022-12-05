@@ -28,7 +28,7 @@ GrpEmpHstService service;
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
     model.addAllAttributes(param);
-    return Utilities.getProperty("tiles.crm") + "sys/grpEmpHstList";
+    return Utilities.getProperty("tiles.cmm") + "sys/grpEmpHstList";
 }
 
 @PostMapping(value = { "getList" })

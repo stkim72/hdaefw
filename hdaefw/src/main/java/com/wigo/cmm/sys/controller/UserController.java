@@ -43,25 +43,25 @@ public class UserController {
 	@GetMapping(value = { "", "index" })
 	public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm") + "sys/userList";
+		return Utilities.getProperty("tiles.cmm") + "sys/userList";
 	}
 	@GetMapping(value = { "userPopup" })
 	public String userPopup(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/userPop";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/userPop";
 	}
 	
 	
 	@GetMapping(value = { "add" })
 	public String add(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/userAdd";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/userAdd";
 	}
 	
 	@PostMapping(value = { "reset" })
 	public String resetPopup(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		model.addAllAttributes(param);
-		return Utilities.getProperty("tiles.crm.blank") + "sys/userReset";
+		return Utilities.getProperty("tiles.cmm.blank") + "sys/userReset";
 	}
 	
 	@PostMapping(value = { "getList" })

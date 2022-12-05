@@ -28,7 +28,7 @@ ErrHstService service;
 @GetMapping(value = { "", "index" })
 public String init(@RequestParam Map<String, Object> param, ModelMap model) throws Exception {
     model.addAllAttributes(param);
-    return Utilities.getProperty("tiles.crm") + "sys/errorHstList";
+    return Utilities.getProperty("tiles.cmm") + "sys/errorHstList";
 }
 
 @PostMapping(value = { "getList" })
