@@ -1,6 +1,5 @@
 package com.wigo.cmm.sys.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.wigo.cmm.common.model.EzMap;
 import com.wigo.cmm.common.util.Utilities;
-import com.wigo.cmm.sys.model.NtcartBasVo;
 import com.wigo.cmm.sys.model.UserWdgtVo;
 import com.wigo.cmm.sys.service.MenuService;
 import com.wigo.cmm.sys.service.NtcartBasService;
@@ -63,12 +60,7 @@ public class MainController {
 
 	@GetMapping(value = { "widget" })
 	public String widget( ModelMap map) throws Exception {
-		EzMap so = new EzMap();
-		so.setString("dashboard", "Y");
-		so.setInt("recordCountPerPage", "7");
-		List<NtcartBasVo> noticeList = noticeService.getList(so);
-		map.addAttribute("noticeList",noticeList);
-		map.addAttribute("widgetData",widgetServcie.getData());
+		
 		return "cmm/blankBody/main/widget";
 	}
 	

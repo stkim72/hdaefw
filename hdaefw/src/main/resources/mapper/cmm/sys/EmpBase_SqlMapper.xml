@@ -14,12 +14,12 @@
                     , EMP_GRADE_CD              /*사원등급코드(C030) */
                     , TEL_NO                    /*전화번호        */
                     , BIRTHDAY                  /*생년월일        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',EMAIL_ADDR,'')   EMAIL_ADDR                /*이메일주소        */
+                    , EMAIL_ADDR                /*이메일주소        */
                     , STATUS_CD                 /*상태코드 (C040)       */
                     , ENCO_YMD                  /*입사년월일        */
                     , RETIRE_YMD                /*퇴사년월일        */
                     , EMP_TYPE_CD               /*사원유형코드 (C050)       */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',MPHON_NO,'')   MPHON_NO                    /*이동전화번호        */
+                    , MPHON_NO                    /*이동전화번호        */
                     , REG_DT                    /*등록일시        */
                     , AMDR_ID                   /*수정자ID        */
                     , AMD_DT                    /*수정일시        */
