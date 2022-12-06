@@ -102,11 +102,19 @@
                  FROM TB_SYS_API_INFO_BAS
         <include refid="sqlPkConditions"/>
     </select>
-    <insert id="insert">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="apiId">
                 INSERT /* com.wigo.cmm.sys.dao.ApiInfoBaseDao.insert */ INTO TB_SYS_API_INFO_BAS (
-        <include refid="sqlCols"/>
+                      SYS_CD                    /*시스템코드        */
+                    , API_NM                    /*API명        */
+                    , API_URL                    /*APIURL        */
+                    , CALL_MTHD_CD                    /*호출메쏘드코드        */
+                    , API_AUTH_YN                    /*API권한여부        */
+                    , USE_YN                    /*사용여부        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
                  ) VALUES (
-                       IFNULL(#{apiId},FN_CRM_AUTO_SEQ('API'))
                      , #{sysCd}
                      , #{apiNm}
                      , #{apiUrl}
@@ -114,9 +122,9 @@
                      , #{apiAuthYn}
                      , #{useYn}
                      , #{regrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                  )
     </insert>
     <update id="update">
@@ -128,7 +136,7 @@
                     , API_AUTH_YN         =         #{apiAuthYn}
                     , USE_YN              =         #{useYn}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">

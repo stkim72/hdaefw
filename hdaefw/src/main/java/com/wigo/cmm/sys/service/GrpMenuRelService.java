@@ -38,10 +38,10 @@ public class GrpMenuRelService extends AbstractCmmService {
 		dao.deleteMenuId(param);
 		return insertList(list);
 	}
-	public Object saveGroupMenu(String grpCd, List<GrpMenuRelVo> list) throws Exception {
+	public Object saveGroupMenu(String grpId, List<GrpMenuRelVo> list) throws Exception {
 		EzMap param = new EzMap();
-		param.setString("grpCd", grpCd);
-		dao.deleteGrpCd(param);
+		param.setString("grpId", grpId);
+		dao.deleteGrpId(param);
 		return insertList(list);
 	}
 	

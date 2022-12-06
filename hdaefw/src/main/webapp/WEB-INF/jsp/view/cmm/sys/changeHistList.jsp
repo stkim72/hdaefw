@@ -98,7 +98,7 @@
                                         data-get-url="<c:url value='${urlPrefix}/getList${urlSuffix}'/>" 
                                         data-type="grid" 
                                         data-grid-callback="onGridLoad" 
-                                        data-tpl-url="<c:url value='/static/gridTemplate/system/cmmChngHst.xml'/>"
+                                        data-tpl-url="<c:url value='/static/gridTemplate/system/chngHst.xml'/>"
 >
 </div>
 </div>
@@ -124,7 +124,7 @@ function onGridCellDblClick(gridView,itemIndex, column, json, value){
 }
 
 function showDetail(json){
-	var url = "<c:url value='${urlPrefix}/detail${urlSuffix}'/>/"+ json.chngHstCd;
+	var url = "<c:url value='${urlPrefix}/detail${urlSuffix}'/>/"+ json.chngHstId;
     Utilities.openModal(url,1500,750);
 }
 

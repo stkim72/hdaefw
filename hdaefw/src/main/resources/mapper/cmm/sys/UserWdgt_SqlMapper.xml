@@ -91,16 +91,16 @@
                      , #{menuId}
                      , #{menuOdrg}
                      , #{regrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                  )
     </insert>
     <update id="update">
                UPDATE /*com.wigo.cmm.sys.dao.UserWdgtDao.update*/ TB_SYS_USER_WDGT_BAS
                   SET MENU_ODRG           =         #{menuOdrg}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
@@ -240,7 +240,6 @@
     /*com.wigo.cmm.sys.dao.UserWdgtDao.insertUserCard*/
         INSERT INTO TB_SYS_CARD_PBLS_HST
             (
-                CARD_PBLS_HST_SEQ,
                 ITG_CUST_NO,
                 CARD_BAS_NO,
                 CARD_TYPE_CD,
@@ -255,8 +254,7 @@
                 REG_DT,
                 REG_CHL_CD
             )
-        SELECT FN_CRM_AUTO_SEQ('CRD')
-             , A.ITG_CUST_NO
+        SELECT A.ITG_CUST_NO
              , FN_LUHN_CARD('')
              , '001'
              , '001'

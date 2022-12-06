@@ -161,17 +161,17 @@
 
 	function sndData(){
 		var grpNm = "";
-		var grpCd = "";
+		var grpId = "";
 		var grpCnt = 0;
 		var arrJson = grdList.getCheckedJson();
 		$.each(arrJson, function(i){
 			grpNm += ( ( i > 0) ? ','+ this.custGrpNm :  this.custGrpNm );
-			grpCd += ( ( i > 0) ? ','+ this.custGrpNo :  this.custGrpNo );
+			grpId += ( ( i > 0) ? ','+ this.custGrpNo :  this.custGrpNo );
 			grpCnt += this.custCnt;
 		});
 		
 		
-		Utilities.getOpener().rtnGrpInfo(grpNm, grpCd, grpCnt);
+		Utilities.getOpener().rtnGrpInfo(grpNm, grpId, grpCnt);
 		closeModal();
 	}
 

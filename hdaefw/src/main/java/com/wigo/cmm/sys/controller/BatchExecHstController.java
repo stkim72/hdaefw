@@ -69,8 +69,8 @@ public @ResponseBody Object getList(@RequestBody EzMap param) throws Exception {
     page.setTotalRecordCount(service.getListCount(param));
     return Utilities.getGridData(list,page);
 }
-@GetMapping(value = { "detail/{batchHstCd}" })
-public String detail(BatchExecHstVo vo,@PathVariable("batchHstCd") String batchHstId , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
+@GetMapping(value = { "detail/{batchHstId}" })
+public String detail(BatchExecHstVo vo,@PathVariable("batchHstId") String batchHstId , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 	vo.setBatchHstId(batchHstId);
 	model.addAttribute("hist", service.get(vo));
 	model.addAllAttributes(param);

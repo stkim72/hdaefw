@@ -68,15 +68,15 @@
                        #{grpId}
                      , #{userId}
                      , #{regrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                  )
     </insert>
     <update id="update">
                UPDATE /*com.wigo.cmm.sys.dao.GrpUserRelDao.update*/ TB_SYS_GRP_USER_REL
                   SET AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
@@ -85,13 +85,13 @@
         <include refid="sqlPkConditions"/>
     </delete>
     
-    <delete id="deleteUserCd">
-               DELETE /*com.wigo.cmm.sys.dao.GrpUserRelDao.deleteUserCd*/ 
+    <delete id="deleteUserId">
+               DELETE /*com.wigo.cmm.sys.dao.GrpUserRelDao.deleteUserId*/ 
                  FROM TB_SYS_GRP_USER_REL
                 WHERE USER_ID = #{userId}
     </delete>
     
-    <delete id="deleteGrpCd">
+    <delete id="deleteGrpId">
                DELETE 
                  FROM TB_SYS_GRP_USER_REL
                 WHERE GRP_ID = #{grpId}

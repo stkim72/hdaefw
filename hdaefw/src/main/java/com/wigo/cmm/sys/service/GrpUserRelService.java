@@ -26,10 +26,10 @@ public class GrpUserRelService extends AbstractCmmService {
 		dao.deleteUserId(param);
 		return insertList(list);
 	}
-	public Object saveGroupUser(String grpCd, List<GrpUserRelVo> list) throws Exception{
+	public Object saveGroupUser(String grpId, List<GrpUserRelVo> list) throws Exception{
 		EzMap param = new EzMap();
-		param.setString("grpCd", grpCd);
-		dao.deleteGrpCd(param);
+		param.setString("grpId", grpId);
+		dao.deleteGrpId(param);
 		return insertList(list);
 	}
 	

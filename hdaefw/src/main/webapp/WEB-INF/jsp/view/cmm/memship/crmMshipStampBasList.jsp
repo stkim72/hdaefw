@@ -1190,7 +1190,7 @@ function changeGodsCd (obj,id,val) {
 	var trId = $(obj).closest('tr').attr('id');
 	var code = $(obj).val();
 	$('#'+trId+' #'+$(obj).attr('id')+'View').val(code);
-//	var param = {"godsGrpCd":$('#'+trId+' #godsGrpCd').val(),"godsTypeCd":$('#'+trId+' #gridGodsTypeCd').val(),"godsDtlTypeCd":code};
+//	var param = {"godsGrpId":$('#'+trId+' #godsGrpId').val(),"godsTypeCd":$('#'+trId+' #gridGodsTypeCd').val(),"godsDtlTypeCd":code};
 	var param = {"godsClassCd":code};
 	
 	var getId = $(id).attr('id');

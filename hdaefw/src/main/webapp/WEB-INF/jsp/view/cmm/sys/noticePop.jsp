@@ -50,7 +50,7 @@
 						<tr>
 <!--                              <th>변경이력코드</th> -->
 <!--                             <td> -->
-<%--                                 ${hist.chngHstCd } --%>
+<%--                                 ${hist.chngHstId } --%>
 <!--                             </td> -->
                         <th class="left"><span class="iMust">게시물 제목</span></th>
                             <td class="left" colspan="3">

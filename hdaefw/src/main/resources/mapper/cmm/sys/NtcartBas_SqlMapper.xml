@@ -194,9 +194,9 @@
                      , IFNULL(#{fileId},#{ntcartId})
                      , #{ntcartPwd}
                      , #{regrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                  )
     </insert>
     <update id="update">
@@ -217,7 +217,7 @@
 <!--                     , FILE_ID             =         #{fileId} -->
                     , NTCART_PWD          =         #{ntcartPwd}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">

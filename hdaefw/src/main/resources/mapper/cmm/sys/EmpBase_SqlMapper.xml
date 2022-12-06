@@ -152,7 +152,7 @@
 <!--                           , STATUS_NM -->
                  FROM TB_SYS_EMP_BAS A
         <include refid="sqlConditions"/>
-               ORDER BY TO_NUMBER(EMP_GRADE_CD) 
+               ORDER BY CAST(EMP_GRADE_CD AS INTEGER) 
                        , EMP_NM
         <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingFooter"/>
     </select>
@@ -188,9 +188,9 @@
                      , #{retireYmd}
                      , #{empTypeCd}
                      , #{mphonNoEncVal}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{regrId}
                      
 <!--                      , #{orgNm} -->
@@ -219,7 +219,7 @@
                     , EMP_TYPE_CD         =         #{empTypeCd}
                     , MPHON_NO            =         #{mphonNoEncVal}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
 <!--                     , ORG_NM -->
 <!--                         , CMP_NM            =  #{cmpNm} -->
 <!--                         , JOB_NM             = #{jobNm} -->

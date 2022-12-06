@@ -57,16 +57,16 @@
                        #{grpId}
                      , #{grpNm}
                      , #{regrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                  )
     </insert>
     <update id="update">
                UPDATE /*com.wigo.cmm.sys.dao.GrpBaseDao.update*/ TB_SYS_GRP_BAS
                   SET GRP_NM              =         #{grpNm}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">

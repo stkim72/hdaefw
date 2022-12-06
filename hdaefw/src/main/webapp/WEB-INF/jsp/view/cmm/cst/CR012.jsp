@@ -87,7 +87,7 @@ function grdList2_btnDetail_buttonClicked(gridView,row,col,json){
 }
 
 function showDetail(json){
-	var url = "<c:url value='${urlPrefix}/detail${urlSuffix}'/>/"+ json.apiHstCd;
+	var url = "<c:url value='${urlPrefix}/detail${urlSuffix}'/>/"+ json.apiHstId;
     Utilities.openModal(url,1500,550);
 }*/
 //setToday(); 

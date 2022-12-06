@@ -7,6 +7,6 @@ public interface GrpMenuRelDao extends ICmmDao {
 
 	int deleteMenuId(Object param) throws Exception;
 
-	void deleteGrpCd(Object param) throws Exception;
+	void deleteGrpId(Object param) throws Exception;
 
 }

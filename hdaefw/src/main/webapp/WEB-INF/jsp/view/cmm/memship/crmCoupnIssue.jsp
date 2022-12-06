@@ -216,17 +216,17 @@
 		
 	}
 	
-	function rtnGrpInfo( grpNm, grpCd, grpCnt ){
-		//console.log(grpCd)
-		// $("#custGrpNo").val( grpCd );
+	function rtnGrpInfo( grpNm, grpId, grpCnt ){
+		//console.log(grpId)
+		// $("#custGrpNo").val( grpId );
 		
 		//$("#custInfo").html("");
 		// $("#custNo").val( $("#custNo").val() );
 		var currGrp = $("#custGrpNo").val();
 		if (currGrp == '') {
-			currGrp = grpCd;
+			currGrp = grpId;
 		} else {
-			currGrp += ',' +grpCd;
+			currGrp += ',' +grpId;
 		}
 		$("#custGrpNo").val( currGrp );
 		console.log(currGrp);

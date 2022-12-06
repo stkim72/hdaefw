@@ -46,8 +46,8 @@ public class ApiExecHistController {
 		model.addAllAttributes(param);
 		return Utilities.getProperty("tiles.cmm") + "sys/apiHistList";
 	}
-	@GetMapping(value = { "detail/{apiHstCd}" })
-	public String detail(ApiExecHstVo vo,@PathVariable("apiHstCd") String apiHstId , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
+	@GetMapping(value = { "detail/{apiHstId}" })
+	public String detail(ApiExecHstVo vo,@PathVariable("apiHstId") String apiHstId , @RequestParam Map<String, Object> param, ModelMap model) throws Exception {
 		vo.setApiHstId(apiHstId);
 		model.addAttribute("hist", service.get(vo));
 		model.addAllAttributes(param);

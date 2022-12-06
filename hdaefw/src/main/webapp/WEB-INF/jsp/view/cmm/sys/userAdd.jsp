@@ -108,8 +108,8 @@
             	var param = Utilities.formToMap("frmMain");
             	if(param.userLevel==1)
             	{
-            		param.rtUserCd = param.userId;
-            		param.uprUserCd = "";
+            		param.rtUserId = param.userId;
+            		param.uprUserId = "";
             	}
             	
             	if(!validate(param))

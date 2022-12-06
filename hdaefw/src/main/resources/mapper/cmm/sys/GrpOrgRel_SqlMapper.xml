@@ -31,8 +31,8 @@
         <if test="orgId != null and orgId != ''">
                       AND A.ORG_ID            =       #{orgId}
         </if>
-         <if test="exGrpCd != null and exGrpCd != ''">
-           AND ORG_ID NOT IN (SELECT ORG_ID FROM TB_SYS_GRP_ORG_REL WHERE GRP_ID = #{exGrpCd})
+         <if test="exGrpId != null and exGrpId != ''">
+           AND ORG_ID NOT IN (SELECT ORG_ID FROM TB_SYS_GRP_ORG_REL WHERE GRP_ID = #{exGrpId})
          </if>
       </where>
     </sql>
@@ -72,15 +72,15 @@
                        #{grpId}
                      , #{orgId}
                      , #{regrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                  )
     </insert>
     <update id="update">
                UPDATE /*com.wigo.cmm.sys.dao.GrpOrgRelDao.update*/ TB_SYS_GRP_ORG_REL
                   SET AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
@@ -88,8 +88,8 @@
                  FROM TB_SYS_GRP_ORG_REL
         <include refid="sqlPkConditions"/>
     </delete>
-    <delete id="deleteGrpCd">
-               DELETE /*com.wigo.cmm.sys.dao.GrpOrgRelDao.deleteGrpCd*/  
+    <delete id="deleteGrpId">
+               DELETE /*com.wigo.cmm.sys.dao.GrpOrgRelDao.deleteGrpId*/  
                  FROM TB_SYS_GRP_ORG_REL
                 WHERE GRP_ID            =       #{grpId}
     </delete>

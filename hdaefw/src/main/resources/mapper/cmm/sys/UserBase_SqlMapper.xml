@@ -99,8 +99,8 @@
         <if test="delYn != null and delYn != ''">
                       AND A.DEL_YN            =       #{delYn}
         </if>
-        <if test="exGrpCd != null and exGrpCd != ''">
-           AND A.USER_ID NOT IN (SELECT USER_ID FROM TB_SYS_GRP_USER_REL WHERE GRP_ID = #{exGrpCd})
+        <if test="exGrpId != null and exGrpId != ''">
+           AND A.USER_ID NOT IN (SELECT USER_ID FROM TB_SYS_GRP_USER_REL WHERE GRP_ID = #{exGrpId})
            AND A.DEL_YN  = 'N'
          </if>
          <if test="grpId != null and grpId != ''">
@@ -160,9 +160,9 @@
                      , #{pwdExpDt}
                      , IFNULL(#{loginFailCnt},0)
                      , IFNULL(#{delYn},'N')
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{regrId}
                  )
     </insert>
@@ -177,7 +177,7 @@
 <!--                     , USER_BIRTHDAY       =         #{userBirthday} -->
                     , DEL_YN              =         #{delYn}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
         <include refid="sqlPkConditions"/>
     </update>
     <update id="updateEmp">
@@ -189,7 +189,7 @@
                     , LOGIN_ID            =         IFNULL(#{loginId},LOGIN_ID)
                     , DEL_YN              =         #{delYn}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
@@ -232,11 +232,20 @@
                                                                                          FROM  TB_SYS_GRP_EMP_REL
                                                                                         UNION ALL
                                                                                        SELECT GRP_ID, EMP_ID 
-                                                                                         FROM ( SELECT A.ORG_ID
-                                                                                                     , B.GRP_ID 
-                                                                                                   FROM TB_SYS_ORG_BAS A
-                                                                                                      , TB_SYS_GRP_ORG_REL B
-                                                                                                  WHERE B.ORG_ID = A.ORG_ID
+                                                                                         FROM (    WITH RECURSIVE OO AS (
+                                                                                                         SELECT 1 AS LEVEL 
+                                                                                                              , O.ORG_ID
+                                                                                                              , R.GRP_ID
+                                                                                                            FROM TB_SYS_ORG_BAS O
+                                                                                                            INNER JOIN TB_SYS_GRP_ORG_REL R ON  O.ORG_ID = R.ORG_ID
+                                                                                                         UNION ALL
+                                                                                                         SELECT LEVEL + 1 AS LEVEL 
+                                                                                                              , O.ORG_ID
+                                                                                                              , OO.GRP_ID
+                                                                                                            FROM OO 
+                                                                                                            INNER JOIN TB_SYS_ORG_BAS O ON OO.ORG_ID= O.UP_ORG_ID 
+                                                                                                      )
+                                                                                                      SELECT ORG_ID,GRP_ID  FROM OO
                                                                                                ) A 
                                                                                              , TB_SYS_EMP_BAS B 
                                                                                          WHERE A.ORG_ID = B.ORG_ID ) GRP WHERE GRP.USER_ID = A.USER_ID ) GRP_IDS
@@ -246,13 +255,13 @@
     </select>
      <update id="updateLogin">
            UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.updateLogin*/ TB_SYS_USER_BAS
-              SET LAST_LOGIN_DT        =    current_timestamp()
+              SET LAST_LOGIN_DT        =    CURRENT_TIMESTAMP()
                 , LOGIN_FAIL_CNT       =    0   
             <include refid="sqlPkConditions" />
     </update>
     <update id="updateLoginFail">
             UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.updateLoginFail*/ TB_SYS_USER_BAS
-              SET LAST_LOGIN_DT        =    current_timestamp()
+              SET LAST_LOGIN_DT        =    CURRENT_TIMESTAMP()
                 , LOGIN_FAIL_CNT       =    IFNULL(LOGIN_FAIL_CNT,0) + 1   
          <include refid="sqlPkConditions" />
     </update>
@@ -260,7 +269,7 @@
         UPDATE /*com.wigo.cmm.sys.dao.UserBaseDao.updatePassword*/ TB_SYS_USER_BAS
               SET LOGIN_PWD        =    #{loginPwd}
                 , LOGIN_FAIL_CNT       =    0
-                , PWD_AMD_DT          =    current_timestamp()
+                , PWD_AMD_DT          =    CURRENT_TIMESTAMP()
          <include refid="sqlPkConditions" />
     </update>
      <insert id="insertLoginHist">
@@ -274,12 +283,12 @@
                 , AMD_DT
             ) VALUES ( 
                   #{userId}
-                , current_timestamp()
+                , CURRENT_TIMESTAMP()
                 , #{peerIp}
                 , #{regrId}
-                , current_timestamp()
+                , CURRENT_TIMESTAMP()
                 , #{regrId}
-                , current_timestamp()
+                , CURRENT_TIMESTAMP()
             )
     </insert>
      <update id="updateMyInfo">
@@ -287,7 +296,7 @@
           SET EMAIL_ADDR           =         #{emailAddr}
             , MPHON_NO             =         #{mphonNo}
             , AMDR_ID              =         #{amdrId}
-            , AMD_DT               =         current_timestamp()
+            , AMD_DT               =         CURRENT_TIMESTAMP()
          <include refid="sqlPkConditions" />
     </update>
     <select id="selectUserGroupList" resultType="com.wigo.cmm.sys.model.GrpBaseVo">
@@ -299,12 +308,21 @@
                   SELECT GRP_ID, EMP_ID
                     FROM  TB_SYS_GRP_EMP_REL
                    UNION ALL
-                  SELECT GRP_ID, EMP_ID 
-                   FROM ( SELECT A.ORG_ID
-                               , B.GRP_ID 
-                            FROM TB_SYS_ORG_BAS A
-                               , TB_SYS_GRP_ORG_REL B
-                           WHERE B.ORG_ID = A.ORG_ID
+                  SELECT GRP_ID, EMP_ID  
+                   FROM (    WITH RECURSIVE OO AS (
+                                    SELECT 1 AS LEVEL 
+                                         , O.ORG_ID
+                                         , R.GRP_ID
+                                       FROM TB_SYS_ORG_BAS O
+                                       INNER JOIN TB_SYS_GRP_ORG_REL R ON  O.ORG_ID = R.ORG_ID
+                                    UNION ALL
+                                    SELECT LEVEL + 1 AS LEVEL 
+                                         , O.ORG_ID
+                                         , OO.GRP_ID
+                                       FROM OO 
+                                       INNER JOIN TB_SYS_ORG_BAS O ON OO.ORG_ID= O.UP_ORG_ID 
+                                 )
+                                 SELECT ORG_ID,GRP_ID  FROM OO
                         ) A 
                        , TB_SYS_EMP_BAS B 
                    WHERE A.ORG_ID = B.ORG_ID ) A 

@@ -119,8 +119,8 @@
         <if test="useYn != null and useYn != ''">
                       AND USE_YN            =       #{useYn}
         </if>
-        <if test="exGrpCd != null and exGrpCd != ''">
-           AND MENU_ID NOT IN (SELECT MENU_ID FROM TB_SYS_GRP_MENU_REL WHERE GRP_ID = #{exGrpCd})
+        <if test="exGrpId != null and exGrpId != ''">
+           AND MENU_ID NOT IN (SELECT MENU_ID FROM TB_SYS_GRP_MENU_REL WHERE GRP_ID = #{exGrpId})
            AND MENU_URL IS NOT NULL
            AND MENU_LVL_NO > 1
            AND MENU_AUTH_YN = 'Y'
@@ -197,9 +197,9 @@
                      , IFNULL(#{chngLogYn},'N')
                      , #{useYn}
                      , #{regrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                  )
     </insert>
     <update id="update">
@@ -216,14 +216,14 @@
                     , CHNG_LOG_YN         =         #{chngLogYn}
                     , USE_YN              =         #{useYn}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
         <include refid="sqlPkConditions"/>
     </update>
     <update id="updateSeq">
                UPDATE /*com.wigo.cmm.sys.dao.MenuBaseDao.updateSeq*/ TB_SYS_MENU_BAS
                   SET MENU_ODRG           =         #{menuOdrg}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">
@@ -291,11 +291,21 @@
           FROM  TB_SYS_GRP_EMP_REL
          UNION ALL
         SELECT GRP_ID, EMP_ID 
-          FROM (  SELECT A.ORG_ID
-                      , B.GRP_ID 
-                    FROM TB_SYS_ORG_BAS A
-                       , TB_SYS_GRP_ORG_REL B
-                   WHERE B.ORG_ID = A.ORG_ID ) A 
+          FROM (   WITH RECURSIVE OO AS (
+                          SELECT 1 AS LEVEL 
+                               , O.ORG_ID
+                               , R.GRP_ID
+                             FROM TB_SYS_ORG_BAS O
+                             INNER JOIN TB_SYS_GRP_ORG_REL R ON  O.ORG_ID = R.ORG_ID
+                          UNION ALL
+                          SELECT LEVEL + 1 AS LEVEL 
+                               , O.ORG_ID
+                               , OO.GRP_ID
+                             FROM OO 
+                             INNER JOIN TB_SYS_ORG_BAS O ON OO.ORG_ID= O.UP_ORG_ID 
+                       )
+                       SELECT ORG_ID,GRP_ID  FROM OO
+                 ) A 
              , TB_SYS_EMP_BAS B 
          WHERE A.ORG_ID = B.ORG_ID )
          SELECT  /*com.wigo.cmm.sys.dao.MenuBaseDao.selectUserMenuList*/ A.*

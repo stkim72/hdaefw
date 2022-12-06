@@ -56,10 +56,10 @@ public class GrpBaseService extends AbstractCmmService {
 
 	@Override
 	public int delete(Object param) throws Exception {
-		grpUserDao.deleteGrpCd(param);
-		grpMenuDao.deleteGrpCd(param);
-		grpOrgDao.deleteGrpCd(param);
-		grpEmpDao.deleteGrpCd(param);
+		grpUserDao.deleteGrpId(param);
+		grpMenuDao.deleteGrpId(param);
+		grpOrgDao.deleteGrpId(param);
+		grpEmpDao.deleteGrpId(param);
 		return super.delete(param);
 	}
 

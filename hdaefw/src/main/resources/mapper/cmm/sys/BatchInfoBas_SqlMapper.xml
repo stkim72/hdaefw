@@ -147,25 +147,30 @@
                  FROM TB_SYS_BATCH_INFO_BAS A
         <include refid="sqlPkConditions"/>
     </select>
-    <insert id="insert">
-        <selectKey order="BEFORE" keyProperty="batchId" resultType="String">
-            SELECT FN_CRM_AUTO_SEQ('BAT') 
-              FROM DUAL
-        </selectKey>
+    <insert id="insert" useGeneratedKeys="true"  keyProperty="batchId">
+        
                 INSERT /* com.wigo.cmm.sys.dao.BatchInfoBasDao.insert */ INTO TB_SYS_BATCH_INFO_BAS (
-        <include refid="sqlCols"/>
+                      SYS_CD                    /*시스템코드        */
+                    , BATCH_NM                    /*배치명        */
+                    , WRK_ID                    /*작업ID        */
+                    , LAST_EXEC_DT                    /*최종실행일시        */
+                    , LAST_SUCC_YN                    /*최종성공여부        */
+                    , USE_YN                    /*사용여부        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
                  ) VALUES (
-                       #{batchId}
-                     , #{sysCd}
+                       #{sysCd}
                      , #{batchNm}
                      , #{wrkId}
                      , STR_TO_DATE(#{lastExecDt},'%Y%m%d%H%i%s')
                      , NULL
                      , IFNULL(#{useYn},'N')
                      , #{regrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                  )
     </insert>
     <update id="update">

@@ -124,32 +124,42 @@
                  FROM TB_SYS_GRP_MENU_HST
         <include refid="sqlPkConditions"/>
     </select>
-    <insert id="insert">
+    <insert id="insert" >
                 INSERT /*com.wigo.cmm.sys.dao.GrpMenuHstDao.insert*/ INTO TB_SYS_GRP_MENU_HST (
-        <include refid="sqlCols"/>
+                      GRP_ID                    /*그룹코드        */
+                    , MENU_ID                    /*메뉴코드        */
+                    , DEL_YN                    /*삭제여부        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
                  ) VALUES (
-                       FN_CRM_AUTO_SEQ('GMH')
-                     , #{grpId}
+                       #{grpId}
                      , #{menuId}
                      , 'N'
                      , #{regrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                  )
     </insert>
-    <insert id="insertDelete">
+    <insert id="insertDelete" >
                 INSERT /*com.wigo.cmm.sys.dao.GrpMenuHstDao.insertDelete*/ INTO TB_SYS_GRP_MENU_HST (
-        <include refid="sqlCols"/>
+                      GRP_ID                    /*그룹코드        */
+                    , MENU_ID                    /*메뉴코드        */
+                    , DEL_YN                    /*삭제여부        */
+                    , REGR_ID                    /*등록자ID        */
+                    , REG_DT                    /*등록일시        */
+                    , AMDR_ID                    /*수정자ID        */
+                    , AMD_DT                    /*수정일시        */
                  ) VALUES (
-                       FN_CRM_AUTO_SEQ('GMH')
-                     , #{grpId}
+                       #{grpId}
                      , #{menuId}
                      , 'Y'
                      , #{regrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                      , #{amdrId}
-                     , current_timestamp()
+                     , CURRENT_TIMESTAMP()
                  )
     </insert>
     <update id="update">
@@ -158,7 +168,7 @@
                     , MENU_ID             =         #{menuId}
                     , DEL_YN              =         #{delYn}
                     , AMDR_ID             =         #{amdrId}
-                    , AMD_DT              =         current_timestamp()
+                    , AMD_DT              =         CURRENT_TIMESTAMP()
         <include refid="sqlPkConditions"/>
     </update>
     <delete id="delete">

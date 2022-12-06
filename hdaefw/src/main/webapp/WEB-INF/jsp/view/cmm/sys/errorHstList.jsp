@@ -115,7 +115,7 @@ Utilities.textDialog(json.errMsgTxn,"오류내역",true)
 }
 
 // function showDetail(json){
-// 	var url = "<c:url value='${urlPrefix}/detail${urlSuffix}'/>/"+ json.apiHstCd;
+// 	var url = "<c:url value='${urlPrefix}/detail${urlSuffix}'/>/"+ json.apiHstId;
 //     Utilities.openModal(url,1500,550);
 // }
 

@@ -5,6 +5,6 @@ import com.wigo.cmm.sys.mapper.CmmMapper;
 @CmmMapper
 public interface GrpOrgRelDao extends ICmmDao {
 
-	void deleteGrpCd(Object param) throws Exception;
+	void deleteGrpId(Object param) throws Exception;
 
 }
