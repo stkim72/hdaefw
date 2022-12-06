@@ -27,11 +27,7 @@
         <if test="orgId != null and orgId != ''">
                       AND ORG_ID            =       #{orgId}
         </if>
-<!--          <if test="upOrgIds != null and upOrgIds != ''"> -->
-<!--                       AND ORG_ID            IN ( SELECT ORG_ID FROM TB_SYS_ORG_BAS  -->
-<!--                                                     START WITH ORG_ID = #{upOrgIds} -->
-<!--                                                 CONNECT BY PRIOR   ORG_ID = UP_ORG_ID) -->
-<!--         </if> -->
+
         <if test="orgNm != null and orgNm != ''">
                       AND ORG_NM            =       #{orgNm}
         </if>

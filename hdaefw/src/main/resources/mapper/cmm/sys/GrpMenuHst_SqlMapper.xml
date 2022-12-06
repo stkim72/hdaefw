@@ -91,10 +91,27 @@
                     , A.AMD_DT                    /*수정일시        */
                     , B.GRP_NM
                     , C.MENU_NM
-                    , ( SELECT LISTAGG(MENU_NM, '>') WITHIN GROUP(ORDER BY MENU_LVL_NO)
-                          FROM TB_SYS_MENU_BAS
-                         START WITH MENU_ID = A.MENU_ID 
-                       CONNECT BY PRIOR PRNTS_MENU_ID = MENU_ID ) MENU_PATH
+                    , ( WITH RECURSIVE MM AS (
+                 SELECT 1 AS LEVEL 
+                      , MENU_NM  MENU_PATH
+                      , M.MENU_ID
+                      , M.MENU_NM
+                      , M.PRNTS_MENU_ID
+                      , M.MENU_LVL_NO
+                    FROM tb_sys_menu_bas M
+                  WHERE MENU_LVL_NO = 2 
+                 UNION ALL
+                 SELECT level + 1 AS level 
+                      , CONCAT( MENU_PATH,'>',M.MENU_NM) MENU_PATH
+                      , M.MENU_ID
+                      , M.MENU_NM
+                      , M.PRNTS_MENU_ID
+                      , M.MENU_LVL_NO
+                    FROM MM 
+                    INNER JOIN tb_sys_menu_bas M ON MM.MENU_ID= M.PRNTS_MENU_ID 
+              )
+              SELECT MENU_PATH FROM MM
+               WHERE MENU_ID = A.MENU_ID ) MENU_PATH
                  FROM TB_SYS_GRP_MENU_HST A
                 INNER JOIN TB_SYS_GRP_BAS B ON A.GRP_ID = B.GRP_ID
                 INNER JOIN TB_SYS_MENU_BAS C ON A.MENU_ID = C.MENU_ID

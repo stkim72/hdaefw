@@ -90,10 +90,28 @@
     </select>
     <select id="selectList" resultType="com.wigo.cmm.sys.model.ChngHstVo">
         SELECT /* com.wigo.cmm.sys.dao.ChngHstDao.selectList */ A.* 
-             , ( SELECT LISTAGG(MENU_NM, '>') WITHIN GROUP(ORDER BY MENU_LVL_NO)
-                   FROM TB_SYS_MENU_BAS
-                  START WITH MENU_ID = A.MENU_ID 
-                CONNECT BY PRIOR PRNTS_MENU_ID = MENU_ID
+             , ( 
+         WITH RECURSIVE MM AS (
+     SELECT 1 AS LEVEL 
+          , MENU_NM  MENU_PATH
+          , M.MENU_ID
+          , M.MENU_NM
+          , M.PRNTS_MENU_ID
+          , M.MENU_LVL_NO
+        FROM tb_sys_menu_bas M
+      WHERE MENU_LVL_NO = 2 
+     UNION ALL
+     SELECT level + 1 AS level 
+          , CONCAT( MENU_PATH,'>',M.MENU_NM) MENU_PATH
+          , M.MENU_ID
+          , M.MENU_NM
+          , M.PRNTS_MENU_ID
+          , M.MENU_LVL_NO
+        FROM MM 
+        INNER JOIN tb_sys_menu_bas M ON MM.MENU_ID= M.PRNTS_MENU_ID 
+  )
+  SELECT MENU_PATH FROM MM
+        WHERE MENU_ID = A.MENU_ID
                 ) MENU_PATH
         FROM (
         <include refid="com.wigo.cmm.sys.dao.CommonDao.pagingHeader"/>
@@ -138,10 +156,27 @@
                     , A.REG_DT                    /*등록일시        */
                     , A.AMDR_ID                    /*수정자ID        */
                     , A.AMD_DT                    /*수정일시        */
-                    , ( SELECT LISTAGG(MENU_NM, '>') WITHIN GROUP(ORDER BY MENU_LVL_NO)
-                          FROM TB_SYS_MENU_BAS
-                         START WITH MENU_ID = A.MENU_ID 
-                       CONNECT BY PRIOR PRNTS_MENU_ID = MENU_ID ) MENU_PATH
+                    , (          WITH RECURSIVE MM AS (
+     SELECT 1 AS LEVEL 
+          , MENU_NM  MENU_PATH
+          , M.MENU_ID
+          , M.MENU_NM
+          , M.PRNTS_MENU_ID
+          , M.MENU_LVL_NO
+        FROM tb_sys_menu_bas M
+      WHERE MENU_LVL_NO = 2 
+     UNION ALL
+     SELECT level + 1 AS level 
+          , CONCAT( MENU_PATH,'>',M.MENU_NM) MENU_PATH
+          , M.MENU_ID
+          , M.MENU_NM
+          , M.PRNTS_MENU_ID
+          , M.MENU_LVL_NO
+        FROM MM 
+        INNER JOIN tb_sys_menu_bas M ON MM.MENU_ID= M.PRNTS_MENU_ID 
+  )
+  SELECT MENU_PATH FROM MM
+        WHERE MENU_ID = A.MENU_ID ) MENU_PATH
                     , B.MENU_NM
                     , C.USER_ID
                     , C.USER_NM

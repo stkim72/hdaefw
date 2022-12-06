@@ -43,9 +43,20 @@
                      AND EMP_ID            LIKE     CONCAT( #{empIdLike} , '%')
         </if>
         <if test="topOrgId != null and topOrgId != ''">
-             AND ORG_ID            IN ( SELECT ORG_ID FROM TB_SYS_ORG_BAS 
-                                           START WITH ORG_ID = #{topOrgId}
-            CONNECT BY PRIOR   ORG_ID = UP_ORG_ID)
+             AND ORG_ID            IN (  
+                                        WITH RECURSIVE OO AS (
+                                           SELECT 1 AS LEVEL 
+                                                , O.*
+                                              FROM tb_sys_org_bas O
+                                              WHERE ORG_ID = #{topOrgId}
+                                           UNION ALL
+                                           SELECT level + 1 AS level 
+                                                , O.*
+                                              FROM OO 
+                                              INNER JOIN tb_sys_org_bas O ON OO.ORG_ID= O.UP_ORG_ID 
+                                              )
+                                         SELECT ORG_ID  FROM OO
+                                        )
         </if>
         <if test="cmpCd != null and cmpCd != ''">
             <choose>
