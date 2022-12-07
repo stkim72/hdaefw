@@ -1,7 +1,10 @@
 package com.wigo.cmm;
 
+import org.apache.poi.sl.usermodel.ObjectMetaData.Application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -22,12 +25,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @SpringBootApplication
 //@Slf4j
-public class WigoCmmApplication {
+public class WigoCmmApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WigoCmmApplication.class, args);
 	}
-
+	@Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(WigoCmmApplication.class);
+    }
 //	@Bean
 //	ServletContextInitializer preCompileJspsAtStartup() {
 //		return servletContext -> {

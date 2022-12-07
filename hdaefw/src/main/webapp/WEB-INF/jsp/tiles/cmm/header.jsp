@@ -91,6 +91,9 @@
 <link rel="stylesheet" href="<c:url value='/static/js/selectize/selectize.default.css'/>" />
 <script src="<c:url value='/static/js/selectize/selectize.min.js'/>"></script>
 
+<link rel="stylesheet" href="<c:url value='/static/js/jqgrid/css/ui.jqgrid.min.css'/>" />
+<script src="<c:url value='/static/js/jqgrid/jquery.jqgrid.min.js'/>"></script>
+
 
 <script src="/static/js/moment/moment.min.js"></script>
 

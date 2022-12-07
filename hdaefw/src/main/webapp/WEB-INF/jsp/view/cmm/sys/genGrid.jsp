@@ -177,7 +177,38 @@
 				data-tpl-url="<c:url value='/static/gridTemplate/system/genGrid.xml'/>">
 		</div>
 	</div>
-
+<div class="mBox1 btnTopMargin">
+        <div id="divJqGrid" style="height: 620px">
+        <table id="grid"></table>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(function () {
+        $("#grid").jqGrid({
+            url: "<c:url value='${urlPrefix}/getList'/>",
+            datatype: "json",
+            mtype: "POST",
+            colNames: ["Inv No", "Date", "Amount", "Tax", "Total", "Notes"],
+            colModel: [
+                { name: "invid", width: 55 },
+                { name: "invdate", width: 90 },
+                { name: "amount", width: 80, align: "right" },
+                { name: "tax", width: 80, align: "right" },
+                { name: "total", width: 80, align: "right" },
+                { name: "note", width: 150, sortable: false }
+            ],
+            pager: "#pager",
+            rowNum: 10,
+            rowList: [10, 20, 30],
+            sortname: "invid",
+            sortorder: "desc",
+            viewrecords: true,
+            gridview: true,
+            autoencode: true,
+            caption: "My first grid"
+        }); 
+    })
+    </script>
 <script type="text/javascript">
 	var cookie = Utilities.getCookie("gengrid.package.name");
 	if(cookie)
