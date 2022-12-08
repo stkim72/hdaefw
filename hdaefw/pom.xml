@@ -8,11 +8,13 @@
 		<version>2.5.7</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ceragem</groupId>
-	<artifactId>base</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<name>ceragem_base</name>
-	<description>ceragem base Project</description>
+    <groupId>com.wigo</groupId>
+    <artifactId>hdaefw</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+    <name>hdaefw</name>
+    <description>hdaefw</description>
+    
 
     <properties>
     	<java.version>1.8</java.version>
