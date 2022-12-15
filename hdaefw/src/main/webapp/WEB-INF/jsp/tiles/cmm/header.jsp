@@ -19,6 +19,8 @@
 
  <title>세라젬 CRM</title>
 <link rel="shortcut icon" href="/static/cmm/images/favicon.ico">
+<!-- IE -->
+<script src="<c:url value='/static/js/polyfill.js'/>"></script>
 <!-- library -->
 <script type="text/javascript" src="/static/cmm/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/cmm/plugins/swiper/swiper.min.css">
@@ -37,7 +39,6 @@
 <!--  membership  -->
 <c:set var="now" value="<%=new java.util.Date()%>" />
 <c:set var="dayVer"><fmt:formatDate value="${now}" pattern="yyyyMMddhhmmss" /></c:set> 
-<script type="text/javascript" src="/static/cmm/js/memship.js?reqrend=<c:out value="${dayVer}" />" />"></script>
 <link rel="stylesheet" type="text/css" media="all" href="/static/cmm/css/memship.css?reqrend=<c:out value="${dayVer}" />">
 <!--  membership  -->
 
@@ -91,8 +92,8 @@
 <link rel="stylesheet" href="<c:url value='/static/js/selectize/selectize.default.css'/>" />
 <script src="<c:url value='/static/js/selectize/selectize.min.js'/>"></script>
 
-<link rel="stylesheet" href="<c:url value='/static/js/jqgrid/css/ui.jqgrid.min.css'/>" />
-<script src="<c:url value='/static/js/jqgrid/jquery.jqgrid.min.js'/>"></script>
+<%-- <link rel="stylesheet" href="<c:url value='/static/js/jqgrid/css/ui.jqgrid.min.css'/>" /> --%>
+<%-- <script src="<c:url value='/static/js/jqgrid/jquery.jqgrid.min.js'/>"></script> --%>
 
 
 <script src="/static/js/moment/moment.min.js"></script>
@@ -120,7 +121,7 @@ var _fileInfo_url = "<c:url value='${urlPrefix}/file/getFileInfo'/>${urlSuffix}"
 var _file_upload_url = "<c:url value='${urlPrefix}/file/uploadTempFile'/>${urlSuffix}";
 var _s3_download_url = "<c:out value='${s3prefix}' />";
 var _user_login_id = "${LOGIN_USER.loginId}"
-var _file_white_list = ${s180};
+//var _file_white_list = ${s180};
 $("document").ready(function(){
 	/* tab */
 	$(".jsTab1 li > a").on("click",function(){

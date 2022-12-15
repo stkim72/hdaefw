@@ -2487,7 +2487,7 @@ function makeAction(element) {
             openers : [ico[0]]
         });
         
-        datepicker.on('change', () => {
+        datepicker.on('change',function() {
             element.change();
         });
         
@@ -2531,7 +2531,7 @@ function makeAction(element) {
             language : "ko",
             openers : [ico[0]]
         });
-        datepicker.on('change', () => {
+        datepicker.on('change', function() {
             element.change();
         });
         element.val(val);

@@ -1116,19 +1116,19 @@ function createGridObject(grd) {
                 };
                 var columnContent = {};
                 
-                var fnTemplate = function(gridWrap,col,colName,sumType,valueMap){
+               var fnTemplate = function(gridWrap,col,colName,sumType,valueMap){
                     return {
                         template : function(valueMap){
                             if(sumType == "sum")
-                                return Utilities.numberWithCommas(`${valueMap.sum}`);
+                                return Utilities.numberWithCommas(valueMap.sum);
                             else if(sumType == "avg")
-                                return Math.round(`${valueMap.avg}`);
+                                return Math.round(valueMap.avg);
                             else if(sumType == "min")
-                                return Utilities.numberWithCommas(`${valueMap.min}`);
+                                return Utilities.numberWithCommas(valueMap.min);
                             else if(sumType == "max")
-                                return Utilities.numberWithCommas(`${valueMap.max}`);
+                                return Utilities.numberWithCommas(valueMap.max);
                             else if(sumType == "cnt")
-                                return Utilities.numberWithCommas(`${valueMap.cnt}`);
+                                return Utilities.numberWithCommas(valueMap.cnt);
                             else if(sumType == "sumTitle")
                                 return "합계";
                             else if(sumType == "avgTitle")
@@ -1624,7 +1624,7 @@ function createGridObject(grd) {
                 
                 for(var i=0;i<list.length;i++){
                     const json = list[i];
-                    for(const key in colMap){
+                    for(let key in colMap){
                         const fd = colMap[key];
                         if(!json[key] && fd)
                             json[key] =fd;

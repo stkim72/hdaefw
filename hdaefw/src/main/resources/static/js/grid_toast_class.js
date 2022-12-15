@@ -1,7 +1,7 @@
 
 
-class RowNumberRenderer {
-      constructor(props) {
+function RowNumberRenderer(props) {
+      this.constructor = function(props) {
           const el = document.createElement('span');
 //          $(el).css("margin-right", "3px");
 //          $(el).css("margin-left", "3px");
@@ -9,11 +9,11 @@ class RowNumberRenderer {
           this.render(props);
       }
 
-      getElement() {
+      this.getElement = function() {
         return this.el;
       }
 
-      render(props) {
+      this.render=function(props) {
         if(!props.grid.canRender(props)){
               return false;
         }
@@ -37,23 +37,24 @@ class RowNumberRenderer {
         
         this.el.innerHTML = props.formattedValue;
       }
+      this.constructor(props);
     }
 
 
 
 
-class RowIndexRenderer {
-      constructor(props) {
+function RowIndexRenderer(props) {
+      this.constructor=function(props) {
           const el = document.createElement('span');
           this.el = el;
           this.render(props);
       }
 
-      getElement() {
+      this.getElement = function()  {
         return this.el;
       }
 
-      render(props) {
+      this.render = function (props) {
         if(!props.grid.canRender(props)){
               return false;
         }
@@ -77,11 +78,12 @@ class RowIndexRenderer {
         
         this.el.innerHTML = Number(rowData._attributes.rowNum);
       }
+      this.constructor(props);
     }
 
 
-class FileRenderer {
-    constructor(props) {
+function FileRenderer(prop) {
+    this.constructor=function(props) {
         
         const el = document.createElement('span');
 //        $(el).css("width","100%");
@@ -141,11 +143,11 @@ class FileRenderer {
         
         this.render(props);
       }
-    getElement() {
+    this.getElement = function() {
         return this.el;
       }
 
-    render(props) {
+    this.render = function(props) {
 //        if(!props.grid.canRender(props)){
 //            return false;
 //        }
@@ -161,9 +163,10 @@ class FileRenderer {
 //        }
 //        $(el).html(value);
       }
+      this.constructor(props);
 }
-class HtmlRenderer {
-    constructor(props) {
+function HtmlRenderer (props){
+    this.constructor=function(props) {
         const el = document.createElement('span');
         $(el).css("width","100%");
         $(el).css("height","100%");
@@ -176,11 +179,11 @@ class HtmlRenderer {
         this.render(props);
       }
 
-      getElement() {
+      this.getElement = function() {
         return this.el;
       }
 
-      render(props) {
+      this.render = function(props) {
           if(!props.grid.canRender(props)){
               return false;
           }
@@ -196,10 +199,11 @@ class HtmlRenderer {
           }
           $(el).html(value);
       }
+      this.constructor(props);
 }   
 
-class StatusRenderer {
-          constructor(props) {
+function StatusRenderer (props){
+          this.constructor=function(props) {
             const el = document.createElement('span');
             this.el = el;
             el.setAttribute("rowKey",props.rowKey);
@@ -208,11 +212,11 @@ class StatusRenderer {
             this.render(props);
           }
 
-          getElement() {
+          this.getElement = function() {
             return this.el;
           }
 
-          render(props) {
+          this.render=function(props) {
               if(!props.grid.canRender(props)){
                   return false;
               }
@@ -226,9 +230,10 @@ class StatusRenderer {
                 icon = '<i class="fas fa-trash-alt"></i>';
             $(this.el).html(icon);
           }
+          this.constructor(props);
         }
-    class RadioRenderer {
-          constructor(props) {
+    function RadioRenderer(props) {
+          this.constructor=function(props) {
             const el = document.createElement('input');
             const gridId = props.columnInfo.renderer.gridId;
             this.el = el;
@@ -244,21 +249,22 @@ class StatusRenderer {
             this.render(props);
           }
 
-          getElement() {
+          this.getElement=function() {
             return this.el;
           }
 
-          render(props) {
+          this.render=function(props) {
               if(!props.grid.canRender(props)){
                   return false;
               }
               var json = props.grid.getRow(props.rowKey);
               this.el.checked = json._attributes.checked;
           }
+          this.constructor(props);
         }
     
-    class CheckboxRenderer {
-        constructor(props) {
+    function CheckboxRenderer(props) {
+        this.constructor=function(props) {
             const elem = $('<img src="/static/cmm/images/ico_checkbox1.png" style="cursor:pointer" />');
             const el = elem[0];
             this.el = el;
@@ -337,11 +343,11 @@ class StatusRenderer {
           this.render(props);
         }
 
-        getElement() {
+        this.getElement=function() {
           return this.el;
         }
 
-        render(props) {
+        this.render=function(props) {
             const imgPath = '/static/cmm/images/';
             
             // /static/cmm/images
@@ -360,11 +366,12 @@ class StatusRenderer {
                 }
             }	
         }
+        this.constructor(props);
       }
     
     
-    class NumberRenderer {
-          constructor(props) {
+    function NumberRenderer(props) {
+          this.constructor=function(props) {
             const el = document.createElement('div');
             const col = props.columnInfo.renderer.colInfo;
             this.el = el;
@@ -382,11 +389,11 @@ class StatusRenderer {
             this.render(props);
           }
 
-          getElement() {
+          this.getElement=function() {
             return this.el;
           }
 
-          render(props) {
+          this.render=function(props) {
               if(!props.grid.canRender(props)){
                   return false;
               }
@@ -474,12 +481,13 @@ class StatusRenderer {
                 $(el).css("cursor","pointer");
               }            	  
           }
+          this.constructor(props);
         }
         
   
         
-    class NumberEditor {
-          constructor(props) {
+    function NumberEditor(props) {
+          this.constructor = function(props) {
             const el = document.createElement('input');
             this.el =el;
             var col  = props.columnInfo.editor.colInfo;
@@ -540,23 +548,29 @@ class StatusRenderer {
 
           }
 
-          getElement() {
+          this.getElement=function() {
             return this.el;
           }
 
-          getValue() {
+          this.getValue=function() {
               var val =$(this.el).inputmask('unmaskedvalue');
             return val;
           }
 
-          mounted() {
+          this.mounted=function() {
             var val = $(this.el).val();
             this.el.value = val;
             this.el.select();
           }
+          
+          this.constructor(props);
+          
         }
-        class PhoneNumberRenderer {
-          constructor(props) {
+        
+        
+        
+        function PhoneNumberRenderer(props) {
+          this.constructor = function(props) {
             const el = document.createElement('div');
             const col = props.columnInfo.renderer.colInfo;
             this.el = el;
@@ -573,11 +587,11 @@ class StatusRenderer {
             this.render(props);
           }
 
-          getElement() {
+          this.getElement= function() {
             return this.el;
           }
 
-          render(props) {
+          this.render= function(props) {
               if(!props.grid.canRender(props)){
                   return false;
               }
@@ -620,10 +634,11 @@ class StatusRenderer {
               $(el).html(val);
               
           }
+          this.constructor(props);
         }
 
-class PhoneNumberEditor {
-          constructor(props) {
+function PhoneNumberEditor(props) {
+          this.constructor=function(props) {
             const el = document.createElement('input');
             this.el =el;
             var col  = props.columnInfo.editor.colInfo;
@@ -652,26 +667,27 @@ class PhoneNumberEditor {
 
           }
 
-          getElement() {
+          this.getElement=function() {
             return this.el;
           }
 
-          getValue() {
+          this.getValue=function() {
               var val =this.el.value.replace(/[^0-9]/g, "")//Utilities.getNumberOnly(this.el.value);
             return val;
           }
 
-          mounted() {
+          this.mounted=function() {
               // var val = this.el.value;
             var val = $(this.el).val();
             this.el.value = val;
             this.el.select();
           }
+          this.constructor(props);
         }
 
 
-    class ComboRenderer {
-         constructor(props) {
+    function ComboRenderer(props) {
+         this.constructor=function(props) {
                 const el = document.createElement('div');
                 const col = props.columnInfo.renderer.colInfo;
                 this.el = el;
@@ -684,10 +700,10 @@ class PhoneNumberEditor {
                 $(el).css("text-align",align);
                 this.render(props);
               }
-              getElement() {
+              this.getElement=function() {
                 return this.el;
               }
-              render(props) {
+              this.render=function(props) {
                   if(!props.grid.canRender(props)){
                       return false;
                   }
@@ -721,12 +737,13 @@ class PhoneNumberEditor {
                     $(el).css("cursor","pointer");
                 }
               }
+              this.constructor(props);
     }
     
     
     
-    class DateTimeRenderer {
-          constructor(props) {
+    function DateTimeRenderer(props) {
+          this.constructor=function(props) {
             const el = document.createElement('div');
             const format = props.columnInfo.renderer.format;
             this.el = el;
@@ -735,11 +752,11 @@ class PhoneNumberEditor {
             this.render(props);
           }
 
-          getElement() {
+          this.getElement=function() {
             return this.el;
           }
 
-          render(props) {
+          this.render=function(props) {
               if(!props.grid.canRender(props)){
                   return false;
               }
@@ -826,10 +843,11 @@ class PhoneNumberEditor {
                     $(el).css("cursor","pointer");
                 }
           }
+          this.constructor(props);
         }
 
-    class DateTimeEditor {
-          constructor(props) {
+    function DateTimeEditor(props) {
+          this.constructor =function (props) {
             const el = document.createElement('input');
             this.el =el;
             var col  = props.columnInfo.editor.colInfo;
@@ -850,24 +868,25 @@ class PhoneNumberEditor {
 
           }
 
-          getElement() {
+          this.getElement=function () {
             return this.el;
           }
 
-          getValue() {
+          this.getValue=function () {
               var val =Utilities.getNumberOnly(this.el.value);
             return val;
           }
 
-          mounted() {
+          this.mounted=function () {
               // var val = this.el.value;
             var val = $(this.el).val();
             this.el.value = val;
             this.el.select();
           }
+          this.constructor(props);
         }
-    class ComboEditor {
-          constructor(props) {
+    function ComboEditor(props) {
+          this.constructor=function(props) {
             var col  = props.columnInfo.editor.colInfo;
             const el = document.createElement('select');
             $(el).addClass("tui-select-box-input");
@@ -948,22 +967,25 @@ class PhoneNumberEditor {
             });
           }
 
-          getElement() {
+          this.getElement=function() {
             return this.el;
           }
 
-          getValue() {
+          this.getValue=function() {
             var val =$(this.el).val()
             return val;
           }
 
-          mounted() {
+          this.mounted=function() {
             this.el.focus();
             $(this.el).click();
           }
+          this.constructor(props);
         }
-    class DateEditor {
-          constructor(props) {
+        
+        
+    function DateEditor(props) {
+        this.constructor=function(props) {
               
          var col  = props.columnInfo.editor.colInfo;
            
@@ -1093,17 +1115,17 @@ class PhoneNumberEditor {
 
           }
 
-          getElement() {
+          this.getElement=function() {
             return this.el;
           }
 
-          getValue() {
+          this.getValue=function() {
               var val = $(this.el).find('input').val().replace(/-/g,'');
               
             return val;
           }
 
-          mounted() {
+          this.mounted=function() {
               var inp =  $(this.el).find('input');
 //            this.datepicker._onChangeInput();
               inp[0].select();
@@ -1117,14 +1139,15 @@ class PhoneNumberEditor {
 // this.el.value = val;
 // this.el.select();
           }
+          this.constructor(props);
         }
     
     
     
     
     
-        class BooleanRenderer {
-          constructor(props) {
+        function BooleanRenderer(props) {
+          this.constructor=function(props) {
 			const lbl = $('<label class="mCheckbox1"><input type="checkbox"><span class="label">&nbsp;</span></label>');
             const el = lbl.find("input")[0];
              
@@ -1181,11 +1204,11 @@ class PhoneNumberEditor {
             this.render(props);
           }
 
-          getElement() {
+          this.getElement=function() {
             return this.lbl;
           }
 
-          render(props) {
+          this.render=function(props) {
               if(!props.grid.canRender(props)){
                   return false;
               }
@@ -1195,9 +1218,10 @@ class PhoneNumberEditor {
             
             
           }
+          this.constructor(props);
         }
-        class ButtonRenderer {
-          constructor(props) {
+        function ButtonRenderer(props) {
+          this.constructor=function(props) {
               const el = document.createElement('div');
               const gridId = props.columnInfo.renderer.gridId;
             el.gridId = gridId;
@@ -1206,11 +1230,11 @@ class PhoneNumberEditor {
             this.render(props);
           }
 
-          getElement() {
+          this.getElement=function() {
             return this.el;
           }
 
-          render(props) {
+          this.render=function(props) {
               if(!props.grid.canRender(props)){
                   return false;
               }
@@ -1232,10 +1256,11 @@ class PhoneNumberEditor {
                     gridView.onGridButtonClick(gridView, data);
             });
           }
+          this.constructor(props);
         }
         
-        class EzTextRenderer {
-            constructor(props) {
+        function EzTextRenderer(props) {
+            this.constructor=function(props) {
               const el = document.createElement('div');
               const col = props.columnInfo.renderer.colInfo;
               this.el = el;
@@ -1252,11 +1277,11 @@ class PhoneNumberEditor {
               this.render(props);
             }
 
-            getElement() {
+            this.getElement=function() {
               return this.el;
             }
 
-            render(props) {
+            this.render=function(props) {
                 if(!props.grid.canRender(props)){
                     return false;
                 }
@@ -1339,11 +1364,12 @@ class PhoneNumberEditor {
                
                 
             }
+            this.constructor(props);
           }
           
         
-        class EzTextEditor {
-            constructor(props) {
+        function EzTextEditor(props) {
+            this.constructor=function(props) {
                 const el = document.createElement('input');
                 var colInfo = props.columnInfo.editor.colInfo;
                 el.colInfo = colInfo;
@@ -1355,20 +1381,21 @@ class PhoneNumberEditor {
                 this.el = el;
             }
 
-            getElement() {
+            this.getElement=function() {
               return this.el;
             }
 
-            getValue() {
+            this.getValue=function() {
               return this.el.value;
             }
 
-            mounted() {
+            this.mounted=function() {
               this.el.select();
             }
+            this.constructor(props);
           }
-    class TimeRenderer {
-        constructor(props) {
+    function TimeRenderer(props) {
+        this.constructor=function(props) {
             const el = document.createElement('div');
             const format = props.columnInfo.renderer.format;
             this.el = el;
@@ -1376,11 +1403,11 @@ class PhoneNumberEditor {
             el.format = format;
             this.render(props);
           }
-          getElement() {
+          this.getElement=function() {
             return this.el;
           }
           
-          render(props) {
+          this.render=function(props) {
             if(!props.grid.canRender(props)){
                   return false;
               }
@@ -1407,9 +1434,10 @@ class PhoneNumberEditor {
                 $(el).css("cursor","pointer");
              }
           }
+          this.constructor(props);
     }
-    class TimeEditor {
-          constructor(props) {
+    function TimeEditor(props) {
+          this.constructor=function(props) {
             const el = document.createElement('input');
             this.el =el;
             var col  = props.columnInfo.editor.colInfo;
@@ -1429,23 +1457,25 @@ class PhoneNumberEditor {
             el.value = String(props.value);
           }
 
-          getElement() {
+          this.getElement=function() {
             return this.el;
           }
 
-          getValue() {
+          this.getValue=function() {
               var val =Utilities.getNumberOnly(this.el.value);
             return val;
           }
 
-          mounted() {
+          this.mounted=function() {
             var val = $(this.el).val();
             this.el.value = val;
             this.el.select();
           }
+          this.constructor(props);
         }
     
-    function initFileCol(col,el,data,fileCd,fileSeq,fileCategory){
+    function initFileCol(col,el,data,fileCd,fileSeq,fileCategory)
+    {
         var key = fileCd+"_"+fileSeq;
         var acceptTypes = col.acceptTypes;
                     var acceptExt = col.acceptExt;
