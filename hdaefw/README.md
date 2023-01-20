@@ -1,3 +1,3 @@
-# ceragem-crm-bo
+# wigo-mysql-bo
 
-CRM Back-office Application
+WIGO MariaDb Application
